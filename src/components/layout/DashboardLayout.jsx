@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
-    <div>DashboardLayout</div>
-  )
-}
+    <div className="flex min-h-screen bg-gray-100">
+        <Outlet />
+    </div>
+  );
+};
 
-export default DashboardLayout 
+export default DashboardLayout;
