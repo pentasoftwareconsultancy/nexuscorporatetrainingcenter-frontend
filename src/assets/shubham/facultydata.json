@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Aditi Sharma",
+    "experience": "10+ Years Experience",
+    "designation": "Head of AI Department",
+    "image": "/src/assets/faculty/abhijeet.png"
+  },
+  {
+    "id": 2,
+    "name": "Prof. Rahul Deshmukh",
+    "experience": "8+ Years Experience",
+    "designation": "Senior Data Scientist",
+    "image": "/src/assets/faculty/priya.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Dr. Meera Nair",
+    "experience": "12+ Years Experience",
+    "designation": "Machine Learning Expert",
+    "image": "/src/assets/faculty/abhijeet.png"
+  },
+  {
+    "id": 4,
+    "name": "Prof. Karan Singh",
+    "experience": "7+ Years Experience",
+    "designation": "Software Engineering Mentor",
+    "image": "/src/assets/faculty/abhijeet.png"
+  },
+  {
+    "id": 3,
+    "name": "Dr. Meera Nair",
+    "experience": "12+ Years Experience",
+    "designation": "Machine Learning Expert",
+    "image": "/src/assets/faculty/abhijeet.png"
+  },
+  {
+    "id": 4,
+    "name": "Prof. Karan Singh",
+    "experience": "7+ Years Experience",
+    "designation": "Software Engineering Mentor",
+    "image": "/src/assets/faculty/abhijeet.png"
+  },
+  
+  {
+    "id": 4,
+    "name": "Prof. Karan Singh",
+    "experience": "7+ Years Experience",
+    "designation": "Software Engineering Mentor",
+    "image": "/src/assets/faculty/abhijeet.png"
+  }
+
+  
+]
