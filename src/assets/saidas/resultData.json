@@ -1,0 +1,62 @@
+[
+    {
+        "question": "Which of the following is true about Python lists?",
+        "userSelection": "Ordered",
+        "correctAnswer": "Unique",
+        "reason": "Lists maintain the order in which elements are inserted. This means the elements have a defined position which you can access using an index starting from 0."
+    },
+    {
+        "question": "Which of the following is true about Python lists?",
+        "userSelection": "Unique",
+        "correctAnswer": "Unique",
+        "reason": "Lists maintain the order in which elements are inserted. This means the elements have a defined position which you can access using an index starting from 0."
+    },
+    {
+        "question": "Which of the following is true about Python lists?",
+        "userSelection": "Ordered",
+        "correctAnswer": "Unique",
+        "reason": "Lists maintain the order in which elements are inserted. This means the elements have a defined position which you can access using an index starting from 0."
+    },
+    {
+        "question": "Which of the following is true about Python lists?",
+        "userSelection": "Unique",
+        "correctAnswer": "Unique",
+        "reason": "Lists maintain the order in which elements are inserted. This means the elements have a defined position which you can access using an index starting from 0."
+    },
+    {
+        "question": "Which of the following is true about Python lists?",
+        "userSelection": "Ordered",
+        "correctAnswer": "Ordered",
+        "reason": "Lists maintain the order in which elements are inserted. This means the elements have a defined position which you can access using an index starting from 0."
+    },
+    {
+        "question": "Which of the following is true about Python lists?",
+        "userSelection": "Unique",
+        "correctAnswer": "Unique",
+        "reason": "Lists maintain the order in which elements are inserted. This means the elements have a defined position which you can access using an index starting from 0."
+    },
+    {
+        "question": "Which of the following is true about Python lists?",
+        "userSelection": "Ordered",
+        "correctAnswer": "Unique",
+        "reason": "Lists maintain the order in which elements are inserted. This means the elements have a defined position which you can access using an index starting from 0."
+    },
+    {
+        "question": "Which of the following is true about Python lists?",
+        "userSelection": "Unique",
+        "correctAnswer": "Unique",
+        "reason": "Lists maintain the order in which elements are inserted. This means the elements have a defined position which you can access using an index starting from 0."
+    },
+    {
+        "question": "Which of the following is true about Python lists?",
+        "userSelection": "Ordered",
+        "correctAnswer": "Unique",
+        "reason": "Lists maintain the order in which elements are inserted. This means the elements have a defined position which you can access using an index starting from 0."
+    },
+    {
+        "question": "Which of the following is true about Python lists?",
+        "userSelection": "Unique",
+        "correctAnswer": "Unique",
+        "reason": "Lists maintain the order in which elements are inserted. This means the elements have a defined position which you can access using an index starting from 0."
+    }
+]
