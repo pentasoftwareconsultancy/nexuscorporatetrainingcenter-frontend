@@ -1,0 +1,33 @@
+{
+  "clients": [
+    { "name": "Dell", "src": "client1.png" },
+    { "name": "Verizon", "src": "client2.png" },
+    { "name": "Countrywide", "src": "client3.png" },
+    { "name": "TCS", "src": "client4.png" },
+    { "name": "NCR", "src": "client5.png" },
+    { "name": "Oracle", "src": "client6.png" },
+    { "name": "Polaris", "src": "client7.png" },
+    { "name": "INTERGRAPH", "src": "client8.png" },
+    { "name": "CONVERGYS", "src": "client9.png" },
+    { "name": "M", "src": "client10.png" },
+    { "name": "HSBC", "src": "client11.png" },
+    { "name": "Windows", "src": "client12.png" },
+    { "name": "NCR", "src": "client13.png" },
+    { "name": "TCS", "src": "client14.png" },
+    { "name": "NCR", "src": "client15.png" },
+    { "name": "TCS", "src": "client16.png" },
+    { "name": "NCR", "src": "client17.png" },
+    { "name": "TCS", "src": "client18.png" },
+    { "name": "NCR", "src": "client19.png" },
+    { "name": "KEANE", "src": "client20.png" },
+    { "name": "KANBAY", "src": "client21.png" }
+  ],
+  "metrics": [
+    { "label": "Years of Experience", "value": 10 },
+    { "label": "Students Placed", "value": 1000 },
+    { "label": "Companies Hire From Us", "value": 1000 },
+    { "label": "Courses", "value": 17 },
+    { "label": "Faculty", "value": 50 },
+    { "label": "Collab Colleges", "value": 600 }
+  ]
+}
