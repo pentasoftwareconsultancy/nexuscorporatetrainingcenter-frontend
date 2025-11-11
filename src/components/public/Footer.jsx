@@ -61,20 +61,16 @@ const coursesRight = [
 
 export default function Footer() {
   return (
-    <footer className="flex justify-center items-center text-white w-full min-h-screen bg-black relative">
-      <div className="relative w-[95%] min-h-[700px] text-white overflow-hidden rounded-xl">
+    <footer className="flex justify-center items-center text-white w-full min-h-screen relative">
+      <div className="relative w-[95%] min-h-[700px] text-white overflow-hidden rounded-xl 
+               bg-gradient-to-b from-[#141414] via-[#2b1a0a] to-[#FF6A00]">
         
-        {/* Image Background */}
-       <img
-  src={footer}
-  alt=""
-  className="absolute inset-0 w-full h-full object-cover z-0"
-/>
+        <div className="flex items-center justify-center w-full h-full absolute z-0">
+          <h1 className="text-white">
+            Nexus
+          </h1>
+        </div>
 
-
-        {/* Optional Overlay: Adjust/remove as needed for readability */}
-        <div className="absolute inset-0 w-full h-full bg-gradient-to-t from-black via-black/70 to-transparent z-0 pointer-events-none"></div>
-        
         {/* Main Content */}
         <div className="relative z-10 max-w-7xl mx-auto py-8 px-4 md:px-8 text-start">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-6">
@@ -134,11 +130,11 @@ export default function Footer() {
               <span>
                 Contact:
                 <a href="tel:+919545450788" className="text-white hover:underline">+919545450788</a> /
-                <a href="tel:+919545450677" className="text-orange-400 hover:underline">+919545450677</a>
+                <a href="tel:+919545450677" className="text-white hover:underline">+919545450677</a>
               </span>
               <span>
                 Email:
-                <a href="mailto:nexusCTC2020@gmail.com" className="text-orange-400 hover:underline">nexusCTC2020@gmail.com</a>
+                <a href="mailto:nexusCTC2020@gmail.com" className="text-white hover:underline">nexusCTC2020@gmail.com</a>
               </span>
             </div>
             <div className="mt-5 text-gray-400 text-sm text-center">
