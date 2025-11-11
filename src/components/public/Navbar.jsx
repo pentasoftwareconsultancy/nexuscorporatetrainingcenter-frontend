@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "About us", href: "#about" },
-  { label: "Courses", href: "#courses" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Placements", href: "#placements" },
-  { label: "Contact us", href: "#contact" },
+  { label: "About us", href: "about" },
+  { label: "Courses", href: "courses" },
+  { label: "Gallery", href: "gallery" },
+  { label: "Placements", href: "placements" },
+  { label: "Contact us", href: "contact" },
 ];
 
 function Navbar() {
