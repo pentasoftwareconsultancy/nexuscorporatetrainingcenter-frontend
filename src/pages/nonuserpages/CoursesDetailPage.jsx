@@ -4,9 +4,12 @@ import { useParams } from "react-router-dom";
 import coursesData from "/src/assets/shubham/coursesdata.json";
 import { FaUser, FaClock, FaMoneyBill1Wave, FaPhone } from "react-icons/fa6";
 import { IoMdDownload } from "react-icons/io";
+import { ROUTES } from "../../core/constants/routes.constant";
+import { useNavigate } from "react-router-dom";
 
 const CoursesDetailPage = () => {
   const { categoryName } = useParams();
+  const navigate = useNavigate();
 
   // 🔹 Find category by name
   const category = coursesData.find(
@@ -86,7 +89,7 @@ const CoursesDetailPage = () => {
               >
                 <Button
                   text="Know more"
-                  onClick={() => alert(`${course.title} clicked`)}
+                  onClick={() => navigate(ROUTES.CONTACT)}
                   className="
                     max-[400px]:text-xs max-[370px]:text-[11px]
                     max-[430px]:px-3 max-[430px]:py-1.5

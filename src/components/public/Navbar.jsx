@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from "react";
+import { ROUTES } from "../../core/constants/routes.constant";
+import { useLocation, useNavigate } from "react-router-dom";
+import Button from "../common/Button";
 
 const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "About us", href: "about" },
-  { label: "Courses", href: "courses" },
-  { label: "Gallery", href: "gallery" },
-  { label: "Placements", href: "placements" },
-  { label: "Contact us", href: "contact" },
+  { label: "Home", href: ROUTES.HOME },
+  { label: "About us", href: ROUTES.ABOUT },
+  { label: "Courses", href: ROUTES.COURSES },
+  { label: "Gallery", href: ROUTES.GALLERY },
+  { label: "Placements", href: ROUTES.PLACEMENTS },
+  { label: "Contact us", href: ROUTES.CONTACT },
 ];
 
 function Navbar() {
-  const [activeTab, setActiveTab] = useState("Home");
+  const [activeTab, setActiveTab] = useState("");
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const activeLink = NAV_LINKS.find((link) => link.href === currentPath);
+    setActiveTab(activeLink ? activeLink.label : "");
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -76,63 +87,18 @@ function Navbar() {
 
         {/* Right: Test Button */}
         <div className="hidden lg:flex items-center justify-end">
-          <button
-            className="flex items-center justify-between w-32 h-12 px-4 py-2
-              bg-[#FFF6EF] border-2 border-orange-400 rounded-full
-              shadow-[0_4px_8px_rgba(0,0,0,0.12)] transition
-              hover:shadow-md hover:scale-105 active:scale-95"
-          >
-            <span className="text-lg font-normal text-black">Test</span>
-            <span
-              className="ml-2 flex items-center justify-center 
-              w-8 h-8 bg-orange-500 rounded-full"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="white"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8 16l8-8M8 8h8v8"
-                />
-              </svg>
-            </span>
-          </button>
+          <Button 
+            text="Test"
+            onClick={() => navigate(ROUTES.LOGIN)}
+          />
         </div>
 
         {/* Mobile Section */}
         <div className="flex lg:hidden items-center space-x-4">
-          <button
-            className="flex items-center justify-between w-20 h-10 px-3 py-1
-              bg-[#FFF6EF] border-2 border-orange-400 rounded-full
-              shadow-[0_4px_8px_rgba(0,0,0,0.12)]"
-          >
-            <span className="text-sm font-normal text-black">Test</span>
-            <span
-              className="ml-1 flex items-center justify-center 
-              w-6 h-6 bg-orange-500 rounded-full"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="white"
-                className="w-4 h-4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8 16l8-8M8 8h8v8"
-                />
-              </svg>
-            </span>
-          </button>
+          <Button 
+            text="Test"
+            onClick={() => navigate(ROUTES.LOGIN)}
+          />
 
           {/* Hamburger */}
           <button

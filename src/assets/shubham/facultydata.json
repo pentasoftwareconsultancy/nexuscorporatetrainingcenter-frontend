@@ -11,7 +11,11 @@
     "name": "Prof. Rahul Deshmukh",
     "experience": "8+ Years Experience",
     "designation": "Senior Data Scientist",
+<<<<<<< HEAD
     "image": "/src/assets/shubham/priya.jpg"
+=======
+    "image": "/src/assets/shubham/abhijeet.png"
+>>>>>>> 4af59516c1e800d1d0887122208aec25877fce01
   },
   {
     "id": 3,
