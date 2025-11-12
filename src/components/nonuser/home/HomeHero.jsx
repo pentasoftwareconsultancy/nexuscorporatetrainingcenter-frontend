@@ -1,11 +1,12 @@
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
 import heroimg from "../../../assets/vaishnavi/X.png"; // ✅ Background "X" image
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../core/constants/routes.constant";
+import Button from "../../common/Button";
 
 export default function HomeHero() {
-  const handleEnrollClick = () => {
-    window.location.href = "/enroll";
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="relative w-full min-h-screen flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-12 lg:px-20 bg-gradient-to-t from-[#1e1515] via-[#150d0d] to-[#1e1616] text-white overflow-hidden">
@@ -31,18 +32,10 @@ export default function HomeHero() {
             </span>
           </h1>
 
-          <button
-            onClick={handleEnrollClick}
-            className="group mx-auto md:mx-0 px-6 sm:px-8 py-3 bg-white text-orange-600 font-semibold rounded-full flex items-center justify-center gap-3 border border-slate-300 shadow-[0_4px_8px_rgba(0,0,0,0.2),0_-2px_4px_rgba(255,255,255,0.4)] hover:shadow-[inset_0_4px_8px_rgba(0,0,0,0.3),inset_0_-2px_6px_rgba(255,255,255,0.4)] active:shadow-[inset_0_6px_10px_rgba(0,0,0,0.35),inset_0_-4px_8px_rgba(255,255,255,0.3)] transition-all duration-300 ease-in-out hover:translate-y-[1px] active:translate-y-[2px] hover:bg-gray-50 active:bg-gray-100"
-          >
-            Enroll Now
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-orange-600 text-white transition-all duration-300 group-hover:bg-orange-700">
-              <ArrowUpRight
-                size={16}
-                className="transition-transform duration-300 group-hover:translate-x-[1px] group-hover:-translate-y-[1px]"
-              />
-            </span>
-          </button>
+          <Button 
+            text="Enroll Now"
+            onClick={() => navigate(ROUTES.CONTACT)}
+          />
         </div>
       </div>
 
