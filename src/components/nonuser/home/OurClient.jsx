@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Import JSON data
-import OurClientdata from "../../../assets/sneha/json/Ourclientdata.json"
+import OurClientdata from "../../../assets/sneha/json/OurClientdata.json"
 
 // Import images dynamically
 import client1 from "../../../assets/sneha/client1.png";

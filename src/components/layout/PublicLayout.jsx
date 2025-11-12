@@ -11,7 +11,9 @@ const PublicLayout = () => {
       <Navbar />
 
       {/* Nested pages like HomePage, AboutPage, etc. will appear here */}
-      <Outlet />
+      <div className="mt-18">
+        <Outlet />
+      </div>
 
       <SuccessReviews />
       <Footer />
