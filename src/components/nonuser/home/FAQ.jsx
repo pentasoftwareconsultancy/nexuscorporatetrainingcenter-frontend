@@ -39,9 +39,9 @@ function FAQ() {
   };
 
   return (
-    <div className=" min-h-screen py-6 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8">
+    <div className=" min-h-screen py-4 sm:py-4 lg:py-4 px-4 sm:px-6 lg:px-12">
       {/* Header */}
-      <div className="max-w-7xl mx-auto mb-6 sm:mb-8 lg:mb-12">
+      <div className="max-full mx-auto mb-6 sm:mb-8 lg:mb-12">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-white font-clash Display text-center sm:text-left">
           FAQs
         </h2>
@@ -49,7 +49,7 @@ function FAQ() {
       </div>
 
       {/* FAQ Items */}
-      <div className="max-w-7xl mx-auto">
+      <div className="max-full mx-auto">
         {faqs.map((faq, idx) => (
           <div  
             key={idx} 

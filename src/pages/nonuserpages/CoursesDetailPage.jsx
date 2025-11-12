@@ -18,7 +18,7 @@ const CoursesDetailPage = () => {
   }
 
   return (
-    <div className="relative text-white min-h-screen px-4 sm:px-8 md:px-10 py-8 md:py-14 font-sans flex flex-col">
+    <div className="relative text-white min-h-screen px-12 sm:px-8 md:px-12 py-6 md:py-6 font-sans flex flex-col">
       <h1
         className="
           text-3xl sm:text-4xl md:text-5xl font-clashDisplay font-semibold text-left mb-10

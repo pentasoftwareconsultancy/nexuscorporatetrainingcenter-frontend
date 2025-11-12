@@ -20,7 +20,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a] text-white flex flex-col items-center mt-20 px-4 sm:px-6 md:px-10 lg:px-20 font-[Poppins] overflow-hidden">
+    <div className="min-h-screen text-white flex flex-col items-center mt-20 px-4 sm:px-6 md:px-10 lg:px-20 font-[Poppins] overflow-hidden">
 
       <div className="absolute top-0 left-0 w-full h-[300px] bg-gradient-to-b from-orange-400/50 to-transparent blur-2xl z-0"></div>
 
@@ -96,7 +96,7 @@ export default function ContactPage() {
         <div className="md:w-1/2 w-full px-3 sm:px-2 md:px-3 py-3 flex items-center justify-center md:ml-12">
           <form
             onSubmit={handleSubmit}
-            className="bg-black p-3 sm:p-4 rounded-2xl shadow-lg w-full max-w-md h-auto md:h-[400px]"
+            className="bg-[#181817] p-3 sm:p-4 rounded-2xl shadow-lg w-full max-w-md h-auto md:h-[400px]"
           >
             <div className="space-y-3">
               <input
@@ -150,8 +150,17 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <section className="relative w-screen -mx-[calc(50vw-50%)] bg-[#1a1a1a] mt-20 rounded-none">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-1 translate-x-2 py-8 sm:py-10">
+      {/* Divider Line */}
+      <div
+        className="w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
+        style={{
+          background:
+            "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
+        }}
+      />
+
+      <section className="relative w-screen">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-1 translate-x-2">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-6 text-center md:text-left">
             Terms & Conditions
           </h2>

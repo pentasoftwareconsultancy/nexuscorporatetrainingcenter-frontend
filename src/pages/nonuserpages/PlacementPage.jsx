@@ -58,9 +58,13 @@ const PlacementPage = () => {
       initial={{ opacity: 0, scale: 0.98 }} 
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
+<<<<<<< HEAD
       className="bg-black text-white pt-15 pb-4 px-4 sm:px-8 overflow-hidden min-h-0"
+=======
+      className="text-white py-6 px-12 sm:px-12 overflow-hidden min-h-0"
+>>>>>>> 4af59516c1e800d1d0887122208aec25877fce01
     >
-      <div className="text-left pl-4 sm:pl-6 mb-3">
+      <div className="text-left mb-3">
         <h1 className="text-2xl font-bold text-white">2025</h1>
       </div>
 

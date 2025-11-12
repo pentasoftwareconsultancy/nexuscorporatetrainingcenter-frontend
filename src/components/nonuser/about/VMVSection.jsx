@@ -3,7 +3,7 @@ import React from 'react'
 const VMVSection = () => {
   return (
     <div className="
-      min-h-screen bg-black flex flex-col justify-between 
+      min-h-screen flex flex-col justify-between 
       px-5 sm:px-8 md:px-12 lg:px-20 py-10 
       text-white font-sans space-y-20 sm:space-y-24 overflow-hidden
     ">

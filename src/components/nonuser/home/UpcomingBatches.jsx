@@ -24,7 +24,7 @@ const UpcomingBatches = () => {
   };
 
   return (
-    <div className="w-full bg-[#0B0B0B] text-white font-sans py-14 px-6 md:px-10">
+    <div className="w-full text-white font-sans py-2 px-12 md:px-10">
       {/* Title */}
       <h1 className="text-3xl md:text-4xl font-semibold mb-8 tracking-wide">
         Upcoming Batches
