@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Import JSON data
-import OurClientdata from "../../../assets/sneha/json/OurClientdata.json"
+import OurClientdata from "../../../assets/sneha/json/OurClientdata.json";
 
 // Import images dynamically
 import client1 from "../../../assets/sneha/client1.png";
@@ -55,7 +55,7 @@ function OurClient() {
     "client18.png": client18,
     "client19.png": client19,
     "client20.png": client20,
-    "client21.png": client21
+    "client21.png": client21,
   };
 
   const { clients, metrics } = OurClientdata;
@@ -77,25 +77,25 @@ function OurClient() {
       { breakpoint: 1024, settings: { slidesToShow: 4, speed: 1700 } },
       { breakpoint: 768, settings: { slidesToShow: 3, speed: 1400 } },
       { breakpoint: 480, settings: { slidesToShow: 2, speed: 900 } },
-      { breakpoint: 360, settings: { slidesToShow: 1, speed: 800 } }
-    ]
+      { breakpoint: 360, settings: { slidesToShow: 1, speed: 800 } },
+    ],
   };
 
   return (
-    <div className="py-8 lg:py-12 px-3 sm:px-6 md:px-8 text-white mt-10">
+    <div className="py-4 lg:py-4 px-12 sm:px-12 md:px-12 text-white mt-10">
       {/* Clients Section */}
       <div className="mb-10 lg:mb-14 ">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-left mb-6 lg:mb-8 mr-6">
-  Our Clients
-</h2>
-    {/* Divider Line */}
-      <div
-        className="w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
-        style={{
-          background:
-            "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)"
-        }}
-      />
+          Our Clients
+        </h2>
+        {/* Divider Line */}
+        <div
+          className="w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
+          style={{
+            background:
+              "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
+          }}
+        />
         <div className="relative">
           <Slider {...sliderSettings}>
             {clients.map((client, idx) => (
@@ -108,7 +108,7 @@ function OurClient() {
                     style={{
                       filter: "brightness(0) invert(1)",
                       opacity: 0.9,
-                      maxWidth: "100%"
+                      maxWidth: "100%",
                     }}
                     onClick={() => setIsPaused(true)}
                   />
@@ -134,7 +134,7 @@ function OurClient() {
         className="w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
         style={{
           background:
-            "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)"
+            "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
         }}
       />
 
@@ -147,9 +147,9 @@ function OurClient() {
               We Build Success by the Numbers
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 lg:mb-0 text-center lg:text-left leading-relaxed">
-              Our impact is measured not just in satisfied clients, but in tangible
-              results. We create measurable differences, turning potential into
-              performance and ambition into achievement.
+              Our impact is measured not just in satisfied clients, but in
+              tangible results. We create measurable differences, turning
+              potential into performance and ambition into achievement.
             </p>
           </div>
 
@@ -168,7 +168,11 @@ function OurClient() {
                       suffix={
                         item.value >= 1000
                           ? "+"
-                          : ["Years of Experience", "Courses", "Collab Colleges"].includes(item.label)
+                          : [
+                              "Years of Experience",
+                              "Courses",
+                              "Collab Colleges",
+                            ].includes(item.label)
                           ? "+"
                           : ""
                       }
@@ -189,7 +193,7 @@ function OurClient() {
         className="w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
         style={{
           background:
-            "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)"
+            "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
         }}
       />
     </div>

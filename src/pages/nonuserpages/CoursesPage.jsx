@@ -13,7 +13,7 @@ const CoursesPage = () => {
   };
 
   return (
-    <section className="min-h-screen py-12 px-6">
+    <section className="w-full min-h-screen py-6 px-12">
       <h1 className="text-4xl text-white font-bold mb-10">Our Courses</h1>
       <p className="text-[18px] text-justify mb-8 w-11/12">
         Our extensive catalog of corporate training courses is meticulously
