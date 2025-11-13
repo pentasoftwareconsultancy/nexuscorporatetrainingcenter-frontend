@@ -3,7 +3,7 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../core/constants/routes.constant";
 
-const CoursesCard = ({ id, title, description, duration, categoryName }) => {
+const CoursesCard = ({ title, description, duration, categoryName }) => {
   const navigate = useNavigate();
   return (
     <div
