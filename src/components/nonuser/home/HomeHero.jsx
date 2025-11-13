@@ -3,13 +3,17 @@ import { ArrowUpRight } from "lucide-react";
 import heroimg from "../../../assets/vaishnavi/X.png"; // ✅ Background "X" image
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../core/constants/routes.constant";
+import CircleBackground from "../../common/CircleBackground";
 import Button from "../../common/Button";
 
 export default function HomeHero() {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-full min-h-screen flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-12 lg:px-20 bg-gradient-to-t from-[#1e1515] via-[#150d0d] to-[#1e1616] text-white overflow-hidden">
+    <div className="relative overflow-x-hidden w-full min-h-screen flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-12 lg:px-12 bg-gradient-to-t from-[#1e1515] via-[#150d0d] to-[#1e1616] text-white overflow-hidden">
+        <div className="absolute z-0 w-1/3 h-9/12 -translate-x-70">
+          <CircleBackground />
+        </div>
       {/* 🌈 Center background image */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <img
