@@ -1,0 +1,152 @@
+[
+  {
+    "categoryName": "Cloud & DevOps",
+    "courses": [
+      {
+        "id": 1,
+        "title": "Cloud & DevOps",
+        "logo": "../../aws.png",
+        "courseName": "AWS Solution Architect",
+        "coursad": "AWS Administrator syllabus",
+        "description": "Master cloud computing with the AWS Solution Architect course, designed for beginners and professionals. Learn to design, implement, and manage scalable systems on AWS through expert-led training and hands-on projects. This comprehensive course covers core AWS services, architecture best practices, and security. Earn your certification with the AWS Solution Architect course and advance your career in cloud technology.",
+        "instructor": "Lekharaj Patil",
+        "duration": "3 months",
+        "fees": "₹35,000/-",
+        "contact": "9545450788 / 9545450677",
+        "learnList": [
+          "AWS Fundamentals: Cloud computing concepts and the breadth of AWS services.",
+          "Core Services Mastery: Deep dive into key infrastructure and API services (EC2, S3, IAM, RDS, Lambda, etc.).",
+          "Networking & Security: Building secure, scalable Virtual Private Clouds (VPCs).",
+          "Storage Solutions: Utilizing S3, Glacier, and EBS for various needs.",
+          "Database Management: Working with relational (RDS) and NoSQL (DynamoDB) databases, and Redshift.",
+          "Scaling & Monitoring: Implementing Auto-Scaling, Load Balancing, and CloudWatch.",
+          "Cloud Architecture: Principles for building fault-tolerant and cost-optimized solutions on AWS."
+        ],
+        "syllabus": [
+          "Introduction to Cloud Computing & AWS",
+          "AWS Management Console and Setup",
+          "Amazon EC2 (Elastic Compute Cloud)",
+          "AWS Storage Solutions",
+          "AWS Networking and Content Delivery",
+          "AWS Databases",
+          "AWS Monitoring and Logging",
+          "AWS Security and Compliance",
+          "Automation and Management Tools",
+          "Advanced AWS Networking and Architecture",
+          "Advanced Compute and Container Services",
+          "AWS Cost Management and Optimization",
+          "Disaster Recovery and High Availability",
+          "Certification Preparation (Optional)"
+        ]
+      },
+      {
+        "id": 2,
+        "title": "DevOps",
+        "description": "Gain expertise in CI/CD pipelines, containerization, and automation tools used in modern DevOps environments.",
+        "duration": "3 months"
+      }
+    ]
+  },
+  {
+    "categoryName": "Data & Analytics",
+    "courses": [
+      {
+        "id": 5,
+        "title": "Power BI / Data Analysis",
+        "description": "Master Power BI tools to visualize, report, and analyze data, transforming insights into strategic decisions.",
+        "duration": "3 months"
+      },
+      {
+        "id": 6,
+        "title": "Full Stack Data Science",
+        "description": "Learn Python, ML, and visualization techniques to become a complete Data Science professional.",
+        "duration": "3 months"
+      },
+      {
+        "id": 8,
+        "title": "Big Data",
+        "description": "Dive deep into Hadoop, Spark, and Kafka technologies to process and analyze large datasets efficiently.",
+        "duration": "3 months"
+      }
+    ]
+  },
+  {
+    "categoryName": "Software Development",
+    "courses": [
+      {
+        "id": 11,
+        "title": "Full Stack Developer",
+        "description": "Become a full stack developer with HTML, CSS, JS, React, Node.js, and Express.js for real-world projects.",
+        "duration": "6 months"
+      },
+      {
+        "id": 12,
+        "title": "MERN Stack Developer",
+        "description": "Build full-stack web apps using MongoDB, Express, React, and Node.js — the complete MERN ecosystem.",
+        "duration": "3 months"
+      },
+      {
+        "id": 14,
+        "title": "Full Stack Java",
+        "description": "Learn Java, Spring Boot, and React to build enterprise-grade, full-stack web applications.",
+        "duration": "3 months"
+      }
+    ]
+  },
+  {
+    "categoryName": "IT & Business Operations",
+    "courses": [
+      {
+        "id": 7,
+        "title": "SQL Unix Production Support (L2)",
+        "description": "Develop strong database and Unix production support skills to handle enterprise-scale systems.",
+        "duration": "3 months"
+      },
+      {
+        "id": 9,
+        "title": "Business Analyst",
+        "description": "Learn to analyze business needs, document processes, and bridge communication between stakeholders and dev teams.",
+        "duration": "3 months"
+      },
+      {
+        "id": 10,
+        "title": "AR Caller RCM",
+        "description": "Master AR Calling and Revenue Cycle Management processes used in healthcare billing systems.",
+        "duration": "3 weeks"
+      }
+    ]
+  },
+  {
+    "categoryName": "Project & Process Management",
+    "courses": [
+      {
+        "id": 4,
+        "title": "Scrum Master",
+        "description": "Become a certified Scrum Master and lead agile projects effectively using Scrum methodology and tools.",
+        "duration": "3 months"
+      }
+    ]
+  },
+  {
+    "categoryName": "Testing & Quality Assurance",
+    "courses": [
+      {
+        "id": 15,
+        "title": "Software Testing / QA",
+        "description": "Learn manual and automation testing, including Selenium, API, and performance testing best practices.",
+        "duration": "3 months"
+      }
+    ]
+  },
+  {
+    "categoryName": "Healthcare & Coding",
+    "courses": [
+      {
+        "id": 13,
+        "title": "Medical Coding",
+        "description": "Understand ICD and CPT coding for healthcare documentation. Learn processes used in hospitals worldwide.",
+        "duration": "3 months"
+      }
+    ]
+  }
+]

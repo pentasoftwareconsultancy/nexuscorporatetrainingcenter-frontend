@@ -1,0 +1,52 @@
+{
+  "albums": [
+    {
+      "id": 1,
+      "title": "Akola College",
+      "description": "Memorable highlights from our Annual Function filled with joy, performances, and achievements.",
+      "images": ["13.jpeg", "2.jpeg", "3.jpeg", "4.jpeg"]
+    },
+    {
+      "id": 2,
+      "title": "Cultural Fest",
+      "description": "A vibrant showcase of art, dance, and creativity during our annual Cultural Fest.",
+      "images": ["5.jpeg", "6.jpeg", "7.jpeg", "8.jpeg"]
+    },
+    {
+      "id": 3,
+      "title": "Sports Day",
+      "description": "Moments of energy, teamwork, and victory from our college Sports Day.",
+      "images": ["9.jpeg", "10.jpeg", "11.jpeg", "12.jpeg"]
+    },
+    {
+      "id": 4,
+      "title": "Tech Event",
+      "description": "Innovative ideas and projects from students during our Technical Event series.",
+      "images": ["13.jpeg", "14.jpeg", "15.jpeg", "16.jpeg"]
+    },
+    {
+      "id": 5,
+      "title": "Workshop Moments",
+      "description": "Hands-on learning and collaboration during our interactive workshops.",
+      "images": ["2.jpeg", "5.jpeg", "8.jpeg", "11.jpeg"]
+    },
+    {
+      "id": 6,
+      "title": "Prize Distribution",
+      "description": "Celebrating success and excellence at our Prize Distribution ceremony.",
+      "images": ["3.jpeg", "6.jpeg", "9.jpeg", "12.jpeg"]
+    },
+    {
+      "id": 7,
+      "title": "Team Celebration",
+      "description": "Cherishing teamwork and togetherness in our department celebration.",
+      "images": ["4.jpeg", "7.jpeg", "10.jpeg", "13.jpeg"]
+    },
+    {
+      "id": 8,
+      "title": "Graduation Ceremony",
+      "description": "Honoring our graduates on their remarkable journey and achievements.",
+      "images": ["1.jpeg", "5.jpeg", "9.jpeg", "15.jpeg"]
+    }
+  ]
+}
