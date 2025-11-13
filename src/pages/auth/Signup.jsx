@@ -37,20 +37,19 @@ const Signup = () => {
   return(
  <div className="bg-transparent relative flex flex-col md:flex-row min-h-screen font-[Poppins] text-white items-center justify-center overflow-hidden">
 
-      <img
-        src="src\assets\saniya\bg.png"
-        alt="background"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      />
-
       <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-28 z-10 w-full relative px-4 md:px-12">
 
         <div className="relative w-full md:w-[450px] flex items-center justify-center">
-          <img
-            src="src\assets\saniya\Sign_up.png"
-            alt="signup illustration"
-            className="w-full h-auto md:h-[500px] object-contain"
-          />
+           <div className="relative w-full md:w-[500px] flex items-center justify-center md:justify-start text-center md:text-left pl-0 md:pl-10">
+          <h1
+            className="text-[90px] md:text-[220px] font-extrabold 
+            text-[#c96b2c] opacity-40 font-[Poppins]
+            leading-none select-none tracking-tight pointer-events-none 
+            text-center md:text-left"
+          >
+            Sign<br />Up
+          </h1>
+        </div>
 
           <div className="absolute inset-0 flex items-center justify-center md:hidden">
             <div className="w-[90%] max-w-[380px] scale-100 bg-transparent p-2 rounded-xl animate-popin">

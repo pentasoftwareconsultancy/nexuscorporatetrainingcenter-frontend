@@ -1,0 +1,168 @@
+[
+  {
+    "id": 1,
+    "image": "13.jpeg",
+    "title": "Annual Tech Fest 2025",
+    "description": "A celebration of innovation and teamwork.",
+    "location": "pune"
+  },
+  {
+    "id": 2,
+    "image": "2.jpeg",
+    "title": "Cultural Night 2025",
+    "description": "Music, dance, and joy all around!",
+    "location": "pune"
+  },
+  {
+    "id": 3,
+    "image": "3.jpeg",
+    "title": "Workshop on AI & Robotics",
+    "description": "Empowering students with future tech.",
+    "location": "pune"
+  },
+  {
+    "id": 4,
+    "image": "4.jpeg",
+    "title": "Annual Sports Meet",
+    "description": "Teamwork, passion, and dedication on display.",
+    "location": "pune"
+  },
+  {
+    "id": 5,
+    "image": "5.jpeg",
+    "title": "Independence Day Celebration",
+    "description": "Honoring our nation’s pride.",
+    "location": "pune"
+  },
+  {
+    "id": 6,
+    "image": "6.jpeg",
+    "title": "Guest Lecture",
+    "description": "Sharing knowledge and vision.",
+    "location": "pune"
+  },
+  {
+    "id": 7,
+    "image": "7.jpeg",
+    "title": "Coding Marathon",
+    "description": "Where ideas turn into code.",
+    "location": "pune"
+  },
+  {
+    "id": 8,
+    "image": "8.jpeg",
+    "title": "Seminar on Entrepreneurship",
+    "description": "Building future leaders.",
+    "location": "pune"
+  },
+  {
+    "id": 9,
+    "image": "9.jpeg",
+    "title": "Art Exhibition 2025",
+    "description": "Creativity knows no bounds.",
+    "location": "pune"
+  },
+  {
+    "id": 10,
+    "image": "10.jpeg",
+    "title": "Tree Plantation Drive",
+    "description": "Greener tomorrow, better today.",
+    "location": "pune"
+  },
+  {
+    "id": 11,
+    "image": "11.jpeg",
+    "title": "Science Fair",
+    "description": "Innovation from young minds."
+  },
+  {
+    "id": 12,
+    "image": "12.jpeg",
+    "title": "Women Empowerment Talk",
+    "description": "Inspiring change and equality."
+  },
+  {
+    "id": 13,
+    "image": "13.jpeg",
+    "title": "Internship Drive",
+    "description": "Connecting students to their careers."
+  },
+  {
+    "id": 14,
+    "image": "14.jpeg",
+    "title": "Cultural Parade",
+    "description": "Representing diverse traditions."
+  },
+  {
+    "id": 15,
+    "image": "15.jpeg",
+    "title": "Annual Day Celebration",
+    "description": "A night of colors and memories."
+  },
+  {
+    "id": 16,
+    "image": "16.jpeg",
+    "title": "Tech Expo",
+    "description": "Showcasing student innovations."
+  },
+  {
+    "id": 17,
+    "image": "17.jpeg",
+    "title": "Blood Donation Camp",
+    "description": "Every drop counts."
+  },
+  {
+    "id": 18,
+    "image": "18.jpeg",
+    "title": "Photography Exhibition",
+    "description": "Capturing life through lenses."
+  },
+  {
+    "id": 19,
+    "image": "19.jpeg",
+    "title": "Startup Meetup",
+    "description": "Bridging ideas and investments."
+  },
+  {
+    "id": 20,
+    "image": "20.jpeg",
+    "title": "Teachers’ Day",
+    "description": "Honoring our mentors."
+  },
+  {
+    "id": 21,
+    "image": "21.jpeg",
+    "title": "Alumni Meet",
+    "description": "Reconnecting hearts and memories."
+  },
+  {
+    "id": 22,
+    "image": "22.jpeg",
+    "title": "Placement Drive",
+    "description": "Dreams meet opportunities."
+  },
+  {
+    "id": 23,
+    "image": "23.jpeg",
+    "title": "National Science Day",
+    "description": "Celebrating scientific spirit."
+  },
+  {
+    "id": 24,
+    "image": "24.jpeg",
+    "title": "Environmental Week",
+    "description": "Act for Earth."
+  },
+  {
+    "id": 25,
+    "image": "25.jpeg",
+    "title": "Graduation Ceremony",
+    "description": "Milestone of achievement."
+  },
+  {
+    "id": 26,
+    "image": "26.jpeg",
+    "title": "Farewell Party",
+    "description": "Goodbyes with smiles and memories."
+  }
+]

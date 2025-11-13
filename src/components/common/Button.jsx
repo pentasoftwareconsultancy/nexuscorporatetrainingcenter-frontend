@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({ text = "Know more", onClick }) => {
+const Button = ({ text, onClick }) => {
   return (
     <button
       onClick={onClick}
@@ -14,14 +14,14 @@ const Button = ({ text = "Know more", onClick }) => {
         rounded-full 
         text-gray-600  
         cursor-pointer 
-        text-lg 
-        px-8 py-3
+        text-lg text-sm sm:text-base md:text-lg lg:text-xl
+        px-4 py-2 xl:px-4 xl:py-3 lg:px-2 lg:py-1
         transition-all 
         duration-200 
         ease-in-out 
         border-2 
         border-gray-300
-        shadow-[inset_2px_2px_5px_#bcbcbc,inset_-2px_-2px_5px_#ffffff,2px_2px_5px_#bcbcbc,-2px_-2px_5px_#ffffff]
+        shadow-[inset_1px_2px_0_#bcbcbc,inset_-2px_-2px_0_#ffffff,1px_2px_0_#bcbcbc,-2px_-1px_0_#ffffff]
         focus:outline-none
         overflow-hidden
       "
