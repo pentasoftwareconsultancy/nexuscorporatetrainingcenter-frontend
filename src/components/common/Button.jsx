@@ -14,8 +14,8 @@ const Button = ({ text, onClick }) => {
         rounded-full 
         text-gray-600  
         cursor-pointer 
-        text-lg 
-        px-5 py-3
+        text-lg text-sm sm:text-base md:text-lg lg:text-xl
+        px-4 py-2 xl:px-4 xl:py-3 lg:px-2 lg:py-1
         transition-all 
         duration-200 
         ease-in-out 
