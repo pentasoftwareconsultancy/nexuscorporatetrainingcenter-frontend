@@ -16,7 +16,7 @@ const SuccessReviews = () => {
         description={event.description}
         />
       ))}
-      </div>
+      </div> 
     </div>
   )
 }

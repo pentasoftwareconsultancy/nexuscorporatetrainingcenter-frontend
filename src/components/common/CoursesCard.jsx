@@ -1,47 +1,35 @@
 import React from "react";
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../core/constants/routes.constant";
 
-const CoursesCard = ({ title, description, image, onClick, location, children }) => {
+const CoursesCard = ({ id, title, description, duration, categoryName }) => {
+  const navigate = useNavigate();
   return (
     <div
-      onClick={onClick}
-      className="
-        relative
-        flex flex-col justify-between
-        rounded-2xl
-        cursor-pointer
-        overflow-hidden
-        border-2
-        min-w-[320px]
-        text-white
-        transition-all duration-300 ease-in-out
-        hover:scale-[1.02]
-        group
-      "
+      className="bg-[#1a1a1a] text-gray-200 rounded-2xl p-6 border border-[#2b2b2b] 
+                 transition-all duration-300 ease-in-out 
+                 hover:shadow-[0_0_25px_4px_rgba(255,111,0,0.6)] 
+                 hover:border-orange-500 
+                 flex flex-col justify-between min-h-[280px]"
     >
-      {/* Image */}
-      {image && (
-        <div className="w-full h-48 overflow-hidden">
-          <img
-            src={image}
-            alt={title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        </div>
-      )}
-
-      {/* Content */}
-      <div className="p-5 flex flex-col gap-2 text-left">
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
-        <p className="text-sm text-white leading-snug">{description}</p>
-        <p className="text-sm text-white leading-snug">{location}</p>
+      <div>
+        <h2 className="text-xl font-semibold mb-2 text-white">{title}</h2>
+        <p className="text-gray-300 text-sm mb-4 leading-relaxed">
+          {description}
+        </p>
       </div>
-
-      {/* Bottom Button / Icon Section */}
-      {children && (
-        <div className="flex justify-center items-center pb-4">
-          {children}
-        </div>
-      )}
+      <div className="flex items-center justify-between">
+        <p className="text-white text-sm font-bold">Duration: {duration}</p>
+        <Button
+          text="Know more"
+          onClick={() =>
+            navigate(
+              ROUTES.COURSE_DETAILS.replace(":categoryName", categoryName)
+            )
+          }
+        />
+      </div>
     </div>
   );
 };
