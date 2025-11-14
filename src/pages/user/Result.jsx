@@ -1,6 +1,7 @@
 import React from 'react'
+import data from '../../assets/saidas/resultData.json'
 
-const Result = ({ data = [] }) => {
+const Result = () => {
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white px-4 sm:px-6 md:px-10 lg:px-16 py-8 sm:py-10 md:py-14 font-sans">
       {/* 🔹 Title */}
