@@ -287,7 +287,7 @@ export default function TestExam() {
             >
               {currentQuestionIndex === totalQuestions - 1
                 ? "Submit"
-                : "Save and Next"}
+                : "Save and Next"} 
             </button> */}
           </div>
         </div>
