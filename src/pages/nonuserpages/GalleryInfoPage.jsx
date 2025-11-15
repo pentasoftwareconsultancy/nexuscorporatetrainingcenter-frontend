@@ -18,7 +18,7 @@ export default function GalleryInfoPage() {
   // Handle missing album
   if (!album) {
     return (
-      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
+      <div className="min-h-screen  text-white flex flex-col items-center justify-center">
         <h2 className="text-3xl font-bold mb-4">Album not found!</h2>
         <button
           onClick={() => navigate(-1)}
@@ -28,18 +28,16 @@ export default function GalleryInfoPage() {
         </button>
       </div>
     );
-  }
+  }     
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-slate-900 to-black text-white px-4 sm:px-10 py-12">
+    <div className="min-h-screen  text-white px-4 sm:px-10 py-12">
       {/* Title and Description */}
-      <div className="max-w-6xl mx-auto text-center mb-10">
+      <div className="mb-10">
         <h1 className="text-4xl sm:text-5xl font-bold text-amber-400 drop-shadow-lg mb-4">
           {album.title}
         </h1>
-        <p className="text-gray-300 text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto">
-          {album.description}
-        </p>
+       
       </div>
 
       {/* Images Grid */}
@@ -66,15 +64,7 @@ export default function GalleryInfoPage() {
 
       {/* Back Button */}
       <div className="flex justify-center mt-12">
-        <button
-          onClick={() => navigate(-1)}
-          className="px-6 py-2 bg-amber-400 hover:bg-amber-500 
-                     text-black font-semibold rounded-lg shadow-md 
-                     transition-all duration-300"
-        >
-          ← Back to Gallery
-        </button>
-      </div>
+       </div>
     </div>
   );
 }

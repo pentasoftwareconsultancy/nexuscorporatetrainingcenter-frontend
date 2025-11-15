@@ -35,19 +35,19 @@ export default function GallerySection() {
             >
               <div className="relative w-full aspect-square max-w-[250px] transition-all duration-500 group-hover:scale-105">
                 <img
-                  src={getImageSrc(album.images[2])}
+                  src={getImageSrc(album.images[3])}
                   alt="Stack 3"
                   className="absolute top-0 left-[10%] w-full h-full object-cover rounded-xl border border-gray-400 shadow-[0_0_20px_rgba(255,140,0,0.6)] opacity-60 transition-all duration-500 grayscale group-hover:grayscale-0"
                 />
 
                 <img
-                  src={getImageSrc(album.images[1])}
+                  src={getImageSrc(album.images[2])}
                   alt="Stack 2"
                   className="absolute top-0 left-[5%] w-full h-full object-cover rounded-xl border border-gray-400 shadow-[0_0_25px_rgba(255,165,0,0.7)] opacity-80 transition-all duration-500 grayscale group-hover:grayscale-0"
                 />
 
                 <img
-                  src={getImageSrc(album.images[0])}
+                  src={getImageSrc(album.images[1])}
                   alt="Stack 1"
                   className="absolute top-0 left-0 w-full h-full object-cover rounded-xl border border-white transition-all duration-500 grayscale group-hover:grayscale-0"
                 />
