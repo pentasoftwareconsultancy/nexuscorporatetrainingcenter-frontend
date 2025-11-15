@@ -11,7 +11,7 @@ const PlacementStoryPage = () => {
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="min-h-screen bg-black text-white py-1 px-1 shadow-[-10px_0_20px_0_rgba(37,99,235,0.6)] overflow-y-auto"
+      className="min-h-screen text-white py-1 px-12 overflow-y-auto"
     >
       <div className="hidden md:block text-left mb-4 mt-2">
         <motion.h2
@@ -54,7 +54,7 @@ const PlacementStoryPage = () => {
           initial={{ x: -30, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="-mt-3 md:mt-0 flex-1 bg-[#111827] rounded-2xl shadow-xl border border-gray-700 p-1 md:p-3"
+          className="-mt-3 md:mt-0 flex-1 rounded-2xl shadow-xl border border-gray-700 p-1 md:p-3"
         >
           <div className="space-y-[1px] mb-3 leading-tight font-bold text-white">
             <p>

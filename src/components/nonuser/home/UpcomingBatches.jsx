@@ -24,7 +24,7 @@ const UpcomingBatches = () => {
   };
 
   return (
-    <div className="w-full bg-[#0B0B0B] text-white font-sans py-14 px-6 md:px-10">
+    <div className="w-full text-white font-sans py-2 px-12 md:px-10">
       {/* Title */}
       <h1 className="text-3xl md:text-4xl font-semibold mb-8 tracking-wide">
         Upcoming Batches
@@ -107,7 +107,7 @@ const UpcomingBatches = () => {
 
       {/* See more / See less */}
       {filtered.length > 5 && (
-        <div className="flex justify-end mt-6">
+        <div className="flex justify-end my-6">
           <button
             onClick={() => setShowAll(!showAll)}
             className="text-[15px] font-semibold text-gray-200 hover:text-white transition-all duration-200 underline-offset-4 hover:underline"

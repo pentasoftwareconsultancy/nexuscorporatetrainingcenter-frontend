@@ -1,61 +1,83 @@
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
-import heroimg from "../../../assets/vaishnavi/X.png"; // ✅ Background "X" image
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../core/constants/routes.constant";
+import CircleBackground from "../../common/CircleBackground";
+import Button from "../../common/Button";
 
 export default function HomeHero() {
-  const handleEnrollClick = () => {
-    window.location.href = "/enroll";
-  };
+  const navigate = useNavigate();
 
   return (
-    <div className="relative w-full min-h-screen flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-12 lg:px-20 bg-gradient-to-t from-[#1e1515] via-[#150d0d] to-[#1e1616] text-white overflow-hidden">
-      {/* 🌈 Center background image */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <img
-          src={heroimg}
-          alt="Background X"
-          className="w-[70vw] sm:w-[50vw] md:w-[40vw] max-w-[800px] opacity-70 object-contain select-none"
-        />
+    <div className="relative overflow-x-hidden w-full min-h-screen flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-12 lg:px-12 text-white overflow-hidden">
+      <div className="absolute z-0 w-1/3 h-9/12 -translate-x-70">
+        <CircleBackground />
+      </div>
+
+      {/* 🌈 Full-screen dynamic X */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none mb-30">
+        <h1
+          className="
+              fit-text 
+              font-extrabold 
+              text-white 
+              opacity-20 
+              select-none 
+              leading-none
+              text-center
+            "
+        >
+          X
+        </h1>
       </div>
 
       {/* 🔸 Left Section */}
       <div className="relative z-10 flex flex-col justify-end w-full md:w-1/2 pb-10 md:pb-16">
         <div className="p-4 sm:p-6 md:p-10 rounded-2xl space-y-6 text-center md:text-left">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-snug">
-            <span className="text-orange-400">Nexus</span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium leading-snug">
+            <span className="text-orange-400 font-sora">Nexus</span>
             <br />
-            <span className="text-white font-light">
+            <span className="text-white font-sora">
               Corporate Training
               <br />
-              Center LLP
+              Center
             </span>
           </h1>
 
-          <button
-            onClick={handleEnrollClick}
-            className="group mx-auto md:mx-0 px-6 sm:px-8 py-3 bg-white text-orange-600 font-semibold rounded-full flex items-center justify-center gap-3 border border-slate-300 shadow-[0_4px_8px_rgba(0,0,0,0.2),0_-2px_4px_rgba(255,255,255,0.4)] hover:shadow-[inset_0_4px_8px_rgba(0,0,0,0.3),inset_0_-2px_6px_rgba(255,255,255,0.4)] active:shadow-[inset_0_6px_10px_rgba(0,0,0,0.35),inset_0_-4px_8px_rgba(255,255,255,0.3)] transition-all duration-300 ease-in-out hover:translate-y-[1px] active:translate-y-[2px] hover:bg-gray-50 active:bg-gray-100"
-          >
-            Enroll Now
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-orange-600 text-white transition-all duration-300 group-hover:bg-orange-700">
-              <ArrowUpRight
-                size={16}
-                className="transition-transform duration-300 group-hover:translate-x-[1px] group-hover:-translate-y-[1px]"
-              />
-            </span>
-          </button>
+          <Button text="Enroll Now" onClick={() => navigate(ROUTES.CONTACT)} />
         </div>
       </div>
 
       {/* 🔸 Right Section */}
       <div className="relative z-10 flex flex-col justify-start items-center md:items-end w-full md:w-1/2 text-center md:text-right space-y-6 pt-6 sm:pt-10 md:pt-16 px-4 sm:px-8">
         <div className="max-w-lg">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light leading-tight text-white mb-4">
+          <h2
+            className="font-clash text-3xl sm:text-4xl lg:text-5xl font-light leading-tight text-white mb-4 font-sora relative mx-auto w-[24em] text-center whitespace-nowrap overflow-hidden transform -translate-y-1/2 border-r-2 border-r-white/75"
+            style={{
+              animation:
+                "typewriter 6s steps(50) infinite, blinkingCursor 0.75s step-end infinite",
+            }}
+          >
+            <style>
+              {`
+      @keyframes typewriter {
+        0% { width: 0; }
+        50% { width: 100%; }
+        80% { width: 100%; }
+        100% { width: 0; }
+      }
+      @keyframes blinkingCursor {
+        0%, 50% { border-right-color: rgba(255,255,255,0.75); }
+        51%, 100% { border-right-color: transparent; }
+      }
+    `}
+            </style>
             Your Growth
             <br />
             Our Expertise
           </h2>
 
-          <p className="text-gray-200 text-base sm:text-lg leading-relaxed text-justify md:text-right">
+          <p className="text-gray-200 text-base sm:text-lg leading-relaxed text-justify md:text-right font-sora">
             We believe true business growth is built on the strength of your
             people. Our expertise lies in crafting bespoke training programs
             that don’t just teach skills — they transform teams. We partner with
