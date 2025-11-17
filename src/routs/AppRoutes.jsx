@@ -5,8 +5,8 @@ import AuthRedirect from "./AuthRedirect";
 
 // Layouts
 import PublicLayout from "../components/layout/PublicLayout";
-import DashboardLayout from "../components/layout/DashboardLayout";
-import AuthLayout from "../components/layout/AuthLayout";
+import UserLayout from "../components/layout/UserLayout";   // USER layout
+import AdminLayout from "../components/layout/AdminLayout";           // ADMIN layout
 
 // Public Pages
 import HomePage from "../pages/nonuserpages/HomePage";
@@ -37,7 +37,8 @@ import Signup from "../pages/auth/Signup";
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Public Pages */}
+
+      {/* 🌍 PUBLIC ROUTES */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -48,11 +49,9 @@ const AppRoutes = () => {
         <Route path="/placements" element={<PlacementPage />} />
         <Route path="/placements/:id" element={<PlacementStoryPage />} />
         <Route path="/contact" element={<ContactPage />} />
-      </Route>
 
-      {/* Auth Pages */}
-      <Route element={<AuthLayout />}>
-        <Route
+        {/* 🔑 LOGIN + SIGNUP (Public layout!) */}
+        <Route 
           path="/login"
           element={
             <AuthRedirect>
@@ -60,7 +59,7 @@ const AppRoutes = () => {
             </AuthRedirect>
           }
         />
-        <Route
+        <Route 
           path="/signup"
           element={
             <AuthRedirect>
@@ -70,74 +69,35 @@ const AppRoutes = () => {
         />
       </Route>
 
-      {/* Protected Routes (Role-based) */}
+
+      {/* 👤 USER ROUTES (Dashboard layout) */}
       <Route
         element={
-          <ProtectedRoute allowedRoles={["user", "admin"]}>
-            <DashboardLayout />
+          <ProtectedRoute allowedRoles={["user"]}>
+            <UserLayout />
           </ProtectedRoute>
         }
       >
-        {/* User Dashboard */}
-        <Route
-          path="/appitude"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <AppitudeExam />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/exam"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <TestExam />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/success"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <TestSuccess />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/result"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <Result />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/certification"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <Certification />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Admin Dashboard */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={["admin"]}>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/exam-management"
-          element={
-            <ProtectedRoute allowedRoles={["admin"]}>
-              <ExamManagement />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/appitude" element={<AppitudeExam />} />
+        <Route path="/exam" element={<TestExam />} />
+        <Route path="/success" element={<TestSuccess />} />
+        <Route path="/result" element={<Result />} />
+        <Route path="/certification" element={<Certification />} />
       </Route>
+
+
+      {/* 🛠️ ADMIN ROUTES (Admin layout, NO footer) */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="/exam-management" element={<ExamManagement />} />
+      </Route>
+
     </Routes>
   );
 };

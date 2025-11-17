@@ -10,7 +10,12 @@ export default function HomeHero() {
 
   return (
     <div className="relative overflow-x-hidden w-full min-h-screen flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-12 lg:px-12 text-white overflow-hidden">
-      <div className="absolute z-0 w-1/3 h-9/12 -translate-y-100 -translate-x-240">
+      <div className="absolute z-0 
+  w-[280px] h-[280px] 
+  top-10 left-5 
+  sm:w-[320px] sm:h-[320px] sm:top-14 sm:left-10 
+  md:w-[100px] md:h-[300px] md:top-1 md:left-1
+  pointer-events-none">
         <CircleBackground />
       </div>
 
@@ -98,7 +103,13 @@ export default function HomeHero() {
           </p>
         </div>
       </div>
-      <div className="absolute z-0 w-1/3 h-9/12 -translate-y-120 translate-x-260">
+      <div className="  absolute z-0 
+  w-[280px] h-[280px] 
+  bottom-10 right-5
+  sm:w-[320px] sm:h-[320px] sm:bottom-14 sm:right-10
+  md:w-[380px] md:h-[380px] md:bottom-20 md:right-20
+  pointer-events-none
+">
         <CircleBackground />
       </div>
     </div>
