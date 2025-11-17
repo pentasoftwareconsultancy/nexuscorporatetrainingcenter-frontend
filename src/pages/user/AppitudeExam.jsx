@@ -81,7 +81,7 @@ export default function ApptitudeExam() {
     quizData[selectedCategory]?.[topicIndex]?.[currentQuestionIndex];
 
   return (
-    <div className="min-h-screen bg-[#0b0b0b] text-white flex flex-col font-sans ">
+    <div className="min-h-screen w-full bg-[#0b0b0b] text-white flex flex-col font-sans over ">
 
       <header className="px-4 sm:px-6 md:px-10 py-6 border-b border-gray-800">
         <h1 className="text-3xl sm:text-4xl font-bold mb-2">Aptitude Test</h1>
@@ -104,7 +104,7 @@ export default function ApptitudeExam() {
         </div>
       </header>
 
-      <div className="flex flex-1 overflow-hidden flex-col md:flex-row">
+      <div className="flex flex-1 overflow-hidden flex-col md:flex-row w-full">
 
         {!showQuiz && (
           <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-gray-800 p-2 flex flex-wrap md:flex-col gap-2 md:gap-3 overflow-y-auto justify-start md:justify-start">
@@ -124,7 +124,7 @@ export default function ApptitudeExam() {
           </aside>
         )}
 
-        <main className="flex-1 p-4 sm:p-6 md:p-10 overflow-y-auto">
+        <main className="flex-1 p-4 sm:p-6 md:p-10 overflow-y-auto w-auto ">
 
           {showQuiz ? (
             <>
@@ -157,7 +157,7 @@ export default function ApptitudeExam() {
               <div className="flex flex-col lg:flex-row gap-6">
 
                 <div className="flex-1 bg-[#1a1a1a] border border-gray-800 rounded-2xl p-4 sm:p-6">
-                  <p className="text-base sm:text-lg font-semibold mb-4">
+                  <p className="text-base sm:text-lg font-semibold mb-4 ">
                     {currentQuestionIndex + 1}. {currentQuestion?.question}
                   </p>
 
@@ -240,7 +240,7 @@ export default function ApptitudeExam() {
                 {selectedCategory}
               </h2>
 
-<div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 gap-4">
+<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 overflow-hidden">
                 {(topicsData[selectedCategory] || [])
                   .filter((topic) =>
                     topic.toLowerCase().includes(search.toLowerCase())
@@ -250,7 +250,9 @@ export default function ApptitudeExam() {
   key={index}
   className="bg-[#1a1a1a] border border-white rounded-2xl p-4 h-28 flex flex-col justify-between hover:border-gray-500 transition"
 >
-  <p className="text-base">•{topic}</p>
+<p className="text-xs sm:text-sm md:text-base lg:text-base break-words leading-tight line-clamp-2">
+  • {topic}
+</p>
 
  <button
   onClick={() => handleQuizClick(topic)}
