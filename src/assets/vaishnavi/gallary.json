@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Annual Function",
-      "description": "Memorable highlights from our Annual Function filled with joy, performances, and achievements.",
+      "description": "Memorable highlights from our Annual Function filled with joy, performances, and achievements. Memorable highlights from our Annual Function filled with joy, performances, and achievements. Memorable highlights from our Annual Function filled with joy, performances, and achievements.",
       "images": ["13.jpeg", "2.jpeg", "3.jpeg", "4.jpeg"]
     },
     {
@@ -46,7 +46,7 @@
       "id": 8,
       "title": "Graduation Ceremony",
       "description": "Honoring our graduates on their remarkable journey and achievements.",
-      "images": ["1.jpeg", "5.jpeg", "9.jpeg", "15.jpeg"]
+      "images": ["11.jpeg", "5.jpeg", "9.jpeg", "15.jpeg"]
     }
   ]
 }

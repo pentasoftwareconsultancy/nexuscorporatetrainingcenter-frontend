@@ -7,14 +7,12 @@ export default function GalleryInfoPage() {
   const navigate = useNavigate();
 
   // Find the selected album by ID
-  const album = galleryData.albums.find(
-    (item) => item.id === parseInt(id)
-  );
+  const album = galleryData.albums.find((item) => item.id === parseInt(id));
 
-  // Function to get full image path  
+  // Function to get full image path
   const getImageSrc = (filename) =>
     new URL(`../../assets/vaishnavi/${filename}`, import.meta.url).href;
-
+  
   // Handle missing album
   if (!album) {
     return (
@@ -28,27 +26,28 @@ export default function GalleryInfoPage() {
         </button>
       </div>
     );
-  }     
+  }
 
   return (
-    <div className="min-h-screen  text-white px-4 sm:px-10 py-12">
+    <div className="min-h-screen   sm:px-10 ">
       {/* Title and Description */}
       <div className="mb-10">
-        <h1 className="text-4xl sm:text-5xl font-bold text-amber-400 drop-shadow-lg mb-4">
-          {album.title}
+        <h1 className="text-2xl sm:text-2xl font-bold text-white mb-3">
+          Collab With {album.title}
         </h1>
-       
       </div>
 
       {/* Images Grid */}
-<div className="grid gap-8 place-items-center"
-     style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}>
+      <div
+        className="grid gap-2 place-items-center mb-8"
+        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
+      >
         {album.images.map((image, index) => (
           <div
             key={index}
             className="relative group overflow-hidden rounded-xl border border-gray-700 
                        shadow-[0_0_25px_rgba(255,165,0,0.5)] 
-                       hover:shadow-[0_0_40px_rgba(255,165,0,0.8)] 
+                       hover:shadow-[0_0_40px_rgba(255,165,0,0.8)]  
                        transition-all duration-500 w-[280px] h-[280px] max-w-full"
           >
             <img
@@ -61,10 +60,15 @@ export default function GalleryInfoPage() {
           </div>
         ))}
       </div>
+      <div className="mb-2">
+        <h1 className="text-2xl sm:text-2xl font-bold text-white mb-3">
+          {album.title} Collab
+        </h1>
+
+        <p>{album.description}</p>
+      </div>
 
       {/* Back Button */}
-      <div className="flex justify-center mt-12">
-       </div>
     </div>
   );
 }
