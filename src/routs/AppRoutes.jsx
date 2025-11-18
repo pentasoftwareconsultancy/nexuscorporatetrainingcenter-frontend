@@ -28,7 +28,16 @@ import Certification from "../pages/user/Certification";
 
 // Admin Pages
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import ExamManagement from "../pages/admin/ExamManagement";
+import TotalRegisterDashboard from "../pages/admin/TotalRegisterDashboard";
+import NewRegisterDashboard from "../pages/admin/NewRegisterDashboard";
+import CompletedTestDashboard from "../pages/admin/CompletedTestDashboard";
+import CollegeVisitDashboard from "../pages/admin/CollegeVisitDashboard";
+import TotalPlacementDashboard from "../pages/admin/TotalPlacementDashboard";
+import TotalReviewsDashboard from "../pages/admin/TotalReviewsDashboard";
+import GalleryEventPage from "../pages/admin/GalleryEventPage";
+import AdminCoursesPage from "../pages/admin/AdminCoursesPage";
+import AdminNotificationPage from "../pages/admin/AdminNotificationPage";
+import AdminProfile from "../pages/admin/AdminProfile";
 
 // Auth Pages
 import Login from "../pages/auth/Login";
@@ -95,7 +104,6 @@ const AppRoutes = () => {
         }
       >
         <Route path="/dashboard" element={<AdminDashboard />} />
-        <Route path="/exam-management" element={<ExamManagement />} />
       </Route>
 
     </Routes>
