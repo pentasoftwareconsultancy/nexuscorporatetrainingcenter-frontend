@@ -83,7 +83,7 @@ function OurClient() {
   };
 
   return (
-    <div className="relative flex flex-col justify-center overflow-hidden py-4 lg:py-4 px-12 sm:px-12 md:px-12 text-white">
+    <div className="relative flex flex-col justify-center overflow-hidden px-12 sm:px-12 md:px-12 text-white">
       <div className="absolute z-0 w-1/3 h-9/12 -translate-y-347 -translate-x-250">
         <CircleBackground />
       </div>
@@ -91,13 +91,13 @@ function OurClient() {
         <CircleBackground />
       </div>
       {/* Clients Section */}
-      <div className="z-1 mb-10 lg:mb-14 mt-10">
+      <div className="z-1 mb-10 lg:mb-14 mt-1">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-left mb-6 lg:mb-8 mr-6">
           Our Clients
         </h2>
         {/* Divider Line */}
         <div
-          className="w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
+          className="w-full h-[1px] sm:h-[2px] my-6 lg:my-6"
           style={{
             background:
               "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
@@ -107,7 +107,7 @@ function OurClient() {
           <Slider {...sliderSettings}>
             {clients.map((client, idx) => (
               <div key={idx} className="px-2">
-                <div className="flex items-center justify-center p-2 sm:p-4">
+                <div className="flex items-center justify-center px-2 sm:px-4">
                   <img
                     src={imageMap[client.src]}
                     alt={client.name}
@@ -125,7 +125,7 @@ function OurClient() {
           </Slider>
         </div>
         {isPaused && (
-          <div className="text-center mt-4">
+          <div className="text-center mt-1">
             <button
               className="px-4 py-2 bg-white text-black rounded-lg hover:bg-gray-200 transition-colors duration-200 text-sm sm:text-base"
               onClick={() => setIsPaused(false)}
@@ -138,7 +138,7 @@ function OurClient() {
 
       {/* Divider Line */}
       <div
-        className="z-1 w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
+        className="z-1 w-full h-[1px] sm:h-[2px] mb-8 lg:mb-12"
         style={{
           background:
             "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
