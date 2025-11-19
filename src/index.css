@@ -46,6 +46,10 @@
   color: var(--color-three);
 }
 
+@utility text-five {
+  color: var(--color-five);
+}
+
 @utility bg-one {
   background-color: var(--color-one);
 }
@@ -60,6 +64,18 @@
 
 @utility bg-four {
   background-color: var(--color-four);
+}
+
+@utility bg-five {
+  background-color: var(--color-five);
+}
+
+@utility bg-six {
+  background-color: var(--color-six);
+}
+
+@utility bg-seven {
+  background-color: var(--color-seven);
 }
 
 /* ------------ GLOBAL STYLES ------------ */

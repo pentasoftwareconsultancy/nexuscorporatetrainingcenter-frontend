@@ -9,7 +9,7 @@ export default function HomeHero() {
   const navigate = useNavigate();
 
   return (
-    <div className="relative overflow-x-hidden w-full min-h-screen flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-12 lg:px-12 text-one overflow-hidden">
+    <div className="relative font-sora overflow-x-hidden w-full min-h-screen flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-12 lg:px-12 text-one overflow-hidden">
       <div className="absolute z-0 
           w-[280px] h-[280px] 
           top-10 left-5 
@@ -20,7 +20,7 @@ export default function HomeHero() {
       </div>
 
       {/* 🌈 Full-screen dynamic X */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none mb-30">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none mb-3">
         <h1
           className="
             fit-text
@@ -30,7 +30,7 @@ export default function HomeHero() {
             select-none
             leading-none
             text-center
-            text-[#FF6A00]
+            text-five
             bg-clip-text
           "
         >
@@ -42,9 +42,9 @@ export default function HomeHero() {
       <div className="relative z-10 flex flex-col justify-center md:justify-end w-full md:w-1/2 pb-6 md:pb-1 translate-y-10">
         <div className="p-4 sm:p-6 md:p-10 rounded-2xl space-y-6 text-center md:text-left">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium leading-snug">
-            <span className="text-orange-400 font-sora">Nexus</span>
+            <span className="text-five">Nexus</span>
             <br />
-            <span className="text-white font-sora">
+            <span className="text-white">
               Corporate Training
               <br />
               Center
@@ -64,7 +64,7 @@ export default function HomeHero() {
               font-clash 
               text-3xl sm:text-4xl lg:text-5xl 
               font-light leading-tight 
-              text-white mb-4 font-sora 
+              text-white mb-4
               relative mx-auto text-center 
               whitespace-normal 
               overflow-hidden 
@@ -93,7 +93,7 @@ export default function HomeHero() {
               Your Growth Our Expertise
             </span>
           </h2>          
-          <p className="text-gray-200 text-base sm:text-lg leading-relaxed text-justify md:text-right font-sora">
+          <p className="text-gray-200 text-base sm:text-lg leading-relaxed text-justify md:text-right">
             We believe true business growth is built on the strength of your
             people. Our expertise lies in crafting bespoke training programs
             that don’t just teach skills — they transform teams. We partner with
