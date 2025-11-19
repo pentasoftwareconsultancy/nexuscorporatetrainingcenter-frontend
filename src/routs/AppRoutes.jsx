@@ -17,6 +17,7 @@ import GalleryPage from "../pages/nonuserpages/GalleryPage";
 import GalleryInfoPage from "../pages/nonuserpages/GalleryInfoPage";
 import PlacementPage from "../pages/nonuserpages/PlacementPage";
 import PlacementStoryPage from "../pages/nonuserpages/PlacementStoryPage";
+import UpcomingPage from "../pages/nonuserpages/UpcomingPage";
 import ContactPage from "../pages/nonuserpages/ContactPage";
 
 // User Pages
@@ -57,6 +58,7 @@ const AppRoutes = () => {
         <Route path="/gallery/:id" element={<GalleryInfoPage />} />
         <Route path="/placements" element={<PlacementPage />} />
         <Route path="/placements/:id" element={<PlacementStoryPage />} />
+        <Route path="/upcoming" element={<UpcomingPage />} />
         <Route path="/contact" element={<ContactPage />} />
 
         {/* 🔑 LOGIN + SIGNUP (Public layout!) */}
@@ -104,6 +106,7 @@ const AppRoutes = () => {
         }
       >
         <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="/"></Route>
       </Route>
 
     </Routes>

@@ -12,7 +12,9 @@
 
   /* COLORS */
   --color-one: #FFF3EA; /* White */
-  --color-two: #6C6C6C; /* Gray */
+  --color-two: #6C6C6C; /* Text Gray */
+  --color-towpointone: #D2D2D2; /* Text Gray 1 */
+  --color-twopointo: #383838; /* Background Gray */
   --color-three: #0C0C0C; /* Black */
   --color-four: #1254FA; /* Blue */
   --color-five: #FF6A00; /* Orange */
@@ -56,6 +58,10 @@
 
 @utility bg-two {
   background-color: var(--color-two);
+}
+
+@utility bg-twopointo {
+  background-color: var(--color-twopointo);
 }
 
 @utility bg-three {
