@@ -43,13 +43,15 @@ const PartnerSection = () => {
                 return (
                   <div
                     key={item.id}
-                    className={`flex items-center justify-between rounded-full px-5 py-4 shadow-md border border-white hover:scale-105 transition-transform animate-slideInLeft ${item.translate}`}
+                    className={`flex items-center bg-[#383838] justify-between rounded-full px-6 py-4 shadow-md border  hover:shadow-[20px_-8px_30px_0px_rgba(255,100,0,0.4)]
+ 
+                  border-white hover:scale-105 transition-transform animate-slideInLeft ${item.translate}`}
                   >
-                    <div>
+                    <div className="">
                       <h3 className="font-semibold text-lg">{item.title}</h3>
                       <p className="text-sm text-gray-400">{item.description}</p>
                     </div>
-                    <div className="bg-[#101010] w-20 h-13 rounded-full flex justify-center items-center">
+                    <div className="bg-[#101010] w-15 h-15 rounded-full flex justify-center items-center shrink-0">
                       <Icon className="text-2xl text-white" />
                     </div>
                   </div>
@@ -58,7 +60,7 @@ const PartnerSection = () => {
             </div>
 
             {/* CENTER CIRCLE */}
-            <div className="flex justify-center items-center relative w-[240px] h-[240px] rounded-full bg-[radial-gradient(circle,_#0041FF_0%,_#0A0A0F_100%)] animate-scaleUp  shadow-[0_0_40px_#0041FF] border border-dashed border-gray-500">
+            <div className="flex justify-center items-center relative w-[240px] h-[240px] rounded-full bg-[radial-gradient(circle,_#0041FF_0%,_#0A0A0F_70%)] animate-scaleUp  shadow-[0_0_0px_#0041FF]  border-dashed border-[2px] border-gray-500">
               <h2 className="text-xl font-semibold text-center">
                 Why Partner <br /> with Nexus?
               </h2>
@@ -71,12 +73,13 @@ const PartnerSection = () => {
                 return (
                   <div
                     key={item.id}
-                    className={`flex items-center gap-4 rounded-full px-5 py-4 shadow-md border border-white hover:scale-105 transition-transform animate-slideInRight ${item.translate}`}
+                    className={`flex items-center gap-3 bg-[#383838] rounded-full px-5 py-4 shadow-md border border-white hover:scale-105 hover:shadow-[-20px_-8px_30px_0px_rgba(255,100,0,0.4)]
+                               transition-transform animate-slideInRight ${item.translate}`}
                   >
-                    <div className="bg-[#101010] w-20 h-13 rounded-full flex justify-center items-center">
+                    <div className="bg-[#101010] w-15 h-15 rounded-full flex justify-center items-center shrink-0">
                       <Icon className="text-2xl text-white" />
                     </div>
-                    <div className="text-right mr-3">
+                    <div className="text-right">
                       <h3 className="font-semibold text-lg">{item.title}</h3>
                       <p className="text-sm text-gray-400">{item.description}</p>
                     </div>
@@ -89,9 +92,9 @@ const PartnerSection = () => {
           {/* ================= MOBILE VIEW ================= */}
           <div className="flex md:hidden flex-col items-center gap-5 mt-6 w-full">
             {/* Center Circle */}
-            <div className="flex justify-center items-center w-[180px] h-[180px] rounded-full bg-[radial-gradient(circle,_#0041FF_0%,_#0A0A0F_100%)] shadow-[0_0_40px_#0041FF] border border-dashed border-gray-500 text-center mb-6 shadow-md">
+            <div className="flex justify-center items-center w-[180px] h-[180px] rounded-full bg-[radial-gradient(circle,_#0041FF_0%,_#0A0A0F_70%)] shadow-[0_0_40px_#0041FF]  border-dashed border-[2px] border-gray-500 text-center mb-6 shadow-md">
               <h2 className="text-base font-semibold leading-tight">
-                Why Partner <br /> with Nexus?
+                Why Partner <br/> with Nexus?
               </h2>
             </div>
 
@@ -102,9 +105,9 @@ const PartnerSection = () => {
               return (
                 <div
                   key={item.id}
-                  className={`flex items-center gap-4 bg-[#1a1a20] rounded-full px-5 py-4 w-[90%] sm:w-[80%] border border-white shadow-md ${align}`}
+                  className={`flex items-center gap-4 bg-[#383838] rounded-full px-5 py-4 w-[90%] sm:w-[80%] border border-white shadow-md ${align}`}
                 >
-                  <div className="bg-[#101010] w-14 h-14 rounded-full flex justify-center items-center">
+                  <div className="bg-[#101010] w-14 h-14 rounded-full flex justify-center items-center shrink-0">
                     <Icon className="text-2xl text-white" />
                   </div>
                   <div>
