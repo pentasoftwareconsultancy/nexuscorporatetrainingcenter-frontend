@@ -3,7 +3,7 @@ import React from "react";
 const CircleBackground = () => {
   return (
     <div
-      className="w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,_rgba(18,84,250,0.42)_0%,_rgba(18,84,250,0.1)_60%,_transparent_100%)]"
+      className="w-[00%] h-[00%] rounded-full bg-[radial-gradient(circle,_#1254FA_10%,_#141414_40%)]"
     ></div>
   );
 };

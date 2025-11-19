@@ -25,6 +25,15 @@ const CoursesProvided = () => {
   // Only show limited courses
   const visibleCourses = allCourses.slice(0, visibleCount);
 
+  // Handler for toggling course visibility
+  const toggleCourses = () => {
+    if (visibleCount === allCourses.length) {
+      setVisibleCount(9); // collapse
+    } else {
+      setVisibleCount(allCourses.length); // expand
+    }
+  };
+
   return (
     <section className="min-h-screen px-12 text-white">
       <h1 className="text-4xl font-bold mb-10">Courses We Provide</h1>
@@ -43,17 +52,15 @@ const CoursesProvided = () => {
         ))}
       </div>
 
-      {/* Show More Button */}
-      {visibleCount < allCourses.length && (
-        <div className="flex justify-end mb-10">
-          <button
-            onClick={() => setVisibleCount(prev => prev + 9)}
-            className="text-white"
-          >
-            Show More
-          </button>
-        </div>
-      )}
+      {/* Show More / See Less Button */}
+      <div className="flex justify-end my-10">
+        <button
+          onClick={toggleCourses}
+          className="text-white pb-4 cursor-pointer"
+        >
+          {visibleCount === allCourses.length ? "See Less" : "See More"}
+        </button>
+      </div>
     </section>
   );
 };

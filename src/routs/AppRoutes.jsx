@@ -5,8 +5,8 @@ import AuthRedirect from "./AuthRedirect";
 
 // Layouts
 import PublicLayout from "../components/layout/PublicLayout";
-import DashboardLayout from "../components/layout/DashboardLayout";
-import AuthLayout from "../components/layout/AuthLayout";
+import UserLayout from "../components/layout/UserLayout";   // USER layout
+import AdminLayout from "../components/layout/AdminLayout";           // ADMIN layout
 
 // Public Pages
 import HomePage from "../pages/nonuserpages/HomePage";
@@ -28,7 +28,16 @@ import Certification from "../pages/user/Certification";
 
 // Admin Pages
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import ExamManagement from "../pages/admin/ExamManagement";
+import TotalRegisterDashboard from "../pages/admin/TotalRegisterDashboard";
+import NewRegisterDashboard from "../pages/admin/NewRegisterDashboard";
+import CompletedTestDashboard from "../pages/admin/CompletedTestDashboard";
+import CollegeVisitDashboard from "../pages/admin/CollegeVisitDashboard";
+import TotalPlacementDashboard from "../pages/admin/TotalPlacementDashboard";
+import TotalReviewsDashboard from "../pages/admin/TotalReviewsDashboard";
+import GalleryEventPage from "../pages/admin/GalleryEventPage";
+import AdminCoursesPage from "../pages/admin/AdminCoursesPage";
+import AdminNotificationPage from "../pages/admin/AdminNotificationPage";
+import AdminProfile from "../pages/admin/AdminProfile";
 
 // Auth Pages
 import Login from "../pages/auth/Login";
@@ -37,7 +46,8 @@ import Signup from "../pages/auth/Signup";
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Public Pages */}
+
+      {/* 🌍 PUBLIC ROUTES */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -48,11 +58,9 @@ const AppRoutes = () => {
         <Route path="/placements" element={<PlacementPage />} />
         <Route path="/placements/:id" element={<PlacementStoryPage />} />
         <Route path="/contact" element={<ContactPage />} />
-      </Route>
 
-      {/* Auth Pages */}
-      <Route element={<AuthLayout />}>
-        <Route
+        {/* 🔑 LOGIN + SIGNUP (Public layout!) */}
+        <Route 
           path="/login"
           element={
             <AuthRedirect>
@@ -60,7 +68,7 @@ const AppRoutes = () => {
             </AuthRedirect>
           }
         />
-        <Route
+        <Route 
           path="/signup"
           element={
             <AuthRedirect>
@@ -70,74 +78,34 @@ const AppRoutes = () => {
         />
       </Route>
 
-      {/* Protected Routes (Role-based) */}
+
+      {/* 👤 USER ROUTES (Dashboard layout) */}
       <Route
         element={
-          <ProtectedRoute allowedRoles={["user", "admin"]}>
-            <DashboardLayout />
+          <ProtectedRoute allowedRoles={["user"]}>
+            <UserLayout />
           </ProtectedRoute>
         }
       >
-        {/* User Dashboard */}
-        <Route
-          path="/appitude"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <AppitudeExam />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/exam"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <TestExam />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/success"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <TestSuccess />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/result"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <Result />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/certification"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <Certification />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Admin Dashboard */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={["admin"]}>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/exam-management"
-          element={
-            <ProtectedRoute allowedRoles={["admin"]}>
-              <ExamManagement />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/appitude" element={<AppitudeExam />} />
+        <Route path="/exam" element={<TestExam />} />
+        <Route path="/success" element={<TestSuccess />} />
+        <Route path="/result" element={<Result />} />
+        <Route path="/certification" element={<Certification />} />
       </Route>
+
+
+      {/* 🛠️ ADMIN ROUTES (Admin layout, NO footer) */}
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/dashboard" element={<AdminDashboard />} />
+      </Route>
+
     </Routes>
   );
 };

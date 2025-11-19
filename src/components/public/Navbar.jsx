@@ -51,12 +51,17 @@ function Navbar() {
           borderBottomRightRadius: "1.2rem",
         }}
       >
-        {/* Left: Logo */}
+        {/* Left: Logo */} 
         <div className="flex items-center">
-          <h1 className="text-2xl lg:text-3xl font-extrabold">
-            <span className="text-white">NE</span>
-            <span className="text-orange-500">X</span>
-            <span className="text-white">US</span>
+          <h1 className="text-2xl lg:text-3xl font-medium flex items-center justify-center">
+            <span className="text-white font-playfair">NE</span>
+            <span className="text-orange-500 text-5xl pt-1">
+              <svg width="40" height="34" viewBox="0 0 40 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M31.5408 0.000221879L39.5234 0.00080831L34.5562 2.77579C33.3436 3.45323 32.2854 4.37587 31.4491 5.4849L12.364 30.7934C11.2302 32.2968 9.45642 33.1808 7.57341 33.1808H-0.000190735L5.03663 30.275C6.22264 29.5907 7.25551 28.6702 8.07121 27.5704L26.7213 2.42583C27.8531 0.899828 29.6409 8.23028e-05 31.5408 0.000221879Z" fill="#FF6A00"/>
+                <path d="M7.98262 0.000221879L0 0.00080831L4.96721 2.77579C6.17983 3.45323 7.23802 4.37587 8.07433 5.4849L27.1595 30.7934C28.2932 32.2968 30.067 33.1808 31.95 33.1808H39.5236L34.4868 30.275C33.3008 29.5907 32.2679 28.6702 31.4522 27.5704L12.8022 2.42583C11.6703 0.899828 9.88257 8.23028e-05 7.98262 0.000221879Z" fill="#FF6A00"/>
+              </svg>
+            </span>
+            <span className="text-white font-playfair">US</span>
           </h1>
         </div>
 

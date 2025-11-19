@@ -107,7 +107,7 @@ const UpcomingBatches = () => {
 
       {/* See more / See less */}
       {filtered.length > 5 && (
-        <div className="flex justify-end mt-6">
+        <div className="flex justify-end my-6">
           <button
             onClick={() => setShowAll(!showAll)}
             className="text-[15px] font-semibold text-gray-200 hover:text-white transition-all duration-200 underline-offset-4 hover:underline"

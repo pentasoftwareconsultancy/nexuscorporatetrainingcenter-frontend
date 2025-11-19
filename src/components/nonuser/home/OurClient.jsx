@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 // Import JSON data
 import OurClientdata from "../../../assets/sneha/json/OurClientdata.json";
+import CircleBackground from "../../common/CircleBackground";
 
 // Import images dynamically
 import client1 from "../../../assets/sneha/client1.png";
@@ -82,9 +83,15 @@ function OurClient() {
   };
 
   return (
-    <div className="py-4 lg:py-4 px-12 sm:px-12 md:px-12 text-white mt-10">
+    <div className="relative flex flex-col justify-center overflow-hidden py-4 lg:py-4 px-12 sm:px-12 md:px-12 text-white">
+      <div className="absolute z-0 w-1/3 h-9/12 -translate-y-347 -translate-x-250">
+        <CircleBackground />
+      </div>
+      <div className="absolute z-0 w-1/3 h-9/12 -translate-y-392 translate-x-240">
+        <CircleBackground />
+      </div>
       {/* Clients Section */}
-      <div className="mb-10 lg:mb-14 ">
+      <div className="z-1 mb-10 lg:mb-14 mt-10">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-left mb-6 lg:mb-8 mr-6">
           Our Clients
         </h2>
@@ -131,7 +138,7 @@ function OurClient() {
 
       {/* Divider Line */}
       <div
-        className="w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
+        className="z-1 w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
         style={{
           background:
             "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
@@ -139,7 +146,7 @@ function OurClient() {
       />
 
       {/* Metrics Section */}
-      <div className="mb-10 lg:mb-14 max-w-7xl mx-auto">
+      <div className="z-1 mb-10 lg:mb-14 max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Left */}
           <div className="lg:w-1/2">

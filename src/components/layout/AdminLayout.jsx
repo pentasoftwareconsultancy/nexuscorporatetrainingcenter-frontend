@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../public/Navbar";
 import Footer from "../public/Footer";
 
-const AuthLayout = () => {
+const AdminLayout = () => {
   return (
     <div>
       <Navbar />
@@ -13,4 +13,4 @@ const AuthLayout = () => {
   );
 };
 
-export default AuthLayout;
+export default AdminLayout;
