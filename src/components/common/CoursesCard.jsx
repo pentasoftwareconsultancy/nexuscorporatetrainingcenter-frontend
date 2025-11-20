@@ -1,31 +1,46 @@
+// CoursesCard.jsx
 import React from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../core/constants/routes.constant";
 
-const CoursesCard = ({ logo, title, description, duration, categoryName }) => {
+// 🔥 IMPORT getIconByName
+import { getIconByName } from "../../core/utils/iconMap";
+
+const CoursesCard = ({ logo, title, description, duration,categoryName }) => {
   const navigate = useNavigate();
+
+  // 🧠 Convert logo string to actual React icon
+  const IconComponent = getIconByName(logo);
+
   return (
     <div
-      className="bg-twopointo text-one rounded-2xl p-6 border border-one font-sora
-        transition-all duration-300 ease-in-out 
-        hover:shadow-[0_0_25px_4px_rgba(255,111,0,0.6)] 
-      hover:border-five flex flex-col justify-between min-h-[280px]"
-    >
+  className="bg-twopointo text-one rounded-2xl p-6 border border-one font-sora
+    transition-all duration-300 ease-in-out 
+    hover:shadow-[0_0_30px_6px_rgba(255,111,0,0.8)]
+    hover:border-five
+    hover:scale-105
+y    flex flex-col justify-between min-h-[325px]"
+>
+
       <div>
-        <h2 className="text-xl font-semibold mb-2"><span>{logo}</span>{title}</h2>
+        <h2 className="text-xl font-semibold mb-2 flex items-center gap-2">
+          {/* 🎯 Now Icon is working */}
+          <span><IconComponent size={24} /></span>
+          {title}
+        </h2>
+
         <p className="text-towpointone text-sm mb-4 leading-relaxed">
           {description}
         </p>
       </div>
+
       <div className="flex items-center justify-between">
         <p className="text-sm font-bold">Duration: {duration}</p>
         <Button
           text="Know more"
           onClick={() =>
-            navigate(
-              ROUTES.COURSE_DETAILS.replace(":categoryName", categoryName)
-            )
+            navigate(ROUTES.COURSE_DETAILS.replace(":categoryName", categoryName))
           }
         />
       </div>
