@@ -35,7 +35,7 @@ const CoursesProvided = () => {
   };
 
   return (
-    <section className="min-h-screen px-12 text-white">
+    <section className=" px-12 text-white">
       <h1 className="text-4xl font-bold mb-10">Courses We Provide</h1>
 
       {/* Courses Grid */}
@@ -48,6 +48,7 @@ const CoursesProvided = () => {
             description={truncateDescription(course.description)}
             duration={course.duration}
             categoryName={course.categoryName}
+            logo={course.logo}
           />
         ))}
       </div>

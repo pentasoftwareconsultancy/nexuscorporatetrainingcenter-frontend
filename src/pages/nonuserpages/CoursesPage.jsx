@@ -13,9 +13,9 @@ const CoursesPage = () => {
   };
 
   return (
-    <section className="w-full min-h-screen py-6 px-12">
-      <h1 className="text-4xl text-white font-bold mb-2">Our Courses</h1>
-      <p className="text-[18px] text-white text-justify mb-8 w-11/12">
+    <section className="w-full min-h-screen py-6 px-12 text-one">
+      <h1 className="text-4xl text-white font-bold mb-10">Our Courses</h1>
+      <p className="text-[18px] text-justify mb-8 w-11/12">
         Our extensive catalog of corporate training courses is meticulously
         designed to meet the demands of the modern business landscape. From
         cutting-edge technical skills like AWS, Data Science, and Full Stack
