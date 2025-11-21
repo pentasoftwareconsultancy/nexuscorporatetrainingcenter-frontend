@@ -106,14 +106,14 @@
       {
         "id": 7,
         "title": "SQL Unix Production Support (L2)",
-        "logo": "",
+        "logo": " PiFileSqlBold",
         "description": "Develop strong database and Unix production support skills to handle enterprise-scale systems.",
         "duration": "3 months"
       },
       {
         "id": 9,
         "title": "Business Analyst",
-        "logo": "",
+        "logo": "MdAnalytics",
         "description": "Learn to analyze business needs, document processes, and bridge communication between stakeholders and dev teams.",
         "duration": "3 months"
       },
@@ -156,7 +156,7 @@
       {
         "id": 13,
         "title": "Medical Coding",
-        "logo": "",
+        "logo": "FaLaptopMedical ",
         "description": "Understand ICD and CPT coding for healthcare documentation. Learn processes used in hospitals worldwide.",
         "duration": "3 months"
       }

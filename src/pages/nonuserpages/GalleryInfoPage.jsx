@@ -1,6 +1,9 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import galleryData from "../../assets/vaishnavi/gallary.json";
+import * as VscIcons from "react-icons/vsc";
+
+
 
 export default function GalleryInfoPage() {
   const { id } = useParams();
@@ -8,6 +11,15 @@ export default function GalleryInfoPage() {
 
   // Find the selected album by ID
   const album = galleryData.albums.find((item) => item.id === parseInt(id));
+  const getIcon = (iconName) => {
+  return (
+    VscIcons[VscAzureDevops] ||
+    SiIcons[iconName] ||
+    FaIcons[iconName] ||
+    null
+  );
+};
+
 
   // Function to get full image path
   const getImageSrc = (filename) =>
@@ -16,7 +28,7 @@ export default function GalleryInfoPage() {
   // Handle missing album
   if (!album) {
     return (
-      <div className="min-h-screen  text-white flex flex-col items-center justify-center">
+      <div className="  text-white flex flex-col items-center justify-center">
         <h2 className="text-3xl font-bold mb-4">Album not found!</h2>
         <button
           onClick={() => navigate(-1)}
