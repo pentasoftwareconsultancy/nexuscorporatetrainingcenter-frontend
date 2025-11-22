@@ -94,46 +94,38 @@ const AppRoutes = () => {
 
 
       {/* 👤 USER ROUTES (Dashboard layout) */}
-      <Route
-        element={
-          <ProtectedRoute allowedRoles={["user"]}>
-            <UserLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="/appitude" element={<AppitudeExam />} />
-        <Route path="/exam" element={<TestExam />} />
-        <Route path="/success" element={<TestSuccess />} />
-        <Route path="/result" element={<Result />} />
-        <Route path="/certification" element={<Certification />} />
+      <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+        <Route element={<UserLayout />}>
+          <Route path="/appitude" element={<AppitudeExam />} />
+          <Route path="/exam" element={<TestExam />} />
+          <Route path="/success" element={<TestSuccess />} />
+          <Route path="/result" element={<Result />} />
+          <Route path="/certification" element={<Certification />} />
+        </Route>
       </Route>
 
 
       {/* 🛠️ ADMIN ROUTES (Admin layout, NO footer) */}
-      <Route
-        element={
-          <ProtectedRoute allowedRoles={["admin"]}>
-            <AdminLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="/dashboard" element={<AdminDashboard />} />
-        <Route path="/totaldashboard" element={<TotalRegisterDashboard />} />
-        <Route path="/registerdashboard" element={<NewRegisterDashboard />} />
-        <Route path="/testdashboard" element={<CompletedTestDashboard />} />
-        <Route path="/visitdashboard" element={<CollegeVisitDashboard />} />
-        <Route path="/placementdashboard" element={<TotalPlacementDashboard />} />
-        <Route path="/reviewsdashboard" element={<TotalReviewsDashboard />} />
-        <Route path="/galleryevent" element={<GalleryEventPage />} />
-        <Route path="/admincourses" element={<AdminCoursesPage />} />
-        <Route path="/adminnotification" element={<AdminNotificationPage />} />
-        <Route path="/adminprofile" element={<AdminProfile />} />
-        <Route path="/addcourses" element={<AddCoursesPage />} />
-        <Route path="/visitdetail" element={<CollegeVisitDetailPage />} />
-        <Route path="/eventdetail" element={<GalleryEventDetailPage />} />
-        <Route path="/placementdetail" element={<PlacementDetailPage />} />
-        <Route path="/registerdetail" element={<RegisterDetailPage />} />
-        <Route path="/completedetail" element={<TestCompleteDetailPage />} />
+      <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+        <Route element={<AdminLayout />}>
+          <Route path="/dashboard" element={<AdminDashboard />} />
+          <Route path="/totaldashboard" element={<TotalRegisterDashboard />} />
+          <Route path="/registerdashboard" element={<NewRegisterDashboard />} />
+          <Route path="/testdashboard" element={<CompletedTestDashboard />} />
+          <Route path="/visitdashboard" element={<CollegeVisitDashboard />} />
+          <Route path="/placementdashboard" element={<TotalPlacementDashboard />} />
+          <Route path="/reviewsdashboard" element={<TotalReviewsDashboard />} />
+          <Route path="/galleryevent" element={<GalleryEventPage />} />
+          <Route path="/admincourses" element={<AdminCoursesPage />} />
+          <Route path="/adminnotification" element={<AdminNotificationPage />} />
+          <Route path="/adminprofile" element={<AdminProfile />} />
+          <Route path="/addcourses" element={<AddCoursesPage />} />
+          <Route path="/visitdetail" element={<CollegeVisitDetailPage />} />
+          <Route path="/eventdetail" element={<GalleryEventDetailPage />} />
+          <Route path="/placementdetail" element={<PlacementDetailPage />} />
+          <Route path="/registerdetail" element={<RegisterDetailPage />} />
+          <Route path="/completedetail" element={<TestCompleteDetailPage />} />
+        </Route>
       </Route>
 
     </Routes>

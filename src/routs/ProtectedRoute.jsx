@@ -1,25 +1,4 @@
-// import React from "react";
-// import { Navigate } from "react-router-dom";
-// import useAuth from "../hooks/useAuth";
-
-// const ProtectedRoute = ({ children, allowedRoles }) => {
-//   const { user } = useAuth();
-
-//   if (!user) return <Navigate to="/login" replace />;
-
-//   if (allowedRoles && !allowedRoles.includes(user.role)) {
-//     return <Navigate to="/" replace />; // or show “Access Denied”
-//   }
-
-//   return children;
-// };
-
-// export default ProtectedRoute;
-
-
-// src/routs/ProtectedRoute.jsx
-import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const parseBypassUser = () => {
@@ -32,31 +11,26 @@ const parseBypassUser = () => {
   }
 };
 
-const ProtectedRoute = ({ allowedRoles, children }) => {
+const ProtectedRoute = ({ allowedRoles }) => {
   const { user } = useAuth();
 
-  // DEV bypass: if enabled, use env-provided mock user
+  // Dev bypass
   if (import.meta.env.VITE_BYPASS_AUTH === "true") {
     const devUser = parseBypassUser();
-    if (devUser) {
-      // role check against devUser
-      if (allowedRoles && !allowedRoles.includes(devUser.role)) {
-        return <Navigate to="/login" replace />;
-      }
-      return children;
+    if (devUser && allowedRoles && !allowedRoles.includes(devUser.role)) {
+      return <Navigate to="/login" replace />;
     }
-    // if bypass flag is on but no dev user, allow through (optionally)
-    return children;
+    return <Outlet />;
   }
 
-  // Normal behavior
+  // Real auth
   if (!user) return <Navigate to="/login" replace />;
 
   if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/" replace />; // or show access denied
+    return <Navigate to="/" replace />;
   }
 
-  return children;
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
