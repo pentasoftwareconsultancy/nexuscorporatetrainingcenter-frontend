@@ -50,26 +50,49 @@ export default function TestExam() {
       {/* =================================================== */}
       {showSelectPopup && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div className="bg-zinc-900 p-8 rounded-xl w-[90%] max-w-md shadow-xl text-center">
-            <h2 className="text-xl font-semibold mb-4">Take a Quiz</h2>
+          <div className="flex flex-col bg-zinc-900 p-8 rounded-xl px-2 max-w-md shadow-xl text-center justify-center">
 
-            <div className="grid grid-cols-4 gap-3">
+            <h2 className="text-xl font-semibold mb-4">
+              Take a Quiz
+            </h2>
+
+            <h2 className="text-l font-semibold mb-2">
+              How many questions you want to take?
+            </h2>
+
+            {/* Radio Options */}
+            <div className="flex gap-4 my-4 items-center justify-center mx-auto w-fit">
               {[10, 20, 30].map((num) => (
-                <button
+                <label
                   key={num}
-                  onClick={() => {
-                    setTotalQuestions(num);
-                    setShowSelectPopup(false);
-                  }}
-                  className="px-4 py-2 rounded-lg border border-gray-600 hover:border-orange-500 hover:text-orange-500 transition"
+                  className="flex items-center gap-3 cursor-pointer text-gray-300 hover:text-orange-400 transition"
                 >
-                  {num}
-                </button>
+                  <input
+                    type="radio"
+                    name="totalQuestions"
+                    value={num}
+                    onChange={() => setTotalQuestions(num)}
+                    className="w-4 h-4 accent-orange-500"
+                  />
+                  <span className="text-lg">{num}</span>
+                </label>
               ))}
             </div>
+
+            <Button
+              text="Next"
+              onClick={() => {
+                if (totalQuestions) {
+                  setShowSelectPopup(false);
+                }
+              }}
+              disabled={!totalQuestions}
+              className="w-auto px-6 self-center"
+            />
           </div>
         </div>
       )}
+
 
       {/* =================================================== */}
       {/* 🔥 POPUP — CONFIRM SUBMISSION */}
@@ -136,10 +159,9 @@ export default function TestExam() {
               <label
                 key={idx}
                 className={`flex items-center justify-between border rounded-lg px-4 py-4 cursor-pointer transition-all 
-                  ${
-                    answers[currentQuestionIndex] === opt
-                      ? "bg-green-800 border-green-600"
-                      : "border-gray-700 hover:border-white"
+                  ${answers[currentQuestionIndex] === opt
+                    ? "bg-green-800 border-green-600"
+                    : "border-gray-700 hover:border-white"
                   }`}
               >
                 <div className="flex items-center gap-3">
@@ -197,10 +219,9 @@ export default function TestExam() {
                   key={i}
                   onClick={() => setCurrentQuestionIndex(i)}
                   className={`w-10 h-10 rounded-lg flex items-center justify-center font-semibold transition border 
-                    ${
-                      i === currentQuestionIndex
-                        ? "bg-orange-500 text-white border-orange-500"
-                        : isAttempted
+                    ${i === currentQuestionIndex
+                      ? "bg-orange-500 text-white border-orange-500"
+                      : isAttempted
                         ? "bg-green-700 text-white border-green-600"
                         : "border-[#d1cfcf] text-white hover:border-white"
                     }`}

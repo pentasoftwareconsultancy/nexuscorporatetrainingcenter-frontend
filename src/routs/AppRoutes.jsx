@@ -14,10 +14,13 @@ import AboutPage from "../pages/nonuserpages/AboutPage";
 import CoursesPage from "../pages/nonuserpages/CoursesPage";
 import CoursesDetailPage from "../pages/nonuserpages/CoursesDetailPage";
 import GalleryPage from "../pages/nonuserpages/GalleryPage";
+import GalleryCollege from "../pages/nonuserpages/GalleryCollege";
 import GalleryInfoPage from "../pages/nonuserpages/GalleryInfoPage";
 import PlacementPage from "../pages/nonuserpages/PlacementPage";
 import PlacementStoryPage from "../pages/nonuserpages/PlacementStoryPage";
 import UpcomingPage from "../pages/nonuserpages/UpcomingPage";
+import ProfessorPage from "../pages/nonuserpages/ProfessorPage";
+import BranchesPage from "../pages/nonuserpages/BranchesPage";
 import ContactPage from "../pages/nonuserpages/ContactPage";
 
 // User Pages
@@ -39,6 +42,12 @@ import GalleryEventPage from "../pages/admin/GalleryEventPage";
 import AdminCoursesPage from "../pages/admin/AdminCoursesPage";
 import AdminNotificationPage from "../pages/admin/AdminNotificationPage";
 import AdminProfile from "../pages/admin/AdminProfile";
+import AddCoursesPage from "../pages/admin/AddCorsesPage";
+import CollegeVisitDetailPage from "../pages/admin/CollegeVisitDetailPage";
+import GalleryEventDetailPage from "../pages/admin/GalleryEventDetailPage";
+import PlacementDetailPage from "../pages/admin/PlacementDetailPage";
+import RegisterDetailPage from "../pages/admin/RegisterDetailPage";
+import TestCompleteDetailPage from "../pages/admin/TestCompleteDetailPage";
 
 // Auth Pages
 import Login from "../pages/auth/Login";
@@ -55,10 +64,13 @@ const AppRoutes = () => {
         <Route path="/courses" element={<CoursesPage />} />
         <Route path="/courses/:categoryName" element={<CoursesDetailPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/gallery/:collegeId" element={<GalleryCollege />} />
         <Route path="/gallery/:id" element={<GalleryInfoPage />} />
         <Route path="/placements" element={<PlacementPage />} />
         <Route path="/placements/:id" element={<PlacementStoryPage />} />
         <Route path="/upcoming" element={<UpcomingPage />} />
+        <Route path="/branch" element={<BranchesPage />} />
+        <Route path="/professor" element={<ProfessorPage />} />
         <Route path="/contact" element={<ContactPage />} />
 
         {/* 🔑 LOGIN + SIGNUP (Public layout!) */}
@@ -106,7 +118,22 @@ const AppRoutes = () => {
         }
       >
         <Route path="/dashboard" element={<AdminDashboard />} />
-        <Route path="/"></Route>
+        <Route path="/totaldashboard" element={<TotalRegisterDashboard />} />
+        <Route path="/registerdashboard" element={<NewRegisterDashboard />} />
+        <Route path="/testdashboard" element={<CompletedTestDashboard />} />
+        <Route path="/visitdashboard" element={<CollegeVisitDashboard />} />
+        <Route path="/placementdashboard" element={<TotalPlacementDashboard />} />
+        <Route path="/reviewsdashboard" element={<TotalReviewsDashboard />} />
+        <Route path="/galleryevent" element={<GalleryEventPage />} />
+        <Route path="/admincourses" element={<AdminCoursesPage />} />
+        <Route path="/adminnotification" element={<AdminNotificationPage />} />
+        <Route path="/adminprofile" element={<AdminProfile />} />
+        <Route path="/addcourses" element={<AddCoursesPage />} />
+        <Route path="/visitdetail" element={<CollegeVisitDetailPage />} />
+        <Route path="/eventdetail" element={<GalleryEventDetailPage />} />
+        <Route path="/placementdetail" element={<PlacementDetailPage />} />
+        <Route path="/registerdetail" element={<RegisterDetailPage />} />
+        <Route path="/completedetail" element={<TestCompleteDetailPage />} />
       </Route>
 
     </Routes>

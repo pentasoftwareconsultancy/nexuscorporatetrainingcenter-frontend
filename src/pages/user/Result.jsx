@@ -3,11 +3,11 @@ import data from '../../assets/saidas/resultData.json'
 
 const Result = () => {
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-white px-4 sm:px-6 md:px-10 lg:px-16 py-8 sm:py-10 md:py-14 font-sans">
+    <div className="min-h-screen bg-[#0f0f0f] text-white px-4 sm:px-6 md:px-10 lg:px-16 py-8 sm:py-10 md:py-14 font-sora">
       {/* 🔹 Title */}
       <h1
         className="
-          text-3xl sm:text-4xl md:text-5xl font-bold mb-10 sm:mb-12 text-left
+          text-3xl sm:text-4xl md:text-5xl  mb-10 sm:mb-12 text-left
           max-[400px]:text-[1.8rem] max-[370px]:text-[1.6rem] max-[350px]:text-[1.5rem]
         "
       >
@@ -29,8 +29,8 @@ const Result = () => {
               key={index}
               className={`rounded-xl p-5 sm:p-6 shadow-md border transition-all duration-200
                 ${isCorrect
-                  ? "bg-[#205E3B] border-[#2ed573]" // ✅ Green for correct
-                  : "bg-[#5A2B14] border-[#e67e22]" // 🟤 Brown for wrong
+                  ? "bg-[#205E3B] border-[#FFF3EA]" // ✅ Green for correct
+                  : "bg-[#5A2B14] border-[#FFF3EA]" // 🟤 Brown for wrong
                 }
                 max-[430px]:p-4 max-[380px]:p-3
               `}
