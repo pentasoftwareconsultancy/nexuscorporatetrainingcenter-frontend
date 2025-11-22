@@ -1,0 +1,77 @@
+{
+  "colleges": [
+    {
+      "id": 1,
+      "image": "/images/natureimg.jpeg",
+      "eventName": "Annual College Gathering",
+      "date": "15 January 2026",
+      "location": "Pune"
+    },
+    {
+      "id": 2,
+      "image": "/images/natureimg.jpeg",
+      "eventName": "Tech & Science Expo",
+      "date": "22 February 2026",
+      "location": "Mumbai"
+    },
+    {
+      "id": 3,
+      "image": "/images/natureimg.jpeg",
+      "eventName": "Cultural Fiesta",
+      "date": "8 March 2026",
+      "location": "Nashik"
+    },
+    {
+      "id": 4,
+      "image": "/images/natureimg.jpeg",
+      "eventName": "Fresher’s Welcome",
+      "date": "12 April 2026",
+      "location": "Nagpur"
+    },
+    {
+      "id": 5,
+      "image": "/images/natureimg.jpeg",
+      "eventName": "Sports Championship",
+      "date": "30 May 2026",
+      "location": "Aurangabad"
+    }
+  ],
+
+  "eventstories": [
+    {
+      "id": 1,
+      "image": "/images/natureimg.jpeg",
+      "eventName": "Business Summit",
+      "date": "5 January 2026",
+      "location": "Thane"
+    },
+    {
+      "id": 2,
+      "image": "/images/natureimg.jpeg",
+      "eventName": "Cultural Night",
+      "date": "19 February 2026",
+      "location": "Pune"
+    },
+    {
+      "id": 3,
+      "image": "/images/natureimg.jpeg",
+      "eventName": "Motivational Seminar",
+      "date": "11 March 2026",
+      "location": "Mumbai"
+    },
+    {
+      "id": 4,
+      "image": "/images/natureimg.jpeg",
+      "eventName": "Women Empowerment Meet",
+      "date": "23 April 2026",
+      "location": "Nagpur"
+    },
+    {
+      "id": 5,
+      "image": "/images/natureimg.jpeg",
+      "eventName": "Entrepreneurship Workshop",
+      "date": "7 May 2026",
+      "location": "Solapur"
+    }
+  ]
+}
