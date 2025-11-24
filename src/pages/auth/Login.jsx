@@ -101,9 +101,9 @@ const Login = () => {
 
           <h1
             className="absolute left-1/2 -translate-x-1/2 md:left-10 md:translate-x-0 top-1/2 -translate-y-1/2 
-            text-[120px] md:text-[220px] font-extrabold 
+            text-[150px] md:text-[220px] font-extrabold 
             text-[#c96b2c] opacity-40 
-            leading-none select-none tracking-tight pointer-events-none text-center md:text-left"
+            leading-none select-none pointer-events-none text-center md:text-left"
           >
             Log<br />In
           </h1>
