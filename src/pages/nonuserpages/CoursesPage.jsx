@@ -40,6 +40,8 @@ const CoursesPage = () => {
                 key={course.id}
                 id={course.id}
                 title={course.title}
+                  logo={course.logo}      //  🟢 ADD THIS ✔
+
                 description={truncateDescription(course.description)}
                 duration={course.duration}
                 categoryName={category.categoryName} // ✅ this now works correctly
