@@ -5,7 +5,7 @@ import partnerData from "../../../assets/tarushri/partnerData.json";
 // Import all icons
 import { FaUserFriends, FaUserTie, FaLightbulb } from "react-icons/fa";
 import { ImHtmlFive } from "react-icons/im";
-import { BsFileBarGraphFill } from "react-icons/bs";
+import { BsBarChartFill } from "react-icons/bs";
 import { RiFocus3Line } from "react-icons/ri";
 
 // Map icon names to actual components
@@ -14,7 +14,7 @@ const icons = {
   FaUserTie,
   FaLightbulb,
   ImHtmlFive,
-  BsFileBarGraphFill,
+  BsBarChartFill,
   RiFocus3Line,
 };
 

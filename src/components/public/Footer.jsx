@@ -1,6 +1,10 @@
 import React from "react";
 import footerImg from "../../assets/sneha/footer.png"; 
-import { Linkedin, Instagram, Facebook, Youtube } from "lucide-react"; 
+import { FaLinkedin } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { AiFillInstagram } from "react-icons/ai";
+import { FaYoutube } from "react-icons/fa6";
+
 const companyLinks = [
   "Home", "About us", "Courses", "Gallery", "Success stories", "Contact us", "Book appointment", "Book Demo"
 ];
@@ -31,8 +35,8 @@ const coursesRight = [
 
 export default function Footer() {
   return (
-    <footer className="flex justify-center items-center text-white w-full min-h-screen relative">
-      <div className="relative w-full min-h-[700px] text-white overflow-hidden rounded-xl ">
+    <footer className="flex justify-center items-center text-white w-full min-h-screen relative mx-auto m-10 px-12">
+      <div className="relative w-full min-h-[700px] text-one overflow-hidden rounded-xl  border-one border-2 rounded-2xl">
         
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b  via-[#1b1008] to-[#e77b2ee1]" />
@@ -123,16 +127,14 @@ export default function Footer() {
 </div>
 
 
-         <div className="flex justify-start gap-4 sm:gap-4 mt-5">
-  {[Linkedin, Facebook, Instagram, Youtube].map((Icon, i) => (
+    <div className="flex justify-start gap-4 sm:gap-4 mt-5">
+  {[FaLinkedin, FaFacebook, AiFillInstagram, FaYoutube].map((Icon, i) => (
     <a
       key={i}
       href="#"
-      className="bg-white w-10 h-10 flex items-center justify-center 
-                 rounded-[6px] shadow-[0_4px_25px_rgba(255,106,0,0.4)] 
-                 transition-transform duration-200 hover:scale-105"
+     
     >
-      <Icon size={28} strokeWidth={1.5} className="text-[#ff6a00]" />
+      <Icon size={28} className="" />
     </a>
   ))}
 </div>

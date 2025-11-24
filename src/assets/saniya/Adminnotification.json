@@ -1,0 +1,15 @@
+{
+  "userEnrollmentNotifications": [
+    "New User Registration: Alert when a new user signs up, especially for open enrollment courses.",
+    "Enrollment Requests: Notification when a user or manager requests enrollment in a paid or restricted course (requires approval).",
+    "Certification Completion: Alert when a user successfully completes a required course or obtains a major certification.",
+    "Account Deactivation/Suspension: Notification when a user account is manually or automatically deactivated."
+  ],
+
+  "systemTechnicalAlerts": [
+    "Payment/Subscription Failure: Urgent alert if the company's subscription to a third-party service (e.g., cloud hosting, payment gateway) is failing.",
+    "Integration Error: Notification if API calls to integrated services (e.g., HRIS, CRM) fail repeatedly.",
+    "Scheduled Maintenance: Notification to remind admins about upcoming maintenance windows for the LMS."
+  ]
+  
+}

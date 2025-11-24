@@ -21,17 +21,14 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen text-white flex flex-col items-center mt-20 px-4 sm:px-6 md:px-10 lg:px-20 font-[Poppins] overflow-hidden">
-
       <div className="absolute top-0 left-0 w-full h-[300px] bg-gradient-to-b from-orange-400/50 to-transparent blur-2xl z-0"></div>
 
       <h1 className="text-[100px] sm:text-[140px] md:text-[180px] lg:text-[200px] font-bold text-orange-600 opacity-10 select-none text-center mb-[-60px] sm:mb-[-80px] md:mb-[-100px] z-10 leading-none">
         Contact
       </h1>
 
-      <div className="flex flex-col md:flex-row w-full max-w-6xl mt-10 relative z-10 gap-10 md:gap-5">
- 
-         <div className="md:w-[45%] w-full mt-6 md:mt-10 p-4 sm:p-5 md:p-6 flex flex-col justify-start">
-
+      <div className="flex flex-col md:flex-row w-full max-w-8xl mt-10 relative z-10 gap-10 md:gap-5">
+        <div className="md:w-[45%] w-full mt-6 md:mt-10 p-4 sm:p-5 md:p-6 flex flex-col justify-start">
           <div className="mt-4 mb-4 text-center md:text-left">
             <h2 className="text-2xl sm:text-3xl font-semibold mb-1 text-white">
               Get in touch
@@ -46,7 +43,6 @@ export default function ContactPage() {
           </div>
 
           <div className="flex flex-col space-y-3 w-full">
-
             <div className="flex items-center justify-between bg-[#1a1a1a] p-3 rounded-lg shadow-[0_1px_5px_rgba(0,0,0,0.5)] hover:shadow-[0_0_10px_rgba(255,102,0,0.25)] transition-all duration-300">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 flex items-center justify-center rounded-md bg-[#1a1a1a] shadow-[inset_0_0_6px_rgba(255,255,255,0.1)]">
@@ -150,36 +146,38 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* Divider Line */}
-      <div
-        className="w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
-        style={{
-          background:
-            "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
-        }}
-      />
 
-      <section className="relative w-screen">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-1 translate-x-2">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-6 text-center md:text-left">
-            Terms & Conditions
-          </h2>
-          <ul className="list-disc list-inside text-gray-300 space-y-3 leading-relaxed text-sm sm:text-base">
-            <li>The fees will be non-refundable and non-transferable.</li>
-            <li>Batch or course change is not allowed.</li>
-            <li>Nexus provides corporate-level training.</li>
-            <li>Training will be provided according to the specified syllabus only.</li>
-            <li>Course materials are proprietary and should not be distributed.</li>
-            <li>Candidates will receive interview calls from different job portals.</li>
-            <li>
-              For any queries, contact us at{" "}
-              <span className="">support@example.com</span>.
-            </li>
-          </ul>
-        </div>
-      </section>
+<div
+  className="w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
+  style={{
+    background:
+      "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
+  }}
+/>
 
-      <div className="h-20"></div>
-    </div>
+<section className="relative w-screen mt-5 z-20">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-1">
+    <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-6 text-left">
+      Terms & Conditions
+    </h2>
+
+    <ul className="list-disc list-outside text-gray-300 space-y-0.15 leading-relaxed text-sm sm:text-base">
+      <li>The fees will be non-refundable and non-transferable in any circumstances.</li>
+      <li>Batch or course change is not allowed.</li>
+      <li>Training will be provided according to the specified syllabus.</li>
+      <li>Candidates will receive interview calls from different job portals.</li>
+      <li>Course materials are proprietary and should not be distributed without permission.</li>
+      <li>Certification will be provided only after meeting attendance and assessment requirements.</li>
+      <li>All personal information collected will be kept confidential and used for official purposes only.</li>
+      <li>All candidates are expected to maintain professional behavior during training.</li>
+      <li>Candidates must ensure they have access to necessary hardware and software for online sessions.</li>
+      <li>
+        For any queries, contact us at{" "}
+        <span className="">support@example.com</span>.
+      </li>
+    </ul>
+  </div>
+</section>
+</div>
   );
 }

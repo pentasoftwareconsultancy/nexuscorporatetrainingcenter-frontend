@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { FcGoogle } from "react-icons/fc";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+
 
 const InputField = ({ type = "text", placeholder, value, onChange }) => (
   <input
@@ -44,24 +48,16 @@ const LoginForm = ({ email, password, setEmail, setPassword, onSubmit }) => (
       Submit
     </button>
 
-    {/* Google & Facebook Login Buttons */}
     <div className="flex flex-col sm:flex-row justify-between gap-2 mb-4 w-full">
 
       <button className="flex items-center justify-center border border-gray-600 gap-1 w-full sm:w-1/2 text-white py-2 rounded-md transition focus:ring-2">
-        <img
-          src="https://www.svgrepo.com/show/475656/google-color.svg"
-          alt="Google"
-          className="w-4 h-4"
-        />
+        <FcGoogle />
         <span className="text-sm">Login with Google</span>
       </button>
 
       <button className="flex items-center justify-center border border-gray-600 gap-1 w-full sm:w-1/2 text-white py-2 rounded-md transition focus:ring-2">
-        <img
-          src="https://www.svgrepo.com/show/448224/facebook.svg"
-          alt="Facebook"
-          className="w-4 h-4"
-        />
+       <FontAwesomeIcon icon={faFacebook} style={{ color: "#278ece" }} />
+
         <span className="text-sm">Login with Facebook</span>
       </button>
 
@@ -76,11 +72,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // MAIN LOGIN FUNCTION
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // MOCK LOGIN — replace with API later
     let role = "user";
     if (email === "admin@gmail.com") role = "admin";
 
@@ -91,7 +85,6 @@ const Login = () => {
 
     login(userData);
 
-    // redirect based on role
     if (role === "admin") {
       navigate("/dashboard");
     } else {
@@ -115,7 +108,6 @@ const Login = () => {
             Log<br />In
           </h1>
 
-          {/* MOBILE FORM */}
           <div className="absolute inset-0 flex items-center justify-center md:hidden">
             <div className="w-[90%] max-w-[380px] bg-transparent p-2 rounded-xl animate-popin">
               <LoginForm
@@ -133,8 +125,7 @@ const Login = () => {
 
         </div>
 
-        {/* DESKTOP FORM */}
-        <div className="hidden md:flex flex-col w-full md:w-[460px] scale-100 animate-popin">
+        <div className="hidden md:flex flex-col w-full md:w-[500px] scale-100 animate-popin">
           <LoginForm 
             email={email}
             password={password}

@@ -41,46 +41,54 @@ export default function GalleryInfoPage() {
   }
 
   return (
-    <div className="min-h-screen   sm:px-10 ">
-      {/* Title and Description */}
-      <div className="mb-10">
-        <h1 className="text-2xl sm:text-2xl font-bold text-white mb-3">
-          Collab With {album.title}
-        </h1>
-      </div>
+   <div className="w-full px-4 sm:px-10 py-10 text-white">
 
-      {/* Images Grid */}
+  <h1 className="text-2xl sm:text-3xl font-bold mb-6">
+    Collab With {album.title}
+  </h1>
+
+  <div
+    className="
+      grid
+      gap-6
+      w-full
+      max-w-[2400px]
+      mx-auto
+      grid-cols-[repeat(auto-fit,minmax(250px,1fr))]
+    "
+  >
+    {album.images.map((image, index) => (
       <div
-        className="grid gap-2 place-items-center mb-8"
-        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
+        key={index}
+        className="
+          relative group overflow-hidden rounded-xl border border-gray-700
+          shadow-[0_0_25px_rgba(255,165,0,0.5)]
+          hover:shadow-[0_0_40px_rgba(255,165,0,0.8)]
+          transition-all duration-500
+          w-full aspect-square
+        "
       >
-        {album.images.map((image, index) => (
-          <div
-            key={index}
-            className="relative group overflow-hidden rounded-xl border border-gray-700 
-                       shadow-[0_0_25px_rgba(255,165,0,0.5)] 
-                       hover:shadow-[0_0_40px_rgba(255,165,0,0.8)]  
-                       transition-all duration-500 w-[280px] h-[280px] max-w-full"
-          >
-            <img
-              src={getImageSrc(image)}
-              alt={`${album.title}-${index}`}
-              className="w-full h-full object-cover rounded-xl 
-                         transform group-hover:scale-105 
-                         transition-transform duration-500"
-            />
-          </div>
-        ))}
+        <img
+          src={getImageSrc(image)}
+          alt={`${album.title}-${index}`}
+          className="
+            w-full h-full object-cover rounded-xl
+            transform group-hover:scale-105
+            transition-transform duration-500
+          "
+        />
       </div>
-      <div className="mb-2">
-        <h1 className="text-2xl sm:text-2xl font-bold text-white mb-3">
-          {album.title} Collab
-        </h1>
+    ))}
+  </div>
 
-        <p>{album.description}</p>
-      </div>
+  <div className="mt-8">
+    <h1 className="text-2xl sm:text-2xl font-bold mb-3">
+      {album.title} Collab
+    </h1>
+    <p>{album.description}</p>
+  </div>
 
-      {/* Back Button */}
-    </div>
+</div>
+
   );
 }

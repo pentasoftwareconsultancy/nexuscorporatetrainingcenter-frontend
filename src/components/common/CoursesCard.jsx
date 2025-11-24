@@ -4,14 +4,18 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../core/constants/routes.constant";
 
+
 // 🔥 IMPORT getIconByName
 import { getIconByName } from "../../core/utils/iconMap";
 
 const CoursesCard = ({ logo, title, description, duration,categoryName }) => {
   const navigate = useNavigate();
+  
 
   // 🧠 Convert logo string to actual React icon
   const IconComponent = getIconByName(logo);
+  
+  
 
   return (
     <div
@@ -25,10 +29,9 @@ y    flex flex-col justify-between min-h-[325px]"
 
       <div>
         <h2 className="text-xl font-semibold mb-2 flex items-center gap-2">
-          {/* 🎯 Now Icon is working */}
-          <span><IconComponent size={24} /></span>
-          {title}
-        </h2>
+  {IconComponent && <IconComponent size={24} />}  
+  {title}
+</h2>
 
         <p className="text-towpointone text-sm mb-4 leading-relaxed">
           {description}

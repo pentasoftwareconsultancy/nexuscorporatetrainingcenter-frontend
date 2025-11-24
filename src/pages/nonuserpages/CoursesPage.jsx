@@ -3,7 +3,6 @@ import coursesData from "../../assets/shubham/coursesdata.json";
 import CourseCard from "../../components/common/CoursesCard";
 
 const CoursesPage = () => {
-  // Helper to trim description to 25 words
   const truncateDescription = (text, wordLimit = 35) => {
     if (!text) return "";
     const words = text.split(" ");
@@ -41,6 +40,8 @@ const CoursesPage = () => {
                 key={course.id}
                 id={course.id}
                 title={course.title}
+                  logo={course.logo}      //  🟢 ADD THIS ✔
+
                 description={truncateDescription(course.description)}
                 duration={course.duration}
                 categoryName={category.categoryName} // ✅ this now works correctly
