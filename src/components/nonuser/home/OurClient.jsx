@@ -79,7 +79,7 @@ function OurClient() {
   ];
 
   return (
-    <div className="relative w-screen min-h-screen bg-gray-900 text-white overflow-x-hidden py-10 sm:py-16">
+    <div className="relative w-screen  bg-gray-900 text-white overflow-x-hidden py-10 sm:py-16">
       {/* Circle backgrounds hidden on small screens */}
       <div className="absolute z-0 w-1/3 h-3/4 -translate-y-[320%] -translate-x-[210%] pointer-events-none hidden md:block">
         <CircleBackground />
@@ -89,11 +89,11 @@ function OurClient() {
       </div>
 
       {/* Clients Section */}
-      <section className="relative z-10 w-full max-w-[1600px] mx-auto px-3 md:px-10">
-        <h2 className="text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
+      <section className="relative z-10 w-full  mx-auto px-3 md:px-10">
+        <h2 className=" text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
           Our Clients
         </h2>
-      <div className="w-full border-t border-[#c0bbbb] my-5"></div>
+      <div className=" w-full border-t border-[#c0bbbb] my-6"></div>
         <div className="relative">
           <Slider {...sliderSettings}>
             {clients.map((client, idx) => (
@@ -102,7 +102,7 @@ function OurClient() {
                   <img
                     src={imageMap[client.src]}
                     alt={client.name}
-                    className="h-9 sm:h-11 lg:h-12 object-contain mx-auto grayscale hover:grayscale-0 transition-all duration-300"
+                    className="h-9  lg:h-12 object-contain mx-auto grayscale hover:grayscale-0 transition-all duration-300"
                     style={{ maxWidth: "140px", filter: "brightness(1)", opacity: 1 }}
                     onClick={() => setIsPaused(true)}
                   />
@@ -121,12 +121,14 @@ function OurClient() {
             </button>
           </div>
         )}
+              <div className="w-full border-t border-[#c0bbbb] my-6"></div>
+
       </section>
 
-      <div className="w-full border-t border-[#c0bbbb] my-6"></div>
+      {/* <div className="w-full border-t border-[#c0bbbb] my-6"></div> */}
 
       {/* Metrics Section */}
-      <section className="z-10 w-full max-w-[1600px] mx-auto px-3 md:px-10">
+      <section className="z-10 w-full  mx-auto px-3 md:px-10">
         <div className="flex flex-col lg:flex-row lg:items-start lg:gap-8">
           {/* Left */}
           <div className="lg:w-1/3 mb-8 lg:mb-0">
