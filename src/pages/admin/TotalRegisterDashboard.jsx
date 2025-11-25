@@ -35,14 +35,6 @@ export default function TotalRegisterDashboard() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("Enquiry");
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeMenu, setActiveMenu] = useState("Dashboard");
-
-  const [newUser, setNewUser] = useState({
-    name: "",
-    email: "",
-    course: "",
-    duration: "",
-  });
 
   // Filtering Users
   const filteredUsers = allUsers.filter((u) => {
@@ -57,32 +49,9 @@ export default function TotalRegisterDashboard() {
   });
 
   return (
-    <div className="relative min-h-screen flex bg-[#0f0f0f] text-white font-poppins overflow-hidden">
+    <div className="relative min-h-screen flex text-one font-poppins overflow-hidden font-sora">
 
-      {/* SIDEBAR */}
-      <h1 className="absolute text-2xl font-bold text-white mb-10 mx-5">NEXUS</h1>
-
-      <div className="hidden lg:flex w-[350px] bg-[#0E0E0E] border-r border-white p-6 overflow-y-auto">
-        <nav className="flex flex-col gap-4 text-gray-300 border-b mt-10 mr-3 border-white pb-6">
-          {["Dashboard", "Courses", "Gallery", "Placements"].map((btn) => (
-            <button
-              key={btn}
-              onClick={() => setActiveMenu(btn)}
-              className={`text-left px-3 py-2 rounded-md transition 
-                ${
-                  activeMenu === btn
-                    ? "bg-black text-white font-semibold"
-                    : "hover:bg-gray-800"
-                }`}
-            >
-              {btn}
-            </button>
-          ))}
-
-          <button className="mt-60 bg-orange-500 text-white py-2 px-5 rounded-full">
-            Log out
-          </button>
-        </nav>
+      <div className="hidden lg:flex p-6 overflow-y-auto">
 
         <div className="mt-6">
           <div className="flex flex-col gap-3 overflow-y-auto pr-2">
@@ -106,21 +75,9 @@ export default function TotalRegisterDashboard() {
 
       {/* MAIN CONTENT */}
       <main className="flex-1 p-6 lg:p-10 w-full overflow-y-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-xl md:text-2xl font-semibold">
+          <h2 className="text-xl md:text-2xl font-semibold pb-5">
             Total Registration Users ({allUsers.length})
           </h2>
-
-          <div className="flex items-center gap-5">
-            <Menu className="lg:hidden cursor-pointer" />
-            <Bell size={22} className="text-white" />
-            <img
-              src="https://i.pravatar.cc/50"
-              alt="user"
-              className="w-10 h-10 rounded-full"
-            />
-          </div>
-        </div>
 
         {/* FILTER BUTTONS */}
         <div className="flex flex-wrap gap-4">
@@ -148,49 +105,20 @@ export default function TotalRegisterDashboard() {
             placeholder="Search by name, email"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#1a1a1a] border border-white rounded-full py-3 pl-12 pr-5 outline-none focus:ring-2 focus:ring-orange-400 transition"
+            className="w-full border border-white rounded-full py-3 pl-12 pr-5 outline-none focus:ring-2 focus:ring-orange-400 transition"
           />
         </div>
 
         {/* INPUT FIELDS */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-          <input
-            type="text"
-            placeholder="Name"
-            value={newUser.name}
-            onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-            className="bg-black rounded-full p-3 outline-none focus:ring-2 focus:ring-orange-400"
-          />
-
-          <input
-            type="email"
-            placeholder="Email"
-            value={newUser.email}
-            onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-            className="bg-black rounded-full p-3 outline-none focus:ring-2 focus:ring-orange-400"
-          />
-
-          <input
-            type="text"
-            placeholder="Course Name"
-            value={newUser.course}
-            onChange={(e) => setNewUser({ ...newUser, course: e.target.value })}
-            className="bg-black rounded-full p-3 outline-none focus:ring-2 focus:ring-orange-400"
-          />
-
-          <input
-            type="text"
-            placeholder="Course Duration"
-            value={newUser.duration}
-            onChange={(e) =>
-              setNewUser({ ...newUser, duration: e.target.value })
-            }
-            className="bg-black rounded-full p-3 outline-none focus:ring-2 focus:ring-orange-400"
-          />
+          <h2 className="px-3 pt-3 font-bold">Name</h2>
+          <h2 className="px-3 pt-3 font-bold">Email</h2>
+          <h2 className="px-3 pt-3 font-bold">Course name</h2>
+          <h2 className="px-3 pt-3 font-bold">Course duration</h2>
         </div>
 
         {/* USER LIST – PERFECTLY ALIGNED */}
-        <div className="mt-10">
+        <div>
 
 
           {/* Rows */}
@@ -198,7 +126,7 @@ export default function TotalRegisterDashboard() {
             {filteredUsers.map((u, index) => (
               <div
                 key={index}
-                className="grid grid-cols-4 bg-[#1b1b1b] border border-white rounded-xl py-3 px-4 hover:bg-[#222] transition"
+                className="grid grid-cols-4 border border-white rounded-xl py-3 px-4 hover:bg-[#222] transition"
               >
                 <p className="truncate">{u.name}</p>
                 <p className="truncate">{u.email}</p>
