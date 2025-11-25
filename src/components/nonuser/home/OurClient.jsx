@@ -35,13 +35,27 @@ function OurClient() {
   const [isPaused, setIsPaused] = useState(false);
 
   const imageMap = {
-    "client1.png": client1, "client2.png": client2, "client3.png": client3,
-    "client4.png": client4, "client5.png": client5, "client6.png": client6,
-    "client7.png": client7, "client8.png": client8, "client9.png": client9,
-    "client10.png": client10, "client11.png": client11, "client12.png": client12,
-    "client13.png": client13, "client14.png": client14, "client15.png": client15,
-    "client16.png": client16, "client17.png": client17, "client18.png": client18,
-    "client19.png": client19, "client20.png": client20, "client21.png": client21,
+    "client1.png": client1,
+    "client2.png": client2,
+    "client3.png": client3,
+    "client4.png": client4,
+    "client5.png": client5,
+    "client6.png": client6,
+    "client7.png": client7,
+    "client8.png": client8,
+    "client9.png": client9,
+    "client10.png": client10,
+    "client11.png": client11,
+    "client12.png": client12,
+    "client13.png": client13,
+    "client14.png": client14,
+    "client15.png": client15,
+    "client16.png": client16,
+    "client17.png": client17,
+    "client18.png": client18,
+    "client19.png": client19,
+    "client20.png": client20,
+    "client21.png": client21,
   };
 
   const { clients } = OurClientdata;
@@ -79,7 +93,7 @@ function OurClient() {
   ];
 
   return (
-    <div className="relative w-screen  bg-gray-900 text-white overflow-x-hidden py-10 sm:py-16">
+    <div className="relative w-full text-white overflow-x-hidden py-10 sm:py-16">
       {/* Circle backgrounds hidden on small screens */}
       <div className="absolute z-0 w-1/3 h-3/4 -translate-y-[320%] -translate-x-[210%] pointer-events-none hidden md:block">
         <CircleBackground />
@@ -93,7 +107,7 @@ function OurClient() {
         <h2 className=" text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
           Our Clients
         </h2>
-      <div className=" w-full border-t border-[#c0bbbb] my-6"></div>
+        <div className=" w-full border-t border-[#c0bbbb] my-6"></div>
         <div className="relative">
           <Slider {...sliderSettings}>
             {clients.map((client, idx) => (
@@ -103,7 +117,11 @@ function OurClient() {
                     src={imageMap[client.src]}
                     alt={client.name}
                     className="h-9  lg:h-12 object-contain mx-auto grayscale hover:grayscale-0 transition-all duration-300"
-                    style={{ maxWidth: "140px", filter: "brightness(1)", opacity: 1 }}
+                    style={{
+                      maxWidth: "140px",
+                      filter: "brightness(1)",
+                      opacity: 1,
+                    }}
                     onClick={() => setIsPaused(true)}
                   />
                 </div>
@@ -121,31 +139,37 @@ function OurClient() {
             </button>
           </div>
         )}
-              <div className="w-full border-t border-[#c0bbbb] my-6"></div>
-
+        <div className="w-full border-t border-[#c0bbbb] my-6"></div>
       </section>
 
       {/* <div className="w-full border-t border-[#c0bbbb] my-6"></div> */}
 
       {/* Metrics Section */}
-      <section className="z-10 w-full  mx-auto px-3 md:px-10">
+      <section className="z-10 w-full  mx-auto px-3 md:px-12">
         <div className="flex flex-col lg:flex-row lg:items-start lg:gap-8">
           {/* Left */}
           <div className="lg:w-1/3 mb-8 lg:mb-0">
             <h2 className="font-semibold text-2xl sm:text-3xl lg:text-4xl mb-4 leading-snug">
               We Build Success <br /> by the Numbers
             </h2>
-            <p className="text-base sm:text-lg text-gray-300 leading-normal max-w-md">
-              Our impact is measured not just in satisfied clients, but in tangible results. We are dedicated to creating measurable differences, transforming potential into performance and ambition into achievement.
+            <p className="text-base sm:text-lg text-gray-300 leading-normal max-w-md text-justify">
+              Our impact is measured not just in satisfied clients, but in
+              tangible results. We are dedicated to creating measurable
+              differences, transforming potential into performance and ambition
+              into achievement.
             </p>
           </div>
           {/* Right */}
           <div className="lg:w-2/3">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-7">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-7">
               {metrics.map((item, idx) => (
                 <div key={idx} className="text-center">
                   <span className="block font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mb-2">
-                    <CountUp end={item.value} duration={2} suffix={item.suffix} />
+                    <CountUp
+                      end={item.value}
+                      duration={2}
+                      suffix={item.suffix}
+                    />
                   </span>
                   <span className="block text-sm sm:text-base font-medium text-gray-200 tracking-tight">
                     {item.label}
@@ -153,12 +177,10 @@ function OurClient() {
                 </div>
               ))}
             </div>
-            
           </div>
         </div>
       </section>
-            <div className="w-full border-t border-[#c0bbbb] my-6"></div>
-
+      <div className="w-full border-t border-[#c0bbbb] my-6"></div>
     </div>
   );
 }
