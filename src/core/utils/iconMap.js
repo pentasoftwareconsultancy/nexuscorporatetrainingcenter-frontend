@@ -9,11 +9,12 @@ import { HiOutlineCollection } from "react-icons/hi";
 import { FaLaptopMedical } from "react-icons/fa6";
 import { PiFileSqlBold } from "react-icons/pi";
 import { MdAnalytics } from "react-icons/md";
-
-
-
-
-const ICON_MAP = {
+import { GiSprint } from "react-icons/gi"
+import { MdCall } from "react-icons/md"
+import { MdOutlineFactCheck } from "react-icons/md"
+import { FaHospital } from "react-icons/fa"
+import { BiBarChartSquare } from "react-icons/bi";
+import { RiFileSettingsLine } from "react-icons/ri";const ICON_MAP = {
   FaReact,
   FaJava,
   FaAws,
@@ -24,7 +25,14 @@ const ICON_MAP = {
   TbBrandReact,
   FaLaptopMedical,
   PiFileSqlBold ,
-  MdAnalytics
+  MdAnalytics,
+  GiSprint,
+  MdCall,
+  MdOutlineFactCheck,
+  FaHospital,
+  BiBarChartSquare,
+  RiFileSettingsLine
+
 
 
 };

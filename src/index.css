@@ -96,27 +96,21 @@ body {
 
 /* src/index.css */
 
-@keyframes spinClockwise {
-  0%   { transform: rotate(0deg);   }
-  100% { transform: rotate(360deg); }
+@keyframes blurRoundedSquare {
+  0%   { transform: translate(120px, -120px); }   /* top-right */
+  15%  { transform: translate(120px, 0px); }       /* right-mid */
+  25%  { transform: translate(120px, 120px); }     /* bottom-right */
+
+  40%  { transform: translate(0px, 120px); }       /* bottom-mid */
+  50%  { transform: translate(-120px, 120px); }    /* bottom-left */
+
+  65%  { transform: translate(-120px, 0px); }      /* left-mid */
+  75%  { transform: translate(-120px, -120px); }   /* top-left */
+
+  90%  { transform: translate(0px, -120px); }      /* top-mid */
+  100% { transform: translate(120px, -120px); }    /* loop back */
 }
 
-/* custom utility class that uses the keyframes */
-.animate-rotateClockwise {
-  animation: spinClockwise 6s linear infinite;
-  will-change: transform;
-}
 
-@keyframes orbitInsideX {
-  0% {
-    transform: rotate(0deg) translateX(60px) rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg) translateX(60px) rotate(-360deg);
-  }
-}
 
-.animate-orbitInsideX {
-  animation: orbitInsideX 6s linear infinite;
-  will-change: transform;
-}
+

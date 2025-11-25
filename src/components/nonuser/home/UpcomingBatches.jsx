@@ -40,9 +40,9 @@ const UpcomingBatches = () => {
       </div>
 
       {/* Search bar */}
-      <div className="relative mb-10 w-full max-w-sm">
+      <div className="relative mb-10 w-full max-w-sm">        
         <FaMagnifyingGlass className="absolute left-4 top-3.5 text-gray-400 text-lg" />
-        <input
+        <input 
           type="text"
           placeholder="Search course"
           value={search}

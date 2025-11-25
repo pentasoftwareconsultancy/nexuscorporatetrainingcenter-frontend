@@ -20,32 +20,44 @@ export default function HomeHero() {
       </div>
 
       {/* 🌈 Full-screen dynamic X */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none mb-3 ">
-        <h1
-          className="
-           text-[380px] font-black leading-none select-none
-          bg-gradient-to-b from-[#FF4323] via-[#FF8A1E] to-[#6A4CF6]
-          text-transparent bg-clip-text 
-          drop-shadow-[0_20px_45px_rgba(255,70,10,0.45)]
-          blur-[1.5px]
-          z-10">
-            
-        
-          X
-        </h1>
-        <div
-        className="
-          absolute left-1/2 top-1/2
-          -translate-x-1/2 -translate-y-1/2
-          w-[140px] h-[140px]
-          rounded-full 
-          blur-[40px]
-          pointer-events-none
-          bg-[radial-gradient(circle,rgba(255,80,0,0.95),rgba(110,50,255,0.9))]
-          animate-orbitInsideX">
-      </div>
+  <div className="absolute inset-0 flex items-center justify-center pointer-events-none mb-3 ">
 
-      </div>
+  {/* BLUR – EXACT X CORNER ANIMATION */}
+  <div
+    className="
+      absolute left-1/2 top-1/2
+      w-[220px] h-[220px]
+      -translate-x-1/2 -translate-y-1/2
+      rounded-full
+      blur-[70px]
+      opacity-90
+      bg-[radial-gradient(circle,
+        rgba(18,84,250,0.9),
+        rgba(18,84,250,0)
+      )]
+      animate-[blueXCorner_2.2s_steps(1)_infinite]
+      pointer-events-none
+      z-30
+    "
+  ></div>
+
+  {/* MAIN X */}
+  <h1
+    className="
+      text-[380px] font-black leading-none select-none
+      bg-[linear-gradient(135deg,#FD0002,#FF6A00,#DF4812,#BE2424,#1254FA)]
+      text-transparent bg-clip-text 
+      drop-shadow-[0_20px_45px_rgba(255,70,10,0.45)]
+      blur-[1.5px]
+      relative z-10
+      clip-x
+    "
+  >
+    X
+  </h1>
+
+</div>
+
 
       {/* 🔸 Left Section (slightly down) */}
       <div className="relative z-10 flex flex-col justify-center md:justify-end w-full md:w-1/2 pb-6 md:pb-1 translate-y-10">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ROUTES } from "../../core/constants/routes.constant";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import Button from "../common/Button";
 
 const NAV_LINKS = [
@@ -72,9 +72,9 @@ function Navbar() {
             rounded-2xl backdrop-blur-md transition-all duration-300"
           >
             {NAV_LINKS.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 onClick={() => handleLinkClick(item.label)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
                   ${
@@ -85,7 +85,7 @@ function Navbar() {
                 `}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -150,9 +150,9 @@ function Navbar() {
           `}
         >
           {NAV_LINKS.map((item) => (
-            <a
+            <Link
               key={item.label}
-              href={item.href}
+              to={item.href}
               onClick={() => handleLinkClick(item.label)}
               className={`w-60 text-center px-6 py-3 text-lg rounded-xl font-medium transition-all duration-300
                 ${
@@ -162,7 +162,7 @@ function Navbar() {
                 }`}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
 
           {/* Close Button */}
