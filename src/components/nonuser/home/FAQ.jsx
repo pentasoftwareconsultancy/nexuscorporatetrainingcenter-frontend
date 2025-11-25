@@ -39,13 +39,12 @@ function FAQ() {
   };
 
   return (
-    <div className=" min-h-screen py-4 sm:py-4 lg:py-4 px-4 sm:px-6 lg:px-12">
+    <div className=" py-4 sm:py-4 lg:py-4 px-4 sm:px-6 lg:px-12">
       {/* Header */}
       <div className="max-full mx-auto mb-6 sm:mb-8 lg:mb-12">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-white font-clash Display text-center sm:text-left">
           FAQs
         </h2>
-        <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mt-2 mx-auto sm:mx-0"></div>
       </div>
 
       {/* FAQ Items */}
@@ -61,7 +60,7 @@ function FAQ() {
               className="flex items-center justify-between w-full bg-[#161616] text-white px-4 sm:px-6 py-3 sm:py-4 border border-white border-opacity-20 rounded-lg cursor-pointer transition-all duration-300 hover:bg-[#1e1e1e] hover:border-opacity-40 active:scale-[0.99]"
             >
               <span className="flex items-start text-sm sm:text-base lg:text-lg font-medium pr-4">
-                <span className="text-blue-400 mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
+                <span className="text-white mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
                 <span className="text-left leading-relaxed">
                   {faq.question}
                 </span>

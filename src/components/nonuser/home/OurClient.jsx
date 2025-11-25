@@ -34,37 +34,22 @@ import client21 from "../../../assets/sneha/client21.png";
 function OurClient() {
   const [isPaused, setIsPaused] = useState(false);
 
-  // Map image filenames to imports
   const imageMap = {
-    "client1.png": client1,
-    "client2.png": client2,
-    "client3.png": client3,
-    "client4.png": client4,
-    "client5.png": client5,
-    "client6.png": client6,
-    "client7.png": client7,
-    "client8.png": client8,
-    "client9.png": client9,
-    "client10.png": client10,
-    "client11.png": client11,
-    "client12.png": client12,
-    "client13.png": client13,
-    "client14.png": client14,
-    "client15.png": client15,
-    "client16.png": client16,
-    "client17.png": client17,
-    "client18.png": client18,
-    "client19.png": client19,
-    "client20.png": client20,
-    "client21.png": client21,
+    "client1.png": client1, "client2.png": client2, "client3.png": client3,
+    "client4.png": client4, "client5.png": client5, "client6.png": client6,
+    "client7.png": client7, "client8.png": client8, "client9.png": client9,
+    "client10.png": client10, "client11.png": client11, "client12.png": client12,
+    "client13.png": client13, "client14.png": client14, "client15.png": client15,
+    "client16.png": client16, "client17.png": client17, "client18.png": client18,
+    "client19.png": client19, "client20.png": client20, "client21.png": client21,
   };
 
-  const { clients, metrics } = OurClientdata;
+  const { clients } = OurClientdata;
 
   const sliderSettings = {
     dots: false,
     infinite: true,
-    speed: 3000,
+    speed: 2600,
     autoplay: !isPaused,
     autoplaySpeed: 0,
     cssEase: "linear",
@@ -73,50 +58,52 @@ function OurClient() {
     arrows: false,
     pauseOnHover: false,
     responsive: [
-      { breakpoint: 1536, settings: { slidesToShow: 6, speed: 2500 } },
-      { breakpoint: 1280, settings: { slidesToShow: 5, speed: 2000 } },
-      { breakpoint: 1024, settings: { slidesToShow: 4, speed: 1700 } },
-      { breakpoint: 768, settings: { slidesToShow: 3, speed: 1400 } },
-      { breakpoint: 480, settings: { slidesToShow: 2, speed: 900 } },
-      { breakpoint: 360, settings: { slidesToShow: 1, speed: 800 } },
+      { breakpoint: 1536, settings: { slidesToShow: 6, speed: 2200 } },
+      { breakpoint: 1280, settings: { slidesToShow: 5, speed: 1800 } },
+      { breakpoint: 1024, settings: { slidesToShow: 4, speed: 1200 } },
+      { breakpoint: 768, settings: { slidesToShow: 3, speed: 1000 } },
+      { breakpoint: 480, settings: { slidesToShow: 2, speed: 800 } },
+      { breakpoint: 360, settings: { slidesToShow: 1, speed: 600 } },
     ],
   };
 
+  const metrics = [
+    { label: "Years of Experience", value: 15, suffix: "+" },
+    { label: "Students Placed", value: 5, suffix: "K+" },
+    { label: "Companies hire from us", value: 1, suffix: "K+" },
+    { label: "Webinars", value: 150, suffix: "+" },
+    { label: "Courses", value: 20, suffix: "+" },
+    { label: "Faculty", value: 100, suffix: "+" },
+    { label: "Collab Colleges", value: 600, suffix: "+" },
+    { label: "Corporate Training", value: 100, suffix: "+" },
+  ];
+
   return (
-    <div className="relative flex flex-col justify-center overflow-hidden px-12 sm:px-12 md:px-12 text-white">
-      <div className="absolute z-0 w-1/3 h-9/12 -translate-y-347 -translate-x-250">
+    <div className="relative w-screen  bg-gray-900 text-white overflow-x-hidden py-10 sm:py-16">
+      {/* Circle backgrounds hidden on small screens */}
+      <div className="absolute z-0 w-1/3 h-3/4 -translate-y-[320%] -translate-x-[210%] pointer-events-none hidden md:block">
         <CircleBackground />
       </div>
-      <div className="absolute z-0 w-1/3 h-9/12 -translate-y-392 translate-x-240">
+      <div className="absolute z-0 w-1/3 h-3/4 -translate-y-[340%] translate-x-[210%] pointer-events-none hidden md:block">
         <CircleBackground />
       </div>
+
       {/* Clients Section */}
-      <div className="z-1 mb-10 lg:mb-14 mt-1">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-left mb-6 lg:mb-8 mr-6">
+      <section className="relative z-10 w-full  mx-auto px-3 md:px-10">
+        <h2 className=" text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
           Our Clients
         </h2>
-        {/* Divider Line */}
-        <div
-          className="w-full h-[1px] sm:h-[2px] my-6 lg:my-6"
-          style={{
-            background:
-              "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
-          }}
-        />
+      <div className=" w-full border-t border-[#c0bbbb] my-6"></div>
         <div className="relative">
           <Slider {...sliderSettings}>
             {clients.map((client, idx) => (
-              <div key={idx} className="px-2">
-                <div className="flex items-center justify-center px-2 sm:px-4">
+              <div key={idx} className="px-2 my-2">
+                <div className="flex items-center justify-center h-14 sm:h-16">
                   <img
                     src={imageMap[client.src]}
                     alt={client.name}
-                    className="h-10 sm:h-12 md:h-14 lg:h-16 object-contain grayscale hover:grayscale-0 transition-all duration-300 mx-auto cursor-pointer"
-                    style={{
-                      filter: "brightness(0) invert(1)",
-                      opacity: 0.9,
-                      maxWidth: "100%",
-                    }}
+                    className="h-9  lg:h-12 object-contain mx-auto grayscale hover:grayscale-0 transition-all duration-300"
+                    style={{ maxWidth: "140px", filter: "brightness(1)", opacity: 1 }}
                     onClick={() => setIsPaused(true)}
                   />
                 </div>
@@ -125,84 +112,53 @@ function OurClient() {
           </Slider>
         </div>
         {isPaused && (
-          <div className="text-center mt-1">
+          <div className="text-center mt-3">
             <button
-              className="px-4 py-2 bg-white text-black rounded-lg hover:bg-gray-200 transition-colors duration-200 text-sm sm:text-base"
+              className="px-5 py-2 bg-white text-black rounded-md shadow hover:bg-gray-200 text-sm sm:text-base font-medium"
               onClick={() => setIsPaused(false)}
             >
               Resume Scrolling
             </button>
           </div>
         )}
-      </div>
+              <div className="w-full border-t border-[#c0bbbb] my-6"></div>
 
-      {/* Divider Line */}
-      <div
-        className="z-1 w-full h-[1px] sm:h-[2px] mb-8 lg:mb-12"
-        style={{
-          background:
-            "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
-        }}
-      />
+      </section>
+
+      {/* <div className="w-full border-t border-[#c0bbbb] my-6"></div> */}
 
       {/* Metrics Section */}
-      <div className="z-1 mb-10 lg:mb-14 max-w-7xl mx-auto">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+      <section className="z-10 w-full  mx-auto px-3 md:px-10">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:gap-8">
           {/* Left */}
-          <div className="lg:w-1/2">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6 text-center lg:text-left">
-              We Build Success by the Numbers
+          <div className="lg:w-1/3 mb-8 lg:mb-0">
+            <h2 className="font-semibold text-2xl sm:text-3xl lg:text-4xl mb-4 leading-snug">
+              We Build Success <br /> by the Numbers
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 lg:mb-0 text-center lg:text-left leading-relaxed">
-              Our impact is measured not just in satisfied clients, but in
-              tangible results. We create measurable differences, turning
-              potential into performance and ambition into achievement.
+            <p className="text-base sm:text-lg text-gray-300 leading-normal max-w-md">
+              Our impact is measured not just in satisfied clients, but in tangible results. We are dedicated to creating measurable differences, transforming potential into performance and ambition into achievement.
             </p>
           </div>
-
           {/* Right */}
-          <div className="lg:w-1/2">
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-              {metrics.map((item, index) => (
-                <div
-                  key={index}
-                  className="text-center p-4 sm:p-6 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300"
-                >
-                  <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-1 sm:mb-2 text-white">
-                    <CountUp
-                      end={item.value}
-                      duration={2}
-                      suffix={
-                        item.value >= 1000
-                          ? "+"
-                          : [
-                              "Years of Experience",
-                              "Courses",
-                              "Collab Colleges",
-                            ].includes(item.label)
-                          ? "+"
-                          : ""
-                      }
-                    />
-                  </div>
-                  <div className="text-xs sm:text-sm lg:text-base font-medium text-gray-300 leading-tight">
+          <div className="lg:w-2/3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-7">
+              {metrics.map((item, idx) => (
+                <div key={idx} className="text-center">
+                  <span className="block font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mb-2">
+                    <CountUp end={item.value} duration={2} suffix={item.suffix} />
+                  </span>
+                  <span className="block text-sm sm:text-base font-medium text-gray-200 tracking-tight">
                     {item.label}
-                  </div>
+                  </span>
                 </div>
               ))}
             </div>
+            
           </div>
         </div>
-      </div>
+      </section>
+            <div className="w-full border-t border-[#c0bbbb] my-6"></div>
 
-      {/* Divider Line */}
-      <div
-        className="w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
-        style={{
-          background:
-            "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
-        }}
-      />
     </div>
   );
 }
