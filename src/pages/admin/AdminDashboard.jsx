@@ -56,7 +56,7 @@ function StatCard({ title, value, info, icon, click }) {
     <div
       onClick={() => navigate(click)}
       className="
-        bg-neutral-900 border border-white rounded-2xl p-6 relative flex flex-col
+        bg-[#242424] border border-white rounded-2xl p-6 relative flex flex-col
         flex-1 min-w-[270px] max-w-[400px] m-3 text-white shadow-md
         transition duration-200
         hover:shadow-[0_0_48px_16px_rgba(255,115,0,0.7)]
@@ -78,7 +78,7 @@ function StatCard({ title, value, info, icon, click }) {
             {info.slice(0, 2).map((i, idx) => (
               <div
                 key={idx}
-                className="flex-1 bg-[#242424] rounded-xl p-4 flex flex-col"
+                className="flex-1 bg-twopointo rounded-xl p-4 flex flex-col"
               >
                 <span className="text-[1.1rem] text-zinc-200">{i.k}</span>
                 <span className="text-2xl font-semibold text-[#f3efe8] leading-tight">{i.v}</span>
@@ -86,7 +86,7 @@ function StatCard({ title, value, info, icon, click }) {
             ))}
           </div>
           <div>
-            <div className="bg-[#242424] rounded-xl p-4 flex flex-col w-full">
+            <div className="bg-twopointo rounded-xl p-4 flex flex-col w-full">
               <span className="text-[1.1rem] text-zinc-200">{info[2].k}</span>
               <span className="text-2xl font-semibold text-[#f3efe8] leading-tight">{info[2].v}</span>
             </div>
@@ -135,7 +135,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Graph */}
-      <div className="bg-neutral-900 border border-white rounded-2xl p-6 text-white shadow-md mt-3">
+      <div className="border border-white rounded-2xl p-6 text-white shadow-md mt-3 ">
         <div className="text-lg font-semibold mb-2">
           All Stats Overview
         </div>
