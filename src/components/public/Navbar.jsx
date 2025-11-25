@@ -150,9 +150,9 @@ function Navbar() {
           `}
         >
           {NAV_LINKS.map((item) => (
-            <a
+            <Link
               key={item.label}
-              href={item.href}
+              to={item.href}
               onClick={() => handleLinkClick(item.label)}
               className={`w-60 text-center px-6 py-3 text-lg rounded-xl font-medium transition-all duration-300
                 ${
@@ -162,7 +162,7 @@ function Navbar() {
                 }`}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
 
           {/* Close Button */}
