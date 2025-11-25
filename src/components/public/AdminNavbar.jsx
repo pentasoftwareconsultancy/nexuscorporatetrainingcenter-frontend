@@ -7,7 +7,7 @@ import { ROUTES } from "../../core/constants/routes.constant";
 const AdminNavbar = () => {
   const navigate = useNavigate();
   return (
-    <div className="w-full font-sora">
+    <div className="w-full font-sora fixed top-0 left-0 z-50">
       <div className="max-w-[2400px]">
         <nav
           className="flex justify-between items-center 
