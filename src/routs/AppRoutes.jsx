@@ -22,6 +22,7 @@ import UpcomingPage from "../pages/nonuserpages/UpcomingPage";
 import ProfessorPage from "../pages/nonuserpages/ProfessorPage";
 import BranchesPage from "../pages/nonuserpages/BranchesPage";
 import ContactPage from "../pages/nonuserpages/ContactPage";
+import VideoTestiomoniualsPage from "../pages/nonuserpages/VideoTestiomoniualsPage";
 
 // User Pages
 import AppitudeExam from "../pages/user/AppitudeExam";
@@ -71,6 +72,7 @@ const AppRoutes = () => {
         <Route path="/upcoming" element={<UpcomingPage />} />
         <Route path="/branch" element={<BranchesPage />} />
         <Route path="/professor" element={<ProfessorPage />} />
+        <Route path="/videotestimonials" element={<VideoTestiomoniualsPage />} />
         <Route path="/contact" element={<ContactPage />} />
 
         {/* 🔑 LOGIN + SIGNUP (Public layout!) */}

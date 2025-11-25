@@ -12,6 +12,7 @@ export const ROUTES = {
   UPCOMING: "/upcoming",
   BRANCHES: "/branch",
   PROFESSOR: "/professor",
+  VIDEO_TESTIMONIALS: "/videotestimonials",
   CONTACT: "/contact",
 
   // 🔹 Auth Pages

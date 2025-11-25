@@ -5,6 +5,8 @@ import { FaComputer } from "react-icons/fa6";
 import { FaGraduationCap } from "react-icons/fa";
 import { LiaVectorSquareSolid } from "react-icons/lia";
 import { MdReviews } from "react-icons/md";
+import { ROUTES } from "../../core/constants/routes.constant";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -17,7 +19,8 @@ const stats = [
       { k: "Class visits", v: "1000" },
       { k: "Direct Admissions", v: "600" }
     ],
-    icon: IoPeopleSharp
+    icon: IoPeopleSharp,
+    click: ROUTES.ADMIN_TOTAL_REGISTER
   },
   {
     title: "New Registered Users",
@@ -27,7 +30,8 @@ const stats = [
       { k: "Class visits", v: "100" },
       { k: "Direct Admissions", v: "400" }
     ],
-    icon: HiUserPlus
+    icon: HiUserPlus,
+    click: ROUTES.ADMIN_NEW_REGISTER
   },
   {
     title: "Users completed Test",
@@ -37,17 +41,20 @@ const stats = [
       { k: "Attend Test", v: "600" },
       { k: "Completed 5 attempts", v: "100" }
     ],
-    icon: FaComputer 
+    icon: FaComputer ,
+    click: ROUTES.ADMIN_TEST_COMPLETED
   },
-  { title: "Total Colleges Visit", value: "600", info: [], icon: FaGraduationCap  },
-  { title: "Total Placements", value: "1000", info: [], icon: LiaVectorSquareSolid  },
-  { title: "Total Reviews", value: "500", info: [], icon: MdReviews }
+  { title: "Total Colleges Visit", value: "600", info: [], icon: FaGraduationCap , click: ROUTES.ADMIN_COLLEGE_VISIT  },
+  { title: "Total Placements", value: "1000", info: [], icon: LiaVectorSquareSolid , click: ROUTES.ADMIN_TOTAL_PLACEMENTS  },
+  { title: "Total Reviews", value: "500", info: [], icon: MdReviews , click: ROUTES.ADMIN_REVIEWS }
 ];
 
-function StatCard({ title, value, info, icon }) {
+function StatCard({ title, value, info, icon, click }) {
   const Icons = icon;
+  const navigate = useNavigate();
   return (
     <div
+      onClick={() => navigate(click)}
       className="
         bg-neutral-900 border border-white rounded-2xl p-6 relative flex flex-col
         flex-1 min-w-[270px] max-w-[400px] m-3 text-white shadow-md
