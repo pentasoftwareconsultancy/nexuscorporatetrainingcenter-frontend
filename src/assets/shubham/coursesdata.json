@@ -61,7 +61,7 @@
       {
         "id": 6,
         "title": "Full Stack Data Science",
-        "logo": "FaReact",
+        "logo": "BiBarChartSquare",
         "description": "Learn Python, ML, and visualization techniques to become a complete Data Science professional.",
         "duration": "3 months"
       },
@@ -106,7 +106,7 @@
       {
         "id": 7,
         "title": "SQL Unix Production Support (L2)",
-        "logo": " PiFileSqlBold",
+        "logo": "RiFileSettingsLine",
         "description": "Develop strong database and Unix production support skills to handle enterprise-scale systems.",
         "duration": "3 months"
       },
@@ -120,7 +120,7 @@
       {
         "id": 10,
         "title": "AR Caller RCM",
-        "logo": "",
+        "logo": "MdCall",
         "description": "Master AR Calling and Revenue Cycle Management processes used in healthcare billing systems.",
         "duration": "3 weeks"
       }
@@ -132,7 +132,7 @@
       {
         "id": 4,
         "title": "Scrum Master",
-        "logo": "",
+        "logo": "GiSprint",
         "description": "Become a certified Scrum Master and lead agile projects effectively using Scrum methodology and tools.",
         "duration": "3 months"
       }
@@ -144,7 +144,7 @@
       {
         "id": 15,
         "title": "Software Testing / QA",
-        "logo": "",
+        "logo": "MdOutlineFactCheck",
         "description": "Learn manual and automation testing, including Selenium, API, and performance testing best practices.",
         "duration": "3 months"
       }
@@ -156,7 +156,7 @@
       {
         "id": 13,
         "title": "Medical Coding",
-        "logo": "FaLaptopMedical ",
+        "logo": "FaHospital",
         "description": "Understand ICD and CPT coding for healthcare documentation. Learn processes used in hospitals worldwide.",
         "duration": "3 months"
       }

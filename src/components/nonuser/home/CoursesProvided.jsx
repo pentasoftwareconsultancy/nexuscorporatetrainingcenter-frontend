@@ -15,7 +15,7 @@ const CoursesProvided = () => {
   };
 
   // Flatten all courses from all categories
-  const allCourses = coursesData.flatMap(category =>
+  const allCourses = coursesData.flatMap(category => 
     category.courses.map(course => ({
       ...course,
       categoryName: category.categoryName,
