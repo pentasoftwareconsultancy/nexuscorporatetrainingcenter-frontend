@@ -1,10 +1,13 @@
 import React from 'react'
 import { FaCheckCircle } from "react-icons/fa";
 import testData from "../../assets/tarushri/Test.json";
+import { ROUTES } from '../../core/constants/routes.constant';
+import { useNavigate } from 'react-router-dom';
 
 const TestSuccess = () => {
+    const navigate = useNavigate();
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen w-full bg-[#0f0f0f] text-white text-center px-4 py-10">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full text-one text-center px-4 py-10">
 
             {testData.map((test, index) => (
                 <div
@@ -51,7 +54,9 @@ const TestSuccess = () => {
             ))}
 
             {/* View Result Button */}
-            <button className="bg-[#e6dfd8] text-black font-medium px-6 sm:px-8 py-2 mt-10 rounded-full hover:bg-[#f5a967] transition-all text-sm sm:text-base">
+            <button 
+                onClick={() => navigate(ROUTES.USER_CERTIFICATION)}
+                className="bg-[#e6dfd8] text-black font-medium px-6 sm:px-8 py-2 mt-10 rounded-full hover:bg-[#f5a967] transition-all text-sm sm:text-base">
                 View Result
             </button>
         </div>

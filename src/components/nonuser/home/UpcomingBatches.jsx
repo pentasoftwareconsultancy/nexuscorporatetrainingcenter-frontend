@@ -1,26 +1,33 @@
 import React, { useState } from "react";
-import { FaMagnifyingGlass, FaGear } from "react-icons/fa6"; // ✅ FaGear replaces FaCogs
+import { FaMagnifyingGlass, FaGear } from "react-icons/fa6";
 import * as Fa6Icons from "react-icons/fa6";
 import * as FaIcons from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../core/constants/routes.constant";
 
 import upcomingData from "../../../assets/shubham/upcomingdb.json";
 
 const UpcomingBatches = () => {
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [showAll, setShowAll] = useState(false);
 
   // ✅ Filter by search
-  const filtered = upcomingData.filter((c) =>
+  const filtered = upcomingData.filter(c =>
     c.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // ✅ Slice for "See More"
-  const displayedCourses = showAll ? filtered : filtered.slice(0, 5);
+  // ✅ Show only 5 items on Home page
+  const displayedCourses = filtered.slice(0, 5);
 
-  // ✅ Safe icon resolver
+  // Icon resolver
   const getIcon = (iconName) => {
     const Icon = Fa6Icons[iconName] || FaIcons[iconName] || Fa6Icons.FaGear;
     return <Icon className="text-lg text-white" />;
+  };
+
+  // 👉 Navigate to full upcoming page
+  const handleSeeMore = () => {
+    navigate(ROUTES.UPCOMING);
   };
 
   return (
@@ -40,9 +47,9 @@ const UpcomingBatches = () => {
       </div>
 
       {/* Search bar */}
-      <div className="relative mb-10 w-full max-w-sm">        
+      <div className="relative mb-10 w-full max-w-sm">
         <FaMagnifyingGlass className="absolute left-4 top-3.5 text-gray-400 text-lg" />
-        <input 
+        <input
           type="text"
           placeholder="Search course"
           value={search}
@@ -55,7 +62,7 @@ const UpcomingBatches = () => {
       <div className="flex flex-col gap-4">
         {displayedCourses.map((c) => (
           <div
-            key={`${c.id}-${c.name}`} // ✅ unique key
+            key={`${c.id}-${c.name}`}
             className="relative flex flex-col md:flex-row md:items-center md:justify-between bg-[#1A1A1A] border border-[#4a4a4a] rounded-2xl md:rounded-full px-6 md:px-8 py-5 hover:bg-[#252525] transition-all duration-300"
           >
             {/* Course + Icon */}
@@ -81,7 +88,7 @@ const UpcomingBatches = () => {
               ₹{c.fees}
             </span>
 
-            {/* Contact + Orange Arrow */}
+            {/* Contact */}
             <div className="flex items-center justify-between md:justify-end gap-3 md:w-1/5 mt-3 md:mt-0">
               <span className="text-[15px] text-gray-300">{c.contact}</span>
               <span className="flex items-center justify-center bg-[#FF6A00] rounded-full w-[28px] h-[28px] shadow-sm hover:scale-105 transition-transform duration-300 cursor-pointer">
@@ -105,14 +112,14 @@ const UpcomingBatches = () => {
         ))}
       </div>
 
-      {/* See more / See less */}
+      {/* SEE MORE -> redirect */}
       {filtered.length > 5 && (
         <div className="flex justify-end my-6">
           <button
-            onClick={() => setShowAll(!showAll)}
+            onClick={handleSeeMore}
             className="text-[15px] font-semibold text-gray-200 hover:text-white transition-all duration-200 underline-offset-4 hover:underline"
           >
-            {showAll ? "See less" : "See more"}
+            See more
           </button>
         </div>
       )}
