@@ -146,38 +146,54 @@ export default function ContactPage() {
         </div>
       </div>
 
+      <div className=" w-full border-t border-[#c0bbbb] my-6"></div>
 
-<div
-  className="w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
-  style={{
-    background:
-      "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
-  }}
-/>
+      <section className="relative w-screen mt-5 z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-1">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-6 text-left">
+            Terms & Conditions
+          </h2>
 
-<section className="relative w-screen mt-5 z-20">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-1">
-    <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-6 text-left">
-      Terms & Conditions
-    </h2>
-
-    <ul className="list-disc list-outside text-gray-300 space-y-0.15 leading-relaxed text-sm sm:text-base">
-      <li>The fees will be non-refundable and non-transferable in any circumstances.</li>
-      <li>Batch or course change is not allowed.</li>
-      <li>Training will be provided according to the specified syllabus.</li>
-      <li>Candidates will receive interview calls from different job portals.</li>
-      <li>Course materials are proprietary and should not be distributed without permission.</li>
-      <li>Certification will be provided only after meeting attendance and assessment requirements.</li>
-      <li>All personal information collected will be kept confidential and used for official purposes only.</li>
-      <li>All candidates are expected to maintain professional behavior during training.</li>
-      <li>Candidates must ensure they have access to necessary hardware and software for online sessions.</li>
-      <li>
-        For any queries, contact us at{" "}
-        <span className="">support@example.com</span>.
-      </li>
-    </ul>
-  </div>
-</section>
-</div>
+          <ul className="list-disc list-outside text-gray-300 space-y-0.15 leading-relaxed text-sm sm:text-base">
+            <li>
+              The fees will be non-refundable and non-transferable in any
+              circumstances.
+            </li>
+            <li>Batch or course change is not allowed.</li>
+            <li>
+              Training will be provided according to the specified syllabus.
+            </li>
+            <li>
+              Candidates will receive interview calls from different job
+              portals.
+            </li>
+            <li>
+              Course materials are proprietary and should not be distributed
+              without permission.
+            </li>
+            <li>
+              Certification will be provided only after meeting attendance and
+              assessment requirements.
+            </li>
+            <li>
+              All personal information collected will be kept confidential and
+              used for official purposes only.
+            </li>
+            <li>
+              All candidates are expected to maintain professional behavior
+              during training.
+            </li>
+            <li>
+              Candidates must ensure they have access to necessary hardware and
+              software for online sessions.
+            </li>
+            <li>
+              For any queries, contact us at{" "}
+              <span className="">support@example.com</span>.
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
   );
 }
