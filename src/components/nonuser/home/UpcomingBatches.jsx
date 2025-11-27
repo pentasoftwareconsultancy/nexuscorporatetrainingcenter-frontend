@@ -61,12 +61,20 @@ const UpcomingBatches = () => {
           >
 
             {/* Course + Icon */}
-            <div className="flex items-center gap-4 md:w-1/5 mb-3 md:mb-0">
-              <div className="bg-[#2c2c2c] p-2 rounded-full flex items-center justify-center">
-                {getIconByName(c.icon)} {/* ✔ Only here */}
-              </div>
-              <span className="text-[15px] font-medium">{c.name}</span>
-            </div>
+           {/* Course + Icon */}
+<div className="flex items-center gap-4 md:w-1/5 mb-3 md:mb-0">
+  <div className="bg-[#2c2c2c] p-2 rounded-full flex items-center justify-center">
+    
+    {/* FIXED HERE */}
+    {(() => {
+      const IconComponent = getIconByName(c.icon);
+      return IconComponent ? <IconComponent size={28} /> : null;
+    })()}
+
+  </div>
+  <span className="text-[15px] font-medium">{c.name}</span>
+</div>
+
 
             {/* Duration */}
             <span className="md:w-1/5 text-[15px] text-gray-300 text-left md:text-center">
