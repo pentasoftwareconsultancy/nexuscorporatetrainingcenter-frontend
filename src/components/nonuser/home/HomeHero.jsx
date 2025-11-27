@@ -10,21 +10,23 @@ export default function HomeHero() {
 
   return (
     <div className="relative font-sora overflow-x-hidden w-full min-h-screen flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-12 lg:px-12 text-one overflow-hidden">
-      <div className="absolute z-0 
-          w-[280px] h-[280px] 
-          top-10 left-5 
-          sm:w-[320px] sm:h-[320px] sm:top-14 sm:left-10 
-          md:w-[100px] md:h-[300px] md:top-1 md:left-1
-          pointer-events-none">
+      <div
+        className="absolute z-0
+    w-[780px] h-[780px]  /* size of the circle */
+    -bottom-[290px] -right-[290px]  /* move half of the circle outside */
+    sm:w-[720px] sm:h-[720px] sm:-bottom-[160px] sm:-right-[160px]
+    md:w-[880px] md:h-[880px] md:-bottom-[150px] md:-left-[450px]
+    pointer-events-none
+    overflow-hidden"
+      >
         <CircleBackground />
       </div>
 
       {/* 🌈 Full-screen dynamic X */}
-  <div className="absolute inset-0 flex items-center justify-center pointer-events-none mb-3 ">
-
-  {/* BLUR – EXACT X CORNER ANIMATION */}
-  <div
-    className="
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none mb-3 ">
+        {/* BLUR – EXACT X CORNER ANIMATION */}
+        <div
+          className="
       absolute left-1/2 top-1/2
       w-[220px] h-[220px]
       -translate-x-1/2 -translate-y-1/2
@@ -39,25 +41,30 @@ export default function HomeHero() {
       pointer-events-none
       z-30
     "
-  ></div>
+        ></div>
 
-  {/* MAIN X */}
-  <h1
-    className="
-      text-[380px] font-black leading-none select-none
-      bg-[linear-gradient(135deg,#FD0002,#FF6A00,#DF4812,#BE2424,#1254FA)]
-      text-transparent bg-clip-text 
-      drop-shadow-[0_20px_45px_rgba(255,70,10,0.45)]
-      blur-[1.5px]
-      relative z-10
-      clip-x
-    "
-  >
-    X
-  </h1>
-
-</div>
-
+        {/* MAIN X */}
+        <div
+          className="relative overflow-hidden opacity-[0.9] z-1"
+          style={{
+            width: "650px",
+            height: "500px",
+            filter: "blur(40px)",
+            clipPath:
+              "polygon(25% 0%, 0% 0%, 35% 50%, 0% 100%, 25% 100%, 50% 65%, 75% 100%, 100% 100%, 65% 50%, 100% 0%, 75% 0%, 50% 35%)",
+          }}
+        >
+          {/* ROTATING GRADIENT (ONLY THIS MOVES) */}
+          <div
+            className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] animate-[rotateGradient_6s_linear_infinite]"
+            style={{
+              background:
+                "conic-gradient(#FD0002 16%, #FF6A00 35%, #DF4812 50%, #BE2424 65%, #1254FA 100%)",
+              filter: "blur(20px)",
+            }}
+          ></div>
+        </div>
+      </div>
 
       {/* 🔸 Left Section (slightly down) */}
       <div className="relative z-10 flex flex-col justify-center md:justify-end w-full md:w-1/2 pb-6 md:pb-1 translate-y-10">
@@ -66,17 +73,16 @@ export default function HomeHero() {
             <span className="text-five">Nexus</span>
             <br />
             <span className="text-white">
-              
               Corporate Training
               <br />
               Center
             </span>
           </h1>
-        
+
           <Button text="Enroll Now" onClick={() => navigate(ROUTES.CONTACT)} />
         </div>
       </div>
-        
+
       {/* 🔸 Right Section (slightly up) */}
       <div className="relative z-10 flex flex-col justify-center md:justify-start items-center md:items-end w-full md:w-1/2 text-center md:text-right space-y-6 pt-1 md:pt-1 -translate-y-30 px-4 sm:px-8">
         <div className="max-w-lg">
@@ -92,7 +98,8 @@ export default function HomeHero() {
               overflow-hidden 
             "
             style={{
-              animation: "typing 4s steps(40, end) infinite, blink .75s step-end infinite",
+              animation:
+                "typing 4s steps(40, end) infinite, blink .75s step-end infinite",
             }}
           >
             <style>
@@ -110,11 +117,11 @@ export default function HomeHero() {
                 }
               `}
             </style>
-              
+
             <span className="border-r-2 border-one pr-1 inline-block">
               Your Growth Our Expertise
             </span>
-          </h2>          
+          </h2>
           <p className="text-gray-200 text-base sm:text-lg leading-relaxed text-justify md:text-right">
             We believe true business growth is built on the strength of your
             people. Our expertise lies in crafting bespoke training programs
@@ -125,15 +132,19 @@ export default function HomeHero() {
           </p>
         </div>
       </div>
-      <div className="  absolute z-0 
-          w-[280px] h-[280px] 
-          bottom-10 right-5
-          sm:w-[320px] sm:h-[320px] sm:bottom-14 sm:right-10
-          md:w-[380px] md:h-[380px] md:bottom-20 md:right-20
-          pointer-events-none
-        ">
-        <CircleBackground />
-      </div>
+      <div
+  className="absolute z-0
+    w-[780px] h-[780px]  /* size of the circle */
+    -bottom-[290px] -right-[290px]  /* move half of the circle outside */
+    sm:w-[720px] sm:h-[720px] sm:-bottom-[160px] sm:-right-[160px]
+    md:w-[880px] md:h-[880px] md:-bottom-[90px] md:-right-[480px]
+    pointer-events-none
+    overflow-hidden
+  "
+>
+  <CircleBackground />
+</div>
+
     </div>
   );
 }

@@ -53,13 +53,13 @@ const FacultySection = () => {
                   layout
                   transition={{ duration: 0.6, ease: "easeInOut" }}
                   onClick={() => handleClick(index)}
-                  className={`relative flex-shrink-0 cursor-pointer rounded-[20px] overflow-hidden shadow-lg transition-all duration-700 ease-in-out
+                  className={`relative flex-shrink-0 cursor-pointer rounded-[20px] overflow-hidden shadow-lg transition-all duration-700 ease-in-out mt-12
                     ${
                       isActive
-                        ? "w-[300px] sm:w-[340px] md:w-[380px] lg:w-[420px] z-20" // ✅ Wider when open
-                        : "w-[120px] sm:w-[140px] md:w-[160px] opacity-80"
+                        ? "w-[340px] sm:w-[380px] md:w-[420px] lg:w-[460px] z-20" // ✅ Wider when open
+                        : "w-[140px] sm:w-[160px] md:w-[180px] opacity-80"
                     } 
-                    h-[300px] sm:h-[340px] md:h-[380px] lg:h-[400px]
+                    h-[400px] sm:h-[440px] md:h-[480px] lg:h-[500px]
                   `}
                 >
                   <motion.img
