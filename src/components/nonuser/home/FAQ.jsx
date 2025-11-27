@@ -60,12 +60,12 @@ function FAQ() {
               className="flex items-center justify-between w-full bg-[#161616] text-white px-4 sm:px-6 py-3 sm:py-4 border border-white border-opacity-20 rounded-lg cursor-pointer transition-all duration-300 hover:bg-[#1e1e1e] hover:border-opacity-40 active:scale-[0.99]"
             >
               <span className="flex items-start text-sm sm:text-base lg:text-lg font-medium pr-4">
-                <span className="text-white mr-2 sm:mr-3 mt-1 flex-shrink-0">•</span>
+                <span className="text-white mr-2 sm:mr-3 mt-1 shrink-0">•</span>
                 <span className="text-left leading-relaxed">
                   {faq.question}
                 </span>
               </span>
-              <span className="flex-shrink-0 ml-2">
+              <span className="shrink-0 ml-2">
                 {openIndex === idx ? (
                   <svg 
                     width="20" 
@@ -112,7 +112,7 @@ function FAQ() {
             >
               <div className="bg-[#222] text-gray-300 px-4 sm:px-6 py-3 sm:py-4 border border-white border-opacity-10 border-t-0 rounded-b-lg">
                 <div className="flex items-start">
-                  <span className="text-green-400 mr-2 sm:mr-3 mt-1 flex-shrink-0">✓</span>
+                  <span className="text-green-400 mr-2 sm:mr-3 mt-1 shrink-0">✓</span>
                   <p className="text-sm sm:text-base leading-relaxed lg:leading-loose">
                     {faq.answer}
                   </p>
