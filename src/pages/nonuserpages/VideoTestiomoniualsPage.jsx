@@ -30,8 +30,8 @@ const VideoTestiomoniualsPage = () => {
   };
 
   return (
-    <div className="px-6 py-10  min-h-screen bg-black text-white">
-      <h1 className="text-6xl md:text-6xl font-bold mb-10">Videos</h1>
+    <div className="px-12 pb-10  min-h-screen text-one">
+      <h1 className="text-5xl md:text-5xl font-bold mb-10">Videos</h1>
      
 
       <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
@@ -42,7 +42,7 @@ const VideoTestiomoniualsPage = () => {
             onClick={() => openPopup(item)}
           >
             {/* Thumbnail */}
-            <div className="relative w-full h-156">
+            <div className="relative w-full h-100">
               <img
                 src={item.thumbnail}
                 alt={item.caption}
@@ -58,12 +58,12 @@ const VideoTestiomoniualsPage = () => {
             {/* Text Area */}
             <div className="p-5 flex flex-col flex-grow">
               <p className="mt-2 text-base leading-relaxed">
-                <span className="font-bold text-3xl">Caption: </span>
+                <span className="font-bold text-2xl">Caption: </span>
                 {item.caption}
               </p>
 
               <p className="mt-1 text-base leading-relaxed text-gray-300">
-                <span className="font-bold text-3xl text-gray-200">About: </span>
+                <span className="font-bold text-2xl text-gray-200">About: </span>
                 {item.about}
               </p>
             </div>

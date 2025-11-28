@@ -12,7 +12,7 @@ export default function HomeHero() {
     <div className="relative font-sora overflow-x-hidden w-full min-h-screen flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-12 lg:px-12 text-one overflow-hidden">
       <div
         className="absolute z-0
-    w-[780px] h-[780px]  /* size of the circle */
+    w-[800px] h-[800px]  /* size of the circle */
     -bottom-[290px] -right-[290px]  /* move half of the circle outside */
     sm:w-[720px] sm:h-[720px] sm:-bottom-[160px] sm:-right-[160px]
     md:w-[880px] md:h-[880px] md:-bottom-[150px] md:-left-[450px]
@@ -133,7 +133,7 @@ export default function HomeHero() {
         </div>
       </div>
       <div
-  className="absolute z-0
+        className="absolute z-0
     w-[780px] h-[780px]  /* size of the circle */
     -bottom-[290px] -right-[290px]  /* move half of the circle outside */
     sm:w-[720px] sm:h-[720px] sm:-bottom-[160px] sm:-right-[160px]
@@ -141,10 +141,9 @@ export default function HomeHero() {
     pointer-events-none
     overflow-hidden
   "
->
-  <CircleBackground />
-</div>
-
+      >
+        <CircleBackground />
+      </div>
     </div>
   );
 }

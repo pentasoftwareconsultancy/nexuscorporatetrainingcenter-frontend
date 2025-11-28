@@ -2,12 +2,19 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom"; // import Link
 import { ROUTES } from "../../core/constants/routes.constant"; // import your routes
 import footerImg from "../../assets/sneha/footer.png";
-import { FaLinkedin, FaFacebook } from "react-icons/fa";
+import { FaLinkedin, FaFacebook, FaPhoneAlt } from "react-icons/fa";
+import { IoIosMail } from "react-icons/io";
 import { AiFillInstagram } from "react-icons/ai";
-import { FaYoutube } from "react-icons/fa6";
+import { FaYoutube, FaLocationDot } from "react-icons/fa6";
 
 const companyLinks = [
-  "Home", "About us", "Courses", "Gallery", "Success stories", "Contact us", "Book appointment", "Book Demo"
+  { title: "Home", path: ROUTES.HOME },
+  { title: "About us", path: ROUTES.ABOUT },
+  { title: "Courses", path: ROUTES.COURSES },
+  { title: "Gallery", path: ROUTES.GALLERY },
+  { title: "Success stories", path: ROUTES.PLACEMENTS },
+  { title: "Contact us", path: ROUTES.CONTACT },
+  { title: "Book appointment", path: ROUTES.CONTACT }
 ];
 
 const branches = [
@@ -36,6 +43,9 @@ const coursesRight = [
 
 export default function Footer() {
   const navigate=useNavigate();
+  const handlenavigate = (link) => {
+    navigate(link.path);
+  };
   return (
     <footer className="flex justify-center items-center text-white w-full min-h-screen relative mx-auto m-10 px-12">
       <div className="relative w-full min-h-[700px] overflow-hidden rounded-2xl border-2 border-one">
@@ -44,14 +54,14 @@ export default function Footer() {
         <div className="absolute inset-0 z-0 bg-gradient-to-b via-[#1b1008] to-[#e77b2ee1]" />
 
         <div className="relative z-10 max-w-7xl mx-auto py-6 px-4 md:px-8 text-start">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-6">
+          <div className="flex flex-col md:flex-row md:flex-nowrap md:items-start md:justify-between gap-10 md:gap-6">
 
             {/* Company Links */}
             <div className="md:w-1/4 mb-8 md:mb-0">
               <h3 className="font-bold mb-3 text-lg">Company</h3>
               <ul className="space-y-1 text-sm text-gray-300">
                 {companyLinks.map(link => (
-                  <li key={link} className="hover:text-orange-400">{link}</li>
+                  <li key={link.title} onClick={()=>handlenavigate(link)} className="hover:text-orange-400 cursor-pointer">{link.title}</li>
                 ))}
               </ul>
             </div>
@@ -63,13 +73,13 @@ export default function Footer() {
                 {branches.map(branch => (
                   <li key={branch.title}>
                     <div className="font-bold text-white mb-1">{branch.title}</div>
-                    <p className="ml-2">{branch.address}</p>
+                    <p className="ml-2 flex items-center gap-2 align-top"><FaLocationDot />{branch.address}</p>
                   </li>
                 ))}
               </ul>
 
               {/* See More Button */}
-              <div className="mt-4" onClick={()=>navigate(ROUTES.BRANCHES)}>
+              <div className="mt-4 cursor-pointer" onClick={()=>navigate(ROUTES.BRANCHES)}>
                                              
                 
                   See More
@@ -120,15 +130,17 @@ export default function Footer() {
 
           <div className="flex flex-col gap-3 sm:gap-3 md:gap-4 font-semibold text-[10px] sm:text-sm leading-relaxed">
             <p>
-              <span className="font-bold text-white">📞 Contact:</span><br />
+              <span className="font-bold text-white flex items-center gap-2 leading-1"><FaPhoneAlt /> Contact:
               <a href="tel:+919545450788" className="text-white hover:underline ml-1">+91 9545450788</a> /
               <a href="tel:+919545450677" className="text-white hover:underline ml-1">+91 9545450677</a>
+              </span>
             </p>
             <p>
-              <span className="font-bold text-white">✉️ Email:</span><br />
+              <span className="font-bold text-white flex items-center gap-2 leading-1"><IoIosMail /> Email:
               <a href="mailto:nexusCTC2020@gmail.com" className="text-white hover:underline ml-1">
                 nexusCTC2020@gmail.com
               </a>
+              </span>
             </p>
           </div>
 
