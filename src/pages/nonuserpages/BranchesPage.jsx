@@ -1,5 +1,8 @@
 import React from "react";
-import { MapPin, Phone } from "lucide-react";
+// import { MapPin, Phone } from "lucide-react";
+import { TiLocation } from "react-icons/ti";
+import { FaPhone } from "react-icons/fa6";
+
 
 export default function Branches() {
   const branches = [
@@ -46,7 +49,7 @@ export default function Branches() {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-black text-[#eaeaea] px-6 py-20">
+    <div className="min-h-screen w-full bg-black text-[#eaeaea] px-12 py-20">
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-12">
         Branches
       </h1>
@@ -56,15 +59,19 @@ export default function Branches() {
           <div key={index} className="space-y-3">
             <h2 className="text-lg sm:text-xl font-semibold">{item.title}</h2>
 
-            {/* Force address to EXACT 2 lines */}
-            <p className="flex items-start gap-3 text-[13px] leading-tight text-gray-300 max-w-[350px] line-clamp-2 overflow-hidden text-ellipsis">
-              <MapPin className="w-6 h-6 text-white mt-1 stroke-[2.5]" />
+            {/* Address */}
+            <p className="flex items-center gap-3 text-[13px] leading-tight text-gray-300 max-w-[350px] line-clamp-2 overflow-hidden text-ellipsis">
+              <span className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                <TiLocation className="w-full h-full mb-4 stroke-[2.5]" />
+              </span>
               {item.address}
             </p>
 
-            {/* Bold phone icon */}
+            {/* Phone */}
             <p className="flex items-center gap-3 text-[13px] text-gray-300">
-              <Phone className="w-6 h-6 text-white stroke-[2.8]" />
+              <span className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                <FaPhone className="w-full h-full stroke-[2.5] text-one" />
+              </span>
               {item.phone}
             </p>
           </div>

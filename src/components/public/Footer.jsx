@@ -2,7 +2,8 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom"; // import Link
 import { ROUTES } from "../../core/constants/routes.constant"; // import your routes
 import footerImg from "../../assets/sneha/footer.png";
-import { FaLinkedin, FaFacebook } from "react-icons/fa";
+import { FaLinkedin, FaFacebook, FaPhoneAlt } from "react-icons/fa";
+import { IoIosMail } from "react-icons/io";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaYoutube } from "react-icons/fa6";
 
@@ -120,15 +121,17 @@ export default function Footer() {
 
           <div className="flex flex-col gap-3 sm:gap-3 md:gap-4 font-semibold text-[10px] sm:text-sm leading-relaxed">
             <p>
-              <span className="font-bold text-white">📞 Contact:</span><br />
+              <span className="font-bold text-white flex items-center gap-2 leading-1"><FaPhoneAlt /> Contact:
               <a href="tel:+919545450788" className="text-white hover:underline ml-1">+91 9545450788</a> /
               <a href="tel:+919545450677" className="text-white hover:underline ml-1">+91 9545450677</a>
+              </span>
             </p>
             <p>
-              <span className="font-bold text-white">✉️ Email:</span><br />
+              <span className="font-bold text-white flex items-center gap-2 leading-1"><IoIosMail /> Email:
               <a href="mailto:nexusCTC2020@gmail.com" className="text-white hover:underline ml-1">
                 nexusCTC2020@gmail.com
               </a>
+              </span>
             </p>
           </div>
 
