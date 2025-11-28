@@ -1,54 +1,52 @@
 [
   {
     "id": 1,
-    "name": "Dr. Aditi Sharma",
-    "experience": "10+ Years Experience",
+    "name": "Dr.Rajiv Khade",
+    "experience": "6+ Years Experience",
     "designation": "Head of AI Department",
-    "image": "/src/assets/shubham/abhijeet.png"
+    "image": "/src/assets/shubham/rajivsir.png"
   },
   {
     "id": 2,
-    "name": "Prof. Rahul Deshmukh",
-    "experience": "8+ Years Experience",
+    "name": "Aditi Khade",
+    "experience": "6+ Years Experience",
     "designation": "Senior Data Scientist",
-    "image": "/src/assets/shubham/abhijeet.png"
+    "image": "/src/assets/shubham/priya.jpg"
   },
   {
     "id": 3,
-    "name": "Dr. Meera Nair",
-    "experience": "12+ Years Experience",
+    "name": "Bhagyashree Patil",
+    "experience": "6+ Years Experience",
     "designation": "Machine Learning Expert",
-    "image": "/src/assets/shubham/abhijeet.png"
+    "image": "/src/assets/shubham/bhagyashreemam.png"
   },
   {
     "id": 4,
-    "name": "Prof. Karan Singh",
-    "experience": "7+ Years Experience",
+    "name": "Sagar Solanke",
+    "experience": "6+ Years Experience",
     "designation": "Software Engineering Mentor",
-    "image": "/src/assets/shubham/abhijeet.png"
+    "image": "/src/assets/shubham/sagarsir.png"
   },
   {
     "id": 5,
-    "name": "Dr. Meera Nair",
-    "experience": "12+ Years Experience",
+    "name": "Vaibhav Jadhav",
+    "experience": "6+ Years Experience",
     "designation": "Machine Learning Expert",
-    "image": "/src/assets/shubham/abhijeet.png"
+    "image": "/src/assets/shubham/vishaljadhav.png"
+  },
+ {
+    "id": 1,
+    "name": "Lekhraj Patil",
+    "experience": "6+ Years Experience",
+    "designation": "Head of AI Department",
+    "image": "/src/assets/shubham/lekhrajsir.png"
   },
   {
-    "id": 6,
-    "name": "Prof. Karan Singh",
-    "experience": "7+ Years Experience",
-    "designation": "Software Engineering Mentor",
-    "image": "/src/assets/shubham/abhijeet.png"
-  },
-  
-  {
-    "id": 7,
-    "name": "Prof. Karan Singh",
-    "experience": "7+ Years Experience",
-    "designation": "Software Engineering Mentor",
+    "id": 1,
+    "name": "Abhijeet Kumar",
+    "experience": "6+ Years Experience",
+    "designation": "Head of AI Department",
     "image": "/src/assets/shubham/abhijeet.png"
   }
-
   
 ]
