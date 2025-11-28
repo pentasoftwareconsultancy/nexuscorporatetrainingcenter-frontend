@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Button from "../../components/common/Button";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../core/constants/routes.constant";
 
 export default function TestExam() {
   // Popup 1: ask number of questions
@@ -11,6 +13,7 @@ export default function TestExam() {
   const [totalQuestions, setTotalQuestions] = useState(20);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
+  const navigate = useNavigate();
 
   // Dynamic questions
   const quizData = Array.from({ length: totalQuestions }, (_, i) => ({
@@ -39,7 +42,7 @@ export default function TestExam() {
 
   const confirmSubmit = () => {
     // 🚀 Here redirect to success page
-    window.location.href = "/success";
+    navigate(ROUTES.USER_SUCCESS);
   };
 
   return (
