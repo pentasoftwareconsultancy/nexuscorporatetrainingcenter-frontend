@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import partnerData from "../../../assets/tarushri/partnerData.json";
 
 // Import all icons
@@ -23,7 +22,7 @@ const PartnerSection = () => {
   const rightData = partnerData.filter((item) => item.side === "right");
 
   return (
-    <div className="relative w-full min-h-screen pt-10 bg-[#121212]">
+    <div className="relative w-full min-h-screen pt-10">
       
       {/* Title */}
       <div className="flex justify-center px-5 md:px-10">
