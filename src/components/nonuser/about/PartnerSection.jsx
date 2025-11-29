@@ -1,5 +1,6 @@
 import React from "react";
 import partnerData from "../../../assets/tarushri/partnerData.json";
+import { motion } from "framer-motion";
 
 // Import all icons
 import { FaUserFriends, FaUserTie, FaLightbulb } from "react-icons/fa";
@@ -22,10 +23,10 @@ const PartnerSection = () => {
   const rightData = partnerData.filter((item) => item.side === "right");
 
   return (
-    <div className="relative w-full min-h-screen pt-10">
+    <div className="relative w-full min-h-[75vh] pt-10">
       
       {/* Title */}
-      <div className="flex justify-center px-5 md:px-10">
+      <div className="flex px-5 md:px-10">
         <h1 className="text-2xl md:text-3xl font-semibold text-white">
           Why Partner with Nexus?
         </h1>
