@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import partnerData from "../../../assets/tarushri/partnerData.json";
 
 // Import all icons
@@ -25,7 +24,7 @@ const PartnerSection = () => {
 
   return (
     <>
-      <div className="relative w-full min-h-screen pt-10">
+      <div className="relative w-full min-h-[70vh] pt-10">
         {/* Title */}
         <div className="flex p-10 align-text-top text-3xl text-white">
           <h1>Why Partner with Nexus?</h1>

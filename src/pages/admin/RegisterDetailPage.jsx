@@ -19,22 +19,6 @@ export default function RegisterDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white flex">
-      
-      {/* Sidebar */}
-      <aside className="w-64 bg-[#1C1C1C] p-6 flex flex-col justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-orange-500 mb-10">Waghera</h1>
-          <ul className="space-y-4">
-            {["Dashboard", "Courses", "Gallery", "Placements"].map((item) => (
-              <li key={item} className="hover:text-orange-500 cursor-pointer">{item}</li>
-            ))}
-          </ul>
-        </div>
-
-        <button className="bg-orange-500 px-4 py-2 rounded-full flex items-center gap-2 hover:bg-orange-600 transition">
-          <LogOut size={18} /> Log out
-        </button>
-      </aside>
 
       {/* Main Content */}
       <main className="flex-1 p-10">
