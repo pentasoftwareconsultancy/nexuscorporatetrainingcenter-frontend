@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import data from "../../assets/sneha/json/Video.json"
+import { motion, AnimatePresence } from "framer-motion";
+import data from "../../assets/sneha/json/Video.json";
 
 const VideoTestiomoniualsPage = () => {
   const [videos, setVideos] = useState([]);
@@ -10,89 +11,111 @@ const VideoTestiomoniualsPage = () => {
     setVideos(data.videos);
   }, []);
 
-  // Open popup with selected video
   const openPopup = (video) => {
     setCurrentVideo(video);
     setShowPopup(true);
   };
 
-  // Close popup
   const closePopup = () => {
-    setCurrentVideo(null);
     setShowPopup(false);
-  };
-
-  // Play a random video
-  const playRandomVideo = () => {
-    const randomIndex = Math.floor(Math.random() * videos.length);
-    setCurrentVideo(videos[randomIndex]);
-    setShowPopup(true);
+    setTimeout(() => setCurrentVideo(null), 300);
   };
 
   return (
-    <div className="px-12 pb-10  min-h-screen text-one">
-      <h1 className="text-5xl md:text-5xl font-bold mb-10">Videos</h1>
-     
+    <div className="px-6 py-10 min-h-screen text-one">
+      {/* Title Animation */}
+      <motion.h1
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-6xl md:text-6xl font-bold mb-10"
+      >
+        Videos
+      </motion.h1>
 
+      {/* Cards Grid */}
       <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
-        {videos.map((item) => (
-          <div
+        {videos.map((item, index) => (
+          <motion.div
             key={item.id}
-            className=" rounded-2xl shadow-lg overflow-hidden flex flex-col cursor-pointer"
+            className="bg-twopointo rounded-2xl shadow-xl overflow-hidden cursor-pointer 
+           border border-transparent transition-all duration-300
+           hover:border-orange-500 hover:shadow-[0_0_15px_rgba(255,115,0,0.8)]"
+            whileHover={{ scale: 1.05 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}   // Lazy animation when visible
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ delay: index * 0.1, duration: 0.4 }}
             onClick={() => openPopup(item)}
           >
             {/* Thumbnail */}
-            <div className="relative w-full h-100">
+            <div className="relative w-full h-60">
               <img
                 src={item.thumbnail}
                 alt={item.caption}
-                className="w-full h-full object-cover"
+                loading="lazy"
+                className="w-full h-full object-contain"
               />
-              <button className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <span className="bg-white/80 text-black font-bold p-4 rounded-full text-xl shadow">
+
+              {/* Play Icon Animation */}
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ repeat: Infinity, duration: 1 }}
+              >
+                <span className="bg-white/70 text-black p-4 rounded-full text-xl shadow-lg">
                   ▶
                 </span>
-              </button>
+              </motion.div>
             </div>
 
-            {/* Text Area */}
-            <div className="p-5 flex flex-col flex-grow">
-              <p className="mt-2 text-base leading-relaxed">
-                <span className="font-bold text-2xl">Caption: </span>
-                {item.caption}
+            {/* Text */}
+            <div className="p-5">
+              <p className="mt-2 text-lg font-bold">
+                <span>Caption:</span> {item.caption}
               </p>
-
-              <p className="mt-1 text-base leading-relaxed text-gray-300">
-                <span className="font-bold text-2xl text-gray-200">About: </span>
-                {item.about}
+              <p className="mt-1 text-gray-300 text-sm">
+                <span className="font-bold">About:</span> {item.about}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
-      {/* Popup */}
-      {showPopup && currentVideo && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
-          <div className="relative w-full max-w-7xl h-[80vh]">
-            {/* Close button */}
-            <button
-              onClick={closePopup}
-              className="absolute top-4 right-4 text-white text-3xl font-bold z-50"
+      {/* POPUP */}
+      <AnimatePresence>
+        {showPopup && currentVideo && (
+          <motion.div
+            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.5, opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="relative w-full max-w-7xl h-[80vh]"
             >
-              ×
-            </button>
+              <button
+                onClick={closePopup}
+                className="absolute top-4 right-4 text-white text-3xl font-bold z-50"
+              >
+                ×
+              </button>
 
-            {/* Video iframe */}
-            <iframe
-              src={currentVideo.videoUrl}
-              title={currentVideo.caption}
-              className="w-full h-full"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </div>
-      )}
+              <iframe
+                src={currentVideo.videoUrl}
+                title={currentVideo.caption}
+                loading="lazy"
+                className="w-full h-full rounded-lg"
+                allowFullScreen
+              ></iframe>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
