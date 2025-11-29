@@ -4,21 +4,21 @@
       "id": 1,
       "caption": "Akola clg visit (college name)",
       "about": "Our success is driven by our faculty of world-class instructors, who are not just educators, but active industry leaders with an average of 6+ years of real-world expertise.",
-      "thumbnail": "/src/assets/sneha/client1.jpg",
+      "thumbnail": "/src/assets/sneha/client1.png",
       "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
     },
     {
       "id": 2,
       "caption": "Akole clg visit (college name)",
       "about": "Our success is driven by our faculty of world-class instructors, who are not just educators, but active industry leaders with an average of 6+ years of real-world expertise.",
-      "thumbnail": "/src/assets/sneha/client2.jpg",
+      "thumbnail": "/src/assets/sneha/client2.png",
       "videoUrl": "https://www.youtube.com/embed/FTQbiNvZqaY"
     },
     {
       "id": 3,
       "caption": "Akole clg visit (college name)",
       "about": "Our success is driven by our faculty of world-class instructors, who are not just educators, but active industry leaders with an average of 6+ years of real-world expertise.",
-      "thumbnail": "/src/assets/sneha/client3.jpg",
+      "thumbnail": "/src/assets/sneha/client3.png",
       "videoUrl": "https://www.youtube.com/embed/2ZIpFytCSVc"
     }
   ]
