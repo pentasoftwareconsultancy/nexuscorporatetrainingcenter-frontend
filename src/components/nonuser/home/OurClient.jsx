@@ -93,12 +93,17 @@ function OurClient() {
   ];
 
   return (
-    <div className="relative w-full text-white overflow-x-hidden py-10 sm:py-16">
+    <div className="relative w-full text-white overflow-hidden py-10 sm:py-16">
       {/* Circle backgrounds hidden on small screens */}
-      <div className="absolute z-0 w-1/3 h-3/4 -translate-y-[320%] -translate-x-[210%] pointer-events-none hidden md:block">
-        <CircleBackground />
-      </div>
-      <div className="absolute z-0 w-1/3 h-3/4 -translate-y-[340%] translate-x-[210%] pointer-events-none hidden md:block">
+      <div
+        className="absolute z-0
+          w-[780px] h-[780px]  /* size of the circle */
+          -top-[290px] -right-[300px]  /* move half of the circle outside */
+          sm:w-[720px] sm:h-[720px] sm:-bottom-[160px] sm:-right-[160px]
+          md:w-[880px] md:h-[880px] md:-bottom-[150px] md:-left-[450px]
+          pointer-events-none
+          overflow-hidden"
+      >
         <CircleBackground />
       </div>
 

@@ -3,6 +3,8 @@ import Gallerydata from '../../assets/tarushri/GallleryEventData.json';
 import { useNavigate } from "react-router-dom";
 import AdminGallery from "../../assets/tarushri/Admingallery.json";
 
+
+
 const GalleryEventPage = () => {
   const navigate = useNavigate();
 

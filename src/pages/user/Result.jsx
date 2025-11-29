@@ -1,7 +1,11 @@
 import React from 'react'
 import data from '../../assets/saidas/resultData.json'
+import Button from '../../components/common/Button';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../core/constants/routes.constant';
 
 const Result = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white px-4 sm:px-6 md:px-10 lg:px-16 py-8 sm:py-10 md:py-14 font-sora">
       {/* 🔹 Title */}
@@ -76,28 +80,10 @@ const Result = () => {
 
       {/* 🔹 Download Certificate Button */}
       <div className="flex justify-center mt-10 sm:mt-12">
-        <button
-          className="
-            relative px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-semibold text-black cursor-pointer
-            bg-[linear-gradient(180deg,#fdfbf8_0%,#f8eee6_50%,#f5d4ad_100%)]
-            border border-[#f1d4b5]
-            shadow-[inset_2px_2px_5px_rgba(255,255,255,0.9),inset_-2px_-2px_6px_rgba(0,0,0,0.1)]
-            overflow-hidden transition-all duration-300 ease-in-out
-            hover:shadow-[inset_2px_2px_6px_rgba(255,255,255,1),inset_-2px_-2px_8px_rgba(0,0,0,0.15)]
-            max-[400px]:text-xs max-[370px]:px-4 max-[370px]:py-2
-          "
-        >
-          {/* Animated orange line */}
-          <span
-            className="
-              absolute top-0 left-0 w-full h-[2px] rounded-t-full
-              bg-gradient-to-r from-transparent via-orange-400 to-transparent
-              animate-[shimmer_2.5s_linear_infinite]
-            "
-          ></span>
-
-          Download Certificate
-        </button>
+        <Button 
+          text="Download Certificate"
+          onClick={() => navigate(ROUTES.USER_CERTIFICATION)}
+        />
       </div>
 
       {/* 🔹 Custom shimmer animation */}
