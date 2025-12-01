@@ -16,8 +16,8 @@ const stats = [
     value: "2,800",
     info: [
       { k: "Enquiry", v: "800" },
-      { k: "Class visits", v: "1000" },
-      { k: "Direct Admissions", v: "600" }
+      { k: "Class visits", v: "1000"},
+      { k: "Direct Admissions", v: "600"}
     ],
     icon: IoPeopleSharp,
     click: ROUTES.ADMIN_TOTAL_REGISTER
@@ -49,7 +49,7 @@ const stats = [
   { title: "Total Reviews", value: "500", info: [], icon: MdReviews , click: ROUTES.ADMIN_REVIEWS }
 ];
 
-function StatCard({ title, value, info, icon, click }) {
+function StatCard({ title, value, info, icon, click }){
   const Icons = icon;
   const navigate = useNavigate();
   return (

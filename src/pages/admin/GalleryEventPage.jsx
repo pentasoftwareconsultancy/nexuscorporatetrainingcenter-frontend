@@ -91,21 +91,24 @@ const GalleryEventPage = () => {
                 onClick={() => openAlbum(album.id)}
                 className="cursor-pointer group w-full"
               >
-                <div className="relative w-full aspect-square transition-all duration-500  group-hover:scale-105">
+                <div className="relative w-full aspect-square transition-all duration-500 group-hover:scale-105">
                   
                   <img
                     src={getImageSrc(album.images[3])}
-                    className="absolute top-0 left-[10%] w-full h-full  object-cover rounded-xl border border-black shadow-[0_0_20px_rgba(255,140,0,0.6)] opacity-60 grayscale transition-all duration-500 group-hover:grayscale-0"
+                    className="absolute top-0 left-[10%] w-full h-full object-cover rounded-xl border border-gray-400 
+          shadow-[0_0_20px_rgba(255,140,0,0.6)] opacity-60 grayscale transition-all duration-500 group-hover:grayscale-0"
                   />
 
                   <img
                     src={getImageSrc(album.images[2])}
-                    className="absolute top-0 left-[5%] w-full h-full object-cover rounded-xl border border-black shadow-[0_0_25px_rgba(255,165,0,0.7)] opacity-80 grayscale transition-all duration-500 group-hover:grayscale-0"
+                    className="absolute top-0 left-[5%] w-full h-full object-cover rounded-xl border border-gray-400 
+          shadow-[0_0_25px_rgba(255,165,0,0.7)] opacity-80 grayscale transition-all duration-500 group-hover:grayscale-0"
                   />
 
                   <img
                     src={getImageSrc(album.images[1])}
-                    className="absolute top-0 left-0 w-full h-full object-cover rounded-xl border border-black grayscale transition-all duration-500 group-hover:grayscale-0"
+                    className="absolute top-0 left-0 w-full h-full object-cover 
+          rounded-xl border border-white grayscale transition-all duration-500 group-hover:grayscale-0"
                   />
                 </div>
 
