@@ -1,35 +1,31 @@
+import React from "react";
+import { ROUTES } from "../core/constants/routes.constant";
 import { Navigate, Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-
-const parseBypassUser = () => {
-  try {
-    return import.meta.env.VITE_BYPASS_USER
-      ? JSON.parse(import.meta.env.VITE_BYPASS_USER)
-      : null;
-  } catch {
-    return null;
-  }
-};
+import { useAuth } from "../core/contexts/AuthContext";
 
 const ProtectedRoute = ({ allowedRoles }) => {
-  const { user } = useAuth();
+  const { isLoggedIn, user } = useAuth();
 
-  // Dev bypass
-  if (import.meta.env.VITE_BYPASS_AUTH === "true") {
-    const devUser = parseBypassUser();
-    if (devUser && allowedRoles && !allowedRoles.includes(devUser.role)) {
-      return <Navigate to="/login" replace />;
-    }
-    return <Outlet />;
+  // ⛔ Not logged in → send to login
+  if (!isLoggedIn || !user) {
+    return <Navigate to={ROUTES.LOGIN} replace />;
   }
 
-  // Real auth
-  if (!user) return <Navigate to="/login" replace />;
+  // Extract stored roles (your format)
+  const userRoles = user?.roles?.map(r => r.roleName) || [];
 
-  if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/" replace />;
+  // ⛔ Logged in but role does not match
+  if (allowedRoles && !allowedRoles.some(role => userRoles.includes(role))) {
+    // USER tries to enter admin page
+    if (userRoles.includes("user")) return <Navigate to={ROUTES.USER_APPITUDE} replace />;
+
+    // ADMIN tries to enter user page
+    if (userRoles.includes("admin")) return <Navigate to={ROUTES.ADMIN_DASHBOARD} replace />;
+
+    return <Navigate to={ROUTES.LOGIN} replace />;
   }
 
+  // ✅ Everything OK → allow access
   return <Outlet />;
 };
 

@@ -1,34 +1,46 @@
-import React, { createContext, useState, useEffect } from "react";
-import storageService from "../services/storage.service";
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
+import StorageService from "../services/storage.service"; // Adjust the import path as necessary
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
-  // Load user ONCE when app starts
+  // Auto-sync from storage on mount
   useEffect(() => {
-    const storedUser = storageService.getUser();
+    let storedUser = StorageService.getData("user");
     if (storedUser) {
       setUser(storedUser);
+      setIsLoggedIn(true);
     }
   }, []);
 
-  // LOGIN FUNCTION
-  const login = (userData) => {
-    storageService.saveUser(userData);
-    setUser(userData);
-  };
+  const login = useCallback((userData) => {
+    setIsLoggedIn(true);
+    setUser(userData.user);
+    StorageService.setData("user", userData.user);
+    StorageService.setData("token", userData.token);
+  }, []);
 
-  // LOGOUT FUNCTION
-  const logout = () => {
-    storageService.removeUser();
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
     setUser(null);
+    StorageService.clear();
+  }, []);
+
+  const hasRoles = (roles) => {
+    const currentUser = StorageService.getData("user");
+    if (!currentUser || !roles?.length) return false;
+    const parsedUser = JSON.parse(currentUser);
+    return parsedUser?.roles?.some((e) => roles.includes(e.roleName));
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, user, login, logout, hasRoles }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);

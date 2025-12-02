@@ -1,24 +1,21 @@
-const storageService = {
-  // 🔹 Save logged-in user data
-  saveUser: (user) => {
-    localStorage.setItem("user", JSON.stringify(user));
-  },
+class StorageService {
+  static setData(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
 
-  // 🔹 Get stored user
-  getUser: () => {
-    const user = localStorage.getItem("user");
-    return user ? JSON.parse(user) : null;
-  },
+  static getData(key) {
+    const val = localStorage.getItem(key);
+    if (!val) return null;
+    try {
+      return JSON.parse(val);
+    } catch {
+      return null;
+    }
+  }
 
-  // 🔹 Remove user (logout)
-  removeUser: () => {
-    localStorage.removeItem("user");
-  },
+  static clear() {
+    localStorage.clear();
+  }
+}
 
-  // 🔹 Optional: token functions if you use JWT
-  saveToken: (token) => localStorage.setItem("token", token),
-  getToken: () => localStorage.getItem("token"),
-  removeToken: () => localStorage.removeItem("token"),
-};
-
-export default storageService;
+export default StorageService;

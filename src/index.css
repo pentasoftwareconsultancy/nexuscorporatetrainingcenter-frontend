@@ -87,6 +87,8 @@
 /* ------------ GLOBAL STYLES ------------ */
 body {
   @apply bg-three;
+  @apply font-sora;
+  @apply text-one;
 }
 
 .fit-text {

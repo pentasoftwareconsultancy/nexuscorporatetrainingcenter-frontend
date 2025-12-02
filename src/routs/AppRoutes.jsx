@@ -1,12 +1,12 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import AuthRedirect from "./AuthRedirect";
+import { useAuth } from "../core/contexts/AuthContext";
 
 // Layouts
 import PublicLayout from "../components/layout/PublicLayout";
-import UserLayout from "../components/layout/UserLayout";   // USER layout
-import AdminLayout from "../components/layout/AdminLayout";           // ADMIN layout
+import UserLayout from "../components/layout/UserLayout";
+import AdminLayout from "../components/layout/AdminLayout";
 
 // Public Pages
 import HomePage from "../pages/nonuserpages/HomePage";
@@ -24,14 +24,14 @@ import BranchesPage from "../pages/nonuserpages/BranchesPage";
 import ContactPage from "../pages/nonuserpages/ContactPage";
 import VideoTestiomoniualsPage from "../pages/nonuserpages/VideoTestiomoniualsPage";
 
-// User Pages
+// USER Pages (inside user layout)
 import AppitudeExam from "../pages/user/AppitudeExam";
 import TestExam from "../pages/user/TestExam";
 import TestSuccess from "../pages/user/TestSuccess";
 import Result from "../pages/user/Result";
 import Certification from "../pages/user/Certification";
 
-// Admin Pages
+// ADMIN Pages (inside admin layout)
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import TotalRegisterDashboard from "../pages/admin/TotalRegisterDashboard";
 import NewRegisterDashboard from "../pages/admin/NewRegisterDashboard";
@@ -50,11 +50,15 @@ import PlacementDetailPage from "../pages/admin/PlacementDetailPage";
 import RegisterDetailPage from "../pages/admin/RegisterDetailPage";
 import TestCompleteDetailPage from "../pages/admin/TestCompleteDetailPage";
 
-// Auth Pages
+// Auth
 import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 
 const AppRoutes = () => {
+  const { isLoggedIn, isLoading } = useAuth();
+
+  if (isLoading) return <div className="text-center mt-10">Loading...</div>;
+
   return (
     <Routes>
 
@@ -75,27 +79,18 @@ const AppRoutes = () => {
         <Route path="/videotestimonials" element={<VideoTestiomoniualsPage />} />
         <Route path="/contact" element={<ContactPage />} />
 
-        {/* 🔑 LOGIN + SIGNUP (Public layout!) */}
-        <Route 
+        {/* AUTH ROUTES (Public layout) */}
+        <Route
           path="/login"
-          element={
-            <AuthRedirect>
-              <Login />
-            </AuthRedirect>
-          }
+          element={!isLoggedIn ? <Login /> : <Navigate to="/" />}
         />
-        <Route 
+        <Route
           path="/signup"
-          element={
-            <AuthRedirect>
-              <Signup />
-            </AuthRedirect>
-          }
+          element={!isLoggedIn ? <Signup /> : <Navigate to="/" />}
         />
       </Route>
 
-
-      {/* 👤 USER ROUTES (Dashboard layout) */}
+      {/* 👤 USER ROUTES */}
       <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
         <Route element={<UserLayout />}>
           <Route path="/appitude" element={<AppitudeExam />} />
@@ -106,8 +101,7 @@ const AppRoutes = () => {
         </Route>
       </Route>
 
-
-      {/* 🛠️ ADMIN ROUTES (Admin layout, NO footer) */}
+      {/* 🛠 ADMIN ROUTES */}
       <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
         <Route element={<AdminLayout />}>
           <Route path="/dashboard" element={<AdminDashboard />} />

@@ -1,6 +1,6 @@
 import React from "react";
 import jsPDF from "jspdf";
-import img from "../../assets/saidas/certificate.jpeg";
+import img from "../../assets/saidas/Certificate.jpeg";
 import certificateData from "../../assets/saidas/CertificateData.json";
 
 const Certification = () => {
