@@ -4,12 +4,8 @@ const Button = ({
   text, 
   onClick, 
   className = "", 
-<<<<<<< HEAD
   showIcon = true,   // 👈 NEW PROP to hide/show the <span>
   type = "button"
-=======
-  showIcon = true   // 👈 NEW PROP to hide/show the <span>
->>>>>>> 1b11c5d7529d0e34549ab05fbdb3a69608b0335a
 }) => {
   return (
     <button
