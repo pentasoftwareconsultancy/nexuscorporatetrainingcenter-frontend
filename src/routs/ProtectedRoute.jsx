@@ -12,7 +12,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
   }
 
   // Extract stored roles (your format)
-  const userRoles = user?.roles?.map(r => r.roleName) || [];
+  const userRoles = [user?.role];  // because your API gives { role: "user" }
 
   // ⛔ Logged in but role does not match
   if (allowedRoles && !allowedRoles.some(role => userRoles.includes(role))) {

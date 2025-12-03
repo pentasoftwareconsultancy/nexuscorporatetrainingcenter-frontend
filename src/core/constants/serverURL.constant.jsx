@@ -3,18 +3,11 @@ class ServerUrl {
     
     // Base URL
     static REACT_APP_API_URL = import.meta.env.VITE_API_URL;
-    // static IMAGE_URL = "http://localhost:3000"
-    // static REACT_APP_API_URL = "https://api.carnomia.com/api/"
-    // static IMAGE_URL = "https://api.carnomia.com"
-    // static REACT_APP_API_URL = "http://31.97.231.187:3000/api"
 
-
+    // USER AUTH MODULE
     static API_MODULE_USER = "/api/auth";
     static API_LOGIN = ServerUrl.API_MODULE_USER + "/login";
     static API_REGISTER = ServerUrl.API_MODULE_USER + "/signup";
-    // static API_UPDATE_USER = ServerUrl.API_MODULE_USER + "/update";    
-    // static API_GET_ALL_USERS_BY_ROLES = ServerUrl.API_MODULE_USER + "/getUsersByRoles";  
-    // static API_DELETE_USER = ServerUrl.API_MODULE_USER + "/delete";
 
     // master module
     static API_MODULE_MASTER = "/api/master";    

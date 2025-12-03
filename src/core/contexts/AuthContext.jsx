@@ -1,43 +1,45 @@
-import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
-import StorageService from "../services/storage.service"; // Adjust the import path as necessary
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Auto-sync from storage on mount
+  // ⬇ Load user from localStorage on refresh
   useEffect(() => {
-    let storedUser = StorageService.getData("user");
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(storedUser);
-      setIsLoggedIn(true);
+      setUser(JSON.parse(storedUser));
     }
+    setIsLoading(false);
   }, []);
 
-  const login = useCallback((userData) => {
-    setIsLoggedIn(true);
-    setUser(userData.user);
-    StorageService.setData("user", userData.user);
-    StorageService.setData("token", userData.token);
-  }, []);
+  // ⬇ Login function
+  const login = (data) => {
+    const userData = {
+      id: data.id,
+      role: data.role,
+      token: data.token
+    };
 
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
-    setUser(null);
-    StorageService.clear();
-  }, []);
+    // Save to LS
+    localStorage.setItem("user", JSON.stringify(userData));
 
-  const hasRoles = (roles) => {
-    const currentUser = StorageService.getData("user");
-    if (!currentUser || !roles?.length) return false;
-    const parsedUser = JSON.parse(currentUser);
-    return parsedUser?.roles?.some((e) => roles.includes(e.roleName));
+    // Save to state
+    setUser(userData);
   };
 
+  // ⬇ Logout
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
+  const isLoggedIn = !!user;
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, login, logout, hasRoles }}>
+    <AuthContext.Provider value={{ user, isLoggedIn, isLoading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

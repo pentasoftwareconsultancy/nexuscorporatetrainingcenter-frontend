@@ -68,18 +68,20 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await new ApiService().apipost(ServerUrl.API_LOGIN, {
         emailOrPhone: email,
         password: password,
       });
 
+      console.log("LOGIN RESPONSE:", response.data); // 🔥 ADD THIS HERE
+
       // Save user
       login(response.data);
 
       // Role-based redirect
-      const role = response.data.user?.roles?.[0]?.roleName;
+      const role = response.data.role;
 
       if (role === "admin") {
         navigate(ROUTES.ADMIN_DASHBOARD);

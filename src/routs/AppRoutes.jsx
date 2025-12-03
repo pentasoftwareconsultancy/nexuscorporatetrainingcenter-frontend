@@ -55,13 +55,12 @@ import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 
 const AppRoutes = () => {
-  const { isLoggedIn, isLoading } = useAuth();
+  const { isLoggedIn, isLoading, user } = useAuth();
 
   if (isLoading) return <div className="text-center mt-10">Loading...</div>;
 
   return (
     <Routes>
-
       {/* 🌍 PUBLIC ROUTES */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
@@ -76,17 +75,29 @@ const AppRoutes = () => {
         <Route path="/upcoming" element={<UpcomingPage />} />
         <Route path="/branch" element={<BranchesPage />} />
         <Route path="/professor" element={<ProfessorPage />} />
-        <Route path="/videotestimonials" element={<VideoTestiomoniualsPage />} />
+        <Route
+          path="/videotestimonials"
+          element={<VideoTestiomoniualsPage />}
+        />
         <Route path="/contact" element={<ContactPage />} />
 
         {/* AUTH ROUTES (Public layout) */}
         <Route
           path="/login"
-          element={!isLoggedIn ? <Login /> : <Navigate to="/" />}
+          element={
+            !isLoggedIn ? (
+              <Login />
+            ) : user?.role === "admin" ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <Navigate to="/appitude" />
+            )
+          }
         />
+
         <Route
           path="/signup"
-          element={!isLoggedIn ? <Signup /> : <Navigate to="/" />}
+          element={!isLoggedIn ? <Signup /> : <Navigate to="/login" />}
         />
       </Route>
 
@@ -109,11 +120,17 @@ const AppRoutes = () => {
           <Route path="/registerdashboard" element={<NewRegisterDashboard />} />
           <Route path="/testdashboard" element={<CompletedTestDashboard />} />
           <Route path="/visitdashboard" element={<CollegeVisitDashboard />} />
-          <Route path="/placementdashboard" element={<TotalPlacementDashboard />} />
+          <Route
+            path="/placementdashboard"
+            element={<TotalPlacementDashboard />}
+          />
           <Route path="/reviewsdashboard" element={<TotalReviewsDashboard />} />
           <Route path="/galleryevent" element={<GalleryEventPage />} />
           <Route path="/admincourses" element={<AdminCoursesPage />} />
-          <Route path="/adminnotification" element={<AdminNotificationPage />} />
+          <Route
+            path="/adminnotification"
+            element={<AdminNotificationPage />}
+          />
           <Route path="/adminprofile" element={<AdminProfile />} />
           <Route path="/addcourses" element={<AddCoursesPage />} />
           <Route path="/visitdetail" element={<CollegeVisitDetailPage />} />
@@ -123,7 +140,6 @@ const AppRoutes = () => {
           <Route path="/completedetail" element={<TestCompleteDetailPage />} />
         </Route>
       </Route>
-
     </Routes>
   );
 };
