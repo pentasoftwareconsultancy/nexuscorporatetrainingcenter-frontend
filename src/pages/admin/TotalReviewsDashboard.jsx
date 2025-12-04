@@ -12,7 +12,7 @@ export default function TotalReviewsDashboard() {
   const [allUsers] = useState(initialUsers);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Filtering Users (Only by search now)
+  // Filtering Users
   const filteredUsers = allUsers.filter((u) => {
     return (
       u.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -21,54 +21,72 @@ export default function TotalReviewsDashboard() {
   });
 
   return (
-    <div className="relative min-h-screen flex text-one font-poppins overflow-hidden font-sora">
-      {/* MAIN CONTENT ONLY */}
-      <main className="flex-1 p-6 lg:p-10 w-full overflow-y-auto">
-        <h2 className="text-xl md:text-2xl font-semibold pb-5">
-          Total Reviews ({allUsers.length})
-        </h2>
+    <div className="min-h-screen bg-black text-white font-sora p-4 md:p-10">
+      {/* TITLE */}
+      <h2 className="text-xl md:text-2xl font-semibold pb-5">
+        Total Reviews ({allUsers.length})
+      </h2>
 
-        {/* SEARCH BAR */}
-        <div className="mt-6 relative">
-          <Search className="absolute left-4 top-3 text-gray-400" size={20} />
-          <input
-            type="text"
-            placeholder="Search by name, email"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full border border-white rounded-full py-3 pl-12 pr-5 outline-none focus:ring-2 focus:ring-orange-400 transition"
-          />
-        </div>
+      {/* SEARCH BAR */}
+      <div className="mt-6 relative">
+        <Search className="absolute left-4 top-3 text-gray-400" size={20} />
+        <input
+          type="text"
+          placeholder="Search by name, email"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full border border-white rounded-full py-3 pl-12 pr-5 
+          outline-none focus:ring-2 focus:ring-orange-400 transition bg-black"
+        />
+      </div>
 
-        {/* HEADERS */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-          <h2 className="px-3 pt-3 font-bold">Name</h2>
-          <h2 className="px-3 pt-3 font-bold">Email</h2>
-          <h2 className="px-3 pt-3 font-bold">Course name</h2>
-          <h2 className="px-3 pt-3 font-bold">Course duration</h2>
-        </div>
+      {/* DESKTOP TABLE HEADERS */}
+      <div className="mt-6 hidden md:grid grid-cols-4 gap-4 font-bold">
+        <h2>Name</h2>
+        <h2>Email</h2>
+        <h2>Course name</h2>
+        <h2>Course duration</h2>
+      </div>
 
-        {/* USER LIST */}
-        <div>
-          <div className="flex flex-col gap-3 mt-4">
-            {filteredUsers.map((u, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-4 border border-white rounded-xl py-3 px-4 hover:bg-[#222] transition"
-              >
-                <p className="truncate">{u.name}</p>
-                <p className="truncate">{u.email}</p>
-                <p className="truncate">{u.course}</p>
-                <p className="truncate">{u.duration}</p>
-              </div>
-            ))}
+      {/* USER LIST */}
+      <div className="flex flex-col gap-4 mt-4">
+        {filteredUsers.map((u, index) => (
+          <div
+            key={index}
+            className="border border-white rounded-xl p-4 hover:bg-[#222] transition
+            grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4"
+          >
+            {/* MOBILE LABELS */}
+            <div className="md:hidden">
+              <p className="text-sm text-gray-400">Name</p>
+              <p className="font-medium truncate">{u.name}</p>
+            </div>
+            <p className="hidden md:block truncate">{u.name}</p>
 
-            {filteredUsers.length === 0 && (
-              <p className="text-center text-gray-400 mt-4">No users found</p>
-            )}
+            <div className="md:hidden">
+              <p className="text-sm text-gray-400">Email</p>
+              <p className="font-medium truncate">{u.email}</p>
+            </div>
+            <p className="hidden md:block truncate">{u.email}</p>
+
+            <div className="md:hidden">
+              <p className="text-sm text-gray-400">Course</p>
+              <p className="font-medium truncate">{u.course}</p>
+            </div>
+            <p className="hidden md:block truncate">{u.course}</p>
+
+            <div className="md:hidden">
+              <p className="text-sm text-gray-400">Duration</p>
+              <p className="font-medium truncate">{u.duration}</p>
+            </div>
+            <p className="hidden md:block truncate">{u.duration}</p>
           </div>
-        </div>
-      </main>
+        ))}
+
+        {filteredUsers.length === 0 && (
+          <p className="text-center text-gray-400 mt-4">No users found</p>
+        )}
+      </div>
     </div>
   );
 }

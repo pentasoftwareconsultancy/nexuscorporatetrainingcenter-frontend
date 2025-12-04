@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search,  } from "lucide-react";
+import { Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function TotalRegisterDashboard() {
@@ -49,46 +49,41 @@ export default function TotalRegisterDashboard() {
   });
 
   return (
-    <div className="relative min-h-screen flex text-white bg-black font-sora">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-black text-white font-sora">
 
-      {/* LEFT CATEGORY SIDEBAR */}
-      <div className="hidden lg:flex p-6 overflow-y-auto">
-        <div className="mt-6 flex flex-col gap-3">
-          {categories.map((item) => (
-            <button
-              key={item}
-              onClick={() => setSelectedCategory(item)}
-              className={`border px-4 py-2 rounded-full text-sm transition 
-                ${
-                  selectedCategory === item
-                    ? "bg-orange-500 border-orange-500 text-black"
-                    : "border-white hover:bg-gray-800"
-                }`}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
+      {/* SIDEBAR – horizontal scroll on mobile */}
+      <div className="w-full lg:w-60 p-4 flex gap-3 overflow-x-auto lg:overflow-y-auto lg:flex-col border-b lg:border-b-0 lg:border-r border-gray-700">
+        {categories.map((item) => (
+          <button
+            key={item}
+            onClick={() => setSelectedCategory(item)}
+            className={`whitespace-nowrap px-4 py-2 rounded-full text-sm transition border
+              ${
+                selectedCategory === item
+                  ? "bg-orange-500 border-orange-500 text-black"
+                  : "border-white hover:bg-gray-800"
+              }`}
+          >
+            {item}
+          </button>
+        ))}
       </div>
 
       {/* MAIN CONTENT */}
-      <main className="flex-1 p-6 lg:p-10 w-full overflow-y-auto">
+      <main className="flex-1 p-4 md:p-8 overflow-y-auto">
         <div className="flex justify-between items-center pb-5">
           <h2 className="text-xl md:text-2xl font-semibold">
             Total Registration Users ({allUsers.length})
           </h2>
-
-          {/* ADD USER BUTTON */}
-        
         </div>
 
-        {/* FILTERS */}
-        <div className="flex flex-wrap gap-4">
+        {/* FILTER BUTTONS */}
+        <div className="flex flex-wrap gap-3 md:gap-4">
           {["Enquiry", "Class Visit", "Direct Admissions"].map((item) => (
             <button
               key={item}
               onClick={() => setSelectedFilter(item)}
-              className={`px-5 py-2 rounded-full transition border 
+              className={`px-5 py-2 rounded-full transition border
                 ${
                   selectedFilter === item
                     ? "border-orange-400 text-white"
@@ -108,29 +103,51 @@ export default function TotalRegisterDashboard() {
             placeholder="Search by name, email"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full border border-white rounded-full py-3 pl-12 pr-5 outline-none focus:ring-2 focus:ring-orange-400 transition"
+            className="w-full border border-white rounded-full py-3 pl-12 pr-5 outline-none 
+            focus:ring-2 focus:ring-orange-400 transition"
           />
         </div>
 
-        {/* TABLE HEADERS */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4 font-bold">
+        {/* DESKTOP TABLE HEADER */}
+        <div className="mt-6 hidden md:grid grid-cols-4 gap-4 font-bold">
           <h2>Name</h2>
           <h2>Email</h2>
           <h2>Course name</h2>
           <h2>Course duration</h2>
         </div>
 
-        {/* USER LIST */}
-        <div className="flex flex-col gap-3 mt-4">
+        {/* USER LIST (Responsive Cards) */}
+        <div className="flex flex-col gap-4 mt-4">
           {filteredUsers.map((u, index) => (
             <div
               key={index}
-              className="grid grid-cols-1 md:grid-cols-4 border border-white rounded-xl py-3 px-4 hover:bg-[#222] transition"
+              className="border border-white rounded-xl p-4 hover:bg-[#222] transition
+              grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4"
             >
-              <p>{u.name}</p>
-              <p>{u.email}</p>
-              <p>{u.course}</p>
-              <p>{u.duration}</p>
+              {/* MOBILE LABEL + VALUE VIEW */}
+              <div className="md:hidden">
+                <p className="text-sm text-gray-400">Name</p>
+                <p className="font-medium truncate">{u.name}</p>
+              </div>
+              <div className="hidden md:block truncate">{u.name}</div>
+
+              <div className="md:hidden">
+                <p className="text-sm text-gray-400">Email</p>
+                <p className="font-medium truncate">{u.email}</p>
+              </div>
+              <div className="hidden md:block truncate">{u.email}</div>
+
+              <div className="md:hidden">
+                <p className="text-sm text-gray-400">Course</p>
+                <p className="font-medium truncate">{u.course}</p>
+              </div>
+              <div className="hidden md:block truncate">{u.course}</div>
+
+              <div className="md:hidden">
+                <p className="text-sm text-gray-400">Duration</p>
+                <p className="font-medium truncate">{u.duration}</p>
+              </div>
+              <div className="hidden md:block truncate">{u.duration}</div>
             </div>
           ))}
 
@@ -140,25 +157,16 @@ export default function TotalRegisterDashboard() {
         </div>
       </main>
 
-      {/* ===== FLOATING + ICON (CENTER RIGHT) ===== */}
+      {/* FLOATING + BUTTON */}
       <div
         onClick={() => navigate("/registerdetail")}
         className="
-          fixed 
-          top-11/12 
-          right-8
-          -translate-y-1/2
-          w-12 h-12
-          bg-white
-          rounded-full
-          flex items-center justify-center
-          shadow-lg
-          font-bold text-2xl
-          text-black
-          cursor-pointer
-          hover:bg-orange-400
-          transition-all
-          z-50
+          fixed bottom-6 right-6
+          w-14 h-14
+          bg-white text-black
+          rounded-full flex items-center justify-center
+          text-3xl shadow-lg cursor-pointer
+          hover:bg-orange-400 transition z-50
         "
       >
         +
