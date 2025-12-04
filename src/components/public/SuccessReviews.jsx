@@ -32,7 +32,7 @@ const SuccessReviews = () => {
     <div className="relative w-full text-white py-2 px-2 sm:px-5  md:px-10  ">
       {/* ✅ Title */}
       <h2 className="text-start text-2xl sm:text-3xl md:text-5xl font-extrabold mb-8 sm:mb-8 tracking-wide text-white  ">
-        Success stories/ Reviews
+        Reviews
       </h2>
       <div className="relative w-full flex items-center justify-center  transition-all duration-500 grayscale hover:grayscale-0">
         {/* ✅ Auto-Scrolling Gallery */}

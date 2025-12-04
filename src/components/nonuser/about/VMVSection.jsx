@@ -19,8 +19,8 @@ const VMVSection = () => {
   return (
     <div
       className="
-        min-h-screen bg-black flex flex-col justify-between 
-        px-5 sm:px-8 md:px-12 lg:px-20 py-10 
+        min-h-screen flex flex-col justify-between 
+        px-5 sm:px-8 md:px-12 lg:px-12 py-15
         text-white font-sans space-y-28 overflow-hidden
       "
     >
@@ -52,26 +52,19 @@ const VMVSection = () => {
       </style>
 
       {/* === OUR VISION SECTION === */}
-      {/* IMAGE RIGHT | CONTENT LEFT */}
       <div
         data-aos="fade-right"
-        className="relative flex flex-col md:flex-row-reverse items-center gap-10"
+        className="relative flex justify-between md:flex-row-reverse items-center gap-16"
       >
-        {/* Glow Position Adjusted */}
-        <div
-          className="absolute -top-20 right-0 w-[350px] h-[350px] 
-          bg-blue-700/40 blur-[150px] rounded-full"
-        ></div>
+        <div className="absolute -top-20 right-0 w-[250px] h-[250px] bg-blue-700/40 blur-[120px] rounded-full"></div>
 
-        {/* IMAGE RIGHT */}
         <img
           src={VisionImg}
           alt="Our Vision"
-          className="w-full md:w-[45%] rounded-xl glow-border"
+          className="w-full md:w-[35%] max-w-[320px] rounded-xl glow-border"
         />
 
-        {/* TEXT LEFT */}
-        <div className="relative w-full md:w-[55%] z-10 text-left">
+        <div className="relative w-full md:w-[60%] z-10 text-left">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Vision</h2>
           <p className="text-gray-200 leading-relaxed md:text-[17px]">
             At Nexus Corporate Training Center LLP, our vision is to deliver
@@ -100,34 +93,26 @@ const VMVSection = () => {
               Create a globally recognized network of skilled professionals
             </li>
             <li>
-              Reinvent education with modern tools, corporate mentors &
-              innovation
+              Reinvent education with modern tools, corporate mentors & innovation
             </li>
           </ul>
         </div>
       </div>
 
       {/* === OUR MISSION SECTION === */}
-      {/* IMAGE LEFT | CONTENT RIGHT */}
       <div
         data-aos="fade-left"
-        className="relative flex flex-col md:flex-row items-center gap-10"
+        className="relative flex justify-between md:flex-row items-center gap-16"
       >
-        {/* Glow Position Adjusted */}
-        <div
-          className="absolute top-10 left-0 w-[350px] h-[350px] 
-          bg-blue-700/40 blur-[150px] rounded-full"
-        ></div>
+        <div className="absolute top-10 left-0 w-[250px] h-[250px] bg-blue-700/40 blur-[120px] rounded-full"></div>
 
-        {/* IMAGE LEFT */}
         <img
           src={MissionImg}
           alt="Our Mission"
-          className="w-full md:w-[45%] rounded-xl glow-border"
+          className="w-full md:w-[35%] max-w-[320px] rounded-xl glow-border"
         />
 
-        {/* TEXT RIGHT */}
-        <div className="relative w-full md:w-[55%] z-10 text-right">
+        <div className="relative w-full md:w-[60%] z-10 text-right">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Mission</h2>
 
           <p className="text-gray-200 leading-relaxed md:text-[17px]">
@@ -143,8 +128,7 @@ const VMVSection = () => {
 
           <ul className="list-disc ml-auto mt-3 space-y-1 text-gray-300 text-left w-fit pr-2">
             <li>
-              Provide industry-driven IT courses aligned with current tech
-              trends
+              Provide industry-driven IT courses aligned with current tech trends
             </li>
             <li>
               Offer one-to-one mentorship, doubt support & interview grooming
@@ -158,28 +142,19 @@ const VMVSection = () => {
       </div>
 
       {/* === OUR VALUES SECTION === */}
-      {/* IMAGE RIGHT | CONTENT LEFT */}
       <div
         data-aos="fade-up"
-        className="relative flex flex-col md:flex-row-reverse items-center gap-10"
+        className="relative flex justify-between md:flex-row-reverse items-center gap-16"
       >
-        {/* Glow Position Adjusted */}
-        <div
-          className="
-            absolute bottom-0 right-0 w-[350px] h-[350px] 
-            bg-blue-700/40 blur-[150px] rounded-full
-          "
-        ></div>
+        <div className="absolute bottom-0 right-0 w-[250px] h-[250px] bg-blue-700/40 blur-[120px] rounded-full"></div>
 
-        {/* IMAGE RIGHT */}
         <img
           src={ValuesImg}
           alt="Our Values"
-          className="w-full md:w-[45%] rounded-xl glow-border"
+          className="w-full md:w-[35%] max-w-[320px] rounded-xl glow-border"
         />
 
-        {/* TEXT LEFT */}
-        <div className="relative w-full md:w-[55%] z-10 text-left">
+        <div className="relative w-full md:w-[60%] z-10 text-left">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Values</h2>
 
           <p className="text-gray-200 leading-relaxed md:text-[17px]">

@@ -94,10 +94,17 @@ const AppRoutes = () => {
             )
           }
         />
-
         <Route
           path="/signup"
-          element={!isLoggedIn ? <Signup /> : <Navigate to="/login" />}
+          element={
+            !isLoggedIn ? (
+              <Signup />
+            ) : user?.role === "admin" ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <Navigate to="/appitude" replace />
+            )
+          }
         />
       </Route>
 
