@@ -55,9 +55,6 @@ import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 
 const AppRoutes = () => {
-  // const { isLoggedIn, isLoading, user } = useAuth();
-
-  // if (isLoading) return <div className="text-center mt-10">Loading...</div>;
 
   return (
     <Routes>

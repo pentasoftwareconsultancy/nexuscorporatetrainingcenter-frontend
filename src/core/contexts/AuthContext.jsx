@@ -18,15 +18,12 @@ export const AuthProvider = ({ children }) => {
   // ⬇ Login function
   const login = (data) => {
     const userData = {
-      id: data.id,
-      role: data.role,
+      id: data.user.id,
+      role: data.user.role,
       token: data.token
     };
-
-    // Save to LS
+  
     localStorage.setItem("user", JSON.stringify(userData));
-
-    // Save to state
     setUser(userData);
   };
 

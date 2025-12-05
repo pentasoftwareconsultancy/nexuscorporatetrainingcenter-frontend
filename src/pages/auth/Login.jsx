@@ -60,49 +60,51 @@ const LoginForm = ({ email, password, setEmail, setPassword, onSubmit }) => (
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login, isLoggedIn, user } = useAuth();
+  const { login, isLoggedIn, user, isLoading } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // 🔥 AUTO-REDIRECT IF ALREADY LOGGED IN
   useEffect(() => {
-    if (isLoggedIn && user) {
-      if (user.role === "admin") {
-        navigate(ROUTES.ADMIN_DASHBOARD, { replace: true });
-      } else {
-        navigate(ROUTES.USER_APPITUDE, { replace: true });
-      }
+  // Wait until auth finishes checking LS
+  if (isLoading) return;
+
+  // Prevent redirect loop:
+  // If we are already ON login page, do NOT redirect back to it
+  if (window.location.pathname === "/Login") return;
+
+  if (isLoggedIn && user) {
+    if (user.role === "admin") {
+      navigate(ROUTES.ADMIN_DASHBOARD, { replace: true });
+    } else {
+      navigate(ROUTES.USER_APPITUDE, { replace: true });
     }
-  }, [isLoggedIn, user, navigate]);
+  }
+}, [isLoggedIn, user, isLoading, navigate]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await new ApiService().apipost(ServerUrl.API_LOGIN, {
-        emailOrPhone: email,
-        password: password,
-      });
+  try {
+    const response = await new ApiService().apipost(ServerUrl.API_LOGIN, {
+      emailOrPhone: email,
+      password: password,
+    });
 
-      console.log("LOGIN RESPONSE:", response.data);
+    console.log("LOGIN RESPONSE:", response.data);
 
-      // Save user
-      login(response.data);
+    // Save user
+    login(response.data);
 
-      // Redirect by role
-      if (response.data.role === "admin") {
-        navigate(ROUTES.ADMIN_DASHBOARD);
-      } else if (response.data.role === "user") {
-        navigate(ROUTES.USER_APPITUDE);
-      } else {
-        navigate(ROUTES.HOME);
-      }
-    } catch (error) {
-      console.log("Login error:", error);
-      alert("Invalid login");
-    }
-  };
+    // ⛔ No redirect here!
+    // ProtectedRoute will handle automatic redirection based on role
+
+  } catch (error) {
+    console.log("Login error:", error);
+    alert("Invalid login");
+  }
+};
 
   return (
     <div className="bg-transparent relative flex flex-col md:flex-row min-h-screen font-[Poppins] text-white items-center justify-center overflow-hidden">
