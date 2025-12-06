@@ -40,6 +40,7 @@ class ApiInterceptor {
 
   static generateHeader() {
     const token = StorageService.getData(APPLICATION_CONSTANTS.STORAGE.TOKEN);
+    console.log(StorageService.getData(APPLICATION_CONSTANTS.STORAGE.TOKEN));
     return token ? { Authorization: `Bearer ${token}` } : {};
   }
 }

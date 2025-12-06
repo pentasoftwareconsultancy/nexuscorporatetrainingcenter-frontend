@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ⬇ Load user from localStorage on refresh
+  // Load saved user on refresh
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -15,21 +15,26 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(false);
   }, []);
 
-  // ⬇ Login function
+  // Login
   const login = (data) => {
     const userData = {
       id: data.user.id,
-      role: data.user.role,
-      token: data.token
+      role: data.user.role
     };
-  
+
+    // save user
     localStorage.setItem("user", JSON.stringify(userData));
+
+    // save token separately (important!)
+    localStorage.setItem("TOKEN", data.token);
+
     setUser(userData);
   };
 
-  // ⬇ Logout
+  // Logout
   const logout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("TOKEN");
     setUser(null);
   };
 

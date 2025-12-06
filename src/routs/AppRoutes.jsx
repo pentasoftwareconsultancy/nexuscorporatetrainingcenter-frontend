@@ -87,7 +87,7 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
         <Route element={<UserLayout />}>
           <Route path="/appitude" element={<AppitudeExam />} />
-          <Route path="/exam" element={<TestExam />} />
+          <Route path="/exam/:id" element={<TestExam />} />
           <Route path="/success" element={<TestSuccess />} />
           <Route path="/result" element={<Result />} />
           <Route path="/certification" element={<Certification />} />

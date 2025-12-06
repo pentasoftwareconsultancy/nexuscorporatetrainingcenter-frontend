@@ -80,14 +80,15 @@ class ServerUrl {
     // TEST APIs
     static API_CREATE_TEST = ServerUrl.API_MODULE_TESTS + "/";
     static API_GET_TESTS = ServerUrl.API_MODULE_TESTS + "/";
-    static API_GET_TEST_BY_ID = ServerUrl.API_MODULE_TESTS + "/";          // + id
-    static API_GET_TEST_BY_ID_ALT = ServerUrl.API_MODULE_TESTS + "/tests/"; // + id
+    static API_GET_TEST_BY_ID = ServerUrl.API_MODULE_TESTS + "/";          // + 
 
     // QUESTION APIs
     static API_CREATE_QUESTION = ServerUrl.API_MODULE_TESTS + "/question";
+    static API_GET_QUESTIONS_BY_TEST = ServerUrl.API_MODULE_TESTS + "/question/"; // + testId
 
     // OPTION APIs
     static API_ADD_OPTION = ServerUrl.API_MODULE_TESTS + "/option";
+    static API_GET_OPTIONS_BY_QUESTION = ServerUrl.API_MODULE_TESTS + "/option/"; // + questionId
 
     // SUBMIT TEST
     static API_SUBMIT_TEST = ServerUrl.API_MODULE_TESTS + "/submit";
@@ -101,10 +102,5 @@ class ServerUrl {
     static API_UPDATE_VIDEO = ServerUrl.API_MODULE_VIDEOS + "/video"; // + id
 
 }
-console.log("ServerUrl Loaded:", {
-  API_BASE: ServerUrl.REACT_APP_API_URL,
-  LOGIN: ServerUrl.API_LOGIN,
-  COURSES: ServerUrl.API_GET_COURSES
-});
 
 export default ServerUrl;

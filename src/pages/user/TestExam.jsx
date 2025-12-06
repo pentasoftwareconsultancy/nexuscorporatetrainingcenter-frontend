@@ -1,49 +1,169 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Button from "../../components/common/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../core/constants/routes.constant";
+import ApiService from "../../core/services/api.service";
+import ServerUrl from "../../core/constants/serverURL.constant";
 
 export default function TestExam() {
-  // Popup 1: ask number of questions
+  // UI popups
   const [showSelectPopup, setShowSelectPopup] = useState(true);
-
-  // Popup 2: ask to confirm final submission
   const [showSubmitPopup, setShowSubmitPopup] = useState(false);
 
-  const [totalQuestions, setTotalQuestions] = useState(20);
+  // user selections / navigation
+  const [selectedQuestionCount, setSelectedQuestionCount] = useState(20); // chosen on popup
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState({}); // { [questionId]: optionId }
+
+  // backend + loading
+  const [loading, setLoading] = useState(true);
+  const [testData, setTestData] = useState(null); // raw test from backend
+  const [quizQuestions, setQuizQuestions] = useState([]); // final questions array used for quiz
+  const api = new ApiService();
+
   const navigate = useNavigate();
+  const { id } = useParams(); // test ID from URL
 
-  // Dynamic questions
-  const quizData = Array.from({ length: totalQuestions }, (_, i) => ({
-    question: `Sample Question ${i + 1} — What is correct answer?`,
-    options: ["Option A", "Option B", "Option C", "Option D"],
-    answer: "Option A",
-  }));
+  // Fetch test data on mount
+  useEffect(() => {
+    fetchTestDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
-  const currentQuestion = quizData[currentQuestionIndex];
+  const fetchTestDetails = async () => {
+    try {
+      setLoading(true);
+      const res = await api.apiget(`${ServerUrl.API_GET_TEST_BY_ID}${id}`);
+      // Try to read data safely across possible API shapes
+      const payload = res?.data ?? res;
+      // Expecting either payload.data or payload (depending on backend wrapper)
+      const test = payload.data ?? payload;
+      setTestData(test);
 
+      // do not set quizQuestions yet — wait until user selects number of questions
+      setLoading(false);
+    } catch (err) {
+      console.error("Error loading test:", err);
+      setLoading(false);
+      alert("Failed to load test. Check console for details.");
+    }
+  };
+
+  // When user confirms how many questions, prepare final quizQuestions array
+  const prepareQuiz = () => {
+    const allQuestions = testData?.questions ?? testData?.Questions ?? [];
+
+    // Normalize question object shape to have:
+    // { id, question_text, options: [{id, option_text}] }
+    const normalized = allQuestions.map((q) => {
+      const qId = q.id ?? q.questionId;
+      const qText = q.question_text ?? q.question ?? q.questionText ?? "";
+      const rawOptions = q.options ?? q.Options ?? q.options_list ?? [];
+
+      const normalizedOptions = rawOptions.map((opt) => ({
+        id: opt.id ?? opt.optionId ?? opt.option_id,
+        text: opt.option_text ?? opt.option_text ?? opt.text ?? opt.optionText ?? "",
+        // keep is_correct if exists
+        is_correct: typeof opt.is_correct !== "undefined" ? opt.is_correct : opt.isCorrect,
+      }));
+
+      return {
+        ...q,
+        id: qId,
+        question_text: qText,
+        options: normalizedOptions,
+      };
+    });
+
+    // If selectedQuestionCount is less than available, slice. Otherwise use all.
+    const final = normalized.slice(0, selectedQuestionCount);
+    setQuizQuestions(final);
+    setCurrentQuestionIndex(0);
+    setShowSelectPopup(false);
+  };
+
+  // Derived values
+  const totalQuestions = quizQuestions.length;
+  const currentQuestion = quizQuestions[currentQuestionIndex] ?? null;
+
+  // Helper: when user selects an option, save by questionId
+  const selectOption = (questionId, optionId) => {
+    setAnswers((prev) => ({ ...prev, [questionId]: optionId }));
+  };
+
+  // Navigation
   const handleNext = () => {
     if (currentQuestionIndex < totalQuestions - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setCurrentQuestionIndex((idx) => idx + 1);
     }
   };
 
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setCurrentQuestionIndex((idx) => idx - 1);
     }
   };
 
+  // Submit flow
   const handleSubmit = () => {
     setShowSubmitPopup(true);
   };
 
-  const confirmSubmit = () => {
-    // 🚀 Here redirect to success page
-    navigate(ROUTES.USER_SUCCESS);
+  // Format answers payload for backend
+  const buildSubmitPayload = useMemo(() => {
+    // Convert answers object { questionId: optionId } into an array of objects
+    // or a mapping depending on what backend expects. We'll send both common shapes:
+    // { testId, answers: [{ questionId, optionId }, ...], answersMap: { questionId: optionId } }
+    const answersArray = Object.entries(answers).map(([qId, oId]) => ({
+      questionId: Number(qId),
+      optionId: Number(oId),
+    }));
+
+    const answersMap = Object.fromEntries(
+      Object.entries(answers).map(([qId, oId]) => [qId, Number(oId)])
+    );
+
+    return {
+      testId: Number(id),
+      totalQuestionsSelected: Number(selectedQuestionCount),
+      answersArray,
+      answersMap,
+    };
+  }, [answers, id, selectedQuestionCount]);
+
+  const confirmSubmit = async () => {
+    try {
+      // Optionally, show a quick client-side validation
+      // For example: ensure at least 1 answer selected
+      // (you can customize this behavior)
+      // Send payload to backend
+      const body = {
+        testId: buildSubmitPayload.testId,
+        answers: buildSubmitPayload.answersArray,
+      };
+
+      // Post to submit endpoint
+      const res = await api.apipost(ServerUrl.API_SUBMIT_TEST, body);
+
+      // On success: redirect to success page
+      // (you might want to parse response and show score, etc.)
+      navigate(ROUTES.USER_SUCCESS);
+    } catch (err) {
+      console.error("Submit failed:", err);
+      alert("Failed to submit test. Check console for details.");
+    } finally {
+      setShowSubmitPopup(false);
+    }
   };
+
+  // Loading UI
+  if (loading && !testData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-white">
+        Loading exam...
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen text-white flex flex-col w-full overflow-x-hidden relative">
@@ -54,14 +174,8 @@ export default function TestExam() {
       {showSelectPopup && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
           <div className="flex flex-col bg-zinc-900 p-8 rounded-xl px-2 max-w-md shadow-xl text-center justify-center">
-
-            <h2 className="text-xl font-semibold mb-4">
-              Take a Quiz
-            </h2>
-
-            <h2 className="text-l font-semibold mb-2">
-              How many questions you want to take?
-            </h2>
+            <h2 className="text-xl font-semibold mb-4">Take a Quiz</h2>
+            <h2 className="text-l font-semibold mb-2">How many questions you want to take?</h2>
 
             {/* Radio Options */}
             <div className="flex gap-4 my-4 items-center justify-center mx-auto w-fit">
@@ -74,7 +188,8 @@ export default function TestExam() {
                     type="radio"
                     name="totalQuestions"
                     value={num}
-                    onChange={() => setTotalQuestions(num)}
+                    checked={selectedQuestionCount === num}
+                    onChange={() => setSelectedQuestionCount(num)}
                     className="w-4 h-4 accent-orange-500"
                   />
                   <span className="text-lg">{num}</span>
@@ -85,17 +200,24 @@ export default function TestExam() {
             <Button
               text="Next"
               onClick={() => {
-                if (totalQuestions) {
-                  setShowSelectPopup(false);
+                // If no questions available from backend, do nothing
+                const available = (testData?.questions ?? []).length;
+                if (!available) {
+                  alert("No questions available for this test.");
+                  return;
                 }
+                // If selected count is larger than available, adjust
+                if (selectedQuestionCount > available) {
+                  setSelectedQuestionCount(available);
+                }
+                prepareQuiz();
               }}
-              disabled={!totalQuestions}
+              disabled={(testData?.questions ?? []).length === 0}
               className="w-auto px-6 self-center"
             />
           </div>
         </div>
       )}
-
 
       {/* =================================================== */}
       {/* 🔥 POPUP — CONFIRM SUBMISSION */}
@@ -127,9 +249,9 @@ export default function TestExam() {
 
       {/* ================= HEADER ================= */}
       <header className="w-full px-6 py-6 border-b border-gray-800">
-        <h1 className="text-4xl font-bold">Intro to Python</h1>
+        <h1 className="text-4xl font-bold">{testData?.title ?? "Untitled Test"}</h1>
 
-        {/* Timer placeholder */}
+        {/* Timer placeholder (simple) */}
         <p className="text-gray-400 mt-2">{30 - currentQuestionIndex * 2}s</p>
 
         {/* Progress bar */}
@@ -137,7 +259,7 @@ export default function TestExam() {
           <div
             className="bg-gray-200 h-2 rounded-full transition-all duration-500"
             style={{
-              width: `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`,
+              width: `${totalQuestions === 0 ? 0 : ((currentQuestionIndex + 1) / totalQuestions) * 100}%`,
             }}
           ></div>
         </div>
@@ -149,41 +271,42 @@ export default function TestExam() {
         {/* LEFT CONTENT */}
         <div className="flex-1 w-full min-w-0">
           <p className="text-sm text-gray-300 mb-3">
-            {currentQuestionIndex + 1} out of {totalQuestions} attempts
+            {totalQuestions === 0 ? 0 : currentQuestionIndex + 1} out of {totalQuestions} attempts
           </p>
 
           <h2 className="text-xl font-semibold mb-6">
-            {currentQuestionIndex + 1}. {currentQuestion.question}
+            {currentQuestion
+              ? `${currentQuestionIndex + 1}. ${currentQuestion.question_text}`
+              : "No question loaded"}
           </h2>
 
           {/* OPTIONS */}
           <div className="space-y-4 w-full">
-            {currentQuestion.options.map((opt, idx) => (
-              <label
-                key={idx}
-                className={`flex items-center justify-between border rounded-lg px-4 py-4 cursor-pointer transition-all 
-                  ${answers[currentQuestionIndex] === opt
-                    ? "bg-green-800 border-green-600"
-                    : "border-gray-700 hover:border-white"
-                  }`}
-              >
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    className="w-4 h-4 accent-green-500"
-                    checked={answers[currentQuestionIndex] === opt}
-                    onChange={() =>
-                      setAnswers({ ...answers, [currentQuestionIndex]: opt })
-                    }
-                  />
-                  <span className="text-base">{opt}</span>
-                </div>
+            {currentQuestion?.options?.map((opt) => {
+              const checked = answers[currentQuestion.id] === opt.id;
+              return (
+                <label
+                  key={opt.id}
+                  className={`flex items-center justify-between border rounded-lg px-4 py-4 cursor-pointer transition-all 
+                    ${checked ? "bg-green-800 border-green-600" : "border-gray-700 hover:border-white"}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      name={`q_${currentQuestion.id}`}
+                      className="w-4 h-4 accent-green-500"
+                      checked={checked}
+                      onChange={() => selectOption(currentQuestion.id, opt.id)}
+                    />
+                    <span className="text-base">{opt.text}</span>
+                  </div>
 
-                {answers[currentQuestionIndex] === opt && (
-                  <span className="text-green-300 text-xl">✔</span>
-                )}
-              </label>
-            ))}
+                  {checked && (
+                    <span className="text-green-300 text-xl">✔</span>
+                  )}
+                </label>
+              );
+            })}
           </div>
 
           {/* BUTTONS */}
@@ -210,16 +333,15 @@ export default function TestExam() {
         {/* ================= RIGHT QUESTION GRID ================= */}
         <div className="w-full lg:max-w-[300px]">
           <h3 className="text-center text-lg font-semibold mb-4">
-            Question {currentQuestionIndex + 1} of {totalQuestions}
+            Question {totalQuestions === 0 ? 0 : currentQuestionIndex + 1} of {totalQuestions}
           </h3>
 
           <div className="grid grid-cols-5 gap-1">
-            {[...Array(totalQuestions)].map((_, i) => {
-              const isAttempted = answers[i];
-
+            {quizQuestions.map((q, i) => {
+              const isAttempted = !!answers[q.id];
               return (
                 <button
-                  key={i}
+                  key={q.id}
                   onClick={() => setCurrentQuestionIndex(i)}
                   className={`w-10 h-10 rounded-lg flex items-center justify-center font-semibold transition border 
                     ${i === currentQuestionIndex

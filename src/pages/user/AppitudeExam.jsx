@@ -131,11 +131,11 @@ export default function ApptitudeExam() {
                 <Button
                   text="Take Quiz"
                   onClick={() =>
-                    topic.status === 0 &&
-                    navigate(ROUTES.USER_EXAM, { state: { testId: topic.id } })
+                    navigate(`${ROUTES.USER_EXAM}/${topic.id}`)
                   }
-                  disabled={topic.status === 1} // disable if completed
-                  className={`mt-4 px-1 py-1 w-2/3 size-2/5 ${topic.status === 1}`}
+                  className={`mt-4 px-1 py-1 w-2/3 size-2/5 ${
+                    topic.status === 1
+                  }`}
                 />
               </div>
             ))}
