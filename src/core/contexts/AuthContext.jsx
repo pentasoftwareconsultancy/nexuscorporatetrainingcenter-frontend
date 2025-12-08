@@ -39,6 +39,7 @@ export const AuthProvider = ({ children }) => {
     }
   
     const userData = {
+<<<<<<< HEAD
       id: userObj?.id,
       role: userObj?.role,
       token: token,
@@ -46,7 +47,18 @@ export const AuthProvider = ({ children }) => {
   
     console.log("SAVING USER TO LS:", userData);
   
+=======
+      id: data.user.id,
+      role: data.user.role
+    };
+
+    // save user
+>>>>>>> 33f5ff6a0411adf3f6b8dc08bd0f15639330bfad
     localStorage.setItem("user", JSON.stringify(userData));
+
+    // save token separately (important!)
+    localStorage.setItem("TOKEN", data.token);
+
     setUser(userData);
   };
 
