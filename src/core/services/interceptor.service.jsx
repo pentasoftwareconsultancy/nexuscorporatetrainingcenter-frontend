@@ -39,9 +39,25 @@ class ApiInterceptor {
   }
 
   static generateHeader() {
-    const token = StorageService.getData(APPLICATION_CONSTANTS.STORAGE.TOKEN);
-    console.log(StorageService.getData(APPLICATION_CONSTANTS.STORAGE.TOKEN));
-    return token ? { Authorization: `Bearer ${token}` } : {};
+    const storedUser = localStorage.getItem("user");
+    
+    if (!storedUser) {
+      console.log("No user found in localStorage");
+      return {};
+    }
+  
+    const user = JSON.parse(storedUser);
+  
+    if (!user.token) {
+      console.log("No token found inside user object");
+      return {};
+    }
+  
+    console.log("TOKEN FOUND:", user.token);
+  
+    return {
+      Authorization: `Bearer ${user.token}`,
+    };
   }
 }
 

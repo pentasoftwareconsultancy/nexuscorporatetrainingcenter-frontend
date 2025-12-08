@@ -17,17 +17,36 @@ export const AuthProvider = ({ children }) => {
 
   // Login
   const login = (data) => {
+    console.log("LOGIN DATA IN CONTEXT:", data);
+    
+    // Extract token (works for all backend formats)
+    const token =
+      data.token ||
+      data?.data?.token ||
+      data?.accessToken ||
+      data?.jwt ||
+      null;
+    
+    // Extract user
+    const userObj =
+      data.user ||
+      data?.data?.user ||
+      data?.data ||
+      null;
+    
+    if (!token) {
+      console.error("❌ NO TOKEN RECEIVED FROM BACKEND");
+    }
+  
     const userData = {
-      id: data.user.id,
-      role: data.user.role
+      id: userObj?.id,
+      role: userObj?.role,
+      token: token,
     };
-
-    // save user
+  
+    console.log("SAVING USER TO LS:", userData);
+  
     localStorage.setItem("user", JSON.stringify(userData));
-
-    // save token separately (important!)
-    localStorage.setItem("TOKEN", data.token);
-
     setUser(userData);
   };
 

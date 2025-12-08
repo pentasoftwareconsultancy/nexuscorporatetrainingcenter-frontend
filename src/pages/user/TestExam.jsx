@@ -148,6 +148,7 @@ export default function TestExam() {
       // On success: redirect to success page
       // (you might want to parse response and show score, etc.)
       navigate(ROUTES.USER_SUCCESS);
+      window.location.reload();
     } catch (err) {
       console.error("Submit failed:", err);
       alert("Failed to submit test. Check console for details.");
