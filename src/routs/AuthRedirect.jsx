@@ -1,11 +1,10 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import { Navigate, Outlet } from "react-router-dom";
 
-const AuthRedirect = ({ children }) => {
-  const { user } = useAuth();
-  if (user) return <Navigate to="/" replace />;
-  return children;
+const AuthRedirect = ({ isAllowed, redirectTo = "/login" }) => {
+  if (!isAllowed) {
+    return <Navigate to={redirectTo} replace />;
+  }
+  return <Outlet />;
 };
-
 export default AuthRedirect;

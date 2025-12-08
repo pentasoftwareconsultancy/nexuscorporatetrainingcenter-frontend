@@ -1,9 +1,10 @@
+// CircleBackground.jsx
 import React from "react";
 
 const CircleBackground = () => {
   return (
     <div
-      className="w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,_rgba(18,84,250,0.42)_0%,_rgba(18,84,250,0.1)_60%,_transparent_100%)]"
+      className="w-[100%] h-[100%] rounded-full bg-[radial-gradient(circle,_rgba(18,84,250,0.4)_10%,_rgba(18,84,250,0)_50%_)]"
     ></div>
   );
 };

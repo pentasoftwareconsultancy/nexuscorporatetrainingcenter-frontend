@@ -1,59 +1,53 @@
 import React from "react";
 
-const Button = ({ text = "Know more", onClick }) => {
+const Button = ({ 
+  text, 
+  onClick, 
+  className = "", 
+  showIcon = true,   // 👈 NEW PROP to hide/show the <span>
+  type = "button"
+}) => {
   return (
     <button
+      type={type}
       onClick={onClick}
-      className="
-        relative
-        flex
-        justify-center
-        items-center
-        gap-1
-        bg-white
-        rounded-full 
-        text-gray-600  
-        cursor-pointer 
-        text-lg 
-        px-8 py-3
-        transition-all 
-        duration-200 
-        ease-in-out 
-        border-2 
-        border-gray-300
-        shadow-[inset_2px_2px_5px_#bcbcbc,inset_-2px_-2px_5px_#ffffff,2px_2px_5px_#bcbcbc,-2px_-2px_5px_#ffffff]
-        focus:outline-none
-        overflow-hidden
-      "
+      style={{
+        borderTop: "2px solid transparent",
+        borderBottom: "2px solid transparent",
+        borderImage:
+          "linear-gradient(to right, transparent, #f97316, transparent) 2"
+      }}
+      className={`
+        flex bg-one shadow-[inset_2px_2px_6px_rgba(0,0,0,0.75)] border-2
+        rounded-full px-6 py-3 gap-3 text-three items-center justify-center
+        ${className}   // 👈 YOUR CUSTOM CLASSES HERE
+      `}
     >
-      {/* Fading Top Border */}
-      <div className="absolute top-0 left-1/2 w-2/3 h-[3px] bg-gradient-to-r from-transparent via-orange-500 to-transparent transform -translate-x-1/2"></div>
-      
-      {/* Fading Bottom Border */}
-      <div className="absolute bottom-0 left-1/2 w-2/3 h-[3px] bg-gradient-to-r from-transparent via-orange-500 to-transparent transform -translate-x-1/2"></div>
+      {text}
 
-      {/* Text */}
-      <span className="relative z-10 text-[15px] font-[600] tracking-tight leading-none">
-        {text}
-      </span>
-
-      {/* Circular Arrow Icon */}
-      <span className="relative z-10 flex items-center justify-center bg-gradient-to-br from-[#ff4d00] to-[#ff5100] rounded-full w-[26px] h-[26px] shadow-md hover:scale-105 transition-transform duration-300">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-[13px] h-[13px] text-white"
-          fill="none"
-          viewBox="0 0 28 28"
-          stroke="currentColor"
-          strokeWidth={3}
+      {/* 👇 ICON SHOWN ONLY WHEN showIcon=true */}
+      {showIcon && (
+        <span
+          className="relative z-10 flex items-center justify-center 
+            bg-five rounded-full w-[28px] h-[28px] shadow-md
+            hover:scale-105 transition-transform duration-300"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M7 17l10-10M7 7h10v10"
-          />
-        </svg>
-      </span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-[18px] h-[18px] text-white"
+            fill="none"
+            viewBox="0 0 28 28"
+            stroke="currentColor"
+            strokeWidth={3}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M7 17l10-10M7 7h10v10"
+            />
+          </svg>
+        </span>
+      )}
     </button>
   );
 };

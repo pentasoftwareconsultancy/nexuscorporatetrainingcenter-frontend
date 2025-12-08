@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Dr.Rajiv Khade",
+    "experience": "6+ Years Experience",
+    "designation": "Head of AI Department",
+    "image": "/src/assets/shubham/rajivsir.png"
+  },
+  {
+    "id": 2,
+    "name": "Aditi Khade",
+    "experience": "6+ Years Experience",
+    "designation": "Senior Data Scientist",
+    "image": "/src/assets/shubham/priya.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Bhagyashree Patil",
+    "experience": "6+ Years Experience",
+    "designation": "Machine Learning Expert",
+    "image": "/src/assets/shubham/bhagyashreemam.png"
+  },
+  {
+    "id": 4,
+    "name": "Sagar Solanke",
+    "experience": "6+ Years Experience",
+    "designation": "Software Engineering Mentor",
+    "image": "/src/assets/shubham/sagarsir.png"
+  },
+  {
+    "id": 5,
+    "name": "Vaibhav Jadhav",
+    "experience": "6+ Years Experience",
+    "designation": "Machine Learning Expert",
+    "image": "/src/assets/shubham/vishaljadhav.png"
+  },
+ {
+    "id": 1,
+    "name": "Lekhraj Patil",
+    "experience": "6+ Years Experience",
+    "designation": "Head of AI Department",
+    "image": "/src/assets/shubham/lekhrajsir.png"
+  },
+  {
+    "id": 1,
+    "name": "Abhijeet Kumar",
+    "experience": "6+ Years Experience",
+    "designation": "Head of AI Department",
+    "image": "/src/assets/shubham/abhijeet.png"
+  }
+  
+]

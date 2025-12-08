@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Industry-Certified Experts",
+    "description": "Learn directly from active industry leaders with 10+ years of experience.",
+    "icon":"FaUserFriends",
+    "side": "left",
+    "translate": "translate-x-10"
+  },
+  {
+    "id": 2,
+    "title": "100% Customized Programs",
+    "description": "We design every solution from the ground up to align precisely with your unique business challenges.",
+    "icon": "ImHtmlFive",
+    "side": "left",
+    "translate": "-translate-x-7"
+  },
+  {
+    "id": 3,
+    "title": "Guaranteed ROI & Impact",
+    "description": "Our training focuses on measurable outcomes, providing tools to verify skill transformation.",
+    "icon": "FaUserTie",
+    "side": "left",
+    "translate": "translate-x-10"
+  },
+  {
+    "id": 4,
+    "title": "Sustained Skill Retention",
+    "description": "We provide post-training support and resources to ensure new skills are effectively applied.",
+    "icon": "BsBarChartFill",
+    "side": "right",
+    "translate": "-translate-x-10"
+  },
+  {
+    "id": 5,
+    "title": "Technology-Powered Training",
+    "description": "We provide post-training support and resources to ensure new skills are effectively applied.",
+    "icon": "FaLightbulb",
+    "side": "right",
+    "translate": "translate-x-7"
+  },
+  {
+    "id": 6,
+    "title": "Global Standard, Local Focus",
+    "description": "Our curriculum meets international quality benchmarks while adapting to specific cultural nuances.",
+    "icon": "RiFocus3Line",
+    "side": "right",
+    "translate": "-translate-x-10"
+  }
+]

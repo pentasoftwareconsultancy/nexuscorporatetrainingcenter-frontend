@@ -1,9 +1,8 @@
-import React from 'react'
+// import jsPDF from "jspdf";
 
-const invoiceGenerator = () => {
-  return (
-    <div>invoiceGenerator</div>
-  )
-}
-
-export default invoiceGenerator
+// export const invoiceGenerator = (data) => {
+//   const doc = new jsPDF();
+//   doc.text(`Invoice for ${data.name}`, 20, 20);
+//   doc.text(`Amount: ₹${data.amount}`, 20, 30);
+//   doc.save("invoice.pdf");
+// };

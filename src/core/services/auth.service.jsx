@@ -1,9 +1,7 @@
-import React from 'react'
+import api from "./apiService";
 
-const authService = () => {
-  return (
-    <div>authService</div>
-  )
-}
-
-export default authService
+export const authService = {
+  login: (data) => api.post("/api/auth/login", data),
+  signup: (data) => api.post("/api/auth/signup", data),
+  getProfile: () => api.get("/api/user/profile"),
+};

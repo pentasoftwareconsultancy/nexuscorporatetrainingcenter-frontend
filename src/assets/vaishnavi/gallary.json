@@ -1,0 +1,93 @@
+{
+  "areas": [
+    {
+      "areaId": 1,
+      "areaName": "Pune",
+      "colleges": [
+        {
+          "collegeId": 101,
+          "collegeName": "Modern College",
+          "images": ["13.jpeg", "2.jpeg", "3.jpeg", "4.jpeg"],
+          "albums": [
+            {
+              "id": 1,
+              "title": "Annual Function",
+              "description": "Memorable highlights from our Annual Function filled with joy, performances, and achievements.",
+              "images": ["13.jpeg", "2.jpeg", "3.jpeg", "4.jpeg"]
+            },
+            {
+              "id": 2,
+              "title": "Cultural Fest",
+              "description": "A vibrant showcase of art, dance, and creativity during our annual Cultural Fest.",
+              "images": ["5.jpeg", "6.jpeg", "7.jpeg", "8.jpeg"]
+            },
+            {
+              "id": 3,
+              "title": "Sports Day",
+              "description": "Moments of energy, teamwork, and victory from our college Sports Day.",
+              "images": ["9.jpeg", "10.jpeg", "11.jpeg", "12.jpeg"]
+            }
+          ]
+        },
+        {
+          "collegeId": 102,
+          "collegeName": "Fergusson College",
+          "images": ["5.jpeg", "6.jpeg", "7.jpeg", "8.jpeg"],
+          "albums": [
+            {
+              "id": 4,
+              "title": "Tech Event",
+              "description": "Innovative ideas and student-led projects showcased at our annual Technical Event.",
+              "images": ["13.jpeg", "14.jpeg", "15.jpeg", "16.jpeg"]
+            },
+            {
+              "id": 5,
+              "title": "Workshop Moments",
+              "description": "Hands-on learning and collaboration during our interactive workshops.",
+              "images": ["2.jpeg", "5.jpeg", "8.jpeg", "11.jpeg"]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "areaId": 2,
+      "areaName": "Mumbai",
+      "colleges": [
+        {
+          "collegeId": 201,
+          "collegeName": "Mumbai University",
+          "images": ["9.jpeg", "10.jpeg", "11.jpeg", "12.jpeg"],
+          "albums": [
+            {
+              "id": 6,
+              "title": "Prize Distribution",
+              "description": "Celebrating excellence and achievements during our Prize Distribution ceremony.",
+              "images": ["3.jpeg", "6.jpeg", "9.jpeg", "12.jpeg"]
+            },
+            {
+              "id": 7,
+              "title": "Team Celebration",
+              "description": "Cherishing teamwork and unity during our college celebration events.",
+              "images": ["4.jpeg", "7.jpeg", "10.jpeg", "13.jpeg"]
+            }
+          ]
+        },
+        {
+          "collegeId": 202,
+          "collegeName": "Thakur College",
+          "images": ["11.jpeg", "5.jpeg", "9.jpeg", "15.jpeg"],
+          "albums": [
+            {
+              "id": 8,
+              "title": "Graduation Ceremony",
+              "description": "Honoring our graduates on their remarkable journey and proud achievements.",
+              "images": ["11.jpeg", "5.jpeg", "9.jpeg", "15.jpeg"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
