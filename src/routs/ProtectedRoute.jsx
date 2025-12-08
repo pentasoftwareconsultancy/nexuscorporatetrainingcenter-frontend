@@ -1,35 +1,29 @@
+import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-
-const parseBypassUser = () => {
-  try {
-    return import.meta.env.VITE_BYPASS_USER
-      ? JSON.parse(import.meta.env.VITE_BYPASS_USER)
-      : null;
-  } catch {
-    return null;
-  }
-};
+import { useAuth } from "../core/contexts/AuthContext";
+import { ROUTES } from "../core/constants/routes.constant";
 
 const ProtectedRoute = ({ allowedRoles }) => {
-  const { user } = useAuth();
+  const { isLoggedIn, user, isLoading } = useAuth();
 
-  // Dev bypass
-  if (import.meta.env.VITE_BYPASS_AUTH === "true") {
-    const devUser = parseBypassUser();
-    if (devUser && allowedRoles && !allowedRoles.includes(devUser.role)) {
-      return <Navigate to="/login" replace />;
-    }
-    return <Outlet />;
+  // Wait until auth finishes loading
+  if (isLoading) return <div></div>;
+
+  // Not logged in → go to login
+  if (!isLoggedIn || !user) {
+    return <Navigate to="/login" replace />;
   }
 
-  // Real auth
-  if (!user) return <Navigate to="/login" replace />;
-
+  // Role mismatch → redirect based on actual role
   if (allowedRoles && !allowedRoles.includes(user.role)) {
+    if (user.role === "admin") return <Navigate to={ROUTES.ADMIN_DASHBOARD} replace />;
+    if (user.role === "user") return <Navigate to={ROUTES.USER_APPITUDE} replace />;
+
+    // fallback
     return <Navigate to="/" replace />;
   }
 
+  // Authenticated and allowed → render child routes
   return <Outlet />;
 };
 

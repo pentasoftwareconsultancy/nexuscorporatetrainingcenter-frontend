@@ -15,14 +15,13 @@ const CoursesCard = ({ logo, title, description, duration, categoryName }) => {
 
   return (
     <div
-      className="relative bg-twopointo text-one rounded-4xl p-6 border-2 border-one font-sora
+      className="relative bg-twopointo text-one rounded-4xl p-6 border-b-[0.5px] border-r-[0.5px] border-t-[1px] border-l-[1px] border-one font-sora
       transition-all duration-300 ease-in-out 
       hover:shadow-[0_0_30px_6px_rgba(255,111,0,0.8)]
       hover:border-five
       hover:scale-105
       flex flex-col justify-between min-h-[325px] z-2"
     >
-       <div className="absolute bottom-0 right-0 w-10 h-10 bg-twopointo rounded-4xl z-3"></div>
       <div className="z-5">
         <h2 className="text-xl font-semibold mb-2 flex items-center gap-2">
           {IconComponent && <IconComponent size={24} />}

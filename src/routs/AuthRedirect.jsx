@@ -1,21 +1,10 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import { Navigate, Outlet } from "react-router-dom";
 
-const AuthRedirect = ({ children }) => {
-  const { user } = useAuth();
-
-  if (user) {
-    // Redirect based on user role
-    if (user.role === "admin") {
-      return <Navigate to="/dashboard" replace />;
-    } else if (user.role === "user") {
-      return <Navigate to="/appitude" replace />;
-    }
+const AuthRedirect = ({ isAllowed, redirectTo = "/login" }) => {
+  if (!isAllowed) {
+    return <Navigate to={redirectTo} replace />;
   }
-
-  // If not logged in → show login/signup
-  return children;
+  return <Outlet />;
 };
-
 export default AuthRedirect;

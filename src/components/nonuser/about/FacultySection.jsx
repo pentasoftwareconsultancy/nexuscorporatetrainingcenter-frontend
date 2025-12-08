@@ -40,7 +40,7 @@ const FacultySection = () => {
           className="cursor-grab active:cursor-grabbing overflow-x-hidden sm:overflow-hidden"
         >
           <motion.div
-            style={{ x }}
+            style={{ x }} 
             drag="x"
             dragConstraints={{ right: 0, left: -width }}
             className="flex items-center gap-0 sm:gap-0 md:gap-1"

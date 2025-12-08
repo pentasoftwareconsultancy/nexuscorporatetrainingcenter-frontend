@@ -1,135 +1,276 @@
-import React, { useRef, useState } from "react";
-import html2canvas from "html2canvas";
-import medalImage from "../../assets/vaishnavi/medal.png";
-import logoImage from "../../assets/vaishnavi/logo.png";
-// import backgroundImage from "../../assets/vaishnavi/certbg.png";
+// import React from "react";
+// import jsPDF from "jspdf";
+// import img from "../../assets/saidas/Certificate.jpeg";
+// import certificateData from "../../assets/saidas/CertificateData.json";
 
-export default function certification() {
-  const [studentName] = useState("Vaishnavi Gopale");
-  const [courseName] = useState("Full Stack Python");
-  const certRef = useRef(null);
+// const Certification = () => {
+//   // DOWNLOAD PDF DIRECT FROM BACKGROUND + TEXT
+//   const handleDownloadPDF = () => {
+//     const pdf = new jsPDF("landscape", "mm", "a4");
 
-  const downloadCertificate = async () => {
-    const canvas = await html2canvas(certRef.current, {
-      scale: 3,
-      useCORS: true,
-      allowTaint: true,
-    });
-    const link = document.createElement("a");
-    link.download = `${studentName.replace(/\s+/g, "_")}_Certificate.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
+//     const pageWidth = pdf.internal.pageSize.getWidth(); // ~297mm
+//     const pageHeight = pdf.internal.pageSize.getHeight(); // ~210mm
+
+//     const background = new Image();
+//     background.src = img;
+
+//     background.onload = () => {
+//       pdf.addImage(background, "JPEG", 0, 0, pageWidth, pageHeight);
+
+//       // ============================
+//       // NAME (28% TOP) => pageHeight * 0.28
+//       // ============================
+//       pdf.setFont("Times", "Bold");
+//       pdf.setFontSize(36);
+//       pdf.setTextColor(0, 0, 0);
+//       pdf.text(
+//         certificateData.defaultName,
+//         pageWidth / 2, // center horizontally
+//         pageHeight * 0.28 + 15, // match preview top position
+//         { align: "center" }
+//       );
+
+//       // ============================
+//       // COURSE NAME (49.4% TOP, 47% LEFT)
+//       // ============================
+//       pdf.setFont("Arial", "Bold");
+//       pdf.setFontSize(18);
+//       pdf.text(
+//         certificateData.courseName,
+//         pageWidth * 0.47, // match preview left
+//         pageHeight * 0.494 + 8 // match preview top
+//       );
+
+//       // ============================
+//       // SIGN LEFT
+//       // ============================
+//       pdf.setFontSize(12);
+//       pdf.text(certificateData.signLeft, pageWidth * 0.22, pageHeight * 0.78);
+//       pdf.setFontSize(10);
+//       pdf.text(
+//         certificateData.signLeftRole,
+//         pageWidth * 0.22,
+//         pageHeight * 0.82
+//       );
+
+//       // ============================
+//       // SIGN RIGHT
+//       // ============================
+//       pdf.setFontSize(12);
+//       pdf.text(certificateData.signRight, pageWidth * 0.78, pageHeight * 0.78, {
+//         align: "right",
+//       });
+
+//       pdf.setFontSize(10);
+//       pdf.text(
+//         certificateData.signRightRole,
+//         pageWidth * 0.78,
+//         pageHeight * 0.82,
+//         { align: "right" }
+//       );
+
+//       pdf.save(`${certificateData.defaultName}.pdf`);
+//     };
+//   };
+
+//   return (
+//     <div className="min-h-screen flex flex-col items-center py-8 relative w-full">
+//       {/* DOWNLOAD BUTTON */}
+//       <button
+//         onClick={handleDownloadPDF}
+//         className="absolute top-5 right-10 px-5 py-2 bg-white text-black rounded-full shadow hover:bg-gray-200 transition"
+//       >
+//         Download PDF
+//       </button>
+
+//       <h1 className="text-2xl mb-4">Certificate</h1>
+
+//       {/* PREVIEW */}
+//       <div className="relative w-[900px] shadow-xl overflow-hidden">
+//         <img
+//           src={img}
+//           alt="Certificate"
+//           className="w-full h-full object-cover"
+//         />
+
+//         {/* NAME (Preview) */}
+//         <div
+//           className="absolute text-center"
+//           style={{
+//             top: "28%",
+//             left: "50%",
+//             transform: "translateX(-50%)",
+//             fontSize: "48px",
+//             fontFamily: "serif",
+//             fontStyle: "semi-bold",
+//           }}
+//         >
+//           {certificateData.defaultName}
+//         </div>
+
+//         {/* COURSE NAME (Preview) */}
+//         <p
+//           className="absolute font-bold whitespace-nowrap"
+//           style={{
+//             top: "49.4%",
+//             left: "47%",
+//             fontSize: "22px",
+//             fontStyle: "semi-bold",
+//           }}
+//         >
+//           {certificateData.courseName}
+//         </p>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Certification;
+
+
+
+
+
+
+import React from "react";
+import jsPDF from "jspdf";
+import img from "../../assets/saidas/Certificate.jpeg";
+import certificateData from "../../assets/saidas/CertificateData.json";
+
+const Certification = () => {
+  // DOWNLOAD PDF DIRECT FROM BACKGROUND + TEXT (NO CHANGES)
+  const handleDownloadPDF = () => {
+    const pdf = new jsPDF("landscape", "mm", "a4");
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    const background = new Image();
+    background.src = img;
+
+    background.onload = () => {
+      pdf.addImage(background, "JPEG", 0, 0, pageWidth, pageHeight);
+
+      // NAME
+      pdf.setFont("Times", "Bold");
+      pdf.setFontSize(36);
+      pdf.setTextColor(0, 0, 0);
+      pdf.text(
+        certificateData.defaultName,
+        pageWidth / 2,
+        pageHeight * 0.28 + 15,
+        { align: "center" }
+      );
+
+      // COURSE NAME
+      pdf.setFont("Arial", "Bold");
+      pdf.setFontSize(18);
+      pdf.text(
+        certificateData.courseName,
+        pageWidth * 0.47,
+        pageHeight * 0.494 + 8
+      );
+
+      // SIGN LEFT
+      pdf.setFontSize(12);
+      pdf.text(certificateData.signLeft, pageWidth * 0.22, pageHeight * 0.78);
+      pdf.setFontSize(10);
+      pdf.text(
+        certificateData.signLeftRole,
+        pageWidth * 0.22,
+        pageHeight * 0.82
+      );
+
+      // SIGN RIGHT
+      pdf.setFontSize(12);
+      pdf.text(certificateData.signRight, pageWidth * 0.78, pageHeight * 0.78, {
+        align: "right",
+      });
+
+      pdf.setFontSize(10);
+      pdf.text(
+        certificateData.signRightRole,
+        pageWidth * 0.78,
+        pageHeight * 0.82,
+        { align: "right" }
+      );
+
+      pdf.save(`${certificateData.defaultName}.pdf`);
+    };
   };
 
+  // RESPONSIVE PREVIEW UI
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-amber-50 flex flex-col items-center justify-center relative py-10 px-4">
-      {/* Title */}
-      <h1 className="text-black text-2xl sm:text-3xl font-semibold mb-6 text-center">
+    <div className="min-h-screen flex flex-col items-center py-8 px-3 w-full relative">
+      {/* DOWNLOAD BUTTON — responsive placed */}
+      <button
+        onClick={handleDownloadPDF}
+        className="
+          fixed bottom-5 right-5
+          sm:absolute sm:top-5 sm:right-10 sm:bottom-auto
+          px-4 py-2 bg-white text-black rounded-full shadow
+          hover:bg-gray-200 transition text-sm sm:text-base z-50
+        "
+      >
+        Download PDF
+      </button>
+
+      {/* TITLE */}
+      <h1 className="text-xl sm:text-2xl mb-4 font-semibold text-center">
         Certificate
       </h1>
 
-      {/* Download Button */}
-      <button
-        onClick={downloadCertificate}
-        className="absolute top-6 right-6 px-5 py-2 bg-gradient-to-r from-amber-300 to-yellow-400 text-black rounded-full shadow font-medium hover:brightness-105 transition"
-      >
-        Download Certificate
-      </button>
-
-      {/* Certificate Container */}
+      {/* RESPONSIVE CERTIFICATE PREVIEW */}
       <div
-        ref={certRef}
-        className="relative w-full max-w-[900px] aspect-[1.45/1] overflow-hidden rounded-lg shadow-2xl flex flex-col items-center justify-center"
+        className="
+          relative w-full max-w-[900px]
+          aspect-[4/3]            /* Keeps ratio of certificate */
+          shadow-xl overflow-hidden
+        "
       >
-        {/* 🌸 Full Background Image */}
         <img
-          src={backgroundImage}
-          alt="Floral Background"
-          className="absolute inset-0 w-full h-full object-cover object-center z-0"
-          crossOrigin="anonymous"
+          src={img}
+          alt="Certificate"
+          className="w-full h-full object-cover"
         />
 
-        {/* Optional Gold Border */}
-        {/* <img
-          src="/assets/gold-border.png"
-          alt="Gold Border"
-          className="absolute right-0 top-0 h-full object-cover pointer-events-none z-5"
-          crossOrigin="anonymous"
-        /> */}
-
-        {/* Certificate Content */}
-        <div className="relative z-10 text-center px-6 sm:px-10 md:px-16 pt-10 sm:pt-16 flex flex-col items-center justify-center w-full bg-white/70 backdrop-blur-sm rounded-lg">
-          {/* Logo */}
-          <div className="w-full flex justify-start items-center mb-4 sm:mb-6">
-            <img
-              src={logoImage}
-              alt="Logo"
-              className="w-16 sm:w-20 md:w-24 ml-15 sm:ml-4 mt-10"
-              crossOrigin="anonymous"
-            />
-          </div>
-
-          <p className="text-gray-800 text-sm mb-2 font-[Georgia]">
-            Nexus Corporate Training Center LLP
-          </p>
-
-          <h2
-            className="text-[32px] sm:text-[40px] md:text-[44px] text-gray-900"
-            style={{ fontFamily: "'Great Vibes', cursive" }}
-          >
-            Certificate of Completion
-          </h2>
-
-          <p className="mt-3 text-[14px] sm:text-[15px] italic text-gray-700 font-[Georgia]">
-            This certificate is proudly presented to
-          </p>
-
-          <h1
-            className="mt-2 text-[32px] sm:text-[40px] md:text-[46px] text-gray-900 font-medium tracking-wide border-b border-yellow-600 inline-block pb-1"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
-            {studentName}
-          </h1>
-
-          <p className="mt-4 text-[14px] sm:text-[16px] text-gray-700 italic font-[Georgia]">
-            for successfully completing the certification course in
-          </p>
-          <p className="text-[16px] sm:text-[18px] font-semibold text-gray-800 italic font-[Georgia]">
-            {courseName}
-          </p>
-
-          {/* 🏅 Medal Image */}
-          <div className="mt-6 sm:mt-8 mb-4">
-            <img
-              src={medalImage}
-              alt="Achievement Medal"
-              className="w-14 sm:w-16 md:w-20 h-auto mx-auto opacity-95 drop-shadow-lg"
-              crossOrigin="anonymous"
-            />
-          </div>
-
-          {/* Footer: Trainer and CEO */}
-          <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end mt-8 sm:mt-10 px-6 sm:px-12 w-full gap-6 sm:gap-0">
-            <div className="text-center sm:text-left">
-              <p className="font-semibold text-[14px] sm:text-[15px] text-gray-800 font-[Georgia] mb-25">
-                Sanjay Wadatkar
-              </p>
-              <p className="text-[12px] sm:text-[13px] italic text-gray-600 font-[Georgia] o">
-                CEO
-              </p>
-            </div>
-
-            <div className="text-center sm:text-right">
-              <p className="font-semibold text-[14px] sm:text-[15px] text-gray-800 font-[Georgia] mb-25">
-                Aditi Khade
-              </p>
-              <p className="text-[12px] sm:text-[13px] italic text-gray-600 font-[Georgia]">
-                Trainer
-              </p>
-            </div>
-          </div>
+        {/* NAME (Preview) */}
+        <div
+          className="
+            absolute font-semibold text-center
+            text-[18px] sm:text-[32px] md:text-[44px] lg:text-[48px]
+          "
+          style={{
+            top: "28%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            fontFamily: "serif",
+            color: "#000", // <-- ADDED
+          }}
+        >
+          {certificateData.defaultName}
         </div>
+
+        {/* COURSE NAME (Preview) */}
+        <p
+          className="
+            absolute font-bold whitespace-nowrap
+            text-[10px] sm:text-[14px] md:text-[18px] lg:text-[22px]
+          "
+          style={{
+            top: "50%",
+            left: "48.2%",
+            transform: "translateX(-10%)",
+            fontFamily: "Arial",
+            color: "#000", // <-- ADDED
+          }}
+        >
+          {certificateData.courseName}
+        </p>
       </div>
     </div>
   );
-}
+};
+
+export default Certification;
+

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { FaMagnifyingGlass } from "react-icons/fa6"; 
+import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../core/constants/routes.constant";
 
 import upcomingData from "../../../assets/shubham/upcomingdb.json";
 import { getIconByName } from "../../../core/utils/iconMap"; // <-- Correct import
+import Button from "../../common/Button";
 
 const UpcomingBatches = () => {
   const navigate = useNavigate();
@@ -25,11 +26,19 @@ const UpcomingBatches = () => {
 
   return (
     <div className="w-full text-white font-sans py-2 px-12 md:px-10">
-
       {/* Title */}
       <h1 className="text-3xl md:text-4xl font-semibold mb-8 tracking-wide">
         Upcoming Batches
       </h1>
+
+      {/* Header Row (Desktop Only) */}
+      <div className="hidden md:grid grid-cols-5 text-gray-300 text-lg border border-gray-700 rounded-lg px-6 py-4 mb-8">
+        <span>Course name</span>
+        <span className="text-center">Duration</span>
+        <span className="text-center">Start date</span>
+        <span className="text-center">Fees</span>
+        <span className="text-center">Contact</span>
+      </div>
 
       {/* Search bar */}
       <div className="relative mb-10 w-full max-w-sm">
@@ -43,15 +52,6 @@ const UpcomingBatches = () => {
         />
       </div>
 
-      {/* Header Row (Desktop Only) */}
-      <div className="hidden md:grid grid-cols-5 text-gray-300 text-lg border border-gray-700 rounded-lg px-6 py-4 mb-8">
-        <span>Course name</span>
-        <span className="text-center">Duration</span>
-        <span className="text-center">Start date</span>
-        <span className="text-center">Fees</span>
-        <span className="text-center">Contact</span>
-      </div>
-
       {/* Course List */}
       <div className="flex flex-col gap-4">
         {displayedCourses.map((c) => (
@@ -59,22 +59,18 @@ const UpcomingBatches = () => {
             key={`${c.id}-${c.name}`}
             className="relative flex flex-col md:flex-row md:items-center md:justify-between bg-[#1A1A1A] border border-[#4a4a4a] rounded-2xl md:rounded-full px-6 md:px-8 py-5 hover:bg-[#252525] transition-all duration-300"
           >
-
             {/* Course + Icon */}
-           {/* Course + Icon */}
-<div className="flex items-center gap-4 md:w-1/5 mb-3 md:mb-0">
-  <div className="bg-[#2c2c2c] p-2 rounded-full flex items-center justify-center">
-    
-    {/* FIXED HERE */}
-    {(() => {
-      const IconComponent = getIconByName(c.icon);
-      return IconComponent ? <IconComponent size={28} /> : null;
-    })()}
-
-  </div>
-  <span className="text-[15px] font-medium">{c.name}</span>
-</div>
-
+            {/* Course + Icon */}
+            <div className="flex items-center gap-4 md:w-1/5 mb-3 md:mb-0">
+              <div className="bg-[#2c2c2c] p-2 rounded-full flex items-center justify-center">
+                {/* FIXED HERE */}
+                {(() => {
+                  const IconComponent = getIconByName(c.icon);
+                  return IconComponent ? <IconComponent size={28} /> : null;
+                })()}
+              </div>
+              <span className="text-[15px] font-medium">{c.name}</span>
+            </div>
 
             {/* Duration */}
             <span className="md:w-1/5 text-[15px] text-gray-300 text-left md:text-center">
@@ -93,19 +89,10 @@ const UpcomingBatches = () => {
 
             {/* Contact */}
             <div className="flex items-center justify-between md:justify-end gap-3 md:w-1/5 mt-3 md:mt-0">
-              <span className="text-[15px] text-gray-300">{c.contact}</span>
-              <span className="flex items-center justify-center bg-[#FF6A00] rounded-full w-[28px] h-[28px] shadow-sm hover:scale-105 transition-transform duration-300 cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-[13px] h-[13px] text-white"
-                  fill="none"
-                  viewBox="0 0 28 28"
-                  stroke="currentColor"
-                  strokeWidth={3}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 17l10-10M7 7h10v10" />
-                </svg>
-              </span>
+              <Button 
+                text="Contact Now"
+                onClick={() => navigate(ROUTES.CONTACT)}
+              />
             </div>
           </div>
         ))}
@@ -116,7 +103,7 @@ const UpcomingBatches = () => {
         <div className="flex justify-end my-6">
           <button
             onClick={handleSeeMore}
-            className="text-[15px] font-semibold text-gray-200 hover:text-white transition-all duration-200 underline-offset-4 hover:underline"
+            className="text-[15px] font-semibold text-gray-200 hover:text-white transition-all duration-200 underline-offset-4 hover:underline cursor-pointer"
           >
             See more
           </button>

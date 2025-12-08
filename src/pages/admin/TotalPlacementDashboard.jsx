@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, Bell, Menu } from "lucide-react";
+import { Search } from "lucide-react";
 
 export default function TotalPlacementDashboard() {
   const categories = [
@@ -35,7 +35,6 @@ export default function TotalPlacementDashboard() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Filtering Users
   const filteredUsers = allUsers.filter((u) => {
     const matchCategory =
       selectedCategory === "" || u.course === selectedCategory;
@@ -48,38 +47,34 @@ export default function TotalPlacementDashboard() {
   });
 
   return (
-    <div className="relative min-h-screen flex text-one font-poppins overflow-hidden font-sora">
+    <div className="min-h-screen flex flex-col lg:flex-row text-one font-poppins font-sora">
 
-      <div className="hidden lg:flex p-6 overflow-y-auto">
-
-        <div className="mt-6">
-          <div className="flex flex-col gap-3 overflow-y-auto pr-2">
-            {categories.map((item) => (
-              <button
-                key={item}
-                onClick={() => setSelectedCategory(item)}
-                className={`border px-3 py-2 rounded-full text-sm transition 
-                  ${
-                    selectedCategory === item
-                      ? "bg-orange-500 border-orange-500 text-black"
-                      : "border-white hover:bg-gray-800"
-                  }`}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-        </div>
+      {/* SIDEBAR – horizontal on mobile, vertical on desktop */}
+      <div className="w-full lg:w-auto overflow-x-auto lg:overflow-y-auto p-4 flex gap-3 lg:flex-col border-b lg:border-b-0 lg:border-r border-gray-700">
+        {categories.map((item) => (
+          <button
+            key={item}
+            onClick={() => setSelectedCategory(item)}
+            className={`whitespace-nowrap border px-4 py-2 rounded-full text-sm transition 
+            ${
+              selectedCategory === item
+                ? "bg-orange-500 border-orange-500 text-black"
+                : "border-white hover:bg-gray-800"
+            }`}
+          >
+            {item}
+          </button>
+        ))}
       </div>
 
       {/* MAIN CONTENT */}
-      <main className="flex-1 p-6 lg:p-10 w-full overflow-y-auto">
-          <h2 className="text-xl md:text-2xl font-semibold pb-5">
-            Total Placements ({allUsers.length})
-          </h2>
+      <main className="flex-1 p-4 md:p-8">
+        <h2 className="text-xl md:text-2xl font-semibold pb-5">
+          Total Placements ({allUsers.length})
+        </h2>
 
         {/* SEARCH BAR */}
-        <div className="mt-6 relative">
+        <div className="mt-4 relative">
           <Search className="absolute left-4 top-3 text-gray-400" size={20} />
           <input
             type="text"
@@ -90,36 +85,52 @@ export default function TotalPlacementDashboard() {
           />
         </div>
 
-        {/* INPUT FIELDS */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-          <h2 className="px-3 pt-3 font-bold">Name</h2>
-          <h2 className="px-3 pt-3 font-bold">Email</h2>
-          <h2 className="px-3 pt-3 font-bold">Course name</h2>
-          <h2 className="px-3 pt-3 font-bold">Course duration</h2>
+        {/* TABLE HEADER – only visible on desktop */}
+        <div className="mt-6 hidden md:grid grid-cols-4 gap-4 font-bold">
+          <h2>Name</h2>
+          <h2>Email</h2>
+          <h2>Course</h2>
+          <h2>Duration</h2>
         </div>
 
-        {/* USER LIST – PERFECTLY ALIGNED */}
-        <div>
-
-
-          {/* Rows */}
-          <div className="flex flex-col gap-3 mt-4">
-            {filteredUsers.map((u, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-4 border border-white rounded-xl py-3 px-4 hover:bg-[#222] transition"
-              >
-                <p className="truncate">{u.name}</p>
-                <p className="truncate">{u.email}</p>
-                <p className="truncate">{u.course}</p>
-                <p className="truncate">{u.duration}</p>
+        {/* USER LIST */}
+        <div className="flex flex-col gap-4 mt-4">
+          {filteredUsers.map((u, idx) => (
+            <div
+              key={idx}
+              className="border border-white rounded-xl p-4 hover:bg-[#222] transition
+              grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4"
+            >
+              {/* MOBILE VIEW FORMAT (label + value stacked) */}
+              <div className="md:hidden">
+                <p className="text-sm text-gray-400">Name</p>
+                <p className="font-medium truncate">{u.name}</p>
               </div>
-            ))}
+              <div className="hidden md:block truncate">{u.name}</div>
 
-            {filteredUsers.length === 0 && (
-              <p className="text-center text-gray-400 mt-4">No users found</p>
-            )}
-          </div>
+              <div className="md:hidden">
+                <p className="text-sm text-gray-400">Email</p>
+                <p className="font-medium truncate">{u.email}</p>
+              </div>
+              <div className="hidden md:block truncate">{u.email}</div>
+
+              <div className="md:hidden">
+                <p className="text-sm text-gray-400">Course</p>
+                <p className="font-medium truncate">{u.course}</p>
+              </div>
+              <div className="hidden md:block truncate">{u.course}</div>
+
+              <div className="md:hidden">
+                <p className="text-sm text-gray-400">Duration</p>
+                <p className="font-medium truncate">{u.duration}</p>
+              </div>
+              <div className="hidden md:block truncate">{u.duration}</div>
+            </div>
+          ))}
+
+          {filteredUsers.length === 0 && (
+            <p className="text-center text-gray-400 mt-4">No users found</p>
+          )}
         </div>
       </main>
     </div>

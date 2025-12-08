@@ -1,25 +1,27 @@
 import React from "react";
 import Navbar from "../../components/public/Navbar";
 import Footer from "../../components/public/Footer";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { ROUTES } from "../../core/constants/routes.constant";
 
 export default function UserLayout() {
+  const location = useLocation();
+
+  // All exam-related paths that should hide navbar & footer
+  const hideLayout = location.pathname.startsWith(ROUTES.USER_EXAM);
+
   return (
     <div className="flex flex-col">
-      <Navbar />
 
-      <main className="flex-1 mt-18">
+      {/* NAVBAR (Show only if not /exam) */}
+      {!hideLayout && <Navbar />}
+
+      <main className={`flex-1 ${!hideLayout ? "mt-18" : ""}`}>
         <Outlet />
       </main>
 
-    <div
-      className="z-1 w-full h-[1px] sm:h-[2px] my-8 lg:my-12"
-      style={{
-        background:
-          "linear-gradient(90deg, #030e4e 0%, #b9b4b4 50%, #030e4e 100%)",
-      }}
-      />
-      <Footer />
+      {/* FOOTER (Show only if not /exam) */}
+      {!hideLayout && <Footer />}
     </div>
   );
 }

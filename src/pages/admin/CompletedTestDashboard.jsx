@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, Bell, Menu } from "lucide-react";
+import { Search } from "lucide-react";
 
 export default function CompletedTestDashboard() {
   const categories = [
@@ -36,7 +36,6 @@ export default function CompletedTestDashboard() {
   const [selectedFilter, setSelectedFilter] = useState("Enquiry");
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Filtering Users
   const filteredUsers = allUsers.filter((u) => {
     const matchCategory =
       selectedCategory === "" || u.course === selectedCategory;
@@ -49,48 +48,67 @@ export default function CompletedTestDashboard() {
   });
 
   return (
-    <div className="relative min-h-screen flex text-one font-poppins overflow-hidden font-sora">
+    <div className="relative min-h-screen flex text-one font-sora bg-black text-white">
 
-      <div className="hidden lg:flex p-6 overflow-y-auto">
-
-        <div className="mt-6">
-          <div className="flex flex-col gap-3 overflow-y-auto pr-2">
-            {categories.map((item) => (
-              <button
-                key={item}
-                onClick={() => setSelectedCategory(item)}
-                className={`border px-3 py-2 rounded-full text-sm transition 
-                  ${
-                    selectedCategory === item
-                      ? "bg-orange-500 border-orange-500 text-black"
-                      : "border-white hover:bg-gray-800"
-                  }`}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
+      {/* SIDEBAR – Desktop */}
+      <div className="hidden lg:block p-6 overflow-y-auto w-[260px] border-r border-gray-800">
+        <h3 className="text-xl font-semibold mb-4">Categories</h3>
+        <div className="flex flex-col gap-3 pr-2">
+          {categories.map((item) => (
+            <button
+              key={item}
+              onClick={() => setSelectedCategory(item)}
+              className={`border px-3 py-2 rounded-full text-sm transition 
+              ${
+                selectedCategory === item
+                  ? "bg-orange-500 border-orange-500 text-black"
+                  : "border-white hover:bg-gray-800"
+              }`}
+            >
+              {item}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* MAIN CONTENT */}
-      <main className="flex-1 p-6 lg:p-10 w-full overflow-y-auto">
-          <h2 className="text-xl md:text-2xl font-semibold pb-5">
-            Users Completed Test ({allUsers.length})
-          </h2>
+      {/* MAIN CONTENT AREA */}
+      <main className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto w-full">
+
+        {/* MOBILE CATEGORY SCROLLER */}
+        <div className="lg:hidden w-full overflow-x-auto whitespace-nowrap flex gap-3 pb-2 mt-2">
+          {categories.map((item) => (
+            <button
+              key={item}
+              onClick={() => setSelectedCategory(item)}
+              className={`px-4 py-2 rounded-full text-sm border transition flex-shrink-0
+              ${
+                selectedCategory === item
+                  ? "bg-orange-500 border-orange-500 text-black"
+                  : "border-white"
+              }`}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+
+        {/* PAGE TITLE */}
+        <h2 className="text-xl md:text-2xl font-semibold mt-6">
+          Users Completed Test ({allUsers.length})
+        </h2>
 
         {/* FILTER BUTTONS */}
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-3 mt-4">
           {["Enquiry", "Class Visit", "Direct Admissions"].map((item) => (
             <button
               key={item}
               onClick={() => setSelectedFilter(item)}
               className={`px-5 py-2 rounded-full transition border 
-                ${
-                  selectedFilter === item
-                    ? "border-orange-400 text-white"
-                    : "border-white hover:bg-gray-800"
-                }`}
+            ${
+              selectedFilter === item
+                ? "border-orange-400 bg-orange-400 text-black"
+                : "border-white hover:bg-gray-800"
+            }`}
             >
               {item}
             </button>
@@ -105,40 +123,46 @@ export default function CompletedTestDashboard() {
             placeholder="Search by name, email"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full border border-white rounded-full py-3 pl-12 pr-5 outline-none focus:ring-2 focus:ring-orange-400 transition"
+            className="w-full border border-white rounded-full py-3 pl-12 pr-5 
+              bg-transparent outline-none focus:ring-2 focus:ring-orange-400"
           />
         </div>
 
-        {/* INPUT FIELDS */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-          <h2 className="px-3 pt-3 font-bold">Name</h2>
-          <h2 className="px-3 pt-3 font-bold">Email</h2>
-          <h2 className="px-3 pt-3 font-bold">Course name</h2>
-          <h2 className="px-3 pt-3 font-bold">Course duration</h2>
+        {/* DESKTOP HEADERS */}
+        <div className="hidden md:grid grid-cols-4 gap-4 mt-8 bg-gray-900 p-4 rounded-lg border border-gray-700">
+          <h2 className="font-bold">Name</h2>
+          <h2 className="font-bold">Email</h2>
+          <h2 className="font-bold">Course name</h2>
+          <h2 className="font-bold">Course duration</h2>
         </div>
 
-        {/* USER LIST – PERFECTLY ALIGNED */}
-        <div>
-
-
-          {/* Rows */}
-          <div className="flex flex-col gap-3 mt-4">
-            {filteredUsers.map((u, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-4 border border-white rounded-xl py-3 px-4 hover:bg-[#222] transition"
-              >
-                <p className="truncate">{u.name}</p>
-                <p className="truncate">{u.email}</p>
-                <p className="truncate">{u.course}</p>
-                <p className="truncate">{u.duration}</p>
+        {/* USER LIST */}
+        <div className="flex flex-col gap-4 mt-6 pb-10">
+          {filteredUsers.map((u, index) => (
+            <div
+              key={index}
+              className="border border-gray-700 rounded-xl p-4 hover:bg-gray-900 transition 
+                grid grid-cols-1 md:grid-cols-4 gap-3"
+            >
+              {/* MOBILE VIEW */}
+              <div className="md:hidden space-y-2 text-sm">
+                <p><span className="font-semibold">Name:</span> {u.name}</p>
+                <p><span className="font-semibold">Email:</span> {u.email}</p>
+                <p><span className="font-semibold">Course:</span> {u.course}</p>
+                <p><span className="font-semibold">Duration:</span> {u.duration}</p>
               </div>
-            ))}
 
-            {filteredUsers.length === 0 && (
-              <p className="text-center text-gray-400 mt-4">No users found</p>
-            )}
-          </div>
+              {/* DESKTOP VIEW */}
+              <p className="hidden md:block truncate">{u.name}</p>
+              <p className="hidden md:block truncate">{u.email}</p>
+              <p className="hidden md:block truncate">{u.course}</p>
+              <p className="hidden md:block truncate">{u.duration}</p>
+            </div>
+          ))}
+
+          {filteredUsers.length === 0 && (
+            <p className="text-center text-gray-400 mt-4">No users found</p>
+          )}
         </div>
       </main>
     </div>
