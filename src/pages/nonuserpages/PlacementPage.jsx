@@ -1,73 +1,134 @@
-import React, { useState } from 'react';
-import { motion } from "framer-motion"; 
-import data from "../../assets/saniya/PlacementData.json";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import ApiService from "../../core/services/api.service";
+import ServerUrl from "../../core/constants/serverURL.constant";
 import { Link } from "react-router-dom";
 
-const PlacementPage = () => {
+const DEFAULT_IMAGE = "../../assets/Placement.jpg"; // <-- if no image
 
-  const categories = [
-    "All Placement",
-    "Software Developer",
-    "AR Associates",
-    "Dev OPS",
-    "SQL",
-    "Frontend Developer",
-    "Backend Developer",
-    "Full Stack Developer",
-    "UI/UX Designer",
-    "Tester",
-  ];
-
+export default function PlacementPage() {
+  const [categories, setCategories] = useState(["All Placement"]);
   const [active, setActive] = useState("All Placement");
   const [showAll, setShowAll] = useState(false);
+  const api = new ApiService();
+  const [placements, setPlacements] = useState([]);
 
-  const visibleCategories = showAll ? categories : categories.slice(0, 6);
+  /* ---------------------------------------------
+        FETCH CATEGORIES
+  --------------------------------------------- */
+  const fetchCategories = async () => {
+    try {
+      const res = await api.apiget(ServerUrl.API_GET_PLACEMENT_CATEGORIES);
 
-  const filterCards = (cards) => {
-    if (active === "All Placement") return cards;
-
-    const q = active.toLowerCase();
-    return cards.filter((item) =>
-      item.role?.toLowerCase().includes(q) ||
-      item.company?.toLowerCase().includes(q) ||
-      item.course?.toLowerCase().includes(q)
-    );
+      if (res.success && res.data) {
+        const apiCats = res.data.map((c) => c.name);
+        setCategories(["All Placement", ...apiCats]);
+      }
+    } catch (err) {
+      console.error("Category Fetch Error:", err);
+    }
   };
 
-  const renderRow = (rowData, year, rowIndex) => (
+  /* ---------------------------------------------
+        FETCH PLACEMENTS
+  --------------------------------------------- */
+  const fetchPlacements = async () => {
+  try {
+    const res = await api.apiget(ServerUrl.API_GET_PLACEMENTS);
+
+    console.log("PLACEMENT RAW RESPONSE:", res);
+
+    // Correct format check
+    if (res.data && Array.isArray(res.data.data)) {
+      setPlacements(res.data.data);  // <-- Correct path
+    } else {
+      console.warn("Unexpected placement format:", res);
+    }
+
+  } catch (err) {
+    console.error("Placements Fetch Error:", err);
+  }
+};
+
+  useEffect(() => {
+    fetchCategories();
+    fetchPlacements();
+  }, []);
+
+  /* ---------------------------------------------
+        FILTER LOGIC
+  --------------------------------------------- */
+  const filteredData = () => {
+    if (active === "All Placement") return placements;
+
+    const q = active.toLowerCase();
+
+    return placements.filter((p) => {
+      return (
+        p.company_role?.toLowerCase().includes(q) ||
+        p.company_name?.toLowerCase().includes(q) ||
+        p.course?.toLowerCase().includes(q)
+      );
+    });
+  };
+
+  /* ---------------------------------------------
+        GROUP BY YEAR
+  --------------------------------------------- */
+  const groupByYear = (data) => {
+    const map = {};
+
+    data.forEach((p) => {
+      if (!map[p.year]) map[p.year] = [];
+      map[p.year].push(p);
+    });
+
+    return Object.keys(map)
+      .sort((a, b) => b - a)
+      .map((year) => ({
+        year,
+        card: map[year],
+      }));
+  };
+
+  const finalData = groupByYear(filteredData());
+
+  /* ---------------------------------------------
+        RENDER ROW (SCROLL)
+  --------------------------------------------- */
+  const renderRow = (rowData, year, key) => (
     <motion.div
-      key={rowIndex}
+      key={key}
       initial={{ opacity: 0, scale: 0.95, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
+      transition={{ duration: 0.6 }}
       className="flex overflow-x-auto space-x-4 sm:space-x-6 px-4 sm:px-6
-                 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        snap-x snap-mandatory [&::-webkit-scrollbar]:hidden"
     >
-      {rowData.map((student, index) => (
+      {rowData.map((student, i) => (
         <motion.div
-          key={`${year}-${student.id}`}
+          key={student.placement_id}
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: index * 0.1 }}
+          transition={{ duration: 0.6, delay: i * 0.1 }}
         >
           <Link
-            to={`/placements/${year}/${student.id}`}
-            className="shrink-0 bg-transparent border border-white rounded-2xl shadow-lg 
-                       transition-transform duration-200 hover:scale-95 
-                       w-[90vw] sm:w-[400px] h-[220px] flex snap-start overflow-hidden"
+            to={`/placements/${student.year}/${student.placement_id}`}
+            className="shrink-0 bg-transparent border border-white rounded-2xl
+              shadow-lg w-[90vw] sm:w-[400px] h-[220px] flex snap-start overflow-hidden"
           >
             <div className="flex flex-col justify-center p-3 w-70">
               <p className="font-bold text-sm">Package: {student.package}</p>
-              <p className="text-sm">Name: {student.name}</p>
-              <p className="text-sm">Company: {student.company}</p>
-              <p className="text-sm">Role: {student.role}</p>
+              <p className="text-sm">Name: {student.student_name}</p>
+              <p className="text-sm">Company: {student.company_name}</p>
+              <p className="text-sm">Role: {student.company_role}</p>
               <p className="text-sm">Course: {student.course}</p>
             </div>
 
             <div className="w-50 h-full p-3">
               <img
-                src={student.image}
-                alt={student.name}
+                src={student.image || DEFAULT_IMAGE}
+                alt={student.student_name}
                 className="object-cover w-full h-full rounded-xl border border-gray-700"
               />
             </div>
@@ -77,59 +138,61 @@ const PlacementPage = () => {
     </motion.div>
   );
 
-  const renderFlexGridForFiltered = (cards, year) => {
-    return (
-      <div className="flex flex-wrap gap-6 px-4 sm:px-6">
-        {cards.map((student) => (
-          <Link
-            key={`${year}-${student.id}`}
-            to={`/placements/${year}/${student.id}`}
-            className="w-full sm:w-[48%] lg:w-[23%] shrink-0"
-          >
-            <div className="bg-transparent border border-white rounded-2xl shadow-lg overflow-hidden h-[220px] flex">
-              <div className="flex flex-col justify-center p-3 w-70">
-                <p className="font-bold text-sm">Package: {student.package}</p>
-                <p className="text-sm">Name: {student.name}</p>
-                <p className="text-sm">Company: {student.company}</p>
-                <p className="text-sm">Role: {student.role}</p>
-                <p className="text-sm">Course: {student.course}</p>
-              </div>
-
-              <div className="w-50 h-full p-3">
-                <img
-                  src={student.image}
-                  alt={student.name}
-                  className="object-cover w-full h-full rounded-xl border border-gray-700"
-                />
-              </div>
+  /* ---------------------------------------------
+        GRID FOR SEARCH / FILTER RESULT
+  --------------------------------------------- */
+  const renderFilteredGrid = (cards) => (
+    <div className="flex flex-wrap gap-6 px-4 sm:px-6">
+      {cards.map((student) => (
+        <Link
+          key={student.placement_id}
+          to={`/placements/${student.year}/${student.placement_id}`}
+          className="w-full sm:w-[48%] lg:w-[23%] shrink-0"
+        >
+          <div className="bg-transparent border border-white rounded-2xl shadow-lg overflow-hidden h-[220px] flex">
+            <div className="flex flex-col justify-center p-3 w-70">
+              <p className="font-bold text-sm">Package: {student.package}</p>
+              <p className="text-sm">Name: {student.student_name}</p>
+              <p className="text-sm">Company: {student.company_name}</p>
+              <p className="text-sm">Role: {student.company_role}</p>
+              <p className="text-sm">Course: {student.course}</p>
             </div>
-          </Link>
-        ))}
-      </div>
-    );
-  };
 
+            <div className="w-50 h-full p-3">
+              <img
+                src={student.image || DEFAULT_IMAGE}
+                alt={student.student_name}
+                className="object-cover w-full h-full rounded-xl border border-gray-700"
+              />
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+
+  /* ---------------------------------------------
+        UI
+  --------------------------------------------- */
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.98 }} 
+      initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="text-white py-6 px-12 sm:px-12 overflow-hidden min-h-0"
+      transition={{ duration: 0.6 }}
+      className="text-white py-6 px-12 overflow-hidden"
     >
-      <div>
-        <h6 className='text-5xl text-one pt-5 mb-5'>From Potential to Performance</h6>
-        <p className='text-one mb-20 text-lg'>
-We measure our success by the tangible, transformative results we deliver for our Students. Explore our collection of success stories that highlight how organizations, just like yours, leveraged Nexus training to close critical skill gaps, achieve ambitious strategic goals, and unlock new levels of organizational performance. These are not just testimonials; they are verifiable accounts of growth and competitive advantage.        </p>
-      </div>
+      <h1 className="text-4xl font-bold mb-8">From Potential to Performance</h1>
 
-      <div className='pb-20 flex flex-wrap gap-3'>
-        {visibleCategories.map((cat, index) => (
+      {/* CATEGORY FILTER */}
+      <div className="pb-10 flex flex-wrap gap-3">
+        {(showAll ? categories : categories.slice(0, 6)).map((cat, i) => (
           <button
-            key={index}
+            key={i}
             onClick={() => setActive(cat)}
-            className={`p-4 border-2 rounded-full mr-3 shrink-0 
-              ${active === cat ? "text-black bg-white" : "text-white bg-rgba(0,0,0,0.34)"}
-            `}
+            className={`p-4 border-2 rounded-full 
+              ${
+                active === cat ? "bg-white text-black" : "bg-[#222] text-white"
+              }`}
           >
             {cat}
           </button>
@@ -140,38 +203,31 @@ We measure our success by the tangible, transformative results we deliver for ou
         </button>
       </div>
 
-      {data.map((yearBlock, index) => {
-        const filteredCards = filterCards(yearBlock.card);
-
-        if (filteredCards.length === 0) return null;
-
+      {/* YEAR WISE DATA */}
+      {finalData.map((block, i) => {
         if (active !== "All Placement") {
           return (
-            <div key={yearBlock.year} className="mb-16">
-              <h1 className="text-2xl font-bold text-white mb-5">{yearBlock.year}</h1>
-
-              {renderFlexGridForFiltered(filteredCards, yearBlock.year)}
+            <div key={block.year} className="mb-16">
+              <h2 className="text-2xl font-bold mb-5">{block.year}</h2>
+              {renderFilteredGrid(block.card)}
             </div>
           );
         }
 
-        const half = Math.ceil(filteredCards.length / 2);
-        const firstRow = filteredCards.slice(0, half);
-        const secondRow = filteredCards.slice(half);
+        const half = Math.ceil(block.card.length / 2);
+        const row1 = block.card.slice(0, half);
+        const row2 = block.card.slice(half);
 
         return (
-          <div key={index} className="mb-16">
-            <h1 className="text-2xl font-bold text-white mb-5">{yearBlock.year}</h1>
-
-            <div className="space-y-6 sm:space-y-10">
-              {renderRow(firstRow, yearBlock.year, index + "a")}
-              {renderRow(secondRow, yearBlock.year, index + "b")}
+          <div key={block.year} className="mb-16">
+            <h2 className="text-2xl font-bold mb-5">{block.year}</h2>
+            <div className="space-y-6">
+              {renderRow(row1, block.year, `${i}-1`)}
+              {renderRow(row2, block.year, `${i}-2`)}
             </div>
           </div>
         );
       })}
     </motion.div>
   );
-};
-
-export default PlacementPage;
+}

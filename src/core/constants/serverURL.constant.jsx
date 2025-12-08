@@ -104,6 +104,31 @@ class ServerUrl {
     static API_DELETE_VIDEO = ServerUrl.API_MODULE_VIDEOS + "/video"; // + id
     static API_UPDATE_VIDEO = ServerUrl.API_MODULE_VIDEOS + "/video"; // + id
 
+    // Placement MODULE
+    static API_MODULE_PLACEMENTS = "/api/placement";
+
+    /* ---------------- CATEGORY APIs ---------------- */
+    static API_CREATE_PLACEMENT_CATEGORY = ServerUrl.API_MODULE_PLACEMENTS + "/category";
+    static API_GET_PLACEMENT_CATEGORIES = ServerUrl.API_MODULE_PLACEMENTS + "/category";
+    static API_UPDATE_PLACEMENT_CATEGORY = ServerUrl.API_MODULE_PLACEMENTS + "/category/";   // + id
+    static API_DELETE_PLACEMENT_CATEGORY = ServerUrl.API_MODULE_PLACEMENTS + "/category/";   // + id
+    
+    /* ---------------- PLACEMENT APIs ---------------- */
+    static API_CREATE_PLACEMENT = ServerUrl.API_MODULE_PLACEMENTS + "/";
+    static API_GET_PLACEMENTS = ServerUrl.API_MODULE_PLACEMENTS + "/";
+    static API_GET_PLACEMENT_BY_ID = ServerUrl.API_MODULE_PLACEMENTS + "/";   // + id
+    static API_UPDATE_PLACEMENT = ServerUrl.API_MODULE_PLACEMENTS + "/";      // + id
+    static API_DELETE_PLACEMENT = ServerUrl.API_MODULE_PLACEMENTS + "/";      // + id
+    
+    /* ---------------- DETAILS APIs ---------------- */
+    static API_GET_ALL_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/details/all";
+    static API_GET_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/details/";  // + id
+    static API_CREATE_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/details";
+    static API_UPDATE_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/details/"; // + id
+    
+    /* ---------------- YEAR-WISE REPORT ---------------- */
+    static API_PLACEMENT_YEAR_WISE = ServerUrl.API_MODULE_PLACEMENTS + "/reports/year-wise";
+
 }
 
 export default ServerUrl;
