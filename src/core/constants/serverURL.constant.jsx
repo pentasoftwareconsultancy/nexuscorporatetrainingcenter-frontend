@@ -93,8 +93,11 @@ class ServerUrl {
     // SUBMIT TEST
     static API_SUBMIT_TEST = ServerUrl.API_MODULE_TESTS + "/submit";
 
+    // GET TEST RESULT
+    static API_GET_TEST_RESULT = ServerUrl.API_MODULE_TESTS + "/latest/"; // + testId
+
     // USER TEST RESULT APIs
-    static API_USER_TEST_RESULT = ServerUrl.API_MODULE_TESTS + "/result"; // + /:testId
+    // static API_USER_TEST_RESULT = ServerUrl.API_MODULE_TESTS + "/result"; // + /:testId
 
     // VIDEO MODULE
     static API_MODULE_VIDEOS = "/api/uploads";
