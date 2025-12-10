@@ -62,9 +62,17 @@ export default function TestExam() {
 
       const normalizedOptions = rawOptions.map((opt) => ({
         id: opt.id ?? opt.optionId ?? opt.option_id,
-        text: opt.option_text ?? opt.option_text ?? opt.text ?? opt.optionText ?? "",
+        text:
+          opt.option_text ??
+          opt.option_text ??
+          opt.text ??
+          opt.optionText ??
+          "",
         // keep is_correct if exists
-        is_correct: typeof opt.is_correct !== "undefined" ? opt.is_correct : opt.isCorrect,
+        is_correct:
+          typeof opt.is_correct !== "undefined"
+            ? opt.is_correct
+            : opt.isCorrect,
       }));
 
       return {
@@ -111,47 +119,31 @@ export default function TestExam() {
 
   // Format answers payload for backend
   const buildSubmitPayload = useMemo(() => {
-    // Convert answers object { questionId: optionId } into an array of objects
-    // or a mapping depending on what backend expects. We'll send both common shapes:
-    // { testId, answers: [{ questionId, optionId }, ...], answersMap: { questionId: optionId } }
     const answersArray = Object.entries(answers).map(([qId, oId]) => ({
       questionId: Number(qId),
       optionId: Number(oId),
     }));
 
-    const answersMap = Object.fromEntries(
-      Object.entries(answers).map(([qId, oId]) => [qId, Number(oId)])
-    );
-
     return {
       testId: Number(id),
       totalQuestionsSelected: Number(selectedQuestionCount),
       answersArray,
-      answersMap,
     };
   }, [answers, id, selectedQuestionCount]);
 
   const confirmSubmit = async () => {
     try {
-      // Optionally, show a quick client-side validation
-      // For example: ensure at least 1 answer selected
-      // (you can customize this behavior)
-      // Send payload to backend
       const body = {
-        testId: buildSubmitPayload.testId,
+        testId: Number(id),
+        title: testData?.title ?? "Untitled Test",
         answers: buildSubmitPayload.answersArray,
+        totalQuestionsSelected: Number(selectedQuestionCount)
       };
 
-      // Post to submit endpoint
       const res = await api.apipost(ServerUrl.API_SUBMIT_TEST, body);
 
-      // On success: redirect to success page
-      // (you might want to parse response and show score, etc.)
-      navigate(ROUTES.USER_SUCCESS);
-<<<<<<< HEAD
+      navigate(ROUTES.USER_SUCCESS, { state: { testId: id } });
       window.location.reload();
-=======
->>>>>>> 33f5ff6a0411adf3f6b8dc08bd0f15639330bfad
     } catch (err) {
       console.error("Submit failed:", err);
       alert("Failed to submit test. Check console for details.");
@@ -171,7 +163,6 @@ export default function TestExam() {
 
   return (
     <div className="min-h-screen text-white flex flex-col w-full overflow-x-hidden relative">
-
       {/* =================================================== */}
       {/* 🔥 POPUP — SELECT NUMBER OF QUESTIONS */}
       {/* =================================================== */}
@@ -179,7 +170,9 @@ export default function TestExam() {
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
           <div className="flex flex-col bg-zinc-900 p-8 rounded-xl px-2 max-w-md shadow-xl text-center justify-center">
             <h2 className="text-xl font-semibold mb-4">Take a Quiz</h2>
-            <h2 className="text-l font-semibold mb-2">How many questions you want to take?</h2>
+            <h2 className="text-l font-semibold mb-2">
+              How many questions you want to take?
+            </h2>
 
             {/* Radio Options */}
             <div className="flex gap-4 my-4 items-center justify-center mx-auto w-fit">
@@ -230,7 +223,9 @@ export default function TestExam() {
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
           <div className="bg-zinc-900 p-8 rounded-xl w-[90%] max-w-md shadow-xl text-center">
             <h2 className="text-xl font-semibold mb-4">Submit Exam?</h2>
-            <p className="text-gray-300 mb-6">Are you sure you want to submit?</p>
+            <p className="text-gray-300 mb-6">
+              Are you sure you want to submit?
+            </p>
 
             <div className="flex justify-center gap-4">
               <button
@@ -253,7 +248,9 @@ export default function TestExam() {
 
       {/* ================= HEADER ================= */}
       <header className="w-full px-6 py-6 border-b border-gray-800">
-        <h1 className="text-4xl font-bold">{testData?.title ?? "Untitled Test"}</h1>
+        <h1 className="text-4xl font-bold">
+          {testData?.title ?? "Untitled Test"}
+        </h1>
 
         {/* Timer placeholder (simple) */}
         <p className="text-gray-400 mt-2">{30 - currentQuestionIndex * 2}s</p>
@@ -263,7 +260,11 @@ export default function TestExam() {
           <div
             className="bg-gray-200 h-2 rounded-full transition-all duration-500"
             style={{
-              width: `${totalQuestions === 0 ? 0 : ((currentQuestionIndex + 1) / totalQuestions) * 100}%`,
+              width: `${
+                totalQuestions === 0
+                  ? 0
+                  : ((currentQuestionIndex + 1) / totalQuestions) * 100
+              }%`,
             }}
           ></div>
         </div>
@@ -271,11 +272,11 @@ export default function TestExam() {
 
       {/* ================= MAIN ================= */}
       <main className="flex flex-col lg:flex-row w-full px-6 py-10 gap-10 overflow-x-hidden">
-
         {/* LEFT CONTENT */}
         <div className="flex-1 w-full min-w-0">
           <p className="text-sm text-gray-300 mb-3">
-            {totalQuestions === 0 ? 0 : currentQuestionIndex + 1} out of {totalQuestions} attempts
+            {totalQuestions === 0 ? 0 : currentQuestionIndex + 1} out of{" "}
+            {totalQuestions} attempts
           </p>
 
           <h2 className="text-xl font-semibold mb-6">
@@ -292,7 +293,11 @@ export default function TestExam() {
                 <label
                   key={opt.id}
                   className={`flex items-center justify-between border rounded-lg px-4 py-4 cursor-pointer transition-all 
-                    ${checked ? "bg-green-800 border-green-600" : "border-gray-700 hover:border-white"}`}
+                    ${
+                      checked
+                        ? "bg-green-800 border-green-600"
+                        : "border-gray-700 hover:border-white"
+                    }`}
                 >
                   <div className="flex items-center gap-3">
                     <input
@@ -305,9 +310,7 @@ export default function TestExam() {
                     <span className="text-base">{opt.text}</span>
                   </div>
 
-                  {checked && (
-                    <span className="text-green-300 text-xl">✔</span>
-                  )}
+                  {checked && <span className="text-green-300 text-xl">✔</span>}
                 </label>
               );
             })}
@@ -337,7 +340,8 @@ export default function TestExam() {
         {/* ================= RIGHT QUESTION GRID ================= */}
         <div className="w-full lg:max-w-[300px]">
           <h3 className="text-center text-lg font-semibold mb-4">
-            Question {totalQuestions === 0 ? 0 : currentQuestionIndex + 1} of {totalQuestions}
+            Question {totalQuestions === 0 ? 0 : currentQuestionIndex + 1} of{" "}
+            {totalQuestions}
           </h3>
 
           <div className="grid grid-cols-5 gap-1">
@@ -348,9 +352,10 @@ export default function TestExam() {
                   key={q.id}
                   onClick={() => setCurrentQuestionIndex(i)}
                   className={`w-10 h-10 rounded-lg flex items-center justify-center font-semibold transition border 
-                    ${i === currentQuestionIndex
-                      ? "bg-orange-500 text-white border-orange-500"
-                      : isAttempted
+                    ${
+                      i === currentQuestionIndex
+                        ? "bg-orange-500 text-white border-orange-500"
+                        : isAttempted
                         ? "bg-green-700 text-white border-green-600"
                         : "border-[#d1cfcf] text-white hover:border-white"
                     }`}

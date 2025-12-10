@@ -11,21 +11,37 @@ const TestSuccess = () => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(true);
   const api = new ApiService();
+  const location = useLocation();
+  const testId = location.state?.testId;
 
   useEffect(() => {
-  fetchLatestResult();
-}, []);
+    fetchLatestResult();
+  }, []);
 
-const fetchLatestResult = async () => {
-  try {
-    const res = await api.apiget(ServerUrl.API_USER_TEST_RESULT);
-    if (res.success) {
-      setResult(res.data);
+  const fetchLatestResult = async () => {
+    try {
+      if (!testId) return;
+
+      const res = await api.apiget(`${ServerUrl.API_GET_TEST_RESULT}${testId}`);
+      console.log("Latest Result:", res);
+
+      // FIX: backend returns res.data.success
+      if (res.data.success) {
+        const d = res.data.data; // actual result object
+
+        setResult({
+          ...d,
+          right: d.correct_answers,
+          wrong: d.attempted - d.correct_answers,
+          remaining: d.total_questions - d.attempted,
+        });
+      }
+    } catch (err) {
+      console.error("Error fetching result:", err);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error(err);
-  }
-};
+  };
 
   if (loading) {
     return (
@@ -45,7 +61,6 @@ const fetchLatestResult = async () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full text-one text-center px-4 py-10">
-
       <div className="w-full max-w-7xl mx-auto">
         {/* Green Check Icon */}
         <FaCheckCircle className="text-green-400 text-7xl mb-3 mx-auto animate-scaleIn" />
@@ -57,7 +72,9 @@ const fetchLatestResult = async () => {
 
         {/* Subtitle */}
         <p className="text-gray-300 text-base sm:text-lg md:text-2xl mb-2">
-          {`${result.Test?.title ?? "Untitled Test"} - ${result.total_questions} Questions Attempted`}
+          {`${result.title ?? "Untitled Test"} - ${
+            result.total_questions
+          } Questions Attempted`}
         </p>
 
         {/* Result Summary */}
@@ -68,27 +85,25 @@ const fetchLatestResult = async () => {
         {/* Attempted Section */}
         <div className="w-full flex justify-center">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 max-w-7xl mx-auto">
-
             <div className="bg-[#252525] text-gray-200 px-6 py-3 rounded-lg border">
-              Attempted – {result.attempted}
+              Attempt questions – {result.attempted}
             </div>
 
             <div className="bg-[#252525] text-gray-200 px-6 py-3 rounded-lg border">
-              Not Attempted – {result.total_questions - result.attempted}
+              Not Attempted questions – {result.total_questions - result.attempted}
             </div>
 
             <div className="bg-[#235333] text-white px-6 py-3 rounded-lg border">
-              Right – {result.right}
+              Right questions – {result.right}
             </div>
 
             <div className="bg-[#552C0E] text-white px-6 py-3 rounded-lg border">
-              Wrong – {result.wrong}
+              Wrong questions – {result.wrong}
             </div>
 
             <div className="bg-[#252525] text-gray-200 px-6 py-3 rounded-lg border">
-              Remaining – {result.remaining}
+              Remaining questions – {result.remaining}
             </div>
-
           </div>
         </div>
       </div>
@@ -96,7 +111,9 @@ const fetchLatestResult = async () => {
       <div className="py-8">
         <Button
           text="View Detailed Result"
-          onClick={() => navigate(ROUTES.USER_RESULT, { state: { testId: result.testId } })}
+          onClick={() =>
+            navigate(ROUTES.USER_RESULT, { state: { testId: result.testId } })
+          }
         />
       </div>
     </div>
