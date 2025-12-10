@@ -124,13 +124,11 @@ const VideoTestiomoniualsPage = () => {
                 ×
               </button>
 
-              <iframe
-                src={currentVideo.videoUrl}
-                title={currentVideo.caption}
-                loading="lazy"
-                className="w-full h-full rounded-lg"
-                allowFullScreen
-              ></iframe>
+              <iframe className="w-full h-full rounded-lg" src={currentVideo.videoUrl} loading="lazy"
+                title={currentVideo.caption} frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                ></iframe>
             </motion.div>
           </motion.div>
         )}

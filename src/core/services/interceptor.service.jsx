@@ -28,10 +28,17 @@ class ApiInterceptor {
         ApiInterceptor.requestCounts--;
         return response;
       },
-      (err) => {
+      (error) => {
         ApiInterceptor.requestCounts--;
-        console.error("API Error =>", err);
-        return Promise.reject(err);
+        console.log("API ERROR =>", {
+          url: error.config.url,
+          method: error.config.method,
+          status: error.response?.status,
+          response: error.response?.data,
+          requestHeaders: error.config.headers,
+          payload: error.config.data   // <-- add this
+        });
+        return Promise.reject(error);
       }
     );
 
@@ -39,7 +46,6 @@ class ApiInterceptor {
   }
 
   static generateHeader() {
-<<<<<<< HEAD
     const storedUser = localStorage.getItem("user");
     
     if (!storedUser) {
@@ -59,11 +65,6 @@ class ApiInterceptor {
     return {
       Authorization: `Bearer ${user.token}`,
     };
-=======
-    const token = StorageService.getData(APPLICATION_CONSTANTS.STORAGE.TOKEN);
-    console.log(StorageService.getData(APPLICATION_CONSTANTS.STORAGE.TOKEN));
-    return token ? { Authorization: `Bearer ${token}` } : {};
->>>>>>> 33f5ff6a0411adf3f6b8dc08bd0f15639330bfad
   }
 }
 
