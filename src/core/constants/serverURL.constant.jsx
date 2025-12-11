@@ -26,6 +26,12 @@ class ServerUrl {
     static API_UPDATE_COURSE = ServerUrl.API_MODULE_MASTER + "/courses/"; // + id
     static API_DELETE_COURSE = ServerUrl.API_MODULE_MASTER + "/courses/"; // + id
 
+    // COURSES DETAILS APIs
+    static API_ADD_COURSE_DETAILS = ServerUrl.API_MODULE_MASTER + "/course-details"
+    static API_GET_COURSE_DETAILS = ServerUrl.API_MODULE_MASTER + "/course-details";
+    static API_GET_COURSE_DETAILS_BY_ID = ServerUrl.API_MODULE_MASTER + "/course-details/"; // + id
+    static API_UPDATE_COURSE_DETAILS = ServerUrl.API_MODULE_MASTER + "/course-details/"; // + id
+
     //BATCH APIs
     static API_ADD_BATCH = ServerUrl.API_MODULE_MASTER + "/batches";
     static API_GET_BATCHES = ServerUrl.API_MODULE_MASTER + "/batches";
@@ -131,6 +137,14 @@ class ServerUrl {
     
     /* ---------------- YEAR-WISE REPORT ---------------- */
     static API_PLACEMENT_YEAR_WISE = ServerUrl.API_MODULE_PLACEMENTS + "/reports/year-wise";
+
+    /* -------------------- FACULTYS -------------------- */
+    static API_MODULE_FACULTYS = "/api/faculty";
+    
+    static API_GET_FACULTYS = ServerUrl.API_MODULE_FACULTYS + "/";
+    static API_POST_FACULTY = ServerUrl.API_MODULE_FACULTYS + "/";
+    static API_UPDATE_FACULTY = ServerUrl.API_MODULE_FACULTYS + "/"; // + id
+    static API_DELETE_FACULTY = ServerUrl.API_MODULE_FACULTYS + "/"; // + id
 
 }
 

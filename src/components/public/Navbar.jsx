@@ -62,7 +62,7 @@ function Navbar() {
         }}
       >
         {/* Logo */}
-        <div className="flex items-center">
+        <div onClick={()=>navigate(ROUTES.HOME)} className="flex flex-col items-center">
           <h1 className="text-2xl lg:text-3xl font-medium flex items-center justify-center">
             <span className="text-white font-playfair">NE</span>
             <span className="text-orange-500 text-5xl pt-1">
@@ -73,6 +73,7 @@ function Navbar() {
             </span>
             <span className="text-white font-playfair">US</span>
           </h1>
+          <span className="text-[6.5px] text-white">CORPORATE TRAINING CENTER LLP</span>
         </div>
 
         {/* Desktop Menu */}
