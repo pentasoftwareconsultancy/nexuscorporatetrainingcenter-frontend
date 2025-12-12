@@ -44,6 +44,7 @@ function Navbar() {
   const handleLinkClick = (label) => {
     setActiveTab(label);
     setIsMenuOpen(false);
+    setOpenDropdown(null);
   };
 
   useEffect(() => {
@@ -54,15 +55,14 @@ function Navbar() {
     <>
       <nav
         className={`fixed w-full top-0 left-0 z-50 flex items-center justify-between px-6 lg:px-12 h-16 lg:h-20 transition-all duration-300
-          ${isScrolled}
-        `}
+          ${isScrolled}`}
         style={{
           borderBottomLeftRadius: "1.2rem",
           borderBottomRightRadius: "1.2rem",
         }}
       >
         {/* Logo */}
-        <div onClick={()=>navigate(ROUTES.HOME)} className="flex flex-col items-center">
+        <div onClick={() => navigate(ROUTES.HOME)} className="flex flex-col items-center">
           <h1 className="text-2xl lg:text-3xl font-medium flex items-center justify-center">
             <span className="text-white font-playfair">NE</span>
             <span className="text-orange-500 text-5xl pt-1">
@@ -84,19 +84,20 @@ function Navbar() {
           >
             {NAV_LINKS.map((item) =>
               item.dropdown ? (
-                <div
-                  key={item.label}
-                  className="relative"
-                  onMouseEnter={() => setOpenDropdown(item.label)}
-                  onMouseLeave={() => setOpenDropdown(null)}
-                >
+                <div key={item.label} className="relative">
+                  
+                  {/* CLICK TO OPEN DROPDOWN */}
                   <button
+                    onClick={() =>
+                      setOpenDropdown(openDropdown === item.label ? null : item.label)
+                    }
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-white/90 
-                      hover:bg-white hover:text-black`}
+                    hover:bg-white hover:text-black`}
                   >
                     {item.label}
                   </button>
 
+                  {/* DROPDOWN MENU */}
                   {openDropdown === item.label && (
                     <div className="absolute top-full left-0 mt-2 bg-white text-black rounded-lg shadow-lg overflow-hidden w-48">
                       {item.dropdown.map((drop) => (
@@ -118,12 +119,11 @@ function Navbar() {
                   to={item.href}
                   onClick={() => handleLinkClick(item.label)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
-                    ${
-                      activeTab === item.label
-                        ? "bg-white text-black shadow-md"
-                        : "text-white/90 hover:bg-white hover:text-black"
-                    }
-                  `}
+                  ${
+                    activeTab === item.label
+                      ? "bg-white text-black shadow-md"
+                      : "text-white/90 hover:bg-white hover:text-black"
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -134,10 +134,7 @@ function Navbar() {
 
         {/* Right: Test Button */}
         <div className="hidden lg:flex items-center justify-end">
-          <Button 
-            text="Test"
-            onClick={() => navigate(ROUTES.LOGIN)}
-          />
+          <Button text="Test" onClick={() => navigate(ROUTES.LOGIN)} />
         </div>
 
         {/* Mobile Section */}
@@ -147,7 +144,6 @@ function Navbar() {
             onClick={() => navigate(ROUTES.LOGIN)}
           />
 
-          {/* Hamburger */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="p-2 rounded-lg bg-black/50 border border-white/30 text-white focus:outline-none"
@@ -167,9 +163,8 @@ function Navbar() {
         {/* Mobile Menu */}
         <div
           className={`fixed inset-0 bg-black/70 backdrop-blur-xl flex flex-col items-center justify-center space-y-6 
-            transition-all duration-500 lg:hidden z-40
-            ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}
-          `}
+          transition-all duration-500 lg:hidden z-40
+          ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
         >
           {NAV_LINKS.map((item) =>
             item.dropdown ? (
@@ -194,18 +189,17 @@ function Navbar() {
                 to={item.href}
                 onClick={() => handleLinkClick(item.label)}
                 className={`w-60 text-center px-6 py-3 text-lg rounded-xl font-medium transition-all duration-300
-                  ${
-                    activeTab === item.label
-                      ? "bg-white text-black shadow-lg scale-105"
-                      : "bg-white/10 text-white hover:bg-white hover:text-black"
-                  }`}
+                ${
+                  activeTab === item.label
+                    ? "bg-white text-black shadow-lg scale-105"
+                    : "bg-white/10 text-white hover:bg-white hover:text-black"
+                }`}
               >
                 {item.label}
               </Link>
             )
           )}
 
-          {/* Close Button */}
           <button
             onClick={() => setIsMenuOpen(false)}
             className="absolute top-6 text-white"

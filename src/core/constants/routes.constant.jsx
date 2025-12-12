@@ -3,7 +3,7 @@ export const ROUTES = {
   HOME: "/",
   ABOUT: "/about",
   COURSES: "/courses",
-  COURSE_DETAILS: "/courses/:categoryName",
+  COURSE_DETAILS: "/courses/:courseId",
   GALLERY: "/gallery",
   GALLERY_COLLEGE: "/gallery/:collegeId",
   GALLERY_INFO: "/gallery/:id",

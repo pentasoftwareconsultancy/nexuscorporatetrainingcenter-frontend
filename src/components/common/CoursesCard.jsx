@@ -7,7 +7,7 @@ import { ROUTES } from "../../core/constants/routes.constant";
 // 🔥 IMPORT getIconByName
 import { getIconByName } from "../../core/utils/iconMap";
 
-const CoursesCard = ({ logo, title, description, duration, categoryName }) => {
+const CoursesCard = ({ logo, title, description, duration, id }) => {
   const navigate = useNavigate();
 
   // 🧠 Convert logo string to actual React icon
@@ -39,7 +39,7 @@ const CoursesCard = ({ logo, title, description, duration, categoryName }) => {
           text="Know more"
           onClick={() =>
             navigate(
-              ROUTES.COURSE_DETAILS.replace(":categoryName", categoryName)
+              ROUTES.COURSE_DETAILS.replace(":courseId", id)
             )
           }
         />

@@ -67,7 +67,7 @@ const AppRoutes = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/courses" element={<CoursesPage />} />
-        <Route path="/courses/:categoryName" element={<CoursesDetailPage />} />
+        <Route path="/courses/:courseId" element={<CoursesDetailPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/gallery/:collegeId" element={<GalleryCollege />} />
         <Route path="/gallery/album/:id" element={<GalleryInfoPage />} />
