@@ -3,9 +3,13 @@ import data from '../../assets/saidas/resultData.json'
 import Button from '../../components/common/Button';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../core/constants/routes.constant';
+import ServerUrl from '../../core/constants/serverURL.constant';
+import ApiService from '../../core/services/api.service';
 
 const Result = () => {
   const navigate = useNavigate();
+  const api = new ApiService();
+  const res = api.apiget(`${ServerUrl.API_USER_TEST_RESULT}${userTestId}/summary`);
   return (
     <div className="min-h-screen text-one px-4 sm:px-6 md:px-10 lg:px-12 py-4 sm:py-4 md:py-4 font-sora">
       {/* 🔹 Title */}

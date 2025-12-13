@@ -30,10 +30,10 @@ const CoursesProvided = () => {
     else if (window.innerWidth >= 768) cols = 3;
     else if (window.innerWidth >= 640) cols = 2;
 
-    setCardsToShow(cols * 3); // show only 3 rows
+    setCardsToShow(cols * 3); // show 3 rows max
   };
 
-  // ⭐ Fetch courses from backend
+  // ⭐ Fetch courses + categories
   useEffect(() => {
     const loadCourses = async () => {
       try {
@@ -45,11 +45,15 @@ const CoursesProvided = () => {
         const courseRes = await api.apiget(ServerUrl.API_GET_COURSES);
         const courseList = courseRes.data.data?.rows || [];
 
-        // ⭐ Flattened format (same as JSON logic)
-        const flattened = courseList.map(course => {
-          const category = categories.find(c => c.id === course.categoryId);
+        // ⭐ Flatten courses (IMPORTANT PART)
+        const flattened = courseList.map((course) => {
+          const category = categories.find(
+            (c) => c.id === course.categoryId
+          );
+
           return {
             ...course,
+            categoryId: course.categoryId, // 🔥 explicitly keep it
             categoryName: category?.name || "Uncategorized",
           };
         });
@@ -84,10 +88,11 @@ const CoursesProvided = () => {
       <h1 className="text-4xl font-bold mb-10">Courses We Provide</h1>
 
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
-        {visibleCourses.map(course => (
+        {visibleCourses.map((course) => (
           <CourseCard
             key={course.id}
             id={course.id}
+            categoryId={course.categoryId} // ✅ THIS WAS MISSING
             title={course.title}
             description={truncateDescription(course.description)}
             duration={course.duration}
