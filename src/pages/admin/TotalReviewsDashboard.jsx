@@ -21,7 +21,7 @@ export default function TotalReviewsDashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-black text-white font-sora p-4 md:p-10">
+    <div className="min-h-screen text-white font-sora p-4 md:p-10">
       {/* TITLE */}
       <h2 className="text-xl md:text-2xl font-semibold pb-5">
         Total Reviews ({allUsers.length})

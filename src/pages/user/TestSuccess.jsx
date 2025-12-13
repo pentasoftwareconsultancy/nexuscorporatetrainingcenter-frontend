@@ -112,7 +112,7 @@ const TestSuccess = () => {
         <Button
           text="View Detailed Result"
           onClick={() =>
-            navigate(ROUTES.USER_RESULT, { state: { testId: result.testId } })
+            navigate(ROUTES.USER_RESULT, { state: { testId: result.testId } }, window.location.reload())
           }
         />
       </div>
