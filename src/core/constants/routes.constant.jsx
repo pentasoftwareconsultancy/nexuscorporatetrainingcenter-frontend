@@ -1,5 +1,5 @@
 export const ROUTES = {
-  // 🔹 Public Pages
+  //  Public Pages
   HOME: "/",
   ABOUT: "/about",
   COURSES: "/courses",
@@ -15,18 +15,18 @@ export const ROUTES = {
   VIDEO_TESTIMONIALS: "/videotestimonials",
   CONTACT: "/contact",
 
-  // 🔹 Auth Pages
+  //  Auth Pages
   LOGIN: "/login",
   SIGNUP: "/signup",
 
-  // 🔹 User Dashboard Pages
+  //  User Dashboard Pages
   USER_APPITUDE: "/appitude",
   USER_EXAM: "/exam",
   USER_SUCCESS: "/success",
   USER_RESULT: "/result",
   USER_CERTIFICATION: "/certification",
 
-  // 🔹 Admin Dashboard Pages
+  // Admin Dashboard Pages
   ADMIN_DASHBOARD: "/dashboard",
   ADMIN_TOTAL_REGISTER: "/totaldashboard",
   ADMIN_NEW_REGISTER: "/registerdashboard",
