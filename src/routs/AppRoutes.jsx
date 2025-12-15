@@ -115,6 +115,7 @@ const AppRoutes = () => {
           />
           <Route path="/adminprofile" element={<AdminProfile />} />
           <Route path="/addcourses" element={<AddCoursesPage />} />
+          <Route path="/addcourses/:id" element={<AddCoursesPage />} />
           <Route path="/visitdetail" element={<CollegeVisitDetailPage />} />
           <Route path="/eventdetail" element={<GalleryEventDetailPage />} />
           <Route path="/placementdetail" element={<PlacementDetailPage />} />

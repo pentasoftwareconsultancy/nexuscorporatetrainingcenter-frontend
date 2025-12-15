@@ -25,12 +25,14 @@ class ServerUrl {
     static API_GET_COURSE_BY_ID = ServerUrl.API_MODULE_MASTER + "/courses/"; // + id
     static API_UPDATE_COURSE = ServerUrl.API_MODULE_MASTER + "/courses/"; // + id
     static API_DELETE_COURSE = ServerUrl.API_MODULE_MASTER + "/courses/"; // + id
+    static API_ADD_COURSE_WITH_DETAILS = ServerUrl.API_MODULE_MASTER + "/courses-full";
 
     // COURSES DETAILS APIs
     static API_ADD_COURSE_DETAILS = ServerUrl.API_MODULE_MASTER + "/course-details"
     static API_GET_COURSE_DETAILS = ServerUrl.API_MODULE_MASTER + "/course-details";
     static API_GET_COURSE_DETAILS_BY_ID = ServerUrl.API_MODULE_MASTER + "/course-details/"; // + id
     static API_UPDATE_COURSE_DETAILS = ServerUrl.API_MODULE_MASTER + "/course-details/"; // + id
+    static API_DELETE_COURSE_DETAILS = ServerUrl.API_MODULE_MASTER + "/course-details/"; // + id
     static API_GET_CATEGORY_WITH_COURSES = ServerUrl.API_MODULE_MASTER + "/categories-with-courses";
 
     //BATCH APIs

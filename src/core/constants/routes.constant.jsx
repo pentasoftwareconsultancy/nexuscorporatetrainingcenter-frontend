@@ -39,6 +39,7 @@ export const ROUTES = {
   ADMIN_NOTIFICATION: "/adminnotification",
   ADMIN_PROFILE: "/adminprofile",
   ADMIN_ADD_COURSE: "/addcourses",
+  ADMIN_ADD_COURSE_WITH_ID: "/addcourses/:id",
   ADMIN_VISIT_DETAIL: "/visitdetail",
   ADMIN_EVENT_DETAIL: "/eventdetail",
   ADMIN_PLACEMENT_DETAIL: "/placementdetail",
