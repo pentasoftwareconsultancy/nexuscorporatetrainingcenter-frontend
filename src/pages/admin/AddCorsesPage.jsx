@@ -176,7 +176,7 @@ export default function AddCorsesPage() {
 
     await api.apidelete(ServerUrl.API_DELETE_COURSE + id);
 
-    navigate("/admin/courses");
+    navigate("/admincourses");
   };
 
   return (
