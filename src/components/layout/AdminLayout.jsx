@@ -16,7 +16,7 @@ const AdminLayout = () => {
         {/* CONTENT AREA */}
         <div
           className={`
-            transition-all duration-300 w-full pl-5 pt-12
+            transition-all duration-300 w-full px-5 pt-16 pb-5
             ${isOpen ? "ml-52" : "ml-16"}
           `}
         >
