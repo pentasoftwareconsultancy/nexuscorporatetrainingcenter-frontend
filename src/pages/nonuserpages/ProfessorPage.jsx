@@ -1,43 +1,93 @@
-import React from "react";
-import abhitjitImg from "../../assets/vaishnavi/abhijeet.png"; // <-- Correct image import
-
-// Faculty data
-const faculty = [
-  {
-    name: "Aditi Khade",
-    designation: "Executive Trainer",
-    experience: "6 Years of corporate & training experience",
-    specialization: "Specialized in grooming & website training",
-    img: abhitjitImg,
-  },
-];
-
-// Duplicate data
-const facultyList = Array(18).fill(faculty[0]);
+import React, { useEffect, useState } from "react";
+import ApiService from "../../core/services/api.service";
+import ServerUrl from "../../core/constants/serverURL.constant";
 
 export default function FacultyPage() {
+  const api = new ApiService();
+  const [faculty, setFaculty] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // -------------------------------
+  // 1️⃣ Fetch Faculty Data from Backend
+  // -------------------------------
+  useEffect(() => {
+    const fetchFaculty = async () => {
+      try {
+        const res = await api.apiget(ServerUrl.API_GET_FACULTYS);
+
+        if (res?.data?.success && Array.isArray(res.data.data)) {
+          setFaculty(res.data.data);
+        } else {
+          console.error("Invalid faculty response:", res);
+        }
+      } catch (err) {
+        console.error("Error fetching faculty:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFaculty();
+  }, []);
+
+  // -------------------------------
+  // 2️⃣ Loading UI
+  // -------------------------------
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-white text-lg">Loading faculty...</p>
+      </div>
+    );
+  }
+
+  // -------------------------------
+  // 3️⃣ Empty UI
+  // -------------------------------
+  if (!loading && faculty.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-white text-lg">No faculty found.</p>
+      </div>
+    );
+  }
+
+  // -------------------------------
+  // 4️⃣ Render Faculty Cards
+  // -------------------------------
   return (
-    <div className="min-h-screen bg-black text-white p-10">
+    <div className=" text-white px-12 py-10">
       <h1 className="text-4xl font-bold mb-10">Our Faculty</h1>
 
-      {/* 5 cards per row on large screens */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-        {facultyList.map((fac, index) => (
+        {faculty.map((fac, index) => (
           <div
             key={index}
-            className="bg-[#111] rounded-2xl p-5 shadow-lg hover:scale-105 transition duration-300"
+            className="rounded-2xl p-5 shadow-lg hover:scale-105 transition duration-300"
           >
             <img
-              src={fac.img}
-              alt={fac.name}
+              src={fac.image}
+              alt={fac.faculty_name}
               className="w-full h-52 object-cover rounded-xl mb-4"
+              crossOrigin="anonymous"
             />
 
-            <h2 className="text-xl font-semibold">{fac.name}</h2>
+            <h2 className="text-xl font-semibold">{fac.faculty_name}</h2>
 
-            <p className="text-sm text-gray-400 mt-2">{fac.designation}</p>
-            <p className="text-sm text-gray-400">{fac.experience}</p>
-            <p className="text-sm text-gray-400">{fac.specialization}</p>
+            <p className="text-sm text-gray-400 flex items-center gap-2 mt-2">
+              <span>•</span>
+              <span>Experience: {fac.experience}</span>
+            </p>
+
+            <p className="text-sm text-gray-400 flex items-center gap-2">
+              <span>•</span>
+              <span>Designation: {fac.designation}</span>
+            </p>
+
+            <p className="text-sm text-gray-400 flex items-center gap-2">
+              <span>•</span>
+              <span>Skills: {fac.skills}</span>
+            </p>
           </div>
         ))}
       </div>

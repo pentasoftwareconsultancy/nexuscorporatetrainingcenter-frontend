@@ -48,7 +48,7 @@ export default function CompletedTestDashboard() {
   });
 
   return (
-    <div className="relative min-h-screen flex text-one font-sora bg-black text-white">
+    <div className="relative min-h-screen flex text-one font-sora text-white">
 
       {/* SIDEBAR – Desktop */}
       <div className="hidden lg:block p-6 overflow-y-auto w-[260px] border-r border-gray-800">
@@ -99,7 +99,7 @@ export default function CompletedTestDashboard() {
 
         {/* FILTER BUTTONS */}
         <div className="flex flex-wrap gap-3 mt-4">
-          {["Enquiry", "Class Visit", "Direct Admissions"].map((item) => (
+          {["Certificate", "Attempt Test", "Completed Test"].map((item) => (
             <button
               key={item}
               onClick={() => setSelectedFilter(item)}
@@ -129,7 +129,7 @@ export default function CompletedTestDashboard() {
         </div>
 
         {/* DESKTOP HEADERS */}
-        <div className="hidden md:grid grid-cols-4 gap-4 mt-8 bg-gray-900 p-4 rounded-lg border border-gray-700">
+        <div className="hidden md:grid grid-cols-4 gap-4 mt-8 p-4 ">
           <h2 className="font-bold">Name</h2>
           <h2 className="font-bold">Email</h2>
           <h2 className="font-bold">Course name</h2>

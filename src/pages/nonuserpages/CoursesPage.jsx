@@ -21,15 +21,15 @@ const CoursesPage = () => {
   const loadData = async () => {
     try {
       setLoading(true);
-
+      
       const catRes = await api.apiget(ServerUrl.API_GET_COURSE_CATEGORIES);
       const categoryList = catRes.data.data || [];
-
+      
       const courseRes = await api.apiget(ServerUrl.API_GET_COURSES);
       const allCourses = Array.isArray(courseRes.data.data?.rows)
-        ? courseRes.data.data.rows
-        : [];
-
+      ? courseRes.data.data.rows
+      : [];
+      
       const finalData = categoryList.map((category) => {
         const courses = allCourses.filter(
           (course) => course.categoryId === category.id
@@ -39,6 +39,7 @@ const CoursesPage = () => {
           courses,
         };
       });
+      console.log("CATEGORY RAW:", categoryList[0]);
 
       setCategories(finalData);
     } catch (err) {
@@ -82,6 +83,7 @@ const CoursesPage = () => {
               <CourseCard
                 key={course.id}
                 id={course.id}
+                categoryId={category.id}
                 title={course.title}
                 logo={course.logo || null}
                 description={truncateDescription(course.description)}

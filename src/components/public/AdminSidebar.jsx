@@ -450,6 +450,7 @@ function AdminSidebar({ isOpen, setIsOpen }) {
               localStorage.clear();
               sessionStorage.clear();
               navigate("/");
+              window.location.reload();
             }}
             className={`
               flex items-center cursor-pointer transition-all duration-300

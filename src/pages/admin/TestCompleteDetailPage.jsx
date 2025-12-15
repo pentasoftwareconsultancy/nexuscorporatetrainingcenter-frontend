@@ -6,7 +6,7 @@ export default function TestCompleteDetailPage() {
   const initialData = {
     name: "Shravani Padwal",
     details: [
-      { label: "Course name", value: "Data Science" },
+      { label: "Course name", value: "Data Science" }, 
       { label: "Course duration", value: "3 months" },
       { label: "Email", value: "Shravani@gmail.com" },
       { label: "Phone number", value: "1234567890" },
