@@ -69,15 +69,21 @@ class ServerUrl {
     static API_MODULE_EVENTS = "/api/events";
 
     // EVENT CRUD
-    static API_CREATE_EVENT = ServerUrl.API_MODULE_EVENTS + "/";
-    static API_GET_ALL_EVENTS = ServerUrl.API_MODULE_EVENTS + "/";
-    static API_GET_EVENT_BY_ID = ServerUrl.API_MODULE_EVENTS + "/";     // + id
-    static API_UPDATE_EVENT = ServerUrl.API_MODULE_EVENTS + "/";        // + id
-    static API_DELETE_EVENT = ServerUrl.API_MODULE_EVENTS + "/";        // + id
+    static API_CREATE_EVENT = ServerUrl.API_MODULE_EVENTS + "/gallery";
+    static API_GET_ALL_EVENTS = ServerUrl.API_MODULE_EVENTS + "/gallery";
+    static API_GET_EVENT_BY_ID = ServerUrl.API_MODULE_EVENTS + "/gallery";     // + id
+    static API_UPDATE_EVENT = ServerUrl.API_MODULE_EVENTS + "/gallery";        // + id
+    static API_DELETE_EVENT = ServerUrl.API_MODULE_EVENTS + "/gallery";        // + id
 
     // EVENT IMAGES
     static API_UPLOAD_EVENT_IMAGE = ServerUrl.API_MODULE_EVENTS + "/upload";
     static API_DELETE_EVENT_IMAGE = ServerUrl.API_MODULE_EVENTS + "/image/";   // + id
+
+    // EVENT STORIES
+    static API_CREATE_EVENTSTORIES = ServerUrl.API_MODULE_EVENTS + "/stories";
+    static API_GET_EVENTSTORIES = ServerUrl.API_MODULE_EVENTS + "/stories";
+    static API_UPDATE_EVENTSTORIES = ServerUrl.API_MODULE_EVENTS + "/stories"; // + id
+    static API_DELETE_EVENTSTORIES = ServerUrl.API_MODULE_EVENTS + "/stories"; // + id
 
     // TESTS MODULE
     static API_MODULE_TESTS = "/api/tests";
@@ -131,12 +137,14 @@ class ServerUrl {
     static API_GET_PLACEMENT_BY_ID = ServerUrl.API_MODULE_PLACEMENTS + "/";   // + id
     static API_UPDATE_PLACEMENT = ServerUrl.API_MODULE_PLACEMENTS + "/";      // + id
     static API_DELETE_PLACEMENT = ServerUrl.API_MODULE_PLACEMENTS + "/";      // + id
+    static API_GET_CATEGORY_WITH_PLACEMENT = ServerUrl.API_MODULE_PLACEMENTS + "/reports/category-year-wise"
     
     /* ---------------- DETAILS APIs ---------------- */
     static API_GET_ALL_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/details/all";
     static API_GET_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/details/";  // + id
     static API_CREATE_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/details";
     static API_UPDATE_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/details/"; // + id
+    static API_GET_PLACEMENT_AND_DETAILS_BY_ID = ServerUrl.API_MODULE_PLACEMENTS + "/full"; // + id
     
     /* ---------------- YEAR-WISE REPORT ---------------- */
     static API_PLACEMENT_YEAR_WISE = ServerUrl.API_MODULE_PLACEMENTS + "/reports/year-wise";

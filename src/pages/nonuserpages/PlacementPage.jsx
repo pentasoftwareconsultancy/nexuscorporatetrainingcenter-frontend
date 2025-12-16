@@ -4,72 +4,66 @@ import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import { Link } from "react-router-dom";
 
-const DEFAULT_IMAGE = "../../assets/Placement.jpg"; // <-- if no image
+const DEFAULT_IMAGE = "../../assets/Placement.jpg";
 
 export default function PlacementPage() {
+  const api = new ApiService();
+
+  const [placements, setPlacements] = useState([]);
   const [categories, setCategories] = useState(["All Placement"]);
   const [active, setActive] = useState("All Placement");
   const [showAll, setShowAll] = useState(false);
-  const api = new ApiService();
-  const [placements, setPlacements] = useState([]);
 
   /* ---------------------------------------------
-        FETCH CATEGORIES
+        FETCH CATEGORY → YEAR → PLACEMENTS
   --------------------------------------------- */
-  const fetchCategories = async () => {
+  const fetchPlacements = async () => {
     try {
-      const res = await api.apiget(ServerUrl.API_GET_PLACEMENT_CATEGORIES);
+      const res = await api.apiget(ServerUrl.API_GET_CATEGORY_WITH_PLACEMENT);
 
-      if (res.success && res.data) {
-        const apiCats = res.data.map((c) => c.name);
-        setCategories(["All Placement", ...apiCats]);
-      }
+      console.log("RAW AXIOS RESPONSE:", res);
+
+      if (!res?.data?.success || !res?.data?.data) return;
+
+      const apiData = res.data.data;
+
+      const flatPlacements = [];
+      const categoryList = ["All Placement"];
+
+      Object.entries(apiData).forEach(([category, years]) => {
+        categoryList.push(category);
+
+        Object.entries(years).forEach(([year, list]) => {
+          list.forEach((p) => {
+            flatPlacements.push({
+              ...p,
+              category,
+              year: Number(year),
+            });
+          });
+        });
+      });
+
+      console.log("FLATTENED PLACEMENTS:", flatPlacements);
+      console.log("CATEGORIES:", categoryList);
+
+      setPlacements(flatPlacements);
+      setCategories(categoryList);
     } catch (err) {
-      console.error("Category Fetch Error:", err);
+      console.error("Placements Fetch Error:", err);
     }
   };
 
-  /* ---------------------------------------------
-        FETCH PLACEMENTS
-  --------------------------------------------- */
-  const fetchPlacements = async () => {
-  try {
-    const res = await api.apiget(ServerUrl.API_GET_PLACEMENTS);
-
-    console.log("PLACEMENT RAW RESPONSE:", res);
-
-    // Correct format check
-    if (res.data && Array.isArray(res.data.data)) {
-      setPlacements(res.data.data);  // <-- Correct path
-    } else {
-      console.warn("Unexpected placement format:", res);
-    }
-
-  } catch (err) {
-    console.error("Placements Fetch Error:", err);
-  }
-};
-
   useEffect(() => {
-    fetchCategories();
     fetchPlacements();
   }, []);
 
   /* ---------------------------------------------
-        FILTER LOGIC
+        FILTER LOGIC (CATEGORY BASED)
   --------------------------------------------- */
   const filteredData = () => {
     if (active === "All Placement") return placements;
-
-    const q = active.toLowerCase();
-
-    return placements.filter((p) => {
-      return (
-        p.company_role?.toLowerCase().includes(q) ||
-        p.company_name?.toLowerCase().includes(q) ||
-        p.course?.toLowerCase().includes(q)
-      );
-    });
+    return placements.filter((p) => p.category === active);
   };
 
   /* ---------------------------------------------
@@ -94,9 +88,9 @@ export default function PlacementPage() {
   const finalData = groupByYear(filteredData());
 
   /* ---------------------------------------------
-        RENDER ROW (SCROLL)
+        RENDER SCROLL ROW
   --------------------------------------------- */
-  const renderRow = (rowData, year, key) => (
+  const renderRow = (rowData, key) => (
     <motion.div
       key={key}
       initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -129,7 +123,8 @@ export default function PlacementPage() {
               <img
                 src={student.image || DEFAULT_IMAGE}
                 alt={student.student_name}
-                className="object-cover w-full h-full rounded-xl border border-gray-700"
+                className="object-cover w-full h-full rounded-xl
+                  border border-gray-700"
               />
             </div>
           </Link>
@@ -139,7 +134,7 @@ export default function PlacementPage() {
   );
 
   /* ---------------------------------------------
-        GRID FOR SEARCH / FILTER RESULT
+        GRID VIEW (FILTERED)
   --------------------------------------------- */
   const renderFilteredGrid = (cards) => (
     <div className="flex flex-wrap gap-6 px-4 sm:px-6">
@@ -147,9 +142,12 @@ export default function PlacementPage() {
         <Link
           key={student.placement_id}
           to={`/placements/${student.year}/${student.placement_id}`}
-          className="w-full sm:w-[48%] lg:w-[23%] shrink-0"
+          className="w-full sm:w-[48%] lg:w-[23%]"
         >
-          <div className="bg-transparent border border-white rounded-2xl shadow-lg overflow-hidden h-[220px] flex">
+          <div
+            className="bg-transparent border border-white
+            rounded-2xl shadow-lg overflow-hidden h-[220px] flex"
+          >
             <div className="flex flex-col justify-center p-3 w-70">
               <p className="font-bold text-sm">Package: {student.package}</p>
               <p className="text-sm">Name: {student.student_name}</p>
@@ -162,7 +160,8 @@ export default function PlacementPage() {
               <img
                 src={student.image || DEFAULT_IMAGE}
                 alt={student.student_name}
-                className="object-cover w-full h-full rounded-xl border border-gray-700"
+                className="object-cover w-full h-full rounded-xl
+                  border border-gray-700"
               />
             </div>
           </div>
@@ -189,10 +188,9 @@ export default function PlacementPage() {
           <button
             key={i}
             onClick={() => setActive(cat)}
-            className={`p-4 border-2 rounded-full 
-              ${
-                active === cat ? "bg-white text-black" : "bg-[#222] text-white"
-              }`}
+            className={`p-4 border-2 rounded-full ${
+              active === cat ? "bg-white text-black" : "bg-[#222] text-white"
+            }`}
           >
             {cat}
           </button>
@@ -215,15 +213,12 @@ export default function PlacementPage() {
         }
 
         const half = Math.ceil(block.card.length / 2);
-        const row1 = block.card.slice(0, half);
-        const row2 = block.card.slice(half);
-
         return (
           <div key={block.year} className="mb-16">
             <h2 className="text-2xl font-bold mb-5">{block.year}</h2>
             <div className="space-y-6">
-              {renderRow(row1, block.year, `${i}-1`)}
-              {renderRow(row2, block.year, `${i}-2`)}
+              {renderRow(block.card.slice(0, half), `${i}-1`)}
+              {renderRow(block.card.slice(half), `${i}-2`)}
             </div>
           </div>
         );
