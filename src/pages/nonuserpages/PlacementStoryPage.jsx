@@ -1,20 +1,61 @@
-
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import data from "../../assets/saniya/PlacementData.json";
+import ApiService from "../../core/services/api.service";
+import ServerUrl from "../../core/constants/serverURL.constant";
 
 const PlacementStoryPage = () => {
   const { id } = useParams();
   const scrollRef = useRef(null);
+  const api = new ApiService();
+  const [student, setStudent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  console.log("student data", student);
+  const fetchPlacement = async () => {
+    try {
+      const res = await api.apiget(
+        ServerUrl.API_GET_PLACEMENT_AND_DETAILS_BY_ID + "/" + id
+      );
+
+      console.log("API RAW RESPONSE", res);
+
+      // ✅ Correct access
+      if (res?.data?.success && res?.data?.data) {
+        const raw = Object.values(res.data.data)[0];
+
+        const normalizedPlacement = {
+          name: raw.student_name,
+          image: raw.image,
+          company: raw.company_name,
+          role: raw.company_role,
+          course: raw.course,
+          package: raw.package,
+          story: {
+            Success_Story: raw.success_story,
+            facingChallenges: raw.facing_challenges,
+            programHighlights: raw.program_highlights,
+            finalEvaluation: raw.final_evaluation,
+            overallExperience: raw.overall_experience,
+          },
+        };
+
+        setStudent(normalizedPlacement);
+      }
+    } catch (err) {
+      console.error("Placement fetch error", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
-  }, []);
 
-  const allCards = data.flatMap((yearObj) => yearObj.card);
-  const student = allCards.find((item) => item.id === parseInt(id));
+    fetchPlacement();
+  }, [id]);
 
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -25,6 +66,14 @@ const PlacementStoryPage = () => {
     hidden: {},
     show: { transition: { staggerChildren: 0.18 } },
   };
+
+  if (loading) {
+    return <div className="text-white p-10">Loading...</div>;
+  }
+
+  if (!student) {
+    return <div className="text-white p-10">Placement not found</div>;
+  }
 
   return (
     <motion.div
@@ -180,4 +229,3 @@ const PlacementStoryPage = () => {
 };
 
 export default PlacementStoryPage;
-

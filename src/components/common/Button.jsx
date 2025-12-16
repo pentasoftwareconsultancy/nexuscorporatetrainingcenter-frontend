@@ -4,7 +4,7 @@ const Button = ({
   text, 
   onClick, 
   className = "", 
-  showIcon = true,   // 👈 NEW PROP to hide/show the <span>
+  showIcon = true,   
   type = "button"
 }) => {
   return (
@@ -25,7 +25,7 @@ const Button = ({
     >
       {text}
 
-      {/* 👇 ICON SHOWN ONLY WHEN showIcon=true */}
+      
       {showIcon && (
         <span
           className="relative z-10 flex items-center justify-center 
