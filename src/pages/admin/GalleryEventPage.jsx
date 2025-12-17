@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AdminGallery from "../../assets/tarushri/Admingallery.json";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import { ROUTES } from "../../core/constants/routes.constant";
 
 const GalleryEventPage = () => {
   const [colleges, setColleges] = useState([]);
@@ -15,23 +16,57 @@ const GalleryEventPage = () => {
 
   const fetchGalleryData = async () => {
     try {
-      const [galleryRes, storiesRes] = await Promise.all([
-        api.apiget(ServerUrl.API_GET_ALL_EVENTS),
-        api.apiget(ServerUrl.API_GET_EVENTSTORIES),
-      ]);
+      setLoading(true);
 
-      console.log("EVENTS API RESPONSE:", galleryRes.data);
-      console.log("STORIES API RESPONSE:", storiesRes.data);
+      // 1️⃣ Get all cities
+      const cityRes = await api.apiget(ServerUrl.API_GET_CITIES);
+      const cities = cityRes?.data?.data || [];
 
-      if (galleryRes?.data?.success) {
-        setColleges(galleryRes.data.data);
+      let allColleges = [];
+
+      // 2️⃣ Get colleges from ALL cities
+      for (const city of cities) {
+        const collegeRes = await api.apiget(
+          ServerUrl.API_GET_COLLEGES_BY_CITY + city.id
+        );
+
+        const colleges = collegeRes?.data?.data || [];
+
+        // attach city info
+        const enriched = colleges.map((c) => ({
+          ...c,
+          cityId: city.id,
+          cityName: city.name,
+        }));
+
+        allColleges.push(...enriched);
       }
 
-      if (storiesRes?.data?.success) {
-        setEventStories(storiesRes.data.data);
-      }
+      // 3️⃣ Get images for each college
+      const withImages = await Promise.all(
+        allColleges.map(async (college) => {
+          try {
+            const imgRes = await api.apiget(
+              ServerUrl.API_GET_IMAGES_BY_COLLEGE + college.id
+            );
+
+            return {
+              ...college,
+              images: imgRes?.data?.data || [],
+            };
+          } catch {
+            return { ...college, images: [] };
+          }
+        })
+      );
+
+      // 4️⃣ Get event stories (already works)
+      const storiesRes = await api.apiget(ServerUrl.API_GET_EVENTSTORIES);
+
+      setColleges(withImages);
+      setEventStories(storiesRes?.data?.data || []);
     } catch (err) {
-      console.error("Gallery fetch error", err);
+      console.error("Admin gallery fetch error", err);
     } finally {
       setLoading(false);
     }
@@ -62,7 +97,7 @@ const GalleryEventPage = () => {
           <button
             onClick={() => setActive("colleges")}
             className={`px-4 sm:px-6 py-2 rounded-full text-white text-sm sm:text-base 
-            ${active === "colleges" ? "bg-black" : "bg-transparent"}`}
+            ${active === "colleges" ? "bg-five" : "bg-transparent"}`}
           >
             Colleges
           </button>
@@ -70,7 +105,7 @@ const GalleryEventPage = () => {
           <button
             onClick={() => setActive("eventstories")}
             className={`px-4 sm:px-6 py-2 rounded-full text-white text-sm sm:text-base 
-            ${active === "eventstories" ? "bg-black" : "bg-transparent"}`}
+            ${active === "eventstories" ? "bg-five" : "bg-transparent"}`}
           >
             Event stories
           </button>
@@ -83,8 +118,11 @@ const GalleryEventPage = () => {
               {categoryData.map((item) => (
                 <div
                   key={item.id}
-                  onClick={() => navigate(`/eventdetail/${item.id}`)}
-                  className="bg-black text-white border border-gray-600 rounded-3xl p-4 cursor-pointer hover:scale-[1.02] transition-transform"
+                  onClick={() => navigate(ROUTES.ADMIN_EVENT_DETAIL_EDIT.replace(":id", item.id), {
+                      state: { mode: "edit", type: "eventstory" },
+                    })
+                  }
+                  className="text-white border border-gray-600 rounded-3xl p-4 cursor-pointer hover:scale-[1.02] transition-transform"
                 >
                   {/* Image */}
                   <div className="overflow-hidden rounded-2xl">
@@ -122,7 +160,10 @@ const GalleryEventPage = () => {
             {colleges.map((album) => (
               <div
                 key={album.id}
-                onClick={() => openAlbum(album.id)}
+                onClick={() => navigate(ROUTES.ADMIN_EVENT_DETAIL_EDIT.replace(":id", album.id), {
+                    state: { mode: "edit", type: "college" },
+                  })
+                }
                 className="cursor-pointer group w-full"
               >
                 <div className="relative w-full aspect-square transition-all duration-500 group-hover:scale-105">
@@ -150,6 +191,20 @@ const GalleryEventPage = () => {
           </div>
         )}
       </div>
+      <button
+        onClick={() =>
+          navigate(ROUTES.ADMIN_EVENT_DETAIL_ADD, {
+            state: {
+              mode: "add",
+              type: active === "colleges" ? "college" : "eventstory",
+            },
+          })
+        }
+        className="fixed right-10 bottom-10 z-[9999] pointer-events-auto
+                   w-14 h-14 bg-one text-black text-3xl rounded-full font-bold shadow-lg"
+      >
+        +
+      </button>
     </div>
   );
 };
