@@ -63,6 +63,22 @@ const SignUpForm = ({
     className="bg-transparent p-4 shadow-lg flex flex-col justify-center border border-gray-700 rounded-2xl w-full"
   >
     <InputField
+      placeholder="Full Name"
+      value={formData.fullName}
+      onChange={(e) =>
+        setFormData({ ...formData, fullName: e.target.value })
+      }
+    />
+
+    <InputField
+      type="tel"
+      placeholder="Phone Number"
+      value={formData.phoneNumber}
+      onChange={(e) =>
+        setFormData({ ...formData, phoneNumber: e.target.value })
+      }
+    />
+    <InputField
       placeholder="Email / Phone number"
       value={formData.email}
       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -132,6 +148,8 @@ const Signup = () => {
   ];
 
   const [formData, setFormData] = useState({
+    fullName: "",
+    phoneNumber: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -143,6 +161,8 @@ const Signup = () => {
     e.preventDefault();
 
     if (
+      !formData.fullName ||
+      !formData.phoneNumber ||
       !formData.email ||
       !formData.password ||
       !formData.confirmPassword ||
@@ -165,6 +185,8 @@ const Signup = () => {
 
     try {
       await new ApiService().apipost(ServerUrl.API_REGISTER, {
+        userName: formData.fullName,
+        phoneNumber: formData.phoneNumber,
         emailOrPhone: formData.email,
         password: formData.password,
         confirmPassword: formData.confirmPassword,

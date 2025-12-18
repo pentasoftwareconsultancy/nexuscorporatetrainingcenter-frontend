@@ -60,7 +60,7 @@ class ApiInterceptor {
       return {};
     }
   
-    console.log("TOKEN FOUND:", user.token);
+    // console.log("TOKEN FOUND:", user.token);
   
     return {
       Authorization: `Bearer ${user.token}`,
