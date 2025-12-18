@@ -21,7 +21,7 @@ const GalleryEventPage = () => {
       // 1️⃣ Get all cities
       const cityRes = await api.apiget(ServerUrl.API_GET_CITIES);
       const cities = cityRes?.data?.data || [];
-
+console.log("Cities fetched:", cities); // ✅ check cities
       let allColleges = [];
 
       // 2️⃣ Get colleges from ALL cities
@@ -32,7 +32,7 @@ const GalleryEventPage = () => {
         );
 
         const colleges = collegeRes?.data?.data || [];
-
+console.log(`Colleges in ${city.name}:`, colleges); // ✅ check colleges
         // attach city info
         const enriched = colleges.map((c) => ({
           ...c,
