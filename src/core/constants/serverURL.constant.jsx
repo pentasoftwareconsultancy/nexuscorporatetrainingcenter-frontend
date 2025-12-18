@@ -54,6 +54,7 @@ class ServerUrl {
     // COLLEGE APIs
     static API_ADD_COLLEGE = ServerUrl.API_MODULE_MEDIA + "/college";
     static API_GET_COLLEGES_BY_CITY = ServerUrl.API_MODULE_MEDIA + "/college/"; // + cityId
+    static API_GET_COLLEGES_BY_ID = ServerUrl.API_MODULE_MEDIA + "/college/single/"; // + id
     static API_UPDATE_COLLEGE = ServerUrl.API_MODULE_MEDIA + "/college/";       // + id
     static API_DELETE_COLLEGE = ServerUrl.API_MODULE_MEDIA + "/college/";       // + id
 
