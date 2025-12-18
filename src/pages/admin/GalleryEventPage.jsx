@@ -26,6 +26,7 @@ const GalleryEventPage = () => {
 
       // 2️⃣ Get colleges from ALL cities
       for (const city of cities) {
+        console.log("Fetching colleges for city:", city);
         const collegeRes = await api.apiget(
           ServerUrl.API_GET_COLLEGES_BY_CITY + city.id
         );
