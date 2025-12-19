@@ -39,7 +39,6 @@ export const AuthProvider = ({ children }) => {
     }
   
     const userData = {
-      id: userObj?.id,
       role: userObj?.role,
       token: token,
     };
