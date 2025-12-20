@@ -1,265 +1,301 @@
-import React, { useState } from "react";
-import { Pencil, Trash2, Plus, Check } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Pencil, Trash2, Check, Edit, Upload } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import ApiService from "../../core/services/api.service";
+import ServerUrl from "../../core/constants/serverURL.constant";
 
-export default function PlacementDetailPage() {
-  const initialData = {
-    name: "Shravani Padwal",
-    courseName: "Data Science",
-    courseDuration: "3 months",
-    email: "Shravani@gmail.com",
-    phone: "1234567890",
-    placedIn: "Tech Mahindra",
-    role: "AR Associate",
-    packageOffered: "7.5 LPA",
-
-    story: [
-      {
-        title: "Rishikesh’s Success Story:",
-        content:
-          "From Graduate to Full-Time Developer! Rishi Dhamsa secured a full-time position after joining Nexus CTC’s Placement Guaranteed Program.",
-      },
-      {
-        title: "Facing Job Market Challenges:",
-        content:
-          "Rishi realized the importance of specialized programs like Nexus CTC after struggling with off-campus opportunities.",
-      },
-    ],
-
-    programHighlights: [
-      "Flexible learning schedule",
-      "Hands-on projects",
-      "Affordable & beginner-friendly",
-      "Placement-focused training",
-    ],
-  };
-
-  const [data, setData] = useState(initialData);
-  const [editMode, setEditMode] = useState(false);
-
-  const handleChange = (field, value) => {
-    setData({ ...data, [field]: value });
-  };
-
-  const handleStoryChange = (index, field, value) => {
-    const updated = [...data.story];
-    updated[index][field] = value;
-    setData({ ...data, story: updated });
-  };
-
-  const handleHighlightChange = (index, value) => {
-    const updated = [...data.programHighlights];
-    updated[index] = value;
-    setData({ ...data, programHighlights: updated });
-  };
-
-  const deleteAll = () => {
-    if (window.confirm("Are you sure you want to delete ALL data?")) {
-      setData(null);
-    }
-  };
-
-  if (!data) {
-    return (
-      <div className="min-h-screen bg-[#0b0b0b] text-white flex items-center justify-center text-2xl">
-        No Placement Data Found
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-[#0b0b0b] text-white px-6 lg:px-12 py-8 font-sans relative">
-      {/* ===== TOP BAR ===== */}
-      <div className="flex items-center justify-between">
-        {editMode ? (
-          <input
-            value={data.name}
-            onChange={(e) => handleChange("name", e.target.value)}
-            className="text-xl sm:text-2xl font-semibold bg-transparent border-b border-gray-600 outline-none"
-          />
-        ) : (
-          <h1 className="text-xl sm:text-2xl font-semibold">{data.name}</h1>
-        )}
-
-        {/* Edit + Delete buttons (same UI as image) */}
-        <div className="flex gap-3">
-          {/* === EDIT / SAVE BUTTON === */}
-          <button
-            onClick={() => setEditMode(!editMode)}
-            className="
-              w-9 h-9 flex items-center justify-center cursor-pointer
-              bg-[#FFF6EF] border border-[#e8d7c9] rounded-full
-              shadow-[0_4px_8px_rgba(0,0,0,0.12)]
-              hover:scale-105 transition
-            "
-          >
-            <span className="flex items-center justify-center w-7 h-7 bg-orange-500 rounded-full">
-              {editMode ? (
-                <Check size={16} color="white" /> // ✅ NEW SAVE ICON
-              ) : (
-                <Pencil size={16} color="white" />
-              )}
-            </span>
-          </button>
-
-          {/* === DELETE BUTTON === */}
-          <button
-            onClick={deleteAll}
-            className="
-              w-9 h-9 flex items-center justify-center cursor-pointer 
-              bg-[#FFF6EF] border border-[#e8d7c9] rounded-full
-              shadow-[0_4px_8px_rgba(0,0,0,0.12)]
-              hover:scale-105 transition
-            "
-          >
-            <span className="flex items-center justify-center w-7 h-7 bg-orange-500 rounded-full">
-              <Trash2 size={16} color="white" />
-            </span>
-          </button>
-        </div>
-      </div>
-
-      {/* ===== DETAILS GRID ===== */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 ">
-        <DetailBox
-          label="Course name"
-          value={data.courseName}
-          editable={editMode}
-          onChange={(v) => handleChange("courseName", v)}
-        />
-        <DetailBox
-          label="Course duration"
-          value={data.courseDuration}
-          editable={editMode}
-          onChange={(v) => handleChange("courseDuration", v)}
-        />
-        <DetailBox
-          label="Email"
-          value={data.email}
-          editable={editMode}
-          onChange={(v) => handleChange("email", v)}
-        />
-        <DetailBox
-          label="Phone number"
-          value={data.phone}
-          editable={editMode}
-          onChange={(v) => handleChange("phone", v)}
-        />
-
-        <DetailBox
-          label="Placed In"
-          value={data.placedIn}
-          editable={editMode}
-          onChange={(v) => handleChange("placedIn", v)}
-        />
-        <DetailBox
-          label="Role"
-          value={data.role}
-          editable={editMode}
-          onChange={(v) => handleChange("role", v)}
-        />
-        <DetailBox
-          label="Package"
-          value={data.packageOffered}
-          editable={editMode}
-          onChange={(v) => handleChange("packageOffered", v)}
-        />
-      </div>
-
-      {/* ===== STORY SECTION ===== */}
-      <h2 className="mt-10 mb-3 text-lg font-semibold">Story</h2>
-      <div className="bg-[#1a1a1a] border border-gray-700 rounded-xl p-6 space-y-8">
-        {data.story.map((sec, index) => (
-          <div key={index} className="space-y-1">
-            {editMode ? (
-              <>
-                <input
-                  value={sec.title}
-                  onChange={(e) =>
-                    handleStoryChange(index, "title", e.target.value)
-                  }
-                  className="w-full bg-transparent border-b border-gray-600 text-lg outline-none"
-                />
-
-                <textarea
-                  value={sec.content}
-                  onChange={(e) =>
-                    handleStoryChange(index, "content", e.target.value)
-                  }
-                  className="w-full bg-transparent border border-gray-700 p-3 rounded-lg outline-none"
-                  rows={4}
-                />
-              </>
-            ) : (
-              <>
-                <h3 className="text-lg font-semibold">{sec.title}</h3>
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  {sec.content}
-                </p>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* ===== PROGRAM HIGHLIGHTS ===== */}
-      <h2 className="mt-10 mb-3 text-lg font-semibold">Program Highlights</h2>
-
-      <div className="bg-[#1a1a1a] border border-gray-700 rounded-xl p-6 space-y-4">
-        {data.programHighlights.map((item, index) => (
-          <div key={index}>
-            {editMode ? (
-              <input
-                value={item}
-                onChange={(e) => handleHighlightChange(index, e.target.value)}
-                className="w-full bg-transparent border-b border-gray-600 outline-none pb-1"
-              />
-            ) : (
-              <p className="text-gray-300 text-sm">• {item}</p>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* ===== ADD STORY BUTTON ===== */}
-      {/* <button
-        onClick={() =>
-          setData({
-            ...data,
-            story: [...data.story, { title: "New Story Title", content: "Write here..." }],
-          })
-        }
-        className="
-          fixed bottom-6 right-6 cursor-pointer w-10 h-10 flex items-center justify-center
-          bg-[#FFF6EF] border border-[#e8d7c9] rounded-full 
-          shadow-[inset_2px_2px_4px_rgba(255,255,255,0.8),inset_-2px_-2px_4px_rgba(0,0,0,0.12)]
-          hover:scale-110 transition
-        "
-      >
-        <span className="flex items-center justify-center w-7 h-7 bg-orange-500 rounded-full">
-          <Plus size={16} color="white" />
-        </span>
-      </button> */}
-    </div>
-  );
-}
-
-/* ================= Detail Box Component ================= */
-const DetailBox = ({ label, value, editable, onChange, className = "" }) => (
+/* ========= Reusable Detail Box ========= */
+const DetailBox = ({ label, value, onChange }) => (
   <div className="space-y-1">
-    <p className="text-xs text-[#FFF3EA] font-medium">{label}</p>
+    <h2 className="text-lg font-medium">{label}</h2>
 
-    {editable ? (
-      <input
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={`w-full  border border-[#FFF3EA] rounded-md text-sm px-3 py-2 outline-none ${className}`}
-      />
-    ) : (
-      <div
-        className={`w-full bg-[#242424] border border-[#FFF3EA] rounded-md text-sm px-3 py-2 ${className}`}
-      >
-        {value}
+    <input
+      value={value}
+      placeholder={label}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl px-3 py-2 outline-none"
+    />
+  </div>
+);
+
+/* ========= Reusable Textarea ========= */
+const Section = ({ title, field, data, setData }) => (
+  <div>
+    <h2 className="mt-5 mb-3 text-lg font-semibold">{title}</h2>
+
+    <textarea
+      value={data[field]}
+      placeholder={title}
+      onChange={(e) => setData({ ...data, [field]: e.target.value })}
+      className="bg-[#1a1a1a] border border-gray-700 rounded-xl p-6 w-full outline-none"
+    />
+  </div>
+);
+
+const SingleImageUpload = ({ image, onChange, onRemove }) => (
+  <div>
+    <h2 className="mt-5 mb-3 text-lg font-semibold">Image</h2>
+
+    {/* NO IMAGE → SHOW UPLOAD */}
+    {!image && (
+      <label className="flex items-center gap-3 cursor-pointer border border-dashed border-gray-500 p-6 rounded-lg w-fit">
+        <Upload size={20} />
+        <span>Upload image</span>
+        <input type="file" hidden onChange={onChange} />
+      </label>
+    )}
+
+    {/* IMAGE → REPLACES UPLOAD */}
+    {image && (
+      <div className="relative w-64 mt-2">
+        {/* IMAGE IS CLICKABLE TO REPLACE */}
+        <label>
+          <img
+            src={URL.createObjectURL(image)}
+            alt="preview"
+            className="w-full h-40 object-cover rounded-lg cursor-pointer"
+          />
+          <input type="file" hidden onChange={onChange} />
+        </label>
+
+        {/* REMOVE */}
+        <button
+          onClick={onRemove}
+          className="absolute top-2 right-2 bg-black/70 text-white rounded-full w-6 h-6 text-sm"
+        >
+          ✕
+        </button>
       </div>
     )}
   </div>
 );
+
+export default function PlacementDetailForm({ defaultValues = {}, onSubmit }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [categories, setCategories] = useState([]);
+  const api = new ApiService();
+  const [editMode, setEditMode] = useState(true); // it's a form so editable by default
+  const mode = location?.state?.mode || "add";   // "add" OR "edit"
+  const passedData = location?.state?.data || {};
+
+  const [data, setData] = useState({
+    name: "",
+    courseName: "",
+    courseDuration: "",
+    email: "",
+    phone: "",
+    placedIn: "",
+    role: "",
+    category: "",
+    newCategory: "",
+    packageOffered: "",
+    successStory: "",
+    challenges: "",
+    highlights: "",
+    evaluation: "",
+    experience: "",
+    image: null,
+    ...defaultValues,     // <-- if editing, parent fills these values
+  });
+
+  const handleChange = (field, value) => {
+    setData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleStoryImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setData((prev) => ({ ...prev, image: file }));
+  };
+
+  const removeStoryImage = () => {
+    setData((prev) => ({ ...prev, image: null }));
+  };
+
+  useEffect(() => {
+    if (mode === "add") fetchCategories();
+  }, [mode]);
+
+  const fetchCategories = async () => {
+    try {
+      const res = await api.apiget(ServerUrl.API_GET_PLACEMENT_CATEGORIES);
+
+      if (!Array.isArray(res.data)) return;
+
+      const list = [
+        { name: "", placementCategoryId: null },
+        ...res.data
+      ];
+
+      setCategories(list);
+    } catch (e) {
+      console.error("Category Fetch Error:", e);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let categoryId = Number(data.category);
+
+    try {
+      // 1️⃣ Create Category if user selected Add New
+      if (data.category === "add_new") {
+        if (!data.newCategory.trim()) {
+          alert("Please enter new category name");
+          return;
+        }
+
+        const res = await api.apipost(
+          ServerUrl.API_CREATE_PLACEMENT_CATEGORY,
+          { name: data.newCategory }
+        );
+console.log("category api", ServerUrl.API_CREATE_PLACEMENT_CATEGORY);
+        categoryId = res?.data?.placementCategoryId;
+      }
+
+      // 2️⃣ Build FormData because image exists
+      const formData = new FormData();
+
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      formData.append("placedIn", data.placedIn);
+      formData.append("role", data.role);
+      formData.append("courseName", data.courseName);
+      formData.append("courseDuration", data.courseDuration);
+      formData.append("packageOffered", data.packageOffered);
+      formData.append("successStory", data.successStory);
+      formData.append("challenges", data.challenges);
+      formData.append("highlights", data.highlights);
+      formData.append("evaluation", data.evaluation);
+      formData.append("experience", data.experience);
+      formData.append("placementCategoryId", categoryId);
+
+      if (data.image) {
+        formData.append("file", data.image);
+      }
+
+      let response;
+
+      if (mode === "add") {
+        response = await api.apipost(
+          ServerUrl.API_CREATE_PLACEMENT,
+          formData
+        );
+      } else {
+        response = await api.apiput(
+          `${ServerUrl.API_UPDATE_PLACEMENT_STORY}/${passedData.id}`,
+          formData
+        );
+      }
+
+      console.log("Saved Successfully", response);
+
+      alert("Saved Successfully");
+
+      navigate(-1);
+
+    } catch (err) {
+      console.error("SUBMIT ERROR:", err);
+      alert("Failed to save");
+    }
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="min-h-screen px-6 lg:px-12 py-2 font-sans relative"
+    >
+      {/* ===== TOP BAR ===== */}
+      <div className="flex items-center justify-between">
+
+        <div className="grid grid-cols-2 gap-4">
+
+          {/* CATEGORY DROPDOWN */}
+          <div className="space-y-1">
+            <h2 className="text-lg font-medium">Category</h2>
+
+            <select
+              value={data.category}
+              onChange={(e) => handleChange("category", e.target.value)}
+              className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl px-3 py-2 outline-none"
+            >
+              <option value="">Select Category</option>
+
+              {categories.map((cat, idx) => (
+                <option key={idx} value={cat.placementCategoryId}>
+                  {cat.name}
+                </option>
+              ))}
+
+              <option value="add_new">➕ Add New Category</option>
+            </select>
+          </div>
+
+          {/* ADD NEW CATEGORY INPUT (Visible only when Add New Selected) */}
+          {data.category === "add_new" && (
+            <div className="space-y-1">
+              <h2 className="text-lg font-medium">New Category</h2>
+              <input
+                value={data.newCategory}
+                placeholder="Enter new category"
+                onChange={(e) => handleChange("newCategory", e.target.value)}
+                className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl px-3 py-2 outline-none"
+              />
+            </div>
+          )}
+        </div>
+        
+        {mode === "edit" && (
+          <div className="flex gap-4">
+            <button className="bg-[#1a1a1a] p-4 rounded-full">
+              <Edit size={20} />
+            </button>
+            <button className="bg-[#1a1a1a] p-4 rounded-full">
+              <Trash2 size={20} />
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* ===== DETAILS GRID ===== */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 text-lg">
+        <DetailBox label="Full Name" value={data.name} onChange={(v)=>handleChange("name",v)} />
+        <DetailBox label="Email" value={data.email} onChange={(v)=>handleChange("email",v)} />
+        <DetailBox label="Phone" value={data.phone} onChange={(v)=>handleChange("phone",v)} />
+        <DetailBox label="Company Name" value={data.placedIn} onChange={(v)=>handleChange("placedIn",v)} />
+        <DetailBox label="Role" value={data.role} onChange={(v)=>handleChange("role",v)} />
+        <DetailBox label="Course Name" value={data.courseName} onChange={(v)=>handleChange("courseName",v)} />
+        <DetailBox label="Course Duration" value={data.courseDuration} onChange={(v)=>handleChange("courseDuration",v)} />
+        <DetailBox label="Package" value={data.packageOffered} onChange={(v)=>handleChange("packageOffered",v)} />
+      </div>
+
+      {/* TEXTAREAS */}
+      <div className="grid grid-cols-2 gap-4">
+        <Section title="Success Story" field="successStory" data={data} setData={setData} />
+        <Section title="Facing Challenges" field="challenges" data={data} setData={setData} />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <Section title="Program Highlights" field="highlights" data={data} setData={setData} />
+        <Section title="Final Evaluation" field="evaluation" data={data} setData={setData} />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <Section title="Overall Experience" field="experience" data={data} setData={setData} />
+        <SingleImageUpload image={data.image} onChange={handleStoryImageUpload} onRemove={removeStoryImage} />
+      </div>
+
+      {mode === "add" && (
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="fixed right-10 bottom-10 w-14 h-14 bg-one text-black text-3xl rounded-full font-bold shadow-lg flex justify-center items-center"
+        >
+          +
+        </button>
+      )}
+    </form>
+  );
+}

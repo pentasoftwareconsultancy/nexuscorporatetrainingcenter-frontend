@@ -420,7 +420,9 @@ const GalleryEventDetailPage = () => {
               >
                 <option value="">Select City</option>
                 {cities.map((c) => (
-                  <option key={c.id} value={c.id}>{c.name}</option>
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
                 ))}
               </select>
               <Input
@@ -439,17 +441,16 @@ const GalleryEventDetailPage = () => {
             />
 
             {/* IMAGE UPLOAD */}
-<MultiImageUpload
-  images={collegeData.images}
-  onChange={handleCollegeImagesUpload}
-  onRemove={(index) =>
-    setCollegeData((prev) => ({
-      ...prev,
-      images: prev.images.filter((_, i) => i !== index),
-    }))
-  }
-/>
-
+            <MultiImageUpload
+              images={collegeData.images}
+              onChange={handleCollegeImagesUpload}
+              onRemove={(index) =>
+                setCollegeData((prev) => ({
+                  ...prev,
+                  images: prev.images.filter((_, i) => i !== index),
+                }))
+              }
+            />
           </div>
         )}
 
