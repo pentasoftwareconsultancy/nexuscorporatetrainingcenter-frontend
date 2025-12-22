@@ -103,10 +103,6 @@ const AppRoutes = () => {
           <Route path="/testdashboard" element={<CompletedTestDashboard />} />
           <Route path="/visitdashboard" element={<CollegeVisitDashboard />} />
           <Route path="/reviewsdashboard" element={<TotalReviewsDashboard />} />
-          <Route
-            path="/placementdashboard"
-            element={<TotalPlacementDashboard />}
-          />
           {/* Gallery */}
           <Route path="/galleryevent" element={<GalleryEventPage />} />
           <Route path="/eventdetail/add" element={<GalleryEventDetailPage />} />
@@ -115,9 +111,15 @@ const AppRoutes = () => {
           <Route path="/admincourses" element={<AdminCoursesPage />} />
           <Route path="/addcourses" element={<AddCoursesPage />} />
           <Route path="/addcourses/:id" element={<AddCoursesPage />} />
+          {/* Placement */}
+          <Route
+            path="/placementdashboard"
+            element={<TotalPlacementDashboard />}
+          />
+          <Route path="/placementdetail" element={<PlacementDetailPage />} />
+          <Route path="/placementdetail/:id" element={<PlacementDetailPage />} />
           {/*  */}
           <Route path="/visitdetail" element={<CollegeVisitDetailPage />} />
-          <Route path="/placementdetail" element={<PlacementDetailPage />} />
           <Route path="/registerdetail" element={<RegisterDetailPage />} />
           <Route path="/completedetail" element={<TestCompleteDetailPage />} />
           <Route

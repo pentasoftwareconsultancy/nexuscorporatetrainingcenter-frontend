@@ -92,12 +92,7 @@ export default function TotalPlacementDashboard() {
   });
 
   const handleidwise = (item) => {
-    navigate(ROUTES.ADMIN_PLACEMENT_DETAIL, {
-      state: {
-        mode: "edit",
-        data: item
-      }
-    });
+    navigate(ROUTES.ADMIN_PLACEMENT_DETAIL_EDIT.replace(":id", item.placement_id));
   };
 
   return (
@@ -178,9 +173,7 @@ export default function TotalPlacementDashboard() {
       </main>
       <button
         onClick={() =>
-          navigate(ROUTES.ADMIN_PLACEMENT_DETAIL, {
-            state: { mode: "add" }
-          })
+          navigate(ROUTES.ADMIN_PLACEMENT_DETAIL)
         }
         className="fixed right-10 bottom-10 w-14 h-14 bg-one text-black text-3xl rounded-full font-bold shadow-lg"
       >

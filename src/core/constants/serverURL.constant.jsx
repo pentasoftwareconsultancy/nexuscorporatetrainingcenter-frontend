@@ -146,6 +146,7 @@ class ServerUrl {
     static API_CREATE_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/details";
     static API_UPDATE_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/details/"; // + id
     static API_GET_PLACEMENT_AND_DETAILS_BY_ID = ServerUrl.API_MODULE_PLACEMENTS + "/full"; // + id
+    static API_DELETE_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/details"; // + id
     
     /* ---------------- YEAR-WISE REPORT ---------------- */
     static API_PLACEMENT_YEAR_WISE = ServerUrl.API_MODULE_PLACEMENTS + "/reports/year-wise";
