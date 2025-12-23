@@ -42,7 +42,7 @@ class ServerUrl {
     static API_UPDATE_BATCH = ServerUrl.API_MODULE_MASTER + "/batches/"; // + id
     static API_DELETE_BATCH = ServerUrl.API_MODULE_MASTER + "/batches/"; // + id
  
-    // MEDIA MODULE
+    // MEDIA MODULE / GALLERY MODULE
     static API_MODULE_MEDIA = "/api/media";    
 
     // CITY APIs
