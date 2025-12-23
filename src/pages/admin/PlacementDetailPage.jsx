@@ -217,14 +217,14 @@ export default function PlacementDetailForm({ defaultValues = {}, onSubmit }) {
     try {
       // 1️⃣ Get Placement
       const res = await api.apiget(
-        `${ServerUrl.API_GET_PLACEMENT_BY_ID}${placementId}`
+        `${ServerUrl.API_GET_PLACEMENT_BY_ID}/${placementId}`
       );
 
       const p = res?.data?.data || res?.data;
 
       // 2️⃣ Get Details
       const d = await api.apiget(
-        `${ServerUrl.API_GET_PLACEMENT_DETAILS}${placementId}`
+        `${ServerUrl.API_GET_PLACEMENT_DETAILS}/${placementId}`
       );
 
       const details = d?.data?.data || d?.data;
@@ -331,7 +331,7 @@ export default function PlacementDetailForm({ defaultValues = {}, onSubmit }) {
                 if (!window.confirm("Delete this record?")) return;
 
                 await api.apidelete(
-                  `${ServerUrl.API_DELETE_PLACEMENT}${placementId}`
+                  `${ServerUrl.API_DELETE_PLACEMENT}/${placementId}`
                 );
                 await api.apidelete(
                   `${ServerUrl.API_DELETE_PLACEMENT_DETAILS}/${placementId}`
