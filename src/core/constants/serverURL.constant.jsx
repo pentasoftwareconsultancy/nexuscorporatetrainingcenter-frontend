@@ -151,6 +151,12 @@ class ServerUrl {
     /* ---------------- YEAR-WISE REPORT ---------------- */
     static API_PLACEMENT_YEAR_WISE = ServerUrl.API_MODULE_PLACEMENTS + "/reports/year-wise";
 
+    /* ---------------- ALLPLACEMENTDETAILS APIs ---------------- */
+    static API_GET_ALL_PLACEMENT_DETAILS_BYID = ServerUrl.API_MODULE_PLACEMENTS + "/allplacementdata/"; // + id
+    static API_UPDATE_ALL_PLACEMENT_DETAILS_BYID = ServerUrl.API_MODULE_PLACEMENTS + "/full/";  // + placementId
+    static API_CREATE_ALL_PLACEMENT_DETAILS = ServerUrl.API_MODULE_PLACEMENTS + "/full";
+    static API_DELETE_ALL_PLACEMENT_DETAILS_BYID = ServerUrl.API_MODULE_PLACEMENTS + "/full/"; // + placementId
+
     /* -------------------- FACULTYS -------------------- */
     static API_MODULE_FACULTYS = "/api/faculty";
     
