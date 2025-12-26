@@ -34,9 +34,15 @@ export const ROUTES = {
   ADMIN_COLLEGE_VISIT: "/visitdashboard",
   ADMIN_REVIEWS: "/reviewsdashboard",
   //Gallery
-  ADMIN_GALLERY_EVENT: "/galleryevent",
-  ADMIN_EVENT_DETAIL_ADD: "/eventdetail/add",
-  ADMIN_EVENT_DETAIL_EDIT: "/eventdetail/edit/:id",
+  ADMIN_GALLERY_FORM: "/galleryform",
+    // gallery event
+    ADMIN_GALLERY_EVENT: "/galleryevent",
+    ADMIN_EVENT_DETAIL_ADD: "/eventdetail/add",
+    ADMIN_EVENT_DETAIL_EDIT: "/eventdetail/edit/:id",
+    // gallery college
+    ADMIN_GALLERY_COLLEGE: "/gallerycollege",
+    ADMIN_EVENT_COLLEGE_ADD: "/eventcollege/add",
+    ADMIN_EVENT_COLLEGE_EDIT: "/eventcollege/edit/:id",
   //Courses
   ADMIN_COURSES: "/admincourses",
   ADMIN_ADD_COURSE: "/addcourses",

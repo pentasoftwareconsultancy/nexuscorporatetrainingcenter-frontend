@@ -83,6 +83,7 @@ class ServerUrl {
     // EVENT STORIES
     static API_CREATE_EVENTSTORIES = ServerUrl.API_MODULE_EVENTS + "/stories";
     static API_GET_EVENTSTORIES = ServerUrl.API_MODULE_EVENTS + "/stories";
+    static API_GET_EVENTSTORY_BY_ID = ServerUrl.API_MODULE_EVENTS + "/stories-id"; // + id
     static API_UPDATE_EVENTSTORIES = ServerUrl.API_MODULE_EVENTS + "/stories"; // + id
     static API_DELETE_EVENTSTORIES = ServerUrl.API_MODULE_EVENTS + "/stories"; // + id
 
