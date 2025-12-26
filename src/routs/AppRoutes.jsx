@@ -39,16 +39,19 @@ import CompletedTestDashboard from "../pages/admin/CompletedTestDashboard";
 import CollegeVisitDashboard from "../pages/admin/CollegeVisitDashboard";
 import TotalPlacementDashboard from "../pages/admin/TotalPlacementDashboard";
 import TotalReviewsDashboard from "../pages/admin/TotalReviewsDashboard";
-import GalleryEventPage from "../pages/admin/GalleryEventPage";
 import AdminCoursesPage from "../pages/admin/AdminCoursesPage";
 import AdminNotificationPage from "../pages/admin/AdminNotificationPage";
 import AdminProfile from "../pages/admin/AdminProfile";
 import AddCoursesPage from "../pages/admin/AddCorsesPage";
 import CollegeVisitDetailPage from "../pages/admin/CollegeVisitDetailPage";
-import GalleryEventDetailPage from "../pages/admin/GalleryEventDetailPage";
 import PlacementDetailPage from "../pages/admin/PlacementDetailPage";
 import RegisterDetailPage from "../pages/admin/RegisterDetailPage";
 import TestCompleteDetailPage from "../pages/admin/TestCompleteDetailPage";
+import GalleryForm from "../pages/admin/GalleryForm";
+import GalleryCollegePage from "../pages/admin/GalleryCollegePage";
+import GalleryCollegeDetailPage from "../pages/admin/GalleryCollegeDetailPage";
+import GalleryEventPage from "../pages/admin/GalleryEventPage";
+import GalleryEventDetailPage from "../pages/admin/GalleryEventDetailPage";
 
 // Auth
 import Login from "../pages/auth/Login";
@@ -104,9 +107,15 @@ const AppRoutes = () => {
           <Route path="/visitdashboard" element={<CollegeVisitDashboard />} />
           <Route path="/reviewsdashboard" element={<TotalReviewsDashboard />} />
           {/* Gallery */}
-          <Route path="/galleryevent" element={<GalleryEventPage />} />
-          <Route path="/eventdetail/add" element={<GalleryEventDetailPage />} />
-          <Route path="/eventdetail/edit/:id" element={<GalleryEventDetailPage />} />
+          <Route path="/galleryform" element={<GalleryForm />} />
+            {/*gallery event */}
+            <Route path="/galleryevent" element={<GalleryEventPage />} />
+            <Route path="/eventdetail/add" element={<GalleryEventDetailPage />} />
+            <Route path="/eventdetail/edit/:id" element={<GalleryEventDetailPage />} />
+            {/* gallery college */}
+            <Route path="/gallerycollege" element={<GalleryCollegePage />} />
+            <Route path="/eventcollege/add" element={<GalleryCollegeDetailPage />} />
+            <Route path="/eventcollege/edit/:id" element={<GalleryCollegeDetailPage />} />
           {/* Courses */}
           <Route path="/admincourses" element={<AdminCoursesPage />} />
           <Route path="/addcourses" element={<AddCoursesPage />} />

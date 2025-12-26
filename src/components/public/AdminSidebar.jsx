@@ -343,7 +343,7 @@ const NAV_LINKS = [
     href: ROUTES.ADMIN_DASHBOARD,
   },
   { label: "Courses", icon: <BookOpen />, href: ROUTES.ADMIN_COURSES },
-  { label: "Gallery", icon: <Images />, href: ROUTES.ADMIN_GALLERY_EVENT },
+  { label: "Gallery", icon: <Images />, href: ROUTES.ADMIN_GALLERY_FORM },
   {
     label: "Placements",
     icon: <Briefcase />,
