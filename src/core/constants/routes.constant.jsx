@@ -32,7 +32,10 @@ export const ROUTES = {
   ADMIN_NEW_REGISTER: "/registerdashboard",
   ADMIN_TEST_COMPLETED: "/testdashboard",
   ADMIN_COLLEGE_VISIT: "/visitdashboard",
+  // Reviews
   ADMIN_REVIEWS: "/reviewsdashboard",
+  ADMIN_REVIEW_ADD: "/reviewsadd",
+  ADMIN_REVIEW_EDIT: "/reviewsedit/:id",
   //Gallery
   ADMIN_GALLERY_FORM: "/galleryform",
     // gallery event

@@ -8,6 +8,7 @@ class ServerUrl {
     static API_MODULE_USER = "/api/auth";
     static API_LOGIN = ServerUrl.API_MODULE_USER + "/login";
     static API_REGISTER = ServerUrl.API_MODULE_USER + "/signup";
+    static API_GET_ME = ServerUrl.API_MODULE_USER + "/me";
 
     // master module
     static API_MODULE_MASTER = "/api/master";    
@@ -65,6 +66,12 @@ class ServerUrl {
     // MEDIA CRUD APIs
     static API_UPDATE_MEDIA = ServerUrl.API_MODULE_MEDIA + "/media/"; // + id
     static API_DELETE_MEDIA = ServerUrl.API_MODULE_MEDIA + "/media/"; // + id
+
+    // MEDIA ALL GROUP APIs
+    static API_GET_ALL_MEDIA_GROUPS = ServerUrl.API_MODULE_MEDIA + "/GetMedia/"; // + id
+    static API_CREATE_MEDIA_GROUP = ServerUrl.API_MODULE_MEDIA + "/CreateMedia";
+    static API_UPDATE_MEDIA_GROUP = ServerUrl.API_MODULE_MEDIA + "/UpdateMedia/"; // + id
+    static API_DELETE_MEDIA_GROUP = ServerUrl.API_MODULE_MEDIA + "/DeleteMedia/"; // + id
 
     // EVENT MODULE
     static API_MODULE_EVENTS = "/api/events";
@@ -165,6 +172,15 @@ class ServerUrl {
     static API_POST_FACULTY = ServerUrl.API_MODULE_FACULTYS + "/";
     static API_UPDATE_FACULTY = ServerUrl.API_MODULE_FACULTYS + "/"; // + id
     static API_DELETE_FACULTY = ServerUrl.API_MODULE_FACULTYS + "/"; // + id
+
+    /* -------------------- REVIEWS -------------------- */
+    static API_MODULE_REVIEWS = "/api/reviews";
+
+    static API_GET_REVIEWS = ServerUrl.API_MODULE_REVIEWS + "/";
+    static API_GET_REVIEW_BY_ID = ServerUrl.API_MODULE_REVIEWS + "/byid/"; // + id
+    static API_POST_REVIEW = ServerUrl.API_MODULE_REVIEWS + "/";
+    static API_UPDATE_REVIEW = ServerUrl.API_MODULE_REVIEWS + "/"; // + id
+    static API_DELETE_REVIEW = ServerUrl.API_MODULE_REVIEWS + "/"; // + id
 
 }
 

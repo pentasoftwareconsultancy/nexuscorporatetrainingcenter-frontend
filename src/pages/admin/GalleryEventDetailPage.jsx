@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Edit, Trash2, Upload } from "lucide-react";
+import { Edit, Trash2, Upload, Check } from "lucide-react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
@@ -171,16 +171,16 @@ const GalleryEventDetailPage = () => {
             <div className="flex gap-4">
               <button
                 onClick={handleUpdateStory}
-                className="bg-white p-2 rounded"
+                className="bg-[#1a1a1a] p-4 rounded-full"
               >
-                <Edit size={20} color="orange" />
+                <Check size={20} />
               </button>
 
               <button
                 onClick={handleDeleteStory}
-                className="bg-white p-2 rounded"
+                className="bg-[#1a1a1a] p-4 rounded-full"
               >
-                <Trash2 size={20} color="orange" />
+                <Trash2 size={20} />
               </button>
             </div>
           )}
