@@ -51,7 +51,7 @@ const stats = [
     value: "600",
     info: [],
     icon: FaGraduationCap,
-    click: ROUTES.ADMIN_COLLEGE_VISIT,
+    click: ROUTES.ADMIN_GALLERY_FORM,
   },
   {
     title: "Total Placements",

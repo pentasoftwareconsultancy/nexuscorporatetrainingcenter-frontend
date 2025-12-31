@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import { useAuth } from "../core/contexts/AuthContext";
 
 // Layouts
 import PublicLayout from "../components/layout/PublicLayout";
@@ -35,7 +34,6 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import TotalRegisterDashboard from "../pages/admin/TotalRegisterDashboard";
 import NewRegisterDashboard from "../pages/admin/NewRegisterDashboard";
 import CompletedTestDashboard from "../pages/admin/CompletedTestDashboard";
-import CollegeVisitDashboard from "../pages/admin/CollegeVisitDashboard";
 import TotalPlacementDashboard from "../pages/admin/TotalPlacementDashboard";
 import TotalReviewsDashboard from "../pages/admin/TotalReviewsDashboard";
 import AdminCoursesPage from "../pages/admin/AdminCoursesPage";
@@ -53,6 +51,7 @@ import GalleryEventDetailPage from "../pages/admin/GalleryEventDetailPage";
 // Auth
 import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
+import TotalReviewsForm from "../pages/admin/TotalReviewsForm";
 
 const AppRoutes = () => {
 
@@ -100,8 +99,10 @@ const AppRoutes = () => {
           <Route path="/totaldashboard" element={<TotalRegisterDashboard />} />
           <Route path="/registerdashboard" element={<NewRegisterDashboard />} />
           <Route path="/testdashboard" element={<CompletedTestDashboard />} />
-          <Route path="/visitdashboard" element={<CollegeVisitDashboard />} />
+          {/* Reviews */}
           <Route path="/reviewsdashboard" element={<TotalReviewsDashboard />} />
+          <Route path="/reviewsedit/:id" element={<TotalReviewsForm />} />
+          <Route path="/reviewsadd" element={<TotalReviewsForm />} />
           {/* Gallery */}
           <Route path="/galleryform" element={<GalleryForm />} />
             {/*gallery event */}
