@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import data from "../../assets/saniya/PlacementData.json";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Edit, Trash2, Upload } from "lucide-react";
+import { Edit, Trash2, Upload, Check } from "lucide-react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
-import { ROUTES } from "../../core/constants/routes.constant";
 
 const Input = ({ label, ...props }) => (
   <div className="flex flex-col">
@@ -67,6 +66,10 @@ const GalleryCollegeDetailPage = () => {
   const isAdd = mode === "add";
 
   const [cities, setCities] = useState([]);
+  const [cityQuery, setCityQuery] = useState("");
+  const filteredCities = cities.filter((c) =>
+    c.name.toLowerCase().includes(cityQuery.toLowerCase())
+  );
   const [newCity, setNewCity] = useState("");
 
   const [collegeData, setCollegeData] = useState({
@@ -97,10 +100,6 @@ const GalleryCollegeDetailPage = () => {
     setCollegeData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCityChange = (e) => {
-    setCollegeData((prev) => ({ ...prev, cityId: e.target.value }));
-  };
-
   const handleCollegeImagesUpload = (e) => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
@@ -124,19 +123,20 @@ const GalleryCollegeDetailPage = () => {
 
     const fetchById = async () => {
       try {
-        const res = await api.apiget(ServerUrl.API_GET_COLLEGES_BY_ID + id);
+        const res = await api.apiget(ServerUrl.API_GET_ALL_MEDIA_GROUPS + id);
         const data = res?.data?.data;
 
         setCollegeData({
-          cityId: data.city?.id || null,
-          collegeId: data.id || null,
-          mediaId: data.images?.[0]?.id || null,
+          cityId: data?.city?.id || null,
+          collegeId: data?.id || null,
+          mediaId: data?.images?.[0]?.id || null,
 
-          city: data.city?.name || "",
-          collegeName: data.name || "",
-          description: data.images?.[0]?.description || "",
-          images: data.images || [],
+          city: data?.city?.name || "",
+          collegeName: data?.name || "",
+          description: data?.images?.[0]?.description || "",
+          images: data?.images || [],
         });
+        setCityQuery(data?.city?.name || "");
       } catch (err) {
         console.error("Fetch failed", err);
       }
@@ -145,98 +145,84 @@ const GalleryCollegeDetailPage = () => {
     fetchById();
   }, [isEdit, id]);
 
-  // ---------------- ADD COLLEGE ----------------
+  // ---------------- ADD MEDIA GROUP ----------------
   const handleAddCollege = async () => {
     try {
-      let cityId = collegeData.cityId;
+      if (!collegeData.city && !collegeData.cityId)
+        return alert("City is required");
+      if (!collegeData.collegeName) return alert("College name required");
 
-      if (newCity) {
-        const cityRes = await api.apipost(ServerUrl.API_ADD_CITY, {
-          name: newCity,
-        });
-        cityId = cityRes?.data?.data?.id;
-      }
+      const formData = new FormData();
 
-      if (!cityId) return alert("City required");
+      // REQUIRED by backend
+      formData.append("type", "media");
 
-      const collegeRes = await api.apipost(ServerUrl.API_ADD_COLLEGE, {
-        name: collegeData.collegeName,
-        cityId,
+      // city: if user typed new city → use that
+      // else use selected city's actual name
+      formData.append("cityName", newCity || collegeData.city);
+
+      formData.append("collegeName", collegeData.collegeName);
+
+      // description + caption
+      formData.append("description", collegeData.description || "");
+      formData.append("caption", "College Event Pics"); // or bind from UI if needed
+
+      // MULTIPLE FILES
+      collegeData.images.forEach((img) => {
+        if (img instanceof File) {
+          formData.append("files", img);
+        }
       });
 
-      const collegeId = collegeRes?.data?.data?.id;
+      await api.apipostForm(ServerUrl.API_CREATE_MEDIA_GROUP, formData);
 
-      if (collegeData.images.length) {
-        const formData = new FormData();
-        formData.append("collegeId", collegeId);
-        formData.append("description", collegeData.description);
-
-        collegeData.images.forEach((img) => {
-          if (img instanceof File) formData.append("file", img);
-        });
-
-        await api.apipost(ServerUrl.API_UPLOAD_IMAGE, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-      }
-
-      alert("College Added");
+      alert("Created Successfully");
       navigator(-1);
     } catch (err) {
-      console.error(err);
+      console.error("Create Failed", err);
       alert("Failed");
     }
   };
 
-  // ---------------- UPDATE ----------------
+  // ---------------- UPDATE MEDIA GROUP ----------------
   const handleUpdateCollege = async () => {
     try {
-      if (collegeData.cityId) {
-        await api.apiput(ServerUrl.API_UPDATE_CITY + collegeData.cityId, {
-          name: collegeData.city,
-        });
-      }
+      const formData = new FormData();
 
-      if (collegeData.collegeId) {
-        await api.apiput(ServerUrl.API_UPDATE_COLLEGE + collegeData.collegeId, {
-          name: collegeData.collegeName,
-          cityId: collegeData.cityId,
-        });
-      }
+      formData.append("type", "media");
+      formData.append("collegeId", collegeData.collegeId);
+      formData.append("mediaId", collegeData.mediaId);
+      formData.append("cityName", collegeData.city);
+      formData.append("collegeName", collegeData.collegeName);
+      formData.append("description", collegeData.description);
 
-      if (collegeData.mediaId) {
-        const formData = new FormData();
-        formData.append("description", collegeData.description);
-        formData.append("collegeId", collegeData.collegeId);
+      collegeData.images.forEach((img) => {
+        if (img instanceof File) formData.append("files", img);
+      });
 
-        collegeData.images.forEach((img) => {
-          if (img instanceof File) formData.append("file", img);
-        });
-
-        await api.apiput(
-          ServerUrl.API_UPDATE_MEDIA + collegeData.mediaId,
-          formData,
-          { headers: { "Content-Type": "multipart/form-data" } }
-        );
-      }
+      await api.apiput(
+        `${ServerUrl.API_UPDATE_MEDIA_GROUP}${collegeData.collegeId}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       alert("Updated");
       navigator(-1);
     } catch (err) {
       console.error("Update failed", err);
+      alert("Update Failed");
     }
   };
 
   // ---------------- DELETE ----------------
   const handleDeleteCollege = async () => {
     try {
-      if (collegeData.mediaId)
-        await api.apidelete(ServerUrl.API_DELETE_MEDIA + collegeData.mediaId);
-
-      if (collegeData.collegeId)
-        await api.apidelete(ServerUrl.API_DELETE_COLLEGE + collegeData.collegeId);
-
-      alert("Deleted");
+      await api.apidelete(
+        `${ServerUrl.API_DELETE_MEDIA_GROUP}${collegeData.collegeId}`
+      );
+      alert("Deleted Successfully.");
       navigator(-1);
     } catch (err) {
       console.error("Delete failed", err);
@@ -253,12 +239,18 @@ const GalleryCollegeDetailPage = () => {
 
           {isEdit && (
             <div className="flex gap-4">
-              <button onClick={handleUpdateCollege} className="bg-white p-2 rounded">
-                <Edit size={20} color="orange" />
+              <button
+                onClick={handleUpdateCollege}
+                className="bg-[#1a1a1a] p-4 rounded-full"
+              >
+                <Check size={20} />
               </button>
 
-              <button onClick={handleDeleteCollege} className="bg-white p-2 rounded">
-                <Trash2 size={20} color="orange" />
+              <button
+                onClick={handleDeleteCollege}
+                className="bg-[#1a1a1a] p-4 rounded-full"
+              >
+                <Trash2 size={20} />
               </button>
             </div>
           )}
@@ -266,18 +258,52 @@ const GalleryCollegeDetailPage = () => {
 
         <div className="mt-8 space-y-8 text-white">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <select
-              value={collegeData.cityId || ""}
-              onChange={handleCityChange}
-              className="bg-three border border-gray-500 rounded-lg px-3 py-2 outline-none focus:border-white"
-            >
-              <option value="">Select City</option>
-              {cities.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <label className="text-sm font-semibold mb-1 block">City</label>
+
+              <input
+                type="text"
+                value={cityQuery}
+                placeholder="Type city..."
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setCityQuery(value);
+                  setCollegeData((prev) => ({
+                    ...prev,
+                    cityId: null,
+                    city: value, // store typed text
+                  }));
+                }}
+                className="w-full bg-transparent border border-gray-500 rounded-lg px-3 py-2 outline-none focus:border-white"
+              />
+
+              {cityQuery.length > 0 && filteredCities.length > 0 && (
+                <div className="absolute z-50 w-full bg-black border border-gray-600 rounded mt-1 max-h-40 overflow-y-auto">
+                  {filteredCities.map((c) => (
+                    <div
+                      key={c.id}
+                      onClick={() => {
+                        setCityQuery(c.name);
+                        setCollegeData((prev) => ({
+                          ...prev,
+                          cityId: c.id,
+                          city: c.name,
+                        }));
+                      }}
+                      className="px-3 py-2 cursor-pointer hover:bg-gray-700"
+                    >
+                      {c.name}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {cityQuery.length > 0 && filteredCities.length === 0 && (
+                <p className="text-xs text-green-400 mt-1">
+                  No match found. New city will be created.
+                </p>
+              )}
+            </div>
 
             <Input
               label="College Name"
