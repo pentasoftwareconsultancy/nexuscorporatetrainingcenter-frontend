@@ -47,11 +47,17 @@ import GalleryForm from "../pages/admin/GalleryForm";
 import GalleryCollegeDetailPage from "../pages/admin/GalleryCollegeDetailPage";
 import GalleryEventPage from "../pages/admin/GalleryEventPage";
 import GalleryEventDetailPage from "../pages/admin/GalleryEventDetailPage";
+import TotalReviewsForm from "../pages/admin/TotalReviewsForm";
+import BlogsForm from "../pages/admin/BlogsForm";
+import AdminBlogsPage from "../pages/admin/AdminBlogsPage";
+import AdminFacultyPage from "../pages/admin/AdminFacultyPage";
+import AdminFacultyForm from "../pages/admin/AdminFacultyForm";
+import TestCategoryForm from "../pages/admin/TestCategoryForm";
 
 // Auth
 import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
-import TotalReviewsForm from "../pages/admin/TotalReviewsForm";
+import AdminTestDashboardPage from "../pages/admin/AdminTestDashboardPage";
 
 const AppRoutes = () => {
 
@@ -99,6 +105,14 @@ const AppRoutes = () => {
           <Route path="/totaldashboard" element={<TotalRegisterDashboard />} />
           <Route path="/registerdashboard" element={<NewRegisterDashboard />} />
           <Route path="/testdashboard" element={<CompletedTestDashboard />} />
+          {/* Faculty */}
+          <Route path="/facultydashboard" element={<AdminFacultyPage />} />
+          <Route path="/facultyform" element={<AdminFacultyForm />} />
+          <Route path="/facultyform/:id" element={<AdminFacultyForm />} />
+          {/* Video */}
+          <Route path="/adminblog" element={<AdminBlogsPage />} />
+          <Route path="/blogsform" element={<BlogsForm />} />
+          <Route path="/blogsform/:id" element={<BlogsForm />} />
           {/* Reviews */}
           <Route path="/reviewsdashboard" element={<TotalReviewsDashboard />} />
           <Route path="/reviewsedit/:id" element={<TotalReviewsForm />} />
@@ -123,6 +137,10 @@ const AppRoutes = () => {
           />
           <Route path="/placementdetail" element={<PlacementDetailPage />} />
           <Route path="/placementdetail/:id" element={<PlacementDetailPage />} />
+          {/* Test */}
+          <Route path="/testcreatedashboard" element={<AdminTestDashboardPage />} />
+          <Route path="/testcategoryform" element={<TestCategoryForm />} />
+          <Route path="/testcategoryform/:id" element={<TestCategoryForm />} />
           {/*  */}
           <Route path="/registerdetail" element={<RegisterDetailPage />} />
           <Route path="/completedetail" element={<TestCompleteDetailPage />} />
