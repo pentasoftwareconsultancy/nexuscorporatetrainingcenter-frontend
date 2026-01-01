@@ -184,6 +184,13 @@ class ServerUrl {
     static API_UPDATE_REVIEW = ServerUrl.API_MODULE_REVIEWS + "/"; // + id
     static API_DELETE_REVIEW = ServerUrl.API_MODULE_REVIEWS + "/"; // + id
 
+    /* -------------------- CONTACT FORM -------------------- */
+    static API_MODULE_CONTACT = "/api/contact"
+
+    static API_POST_CONTACT_FORM = ServerUrl.API_MODULE_CONTACT + "/";
+    static API_GET_CONTACT_FORMS = ServerUrl.API_MODULE_CONTACT + "/";
+    static API_GET_CONTACT_FORM_BY_ID = ServerUrl.API_MODULE_CONTACT + "/"; // + id
+    static API_DELETE_CONTACT_FORM = ServerUrl.API_MODULE_CONTACT + "/"; // + id
 }
 
 export default ServerUrl;
