@@ -32,6 +32,14 @@ export const ROUTES = {
   ADMIN_NEW_REGISTER: "/registerdashboard",
   ADMIN_TEST_COMPLETED: "/testdashboard",
   ADMIN_COLLEGE_VISIT: "/visitdashboard",
+  // Faculty
+  ADMIN_FACULTY: "/facultydashboard",
+  ADMIN_FACULTY_FORM: "/facultyform",
+  ADMIN_FACULTY_FORM_EDIT: "/facultyform/:id",
+  // Video
+  ADMIN_BLOGS: "/adminblog",
+  ADMIN_BLOGS_FORM: "/blogsform",
+  ADMIN_BLOGS_FORM_EDIT: "/blogsform/:id",
   // Reviews
   ADMIN_REVIEWS: "/reviewsdashboard",
   ADMIN_REVIEW_ADD: "/reviewsadd",
@@ -54,6 +62,10 @@ export const ROUTES = {
   ADMIN_TOTAL_PLACEMENTS: "/placementdashboard",
   ADMIN_PLACEMENT_DETAIL: "/placementdetail",
   ADMIN_PLACEMENT_DETAIL_EDIT: "/placementdetail/:id",
+  // Test
+  ADMIN_TEST_DASHBOARD: "/testcreatedashboard",
+  ADMIN_TEST_CATEGORY_FORM: "/testcategoryform",
+  ADMIN_TEST_CATEGORY_FORM_EDIT: "/testcategoryform/:id",
   // 
   ADMIN_NOTIFICATION: "/adminnotification",
   ADMIN_PROFILE: "/adminprofile",
