@@ -4,6 +4,8 @@ import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 
 export default function ContactPage() {
+  const api = new ApiService();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,13 +14,40 @@ export default function ContactPage() {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Form submitted successfully!");
-    setFormData({ name: "", email: "", phone: "", message: "" });
+  const handleSubmit = async (e) => {
+    e.preventDefault();   // stop form refresh
+
+    try {
+      const res = await api.apipost(
+        `${ServerUrl.API_POST_CONTACT_FORM}`,
+        formData
+      );
+
+      if (res?.data?.success) {
+        alert("Form submitted successfully!");
+      } else {
+        alert("Failed to submit form");
+      }
+
+      // reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+
+    } catch (err) {
+      console.log("Server Response: ", err?.response?.data);
+      console.error("❌ Contact Form Error:", err);
+      alert("Something went wrong!");
+    }
   };
 
   return (
