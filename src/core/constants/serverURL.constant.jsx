@@ -126,8 +126,9 @@ class ServerUrl {
     // VIDEO MODULE
     static API_MODULE_VIDEOS = "/api/uploads";
     
-    static API_UPLOAD_VIDEO = ServerUrl.API_MODULE_VIDEOS + "/video";
     static API_GET_VIDEOS = ServerUrl.API_MODULE_VIDEOS + "/video";
+    static API_GET_VIDEO_BY_ID = ServerUrl.API_MODULE_VIDEOS + "/video"; // + id
+    static API_UPLOAD_VIDEO = ServerUrl.API_MODULE_VIDEOS + "/video";
     static API_DELETE_VIDEO = ServerUrl.API_MODULE_VIDEOS + "/video"; // + id
     static API_UPDATE_VIDEO = ServerUrl.API_MODULE_VIDEOS + "/video"; // + id
 
@@ -169,6 +170,7 @@ class ServerUrl {
     static API_MODULE_FACULTYS = "/api/faculty";
     
     static API_GET_FACULTYS = ServerUrl.API_MODULE_FACULTYS + "/";
+    static API_GET_FACULTY_BY_ID = ServerUrl.API_MODULE_FACULTYS + "/"; // + id
     static API_POST_FACULTY = ServerUrl.API_MODULE_FACULTYS + "/";
     static API_UPDATE_FACULTY = ServerUrl.API_MODULE_FACULTYS + "/"; // + id
     static API_DELETE_FACULTY = ServerUrl.API_MODULE_FACULTYS + "/"; // + id
