@@ -1,147 +1,49 @@
-// import React from "react";
-// import jsPDF from "jspdf";
-// import img from "../../assets/saidas/Certificate.jpeg";
-// import certificateData from "../../assets/saidas/CertificateData.json";
-
-// const Certification = () => {
-//   // DOWNLOAD PDF DIRECT FROM BACKGROUND + TEXT
-//   const handleDownloadPDF = () => {
-//     const pdf = new jsPDF("landscape", "mm", "a4");
-
-//     const pageWidth = pdf.internal.pageSize.getWidth(); // ~297mm
-//     const pageHeight = pdf.internal.pageSize.getHeight(); // ~210mm
-
-//     const background = new Image();
-//     background.src = img;
-
-//     background.onload = () => {
-//       pdf.addImage(background, "JPEG", 0, 0, pageWidth, pageHeight);
-
-//       // ============================
-//       // NAME (28% TOP) => pageHeight * 0.28
-//       // ============================
-//       pdf.setFont("Times", "Bold");
-//       pdf.setFontSize(36);
-//       pdf.setTextColor(0, 0, 0);
-//       pdf.text(
-//         certificateData.defaultName,
-//         pageWidth / 2, // center horizontally
-//         pageHeight * 0.28 + 15, // match preview top position
-//         { align: "center" }
-//       );
-
-//       // ============================
-//       // COURSE NAME (49.4% TOP, 47% LEFT)
-//       // ============================
-//       pdf.setFont("Arial", "Bold");
-//       pdf.setFontSize(18);
-//       pdf.text(
-//         certificateData.courseName,
-//         pageWidth * 0.47, // match preview left
-//         pageHeight * 0.494 + 8 // match preview top
-//       );
-
-//       // ============================
-//       // SIGN LEFT
-//       // ============================
-//       pdf.setFontSize(12);
-//       pdf.text(certificateData.signLeft, pageWidth * 0.22, pageHeight * 0.78);
-//       pdf.setFontSize(10);
-//       pdf.text(
-//         certificateData.signLeftRole,
-//         pageWidth * 0.22,
-//         pageHeight * 0.82
-//       );
-
-//       // ============================
-//       // SIGN RIGHT
-//       // ============================
-//       pdf.setFontSize(12);
-//       pdf.text(certificateData.signRight, pageWidth * 0.78, pageHeight * 0.78, {
-//         align: "right",
-//       });
-
-//       pdf.setFontSize(10);
-//       pdf.text(
-//         certificateData.signRightRole,
-//         pageWidth * 0.78,
-//         pageHeight * 0.82,
-//         { align: "right" }
-//       );
-
-//       pdf.save(`${certificateData.defaultName}.pdf`);
-//     };
-//   };
-
-//   return (
-//     <div className="min-h-screen flex flex-col items-center py-8 relative w-full">
-//       {/* DOWNLOAD BUTTON */}
-//       <button
-//         onClick={handleDownloadPDF}
-//         className="absolute top-5 right-10 px-5 py-2 bg-white text-black rounded-full shadow hover:bg-gray-200 transition"
-//       >
-//         Download PDF
-//       </button>
-
-//       <h1 className="text-2xl mb-4">Certificate</h1>
-
-//       {/* PREVIEW */}
-//       <div className="relative w-[900px] shadow-xl overflow-hidden">
-//         <img
-//           src={img}
-//           alt="Certificate"
-//           className="w-full h-full object-cover"
-//         />
-
-//         {/* NAME (Preview) */}
-//         <div
-//           className="absolute text-center"
-//           style={{
-//             top: "28%",
-//             left: "50%",
-//             transform: "translateX(-50%)",
-//             fontSize: "48px",
-//             fontFamily: "serif",
-//             fontStyle: "semi-bold",
-//           }}
-//         >
-//           {certificateData.defaultName}
-//         </div>
-
-//         {/* COURSE NAME (Preview) */}
-//         <p
-//           className="absolute font-bold whitespace-nowrap"
-//           style={{
-//             top: "49.4%",
-//             left: "47%",
-//             fontSize: "22px",
-//             fontStyle: "semi-bold",
-//           }}
-//         >
-//           {certificateData.courseName}
-//         </p>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Certification;
-
-
-
-
-
-
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import img from "../../assets/saidas/Certificate.jpeg";
-import certificateData from "../../assets/saidas/CertificateData.json";
+import ApiService from "../../core/services/api.service";
+import ServerUrl from "../../core/constants/serverURL.constant";
+import { ROUTES } from "../../core/constants/routes.constant";
 
 const Certification = () => {
-  // DOWNLOAD PDF DIRECT FROM BACKGROUND + TEXT (NO CHANGES)
-  const handleDownloadPDF = () => {
-    const pdf = new jsPDF("landscape", "mm", "a4");
+  const api = new ApiService();
+  const navigate = useNavigate();
+  const [certData, setCertData] = React.useState(null);
 
+  const fetchCertificationData = async () => {
+    try {
+      const response = await api.apiget(ServerUrl.API_USER_CERTIFICATION);
+      console.log("Certification Data:", response.data);
+
+      if (
+        response.data.success &&
+        response.data.certified &&
+        response.data.certified.length > 0
+      ) {
+        const cert = response.data.certified[0];
+
+        // Redirect if passedTests !== 1
+        if (cert.passedTests !== 1) {
+          navigate(ROUTES.USER_APPITUDE);
+          return;
+        }
+
+        setCertData(cert); // set dynamic API data
+      }
+    } catch (error) {
+      console.error("Error fetching certification data:", error);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchCertificationData();
+  }, []);
+
+  const handleDownloadPDF = () => {
+    if (!certData) return;
+
+    const pdf = new jsPDF("landscape", "mm", "a4");
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
 
@@ -155,122 +57,89 @@ const Certification = () => {
       pdf.setFont("Times", "Bold");
       pdf.setFontSize(36);
       pdf.setTextColor(0, 0, 0);
-      pdf.text(
-        certificateData.defaultName,
-        pageWidth / 2,
-        pageHeight * 0.28 + 15,
-        { align: "center" }
-      );
+      pdf.text(certData.userName || "", pageWidth / 2, pageHeight * 0.28 + 15, {
+        align: "center",
+      });
 
-      // COURSE NAME
+      // COURSE NAME / CATEGORY
       pdf.setFont("Arial", "Bold");
       pdf.setFontSize(18);
       pdf.text(
-        certificateData.courseName,
+        certData.categoryName || "",
         pageWidth * 0.47,
         pageHeight * 0.494 + 8
       );
 
-      // SIGN LEFT
+      // You can still add static signatures if needed
       pdf.setFontSize(12);
-      pdf.text(certificateData.signLeft, pageWidth * 0.22, pageHeight * 0.78);
+      pdf.text("Signature Left", pageWidth * 0.22, pageHeight * 0.78);
       pdf.setFontSize(10);
-      pdf.text(
-        certificateData.signLeftRole,
-        pageWidth * 0.22,
-        pageHeight * 0.82
-      );
+      pdf.text("Role Left", pageWidth * 0.22, pageHeight * 0.82);
 
-      // SIGN RIGHT
       pdf.setFontSize(12);
-      pdf.text(certificateData.signRight, pageWidth * 0.78, pageHeight * 0.78, {
+      pdf.text("Signature Right", pageWidth * 0.78, pageHeight * 0.78, {
+        align: "right",
+      });
+      pdf.setFontSize(10);
+      pdf.text("Role Right", pageWidth * 0.78, pageHeight * 0.82, {
         align: "right",
       });
 
-      pdf.setFontSize(10);
-      pdf.text(
-        certificateData.signRightRole,
-        pageWidth * 0.78,
-        pageHeight * 0.82,
-        { align: "right" }
-      );
-
-      pdf.save(`${certificateData.defaultName}.pdf`);
+      pdf.save(`${certData.userName || "Certificate"}.pdf`);
     };
   };
 
-  // RESPONSIVE PREVIEW UI
+  if (!certData) return null; // Optional: add loader here
+
   return (
-    <div className="min-h-screen flex flex-col items-center py-8 px-3 w-full relative">
-      {/* DOWNLOAD BUTTON — responsive placed */}
+    <div className="min-h-screen flex flex-col py-8 px-12 w-full relative">
       <button
         onClick={handleDownloadPDF}
-        className="
-          fixed bottom-5 right-5
-          sm:absolute sm:top-5 sm:right-10 sm:bottom-auto
-          px-4 py-2 bg-white text-black rounded-full shadow
-          hover:bg-gray-200 transition text-sm sm:text-base z-50
-        "
+        className="absolute bottom-5 right-5 sm:absolute sm:top-5 sm:right-10 sm:bottom-auto px-4 py-2 bg-white text-black rounded-full shadow hover:bg-gray-200 transition text-sm sm:text-base z-50"
       >
         Download PDF
       </button>
 
-      {/* TITLE */}
-      <h1 className="text-xl sm:text-2xl mb-4 font-semibold text-center">
+      <h1 className="text-3xl sm:text-2xl mb-4 font-semibold text-start">
         Certificate
       </h1>
+      <div className="flex justify-center items-center w-full px-2">
+        <div className="relative w-full max-w-[900px] aspect-[4/3] shadow-xl overflow-hidden">
+          <img
+            src={img}
+            alt="Certificate"
+            className="w-full h-full object-cover"
+          />
 
-      {/* RESPONSIVE CERTIFICATE PREVIEW */}
-      <div
-        className="
-          relative w-full max-w-[900px]
-          aspect-[4/3]            /* Keeps ratio of certificate */
-          shadow-xl overflow-hidden
-        "
-      >
-        <img
-          src={img}
-          alt="Certificate"
-          className="w-full h-full object-cover"
-        />
+          <div
+            className="absolute font-semibold text-center text-[18px] sm:text-[32px] md:text-[44px] lg:text-[48px]"
+            style={{
+              top: "28%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              fontFamily: "serif",
+              color: "#000",
+            }}
+          >
+            {certData.userName}
+          </div>
 
-        {/* NAME (Preview) */}
-        <div
-          className="
-            absolute font-semibold text-center
-            text-[18px] sm:text-[32px] md:text-[44px] lg:text-[48px]
-          "
-          style={{
-            top: "28%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            fontFamily: "serif",
-            color: "#000", // <-- ADDED
-          }}
-        >
-          {certificateData.defaultName}
+          <p
+            className="absolute font-bold whitespace-nowrap text-[10px] sm:text-[14px] md:text-[18px] lg:text-[22px]"
+            style={{
+              top: "50%",
+              left: "48.2%",
+              transform: "translateX(-10%)",
+              fontFamily: "Arial",
+              color: "#000",
+            }}
+          >
+            {certData.categoryName}
+          </p>
         </div>
-
-        {/* COURSE NAME (Preview) */}
-        <p
-          className="
-            absolute font-bold whitespace-nowrap
-            text-[10px] sm:text-[14px] md:text-[18px] lg:text-[22px]
-          "
-          style={{
-            top: "50%",
-            left: "48.2%",
-            transform: "translateX(-10%)",
-            fontFamily: "Arial",
-            color: "#000", // <-- ADDED
-          }}
-        >
-          {certificateData.courseName}
-        </p>
       </div>
     </div>
   );
 };
 
 export default Certification;
-
