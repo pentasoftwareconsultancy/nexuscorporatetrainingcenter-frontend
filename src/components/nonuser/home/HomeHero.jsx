@@ -7,8 +7,6 @@ import Button from "../../common/Button";
 
 // 🔥 GSAP imports
 import gsap from "gsap";
-import SplitText from "gsap/SplitText";
-gsap.registerPlugin(SplitText);
 
 export default function HomeHero() {
   const navigate = useNavigate();
@@ -22,7 +20,7 @@ export default function HomeHero() {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % sloganPhrases.length);
     }, 3000);
-  
+
     return () => clearInterval(interval);
   }, []);
 
@@ -37,31 +35,31 @@ export default function HomeHero() {
   React.useEffect(() => {
     if (!textRef.current) return;
 
-    // stop any existing tweens
-    gsap.killTweensOf("*");
+    const element = textRef.current;
+    const words = sloganPhrases[currentIndex].split(" ");
 
-    // split by words
-    const split = new SplitText(textRef.current, {
-      type: "words",
-      wordsClass: "word" // each word will get class="word"
+    element.innerHTML = "";
+
+    words.forEach((word) => {
+      const span = document.createElement("span");
+      span.textContent = word + " ";
+      span.style.display = "inline-block";
+      element.appendChild(span);
     });
 
-    // animate the words (they are inline-block so won't break mid-word)
+    const spans = element.querySelectorAll("span");
+
     gsap.fromTo(
-      split.words,
+      spans,
       { y: 30, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 0.70,
+        duration: 0.7,
         stagger: 0.1,
         ease: "power3.out",
       }
     );
-
-    return () => {
-      split.revert(); // clean up SplitText DOM changes
-    };
   }, [currentIndex]);
 
   return (
@@ -94,8 +92,14 @@ export default function HomeHero() {
             <span className="font-playfair">NE</span>
             <span className="text-5xl pt-1">
               <svg width="300" height="300" viewBox="0 0 40 34" fill="none">
-                <path d="M31.5408 0.000221879L39.5234 0.00080831L34.5562 2.77579C33.3436 3.45323 32.2854 4.37587 31.4491 5.4849L12.364 30.7934C11.2302 32.2968 9.45642 33.1808 7.57341 33.1808H-0.000190735L5.03663 30.275C6.22264 29.5907 7.25551 28.6702 8.07121 27.5704L26.7213 2.42583C27.8531 0.899828 29.6409 8.23028e-05 31.5408 0.000221879Z" fill="#FF6A00"/>
-                <path d="M7.98262 0.000221879L0 0.00080831L4.96721 2.77579C6.17983 3.45323 7.23802 4.37587 8.07433 5.4849L27.1595 30.7934C28.2932 32.2968 30.067 33.1808 31.95 33.1808H39.5236L34.4868 30.275C33.3008 29.5907 32.2679 28.6702 31.4522 27.5704L12.8022 2.42583C11.6703 0.899828 9.88257 8.23028e-05 7.98262 0.000221879Z" fill="#FF6A00"/>
+                <path
+                  d="M31.5408 0.000221879L39.5234 0.00080831L34.5562 2.77579C33.3436 3.45323 32.2854 4.37587 31.4491 5.4849L12.364 30.7934C11.2302 32.2968 9.45642 33.1808 7.57341 33.1808H-0.000190735L5.03663 30.275C6.22264 29.5907 7.25551 28.6702 8.07121 27.5704L26.7213 2.42583C27.8531 0.899828 29.6409 8.23028e-05 31.5408 0.000221879Z"
+                  fill="#FF6A00"
+                />
+                <path
+                  d="M7.98262 0.000221879L0 0.00080831L4.96721 2.77579C6.17983 3.45323 7.23802 4.37587 8.07433 5.4849L27.1595 30.7934C28.2932 32.2968 30.067 33.1808 31.95 33.1808H39.5236L34.4868 30.275C33.3008 29.5907 32.2679 28.6702 31.4522 27.5704L12.8022 2.42583C11.6703 0.899828 9.88257 8.23028e-05 7.98262 0.000221879Z"
+                  fill="#FF6A00"
+                />
               </svg>
             </span>
             <span className="font-playfair">US</span>
@@ -139,16 +143,16 @@ export default function HomeHero() {
           </style>
         </div>
       </div>
-      
+
       <div className="flex justify-center w-full h-full z-20 ">
-         <div className="absolute inset-0 bg-three/5 backdrop-blur-sm rounded-2xl pointer-events-none w-full h-full"></div>
+        <div className="absolute inset-0 bg-three/5 backdrop-blur-sm rounded-2xl pointer-events-none w-full h-full"></div>
         {/* 🔸 Left Section (slightly down) */}
         <div className="relative z-10 flex flex-col justify-center md:justify-end w-full md:w-1/2 pb-6 md:pb-1 translate-y-10">
           <div className="p-4 sm:p-6 md:p-10 rounded-2xl space-y-6 text-center md:text-left">
             <div className="max-w-3xl">
               <h1
-                key={currentIndex}  // 🔥 Key to re-render on index change
-                ref={textRef}   // 🔥 GSAP target
+                key={currentIndex} // 🔥 Key to re-render on index change
+                ref={textRef} // 🔥 GSAP target
                 className="
                   text-4xl sm:text-5xl lg:text-6xl 
                   font-medium leading-snug 
@@ -157,7 +161,10 @@ export default function HomeHero() {
                 {sloganPhrases[currentIndex]}
               </h1>
             </div>
-            <Button text="Enroll Now" onClick={() => navigate(ROUTES.CONTACT)} />
+            <Button
+              text="Enroll Now"
+              onClick={() => navigate(ROUTES.CONTACT)}
+            />
           </div>
         </div>
 
@@ -177,9 +184,9 @@ export default function HomeHero() {
               "
               style={{
                 animation:
-                "typing 4s steps(40, end) infinite, blink .75s step-end infinite",
+                  "typing 4s steps(40, end) infinite, blink .75s step-end infinite",
               }}
-              >
+            >
               <style>
                 {`
                   @keyframes typing {
@@ -203,8 +210,8 @@ export default function HomeHero() {
             <p className="text-gray-200 text-base sm:text-lg leading-relaxed text-justify md:text-right">
               We believe true business growth is built on the strength of your
               people. Our expertise lies in crafting bespoke training programs
-              that don’t just teach skills — they transform teams. We partner with
-              you to understand your unique challenges, delivering proven
+              that don’t just teach skills — they transform teams. We partner
+              with you to understand your unique challenges, delivering proven
               solutions that drive measurable results and empower your workforce
               to achieve more.
             </p>
@@ -220,7 +227,7 @@ export default function HomeHero() {
         pointer-events-none
         overflow-hidden
         "
-        >
+      >
         <CircleBackground />
       </div>
     </div>

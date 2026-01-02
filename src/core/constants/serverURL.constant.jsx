@@ -120,9 +120,15 @@ class ServerUrl {
     // GET TEST RESULT
     static API_GET_TEST_RESULT = ServerUrl.API_MODULE_TESTS + "/latest/"; // + testId
 
-    // USER TEST RESULT APIs
-    static API_USER_TEST_RESULT = ServerUrl.API_MODULE_TESTS + "/usertest"; // + /:userTestId/summary
+    //USER TEST RESULT VIES
+    static API_USER_TEST_RESULT_VIEWS = ServerUrl.API_MODULE_TESTS + "/me/latest/summary"; 
 
+    // USER CERTIFICATION APIs
+    static API_USER_CERTIFICATION = ServerUrl.API_MODULE_TESTS + "/certification/eligible";
+
+    // USER TEST RESULT APIs for delete  this after complete
+    static API_USER_TEST_RESULT = ServerUrl.API_MODULE_TESTS + "/usertest"; // + /:userTestId/summary
+    
     // VIDEO MODULE
     static API_MODULE_VIDEOS = "/api/uploads";
     
