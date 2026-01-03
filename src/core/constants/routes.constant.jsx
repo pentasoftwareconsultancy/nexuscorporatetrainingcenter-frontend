@@ -5,8 +5,8 @@ export const ROUTES = {
   COURSES: "/courses",
   COURSE_DETAILS: "/courses/category/:categoryId",
   GALLERY: "/gallery",
-  GALLERY_COLLEGE: "/gallery/:collegeId",
-  GALLERY_INFO: "/gallery/:id",
+  // GALLERY_COLLEGE: "/gallery/:collegeId",
+  GALLERY_INFO: "/gallery/album/:id",
   PLACEMENTS: "/placements",
   PLACEMENT_STORY: "/placements/:year/:id",
   UPCOMING: "/upcoming",
@@ -51,7 +51,7 @@ export const ROUTES = {
     ADMIN_EVENT_DETAIL_ADD: "/eventdetail/add",
     ADMIN_EVENT_DETAIL_EDIT: "/eventdetail/edit/:id",
     // gallery college
-    ADMIN_GALLERY_COLLEGE: "/gallerycollege",
+    // ADMIN_GALLERY_COLLEGE: "/gallerycollege",
     ADMIN_EVENT_COLLEGE_ADD: "/eventcollege/add",
     ADMIN_EVENT_COLLEGE_EDIT: "/eventcollege/edit/:id",
   //Courses
