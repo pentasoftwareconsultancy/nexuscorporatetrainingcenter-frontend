@@ -16,6 +16,7 @@ const Result = () => {
     const fetchResult = async () => {
       try {
         const res = await api.apiget(ServerUrl.API_USER_TEST_RESULT_VIEWS);
+        console.log("RESULT API:", res.data);
         // API RETURNS -> success + data
         setResult(res.data.data);
       } catch (error) {

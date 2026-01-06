@@ -143,7 +143,7 @@ export default function TestExam() {
       const res = await api.apipost(ServerUrl.API_SUBMIT_TEST, body);
 
       navigate(ROUTES.USER_SUCCESS, { state: { testId: id } });
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       console.error("Submit failed:", err);
       alert("Failed to submit test. Check console for details.");
