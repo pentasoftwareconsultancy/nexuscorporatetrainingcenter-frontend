@@ -30,7 +30,6 @@ export const ROUTES = {
   ADMIN_DASHBOARD: "/dashboard",
   ADMIN_TOTAL_REGISTER: "/totaldashboard",
   ADMIN_NEW_REGISTER: "/registerdashboard",
-  ADMIN_TEST_COMPLETED: "/testdashboard",
   ADMIN_COLLEGE_VISIT: "/visitdashboard",
   // Faculty
   ADMIN_FACULTY: "/facultydashboard",
@@ -62,10 +61,14 @@ export const ROUTES = {
   ADMIN_TOTAL_PLACEMENTS: "/placementdashboard",
   ADMIN_PLACEMENT_DETAIL: "/placementdetail",
   ADMIN_PLACEMENT_DETAIL_EDIT: "/placementdetail/:id",
-  // Test
+  // Test Category
   ADMIN_TEST_DASHBOARD: "/testcreatedashboard",
   ADMIN_TEST_CATEGORY_FORM: "/testcategoryform",
-  ADMIN_TEST_CATEGORY_FORM_EDIT: "/testcategoryform/:id",
+  ADMIN_TEST_CATEGORY_FORM_EDIT: "/testcategoryform",
+  // Admin Questions
+  ADMIN_QUESTION_DASHBOARD_BY_ID: "/questiondashboard",
+  ADMIN_QUESTION_FORM: "/questionform",
+  ADMIN_QUESTION_FORM_EDIT: "/questionform",
   // 
   ADMIN_NOTIFICATION: "/adminnotification",
   ADMIN_PROFILE: "/adminprofile",

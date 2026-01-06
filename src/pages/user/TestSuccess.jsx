@@ -23,7 +23,7 @@ const TestSuccess = () => {
       if (!testId) return;
 
       const res = await api.apiget(`${ServerUrl.API_GET_TEST_RESULT}${testId}`);
-      console.log("Latest Result:", res);
+      console.log("Latest Result:", res.data.data);
 
       // FIX: backend returns res.data.success
       if (res.data.success) {
@@ -112,7 +112,7 @@ const TestSuccess = () => {
         <Button
           text="View Detailed Result"
           onClick={() =>
-            navigate(ROUTES.USER_RESULT, { state: { testId: result.testId } }, window.location.reload())
+            navigate(ROUTES.USER_RESULT)
           }
         />
       </div>

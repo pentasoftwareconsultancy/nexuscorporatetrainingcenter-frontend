@@ -34,7 +34,6 @@ import Certification from "../pages/user/Certification";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import TotalRegisterDashboard from "../pages/admin/TotalRegisterDashboard";
 import NewRegisterDashboard from "../pages/admin/NewRegisterDashboard";
-import CompletedTestDashboard from "../pages/admin/CompletedTestDashboard";
 import TotalPlacementDashboard from "../pages/admin/TotalPlacementDashboard";
 import TotalReviewsDashboard from "../pages/admin/TotalReviewsDashboard";
 import AdminCoursesPage from "../pages/admin/AdminCoursesPage";
@@ -59,6 +58,8 @@ import TestCategoryForm from "../pages/admin/TestCategoryForm";
 import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 import AdminTestDashboardPage from "../pages/admin/AdminTestDashboardPage";
+import AdminQuestionsDashboardPage from "../pages/admin/AdminQuestionsDashboardPage";
+import QuestionsForm from "../pages/admin/QuestionsForm";
 
 const AppRoutes = () => {
 
@@ -92,7 +93,7 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
         <Route element={<UserLayout />}>
           <Route path={ROUTES.USER_APPITUDE} element={<AppitudeExam />} />
-          <Route path={ROUTES.USER_EXAM} element={<TestExam />} />
+          <Route path={`${ROUTES.USER_EXAM}/:id`} element={<TestExam />} />
           <Route path={ROUTES.USER_SUCCESS} element={<TestSuccess />} />
           <Route path={ROUTES.USER_RESULT} element={<Result />} />
           <Route path={ROUTES.USER_CERTIFICATION} element={<Certification />} />
@@ -105,7 +106,6 @@ const AppRoutes = () => {
           <Route path={ROUTES.ADMIN_DASHBOARD} element={<AdminDashboard />} />
           <Route path={ROUTES.ADMIN_TOTAL_REGISTER} element={<TotalRegisterDashboard />} />
           <Route path={ROUTES.ADMIN_NEW_REGISTER} element={<NewRegisterDashboard />} />
-          <Route path={ROUTES.ADMIN_TEST_COMPLETED} element={<CompletedTestDashboard />} />
           {/* Faculty */}
           <Route path={ROUTES.ADMIN_FACULTY} element={<AdminFacultyPage />} />
           <Route path={ROUTES.ADMIN_FACULTY_FORM} element={<AdminFacultyForm />} />
@@ -138,10 +138,15 @@ const AppRoutes = () => {
           />
           <Route path={ROUTES.ADMIN_PLACEMENT_DETAIL} element={<PlacementDetailPage />} />
           <Route path={ROUTES.ADMIN_PLACEMENT_DETAIL_EDIT} element={<PlacementDetailPage />} />
-          {/* Test */}
+          {/* Admin Test */}
+          {/* Test Category */}
           <Route path={ROUTES.ADMIN_TEST_DASHBOARD} element={<AdminTestDashboardPage />} />
           <Route path={ROUTES.ADMIN_TEST_CATEGORY_FORM} element={<TestCategoryForm />} />
-          <Route path={ROUTES.ADMIN_TEST_CATEGORY_FORM_EDIT} element={<TestCategoryForm />} />
+          <Route path={`${ROUTES.ADMIN_TEST_CATEGORY_FORM_EDIT}/:id`} element={<TestCategoryForm />} />
+          {/* Admin Questions */}
+          <Route path={`${ROUTES.ADMIN_QUESTION_DASHBOARD_BY_ID}/:id`} element={<AdminQuestionsDashboardPage />} />
+          <Route path={ROUTES.ADMIN_QUESTION_FORM} element={<QuestionsForm />} />
+          <Route path={`${ROUTES.ADMIN_QUESTION_FORM_EDIT}/:id`} element={<QuestionsForm />} />
           {/*  */}
           <Route path={ROUTES.ADMIN_REGISTER_DETAIL} element={<RegisterDetailPage />} />
           <Route path={ROUTES.ADMIN_TEST_COMPLETE_DETAIL} element={<TestCompleteDetailPage />} />

@@ -126,6 +126,11 @@ class ServerUrl {
     // USER CERTIFICATION APIs
     static API_USER_CERTIFICATION = ServerUrl.API_MODULE_TESTS + "/certification/eligible";
 
+    // --------------------------------ADMIN TEST RELATED APIS--------------------------------
+    // GET
+    static API_GET_CATEGORY_WITH_TEST = ServerUrl.API_MODULE_TESTS + "/full";
+    static API_GET_ALL_TEST_BYID = ServerUrl.API_MODULE_TESTS + "/full/test/"; // + id
+
     // USER TEST RESULT APIs for delete  this after complete
     static API_USER_TEST_RESULT = ServerUrl.API_MODULE_TESTS + "/usertest"; // + /:userTestId/summary
     
