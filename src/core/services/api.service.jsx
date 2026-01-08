@@ -17,8 +17,8 @@ class ApiService {
     return ApiInterceptor.init().patch(`${url}`, body);
   }
 
-  apidelete(url) {
-    return ApiInterceptor.init().delete(`${url}`);
+  apidelete(url, config={}) {
+    return ApiInterceptor.init().delete(`${url}`, config);
   }
 
 async fetchImageAsBase64(url) {
