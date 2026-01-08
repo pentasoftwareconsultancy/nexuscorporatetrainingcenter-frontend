@@ -1,44 +1,57 @@
-import React, { use, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import ApiService from "../../core/services/api.service";
+import ServerUrl from "../../core/constants/serverURL.constant";
 import { ROUTES } from "../../core/constants/routes.constant";
 
 const AdminQuestionsDashboardPage = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const { id: testId } = useParams(); // testId from URL
   const navigate = useNavigate();
+  const api = new ApiService();
 
-  // 🔹 Dummy course + questions data
-  const courseName = "Full Stack Python";
+  const [searchQuery, setSearchQuery] = useState("");
+  const [courseName, setCourseName] = useState("");
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const questions = [
-    {
-      id: 1,
-      question: "What is React?",
-      correctAnswer: "A JavaScript library for building UI",
-    },
-    {
-      id: 2,
-      question: "What is JSX?",
-      correctAnswer: "Syntax extension for JavaScript",
-    },
-    {
-      id: 3,
-      question: "What is useState?",
-      correctAnswer: "React Hook for state management",
-    },
-  ];
+  // 🔥 FETCH QUESTIONS BY TEST ID
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const res = await api.apiget(`${ServerUrl.API_GET_QUESTIONS_AND_OPTIONS}${testId}/questions`);
+        console.log("Fetched Questions:", res);
+        setCourseName(res.data.title);
+        setQuestions(res.data.questions || []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // 🔍 Filter questions
-  const filteredQuestions = questions.filter(
-    (q) =>
-      q.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      q.correctAnswer.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    fetchQuestions();
+  }, [testId]);
+
+  // 🔍 Filter
+  const filteredQuestions = questions.filter((q) => {
+    const correctOption =
+      q.options?.find((o) => o.is_correct)?.option_text || "";
+
+    return (
+      q.question_text.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      correctOption.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+
+  if (loading) {
+    return <p className="text-center mt-20">Loading questions...</p>;
+  }
 
   return (
     <div className="relative min-h-screen flex text-white font-sora">
-      {/* MAIN CONTENT */}
       <main className="flex-1 p-4 md:p-8">
+
         {/* HEADING */}
         <h2 className="text-xl md:text-2xl font-semibold pb-5">
           {courseName} Questions ({filteredQuestions.length})
@@ -46,10 +59,7 @@ const AdminQuestionsDashboardPage = () => {
 
         {/* SEARCH */}
         <div className="mt-4 relative">
-          <Search
-            className="absolute left-4 top-3 text-gray-400"
-            size={20}
-          />
+          <Search className="absolute left-4 top-3 text-gray-400" size={20} />
           <input
             type="text"
             placeholder="Search question or answer"
@@ -67,33 +77,36 @@ const AdminQuestionsDashboardPage = () => {
           <div className="col-span-4">Correct Answer</div>
         </div>
 
-        {/* DATA LIST */}
+        {/* DATA */}
         <div className="flex flex-col gap-4 mt-4">
-          {filteredQuestions.map((q, idx) => (
-            <div
-              key={q.id}
-              onClick={() => navigate(`${ROUTES.ADMIN_QUESTION_FORM_EDIT}/${q.id}`)}
-              className="border border-white rounded-xl p-4 hover:bg-[#222] transition
-              grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 items-start"
-            >
-              {/* SR NO */}
-              <div className="md:col-span-1 font-semibold">
-                {idx + 1}
-              </div>
+          {filteredQuestions.map((q, idx) => {
+            const correctAnswer =
+              q.options?.find((o) => o.is_correct)?.option_text || "—";
 
-              {/* QUESTION */}
-              <div className="md:col-span-7 text-sm leading-relaxed">
-                {q.question}
-              </div>
+            return (
+              <div
+                key={q.id}
+                onClick={() =>
+                  navigate(`${ROUTES.ADMIN_QUESTION_FORM_EDIT}/${q.id}`, { state: { testId } })
+                }
+                className="border border-white rounded-xl p-4 hover:bg-[#222] transition
+                grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 items-start cursor-pointer"
+              >
+                <div className="md:col-span-1 font-semibold">
+                  {idx + 1}
+                </div>
 
-              {/* ANSWER */}
-              <div className="md:col-span-4 text-green-400 text-sm">
-                {q.correctAnswer}
-              </div>
-            </div>
-          ))}
+                <div className="md:col-span-7 text-sm leading-relaxed">
+                  {q.question_text}
+                </div>
 
-          {/* EMPTY STATE */}
+                <div className="md:col-span-4 text-green-400 text-sm">
+                  {correctAnswer}
+                </div>
+              </div>
+            );
+          })}
+
           {filteredQuestions.length === 0 && (
             <p className="text-center text-gray-400 mt-4">
               No questions found
@@ -101,8 +114,10 @@ const AdminQuestionsDashboardPage = () => {
           )}
         </div>
       </main>
+
+      {/* ADD BUTTON */}
       <button
-        onClick={() => navigate(ROUTES.ADMIN_QUESTION_FORM)}
+        onClick={() => navigate(ROUTES.ADMIN_QUESTION_FORM, { state: { testId } })}
         className="fixed right-10 bottom-10 w-14 h-14 bg-one text-black text-3xl rounded-full font-bold shadow-lg"
       >
         +
