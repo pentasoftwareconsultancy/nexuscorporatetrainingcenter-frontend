@@ -9,6 +9,10 @@ class ServerUrl {
     static API_LOGIN = ServerUrl.API_MODULE_USER + "/login";
     static API_REGISTER = ServerUrl.API_MODULE_USER + "/signup";
     static API_GET_ME = ServerUrl.API_MODULE_USER + "/me";
+    static API_FORGOT_PASSWORD = ServerUrl.API_MODULE_USER + "/forgot-password";
+    static API_FORGOT_PASSWORD_VERIFY = ServerUrl.API_MODULE_USER + "/forgot-password/verify";
+    static API_FORGOT_PASSWORD_RESET = ServerUrl.API_MODULE_USER + "/reset-password";
+    static API_FORGOT_PASSWORD_CHANGE = ServerUrl.API_MODULE_USER + "/change-password";
 
     // master module
     static API_MODULE_MASTER = "/api/master";    
@@ -202,6 +206,20 @@ class ServerUrl {
     static API_GET_CONTACT_FORMS = ServerUrl.API_MODULE_CONTACT + "/";
     static API_GET_CONTACT_FORM_BY_ID = ServerUrl.API_MODULE_CONTACT + "/"; // + id
     static API_DELETE_CONTACT_FORM = ServerUrl.API_MODULE_CONTACT + "/"; // + id
+
+    /* -------------------- ADMIN TESTS -------------------- */
+    static API_MODULE_ADMIN_TESTS = "/api/admintests";
+
+    static API_GEY_CATEGORY_AND_TESTS = ServerUrl.API_MODULE_ADMIN_TESTS + "/categories-tests";
+    static API_POST_CATEGORY_AND_TESTS = ServerUrl.API_MODULE_ADMIN_TESTS + "/category-test";
+    static API_UPDATE_CATEGORY_AND_TESTS = ServerUrl.API_MODULE_ADMIN_TESTS + "/category-test/"; // + id
+    static API_DELETE_CATEGORY = ServerUrl.API_MODULE_ADMIN_TESTS + "/category/"; // + id
+    static API_DELETE_TEST = ServerUrl.API_MODULE_ADMIN_TESTS + "/test/"; // + id
+
+    static API_GET_QUESTIONS_AND_OPTIONS = ServerUrl.API_MODULE_ADMIN_TESTS + "/test/"; // + :id/question
+    static API_POST_QUESTIONS_AND_OPTIONS = ServerUrl.API_MODULE_ADMIN_TESTS + "/question";
+    static API_UPDATE_QUESTIONS_AND_OPTIONS = ServerUrl.API_MODULE_ADMIN_TESTS + "/question/"; // + id
+    static API_DELETE_QUESTIONS_AND_OPTIONS = ServerUrl.API_MODULE_ADMIN_TESTS + "/question";
 }
 
 export default ServerUrl;

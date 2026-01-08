@@ -24,18 +24,31 @@ const TestCategoryForm = () => {
   useEffect(() => {
     if (!id) return;
 
-    const fetchTest = async () => {
+    const fetchFromCategoryTests = async () => {
       try {
         setLoading(true);
-        const res = await api.apiget(
-          `${ServerUrl.API_GET_CATEGORY_WITH_TEST}/${id}`
-        );
 
-        const test = res.data.data;
+        const res = await api.apiget(ServerUrl.API_GEY_CATEGORY_AND_TESTS);
+
+        const categories = res.data || [];
+
+        let foundTest = null;
+        let foundCategory = null;
+
+        for (const cat of categories) {
+          const test = cat.tests?.find((t) => t.id === Number(id));
+          if (test) {
+            foundTest = test;
+            foundCategory = cat;
+            break;
+          }
+        }
+
+        if (!foundTest) throw new Error("Test not found");
 
         setData({
-          category: test.categoryId,
-          course: test.title,
+          category: foundCategory.name,
+          course: foundTest.title,
         });
       } catch (err) {
         console.error("Failed to fetch test", err);
@@ -44,7 +57,7 @@ const TestCategoryForm = () => {
       }
     };
 
-    fetchTest();
+    fetchFromCategoryTests();
   }, [id]);
 
   const handleChange = (field, value) =>
@@ -57,15 +70,28 @@ const TestCategoryForm = () => {
     e.preventDefault();
 
     try {
-      await api.apiput(
-        `${ServerUrl.API_UPDATE_TEST}/${id}`,
-        data
-      );
-      alert("Updated successfully");
+      if (isEdit) {
+        // UPDATE
+        await api.apiput(`${ServerUrl.API_UPDATE_CATEGORY_AND_TESTS}${id}`, {
+          categoryName: data.category,
+          testTitle: data.course,
+          status: true,
+        });
+        alert("Updated successfully");
+      } else {
+        // CREATE
+        await api.apipost(ServerUrl.API_POST_CATEGORY_AND_TESTS, {
+          categoryName: data.category,
+          testTitle: data.course,
+          status: true,
+        });
+        alert("Created successfully");
+      }
+
       navigate(-1);
     } catch (err) {
       console.error(err);
-      alert("Update failed");
+      alert("Operation failed");
     }
   };
 
@@ -73,14 +99,52 @@ const TestCategoryForm = () => {
           DELETE
   ======================== */
   const handleDelete = async () => {
-    if (!window.confirm("Delete this test?")) return;
+    const choice = window.prompt(
+      "Type:\n1 → Delete ONLY this Test\n2 → Delete CATEGORY with ALL tests & questions"
+    );
+
+    if (!choice) return;
 
     try {
-      await api.apidelete(
-        `${ServerUrl.API_DELETE_TEST}/${id}`
-      );
-      alert("Deleted successfully");
-      navigate(-1);
+      // DELETE ONLY TEST
+      if (choice === "1") {
+        if (!window.confirm("Are you sure you want to delete this test?"))
+          return;
+
+        await api.apidelete(`${ServerUrl.API_DELETE_TEST}${id}`);
+
+        alert("Test deleted");
+        navigate(-1);
+      }
+
+      // DELETE CATEGORY
+      if (choice === "2") {
+        const confirm = window.confirm(
+          "⚠️ WARNING ⚠️\nDeleting category will delete ALL its tests and questions.\n\nAre you absolutely sure?"
+        );
+
+        if (!confirm) return;
+
+        // first fetch categoryId
+        const res = await api.apiget(ServerUrl.API_GEY_CATEGORY_AND_TESTS);
+
+        const categories = res.data || [];
+        let categoryId = null;
+
+        for (const cat of categories) {
+          if (cat.tests?.some((t) => t.id === Number(id))) {
+            categoryId = cat.id;
+            break;
+          }
+        }
+
+        if (!categoryId) throw new Error("Category not found");
+
+        await api.apidelete(`${ServerUrl.API_DELETE_CATEGORY}${categoryId}`);
+
+        alert("Category deleted with all tests");
+        navigate(-1);
+      }
     } catch (err) {
       console.error(err);
       alert("Delete failed");

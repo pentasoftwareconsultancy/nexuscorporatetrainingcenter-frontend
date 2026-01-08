@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Search } from "lucide-react";
+import { Search, Edit, Delete } from "lucide-react";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
@@ -7,7 +7,6 @@ import Button from "../../components/common/Button";
 import { ROUTES } from "../../core/constants/routes.constant";
 
 export default function AdminTestDashboardPage() {
-
   const [selectedCategory, setSelectedCategory] = useState("");
   const [search, setSearch] = useState("");
 
@@ -21,28 +20,28 @@ export default function AdminTestDashboardPage() {
       try {
         const api = new ApiService();
 
-        // 1️⃣ Get categories
-        const catRes = await api.apiget(ServerUrl.API_GET_TEST_CATEGORIES);
-        const categoryList = Array.isArray(catRes.data.data)
-          ? catRes.data.data
-          : [];
+        const res = await api.apiget(ServerUrl.API_GEY_CATEGORY_AND_TESTS);
+
+        const categoryList = Array.isArray(res.data) ? res.data : [];
 
         setCategories(categoryList);
+
+        // flatten tests from categories
+        const allTests = categoryList.flatMap((cat) =>
+          cat.tests.map((test) => ({
+            ...test,
+            categoryId: cat.id,
+          }))
+        );
+
+        setTests(allTests);
 
         // set default category
         if (categoryList.length > 0) {
           setSelectedCategory(categoryList[0].id);
         }
-
-        // 2️⃣ Get ALL tests once
-        const testRes = await api.apiget(ServerUrl.API_GET_TESTS);
-        const testList = Array.isArray(testRes.data.data)
-          ? testRes.data.data
-          : [];
-
-        setTests(testList);
       } catch (err) {
-        console.error("Error fetching:", err);
+        console.error("Error fetching category & tests:", err);
       }
     };
 
@@ -143,7 +142,13 @@ export default function AdminTestDashboardPage() {
                 {/* SHOW BUTTON ONLY IF NOT COMPLETED */}
                 <div className="w-full flex justify-end gap-2 mt-8">
                   <Button
-                    text="Edit / Delete"
+                    text={
+                      <div className="flex gap-3 items-center justify-center">
+                        <Edit />
+                        /
+                        <Delete />
+                      </div>
+                    }
                     className={`px-4 py-4 w-2/3 size-2/5 ${topic.status === 1}`}
                     showIcon={false}
                     onClick={() =>
