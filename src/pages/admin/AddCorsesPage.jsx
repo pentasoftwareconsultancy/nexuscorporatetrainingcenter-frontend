@@ -3,13 +3,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Edit, Trash2, Upload } from "lucide-react"; // Import Upload icon
 import ServerUrl from "../../core/constants/serverURL.constant";
 import ApiService from "../../core/services/api.service";
+import { useSingleClick } from "../../core";
 
 export default function AddCorsesPage() {
   const { id } = useParams();
   const isEditMode = Boolean(id);
   const api = new ApiService();
   const navigate = useNavigate();
-
+  const singleClick = useSingleClick();
   const initialCourseState = {
     title: "",
     description: "",
@@ -91,8 +92,6 @@ export default function AddCorsesPage() {
   };
 
   const handleSubmit = async () => {
-    if (isSubmitting) return; // 🛑 double safety
-
     setIsSubmitting(true);
 
     try {
@@ -101,7 +100,6 @@ export default function AddCorsesPage() {
       if (categoryId === "new") {
         if (!newCategory.trim()) {
           alert("Please enter category name");
-          setIsSubmitting(false);
           return;
         }
 
@@ -114,19 +112,20 @@ export default function AddCorsesPage() {
 
       if (!categoryId) {
         alert("Category is required");
-        setIsSubmitting(false);
         return;
       }
 
       const formData = new FormData();
-      formData.append("title", course.title);
-      formData.append("description", course.description);
-      formData.append("duration", course.duration);
-      formData.append("fees", course.fees);
-      formData.append("categoryId", categoryId);
-      formData.append("instructor", course.instructor);
-      formData.append("what_you_will_learn", course.what_you_will_learn);
-      formData.append("syllabus", course.syllabus);
+      Object.entries({
+        title: course.title,
+        description: course.description,
+        duration: course.duration,
+        fees: course.fees,
+        categoryId,
+        instructor: course.instructor,
+        what_you_will_learn: course.what_you_will_learn,
+        syllabus: course.syllabus,
+      }).forEach(([k, v]) => formData.append(k, v));
 
       if (course.syllabus_pdf) {
         formData.append("syllabus_pdf", course.syllabus_pdf);
@@ -135,12 +134,12 @@ export default function AddCorsesPage() {
       await api.apipost(ServerUrl.API_ADD_COURSE_WITH_DETAILS, formData);
 
       resetForm();
-      navigate("/admincourses");
+      navigate(-1);
     } catch (err) {
       console.error(err);
       alert("Something went wrong");
     } finally {
-      setIsSubmitting(false); // ✅ unlock button
+      setIsSubmitting(false);
     }
   };
 
@@ -167,6 +166,7 @@ export default function AddCorsesPage() {
     await api.apiput(ServerUrl.API_UPDATE_COURSE_DETAILS + id, formData);
 
     alert("Course updated successfully");
+    navigate(-1);
   };
 
   const handleDelete = async () => {
@@ -176,7 +176,7 @@ export default function AddCorsesPage() {
 
     await api.apidelete(ServerUrl.API_DELETE_COURSE + id);
 
-    navigate("/admincourses");
+    navigate(-1);
   };
 
   return (
@@ -189,11 +189,17 @@ export default function AddCorsesPage() {
           {/* Top-right icon buttons */}
           {isEditMode && (
             <div className="flex gap-4">
-              <button onClick={handleEdit} className="bg-white p-2 rounded">
+              <button
+                onClick={() => singleClick(handleEdit)}
+                className="bg-white p-2 rounded"
+              >
                 <Edit size={20} color="orange" />
               </button>
 
-              <button onClick={handleDelete} className="bg-white p-2 rounded">
+              <button
+                onClick={() => singleClick(handleDelete)}
+                className="bg-white p-2 rounded"
+              >
                 <Trash2 size={20} color="orange" />
               </button>
             </div>
@@ -330,11 +336,11 @@ export default function AddCorsesPage() {
       </div>
       {!isEditMode && (
         <button
-          onClick={handleSubmit}
+          onClick={() => singleClick(handleSubmit)}
           disabled={isSubmitting}
           className={`fixed right-10 bottom-10 w-14 h-14 
-          ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-one"}
-        text-black text-3xl rounded-full font-bold shadow-lg`}
+         ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-one"}
+         text-black text-3xl rounded-full font-bold shadow-lg`}
         >
           {isSubmitting ? "…" : "+"}
         </button>
