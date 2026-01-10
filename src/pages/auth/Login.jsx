@@ -165,7 +165,7 @@ export default Login;
 
 const ForgotPasswordModal = ({ onClose }) => {
   const api = new ApiService();
-
+  const [resetToken, setResetToken] = useState("");
   const [step, setStep] = useState(1);
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [question, setQuestion] = useState("");
@@ -192,10 +192,13 @@ const ForgotPasswordModal = ({ onClose }) => {
   const handleStep2 = async () => {
     try {
       setLoading(true);
-      await api.apipost(ServerUrl.API_FORGOT_PASSWORD_VERIFY, {
+
+      const res = await api.apipost(ServerUrl.API_FORGOT_PASSWORD_VERIFY, {
         emailOrPhone,
         answer,
       });
+
+      setResetToken(res.data.resetToken);
       setStep(3);
     } catch {
       alert("Wrong answer");
@@ -209,9 +212,9 @@ const ForgotPasswordModal = ({ onClose }) => {
       setLoading(true);
 
       await api.apipost(ServerUrl.API_FORGOT_PASSWORD_RESET, {
-        emailOrPhone,
+        resetToken, // ✅ REQUIRED
         newPassword,
-        confirmPassword, // ✅ REQUIRED
+        confirmPassword,
       });
 
       alert("Password reset successful");
