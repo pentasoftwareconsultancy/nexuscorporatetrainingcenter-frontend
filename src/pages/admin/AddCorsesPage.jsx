@@ -206,7 +206,7 @@ export default function AddCorsesPage() {
           )}
         </div>
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
           {/* Row 1: Name, Duration, Instructor, Phone */}
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 flex flex-col">
