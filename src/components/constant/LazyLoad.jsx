@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
+import PageLoader from "./PageLoder";
 
 const LazyLoad = ({ component: Component }) => {
   const [ready, setReady] = useState(false);
