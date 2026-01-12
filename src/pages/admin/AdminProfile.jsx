@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ApiService from "../../core/services/api.service.jsx";
+import Profile from "../../assets/adminProfile/profile.png";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineMail } from "react-icons/md";
@@ -49,7 +50,7 @@ const AdminProfile = () => {
         {/* Dummy Image */}
         <div className="flex justify-center md:justify-start shrink-0 min-w-[80px]">
           <img
-            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            src={Profile}
             alt="Profile"
             className="w-20 h-20 rounded-full"
           />

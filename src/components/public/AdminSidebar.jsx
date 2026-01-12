@@ -141,7 +141,7 @@ function AdminSidebar({ isOpen, setIsOpen }) {
             onClick={() => {
               localStorage.clear();
               sessionStorage.clear();
-              navigate("/");
+              navigate(ROUTES.HOME);
               window.location.reload();
             }}
             className={`

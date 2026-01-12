@@ -79,7 +79,7 @@ const ButtonGroup = () => {
       {/* WhatsApp */}
       <div className="icon-wrapper" onClick={createRipple}>
         <a
-          href="https://wa.me/1234567890"
+          href="https://wa.me/9545450788"
           target="_blank"
           rel="noreferrer"
           className="cursor-pointer hover:scale-110 transition"
@@ -94,7 +94,7 @@ const ButtonGroup = () => {
       {/* Call */}
       <div className="icon-wrapper" onClick={createRipple}>
         <a
-          href="tel:+911234567890"
+          href="tel:+91 9545450788"
           className="cursor-pointer hover:scale-110 transition"
         >
           <FaPhoneAlt

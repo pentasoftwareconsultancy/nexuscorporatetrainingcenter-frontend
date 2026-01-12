@@ -1,6 +1,6 @@
 import React from "react";
 import { RiNotification4Fill } from "react-icons/ri";
-import profile from "../../assets/tarushri/profile.png";
+import profile from "../../assets/adminProfile/profile.png";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../core/constants/routes.constant";
 
@@ -15,7 +15,7 @@ const AdminNavbar = () => {
                   py-2 sm:py-3"
         >
           {/* Left Logo */}
-          <div className="flex items-center">
+          <div onClick={() => navigate(ROUTES.ADMIN_DASHBOARD)} className="flex flex-col items-center cursor-pointer">
             <h1 className="text-2xl lg:text-3xl font-medium flex items-center justify-center">
               <span className="text-one font-playfair">NE</span>
               <span className="text-five text-5xl pt-1">
@@ -38,6 +38,7 @@ const AdminNavbar = () => {
               </span>
               <span className="text-one font-playfair">US</span>
             </h1>
+            <span className="text-[6.5px] text-white">CORPORATE TRAINING CENTER LLP</span>
           </div>
 
           {/* Right Icons */}

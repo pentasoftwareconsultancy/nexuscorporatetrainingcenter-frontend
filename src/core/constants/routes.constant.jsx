@@ -28,6 +28,7 @@ export const ROUTES = {
 
   // Admin Dashboard Pages
   ADMIN_DASHBOARD: "/dashboard",
+  
   ADMIN_TOTAL_REGISTER: "/totaldashboard",
   ADMIN_NEW_REGISTER: "/registerdashboard",
   ADMIN_COLLEGE_VISIT: "/visitdashboard",
