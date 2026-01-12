@@ -5,31 +5,31 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Import JSON data
-import OurClientdata from "../../../assets/sneha/json/OurClientdata.json";
+import OurClientdata from "../../../assets/home/json/OurClientdata.json";
 import CircleBackground from "../../common/CircleBackground";
 
 // Import images dynamically
-import client1 from "../../../assets/sneha/client1.png";
-import client2 from "../../../assets/sneha/client2.png";
-import client3 from "../../../assets/sneha/client3.png";
-import client4 from "../../../assets/sneha/client4.png";
-import client5 from "../../../assets/sneha/client5.png";
-import client6 from "../../../assets/sneha/client6.png";
-import client7 from "../../../assets/sneha/client7.png";
-import client8 from "../../../assets/sneha/client8.png";
-import client9 from "../../../assets/sneha/client9.png";
-import client10 from "../../../assets/sneha/client10.png";
-import client11 from "../../../assets/sneha/client11.png";
-import client12 from "../../../assets/sneha/client12.png";
-import client13 from "../../../assets/sneha/client13.png";
-import client14 from "../../../assets/sneha/client14.png";
-import client15 from "../../../assets/sneha/client15.png";
-import client16 from "../../../assets/sneha/client16.png";
-import client17 from "../../../assets/sneha/client17.png";
-import client18 from "../../../assets/sneha/client18.png";
-import client19 from "../../../assets/sneha/client19.png";
-import client20 from "../../../assets/sneha/client20.png";
-import client21 from "../../../assets/sneha/client21.png";
+import client1 from "../../../assets/home/client1.png";
+import client2 from "../../../assets/home/client2.png";
+import client3 from "../../../assets/home/client3.png";
+import client4 from "../../../assets/home/client4.png";
+import client5 from "../../../assets/home/client5.png";
+import client6 from "../../../assets/home/client6.png";
+import client7 from "../../../assets/home/client7.png";
+import client8 from "../../../assets/home/client8.png";
+import client9 from "../../../assets/home/client9.png";
+import client10 from "../../../assets/home/client10.png";
+import client11 from "../../../assets/home/client11.png";
+import client12 from "../../../assets/home/client12.png";
+import client13 from "../../../assets/home/client13.png";
+import client14 from "../../../assets/home/client14.png";
+import client15 from "../../../assets/home/client15.png";
+import client16 from "../../../assets/home/client16.png";
+import client17 from "../../../assets/home/client17.png";
+import client18 from "../../../assets/home/client18.png";
+import client19 from "../../../assets/home/client19.png";
+import client20 from "../../../assets/home/client20.png";
+import client21 from "../../../assets/home/client21.png";
 
 function OurClient() {
   const [isPaused, setIsPaused] = useState(false);

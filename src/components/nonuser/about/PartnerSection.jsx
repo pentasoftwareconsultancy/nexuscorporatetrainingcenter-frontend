@@ -1,5 +1,5 @@
 import React from "react";
-import partnerData from "../../../assets/tarushri/partnerData.json";
+import partnerData from "../../../assets/about/partnerData.json";
 import { motion } from "framer-motion";
 
 // Import all icons

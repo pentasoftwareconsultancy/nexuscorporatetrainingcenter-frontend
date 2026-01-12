@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
-import img from "../../assets/saidas/Certificate.jpeg";
+import img from "../../assets/certification/Certificate.jpeg";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import { ROUTES } from "../../core/constants/routes.constant";

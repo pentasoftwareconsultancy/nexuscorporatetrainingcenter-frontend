@@ -4,8 +4,16 @@ class ServerUrl {
     // Base URL
     static REACT_APP_API_URL = import.meta.env.VITE_API_URL;
 
+    // ADMIN DASHBOARD COUNTS
+    static API_MODULE_DASHBOARD = "/api";
+
+    static API_DASHBOARD = ServerUrl.API_MODULE_DASHBOARD + "/admin/dashboard-stats";
+    static API_TOTAL_REGISTRATION = ServerUrl.API_MODULE_DASHBOARD + "/admin/users";
+    static API_NEW_REGISTRATION = ServerUrl.API_MODULE_DASHBOARD + "/admin/users/new";
+
     // USER AUTH MODULE
     static API_MODULE_USER = "/api/auth";
+    
     static API_LOGIN = ServerUrl.API_MODULE_USER + "/login";
     static API_REGISTER = ServerUrl.API_MODULE_USER + "/signup";
     static API_GET_ME = ServerUrl.API_MODULE_USER + "/me";
