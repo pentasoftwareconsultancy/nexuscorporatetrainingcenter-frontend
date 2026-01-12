@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./routs/AppRoutes";
 import { AuthProvider } from "./core/contexts/AuthContext";
 import ScrollToTop from "./pages/ScrollToTop";
+import Toaster from "./components/constant/Toaster";
 import "./App.css"; // optional if you have it
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <Toaster />
         <ScrollToTop />
         <AppRoutes/>
       </BrowserRouter>
