@@ -114,27 +114,26 @@ export default function ApptitudeExam() {
         flex flex-col justify-between items-start hover:border-gray-500 transition"
               >
                 <div>
-                {/* TITLE */}
-                <p className="text-xs sm:text-sm md:text-base break-words leading-tight">
-                  • {topic.title}
-                </p>
-
-                {/* STATUS BELOW TITLE */}
-                {topic.status === 1 ? (
-                  <p className="text-[10px] sm:text-xs text-green-400 font-semibold">
-                    Test Completed
+                  {/* TITLE */}
+                  <p className="text-xs sm:text-sm md:text-base break-words leading-tight">
+                    • {topic.title}
                   </p>
-                ) : null}
+
+                  {/* STATUS BELOW TITLE */}
+                  {topic.status === 1 ? (
+                    <p className="text-[10px] sm:text-xs text-green-400 font-semibold">
+                      Test Completed
+                    </p>
+                  ) : null}
                 </div>
 
                 {/* SHOW BUTTON ONLY IF NOT COMPLETED */}
                 <Button
-                  text="Take Quiz"
-                  onClick={() =>
-                    navigate(`${ROUTES.USER_EXAM}/${topic.id}`)
-                  }
-                  className={`mt-4 px-1 py-1 w-2/3 size-2/5 ${
-                    topic.status === 1
+                  text={topic.status === 1 ? "Completed" : "Take Quiz"}
+                  disabled={topic.status === 1}
+                  onClick={() => navigate(`${ROUTES.USER_EXAM}/${topic.id}`)}
+                  className={`mt-4 w-full py-2 ${
+                    topic.status === 1 ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                 />
               </div>

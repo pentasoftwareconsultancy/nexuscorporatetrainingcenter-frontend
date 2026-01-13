@@ -228,6 +228,9 @@ class ServerUrl {
     static API_POST_QUESTIONS_AND_OPTIONS = ServerUrl.API_MODULE_ADMIN_TESTS + "/question";
     static API_UPDATE_QUESTIONS_AND_OPTIONS = ServerUrl.API_MODULE_ADMIN_TESTS + "/question/"; // + id
     static API_DELETE_QUESTIONS_AND_OPTIONS = ServerUrl.API_MODULE_ADMIN_TESTS + "/question";
+
+    // CERTIFICATION
+    static API_MODULE_USER_CERTIFICATION = "/api/certification/me";
 }
 
 export default ServerUrl;
