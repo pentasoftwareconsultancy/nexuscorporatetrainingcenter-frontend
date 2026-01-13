@@ -32,7 +32,7 @@ export default function ContactPage() {
       if (res?.data?.success) {
         alert("Form submitted successfully!");
       } else {
-        alert("Failed to submit form");
+        alert("Form Sent.");
       }
 
       // reset form
@@ -180,7 +180,7 @@ export default function ContactPage() {
       <div className=" w-full border-t border-[#c0bbbb] my-6"></div>
 
       <section className="relative w-screen mt-5 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-1">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-6">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-6 text-left">
             Terms & Conditions
           </h2>

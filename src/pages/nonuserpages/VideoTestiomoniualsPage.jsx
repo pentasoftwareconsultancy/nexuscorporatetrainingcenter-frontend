@@ -9,6 +9,14 @@ const VideoTestiomoniualsPage = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [currentVideo, setCurrentVideo] = useState(null);
 
+  const truncateWords = (text, maxWords = 12) => {
+    if (!text) return "";
+    const words = text.split(" ");
+    return words.length > maxWords
+      ? words.slice(0, maxWords).join(" ") + "..."
+      : text;
+  };
+
   // 🔥 FETCH VIDEOS FROM BACKEND
   useEffect(() => {
     api
@@ -41,7 +49,7 @@ const VideoTestiomoniualsPage = () => {
   };
 
   return (
-    <div className="px-6 py-10 min-h-screen text-one">
+    <div className="px-6 py-10 text-one">
       {/* Title */}
       <motion.h1
         initial={{ opacity: 0, y: -50 }}
@@ -91,10 +99,11 @@ const VideoTestiomoniualsPage = () => {
             {/* Text */}
             <div className="p-5">
               <p className="mt-2 text-lg font-bold">
-                <span>Caption:</span> {item.caption}
+                <span>Title:</span> {item.caption}
               </p>
               <p className="mt-1 text-gray-300 text-sm">
-                <span className="font-bold">About:</span> {item.about}
+                <span className="font-bold">About:</span>{" "}
+                {truncateWords(item.about, 18)}
               </p>
             </div>
           </motion.div>
@@ -124,11 +133,16 @@ const VideoTestiomoniualsPage = () => {
                 ×
               </button>
 
-              <iframe className="w-full h-full rounded-lg" src={currentVideo.videoUrl} loading="lazy"
-                title={currentVideo.caption} frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
-                ></iframe>
+              <iframe
+                className="w-full h-full rounded-lg"
+                src={currentVideo.videoUrl}
+                loading="lazy"
+                title={currentVideo.caption}
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
             </motion.div>
           </motion.div>
         )}

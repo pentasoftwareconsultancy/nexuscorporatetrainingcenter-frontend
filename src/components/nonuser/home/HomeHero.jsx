@@ -63,20 +63,18 @@ export default function HomeHero() {
   }, [currentIndex]);
 
   return (
-    <div className="relative font-sora overflow-x-hidden w-full min-h-screen flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-12 lg:px-12 text-one overflow-hidden">
-      <div
-        className="absolute z-0
-          w-[800px] h-[800px]  /* size of the circle */
-          -bottom-[290px] -right-[290px]  /* move half of the circle outside */
-          sm:w-[720px] sm:h-[720px] sm:-bottom-[160px] sm:-right-[160px]
-          md:w-[880px] md:h-[880px] md:-bottom-[150px] md:-left-[450px]
-          pointer-events-none
-          overflow-hidden"
-      >
+    <div
+      className="relative font-sora w-full min-h-screen
+        flex flex-col md:flex-row
+        items-center justify-center
+        px-4 sm:px-6 md:px-12
+        text-one overflow-hidden"
+    >
+      <div className="absolute z-0 hidden md:block w-[880px] h-[880px] -bottom-[150px] -left-[450px] pointer-events-none">
         <CircleBackground />
       </div>
 
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none mb-50 ">
+      <div className="absolute md:flex items-center justify-center pointer-events-none">
         {/* MAIN X */}
         <div className="flex justify-center items-center">
           <h1
@@ -147,40 +145,53 @@ export default function HomeHero() {
       <div className="flex justify-center w-full h-full z-20 ">
         <div className="absolute inset-0 bg-three/5 backdrop-blur-sm rounded-2xl pointer-events-none w-full h-full"></div>
         {/* 🔸 Left Section (slightly down) */}
-        <div className="relative z-10 flex flex-col justify-center md:justify-end w-full md:w-1/2 pb-6 md:pb-1 translate-y-10">
+        <div
+          className="relative z-10
+            flex flex-col justify-center
+            w-full md:w-1/2
+            text-center md:text-left
+            pt-24 md:pt-0
+            order-2 md:order-1"
+        >
           <div className="p-4 sm:p-6 md:p-10 rounded-2xl space-y-6 text-center md:text-left">
             <div className="max-w-3xl">
               <h1
                 key={currentIndex} // 🔥 Key to re-render on index change
                 ref={textRef} // 🔥 GSAP target
                 className="
-                  text-4xl sm:text-5xl lg:text-6xl 
-                  font-medium leading-snug 
+                  text-2xl sm:text-3xl md:text-4xl lg:text-6xl
+                    font-medium leading-snug
                 "
               >
                 {sloganPhrases[currentIndex]}
               </h1>
             </div>
-            <Button
-              text="Enroll Now"
-              onClick={() => navigate(ROUTES.CONTACT)}
-            />
+            <div className="flex justify-center md:justify-start">
+              <Button
+                text="Enroll Now"
+                onClick={() => navigate(ROUTES.CONTACT)}
+              />
+            </div>
           </div>
         </div>
 
         {/* 🔸 Right Section (slightly up) */}
-        <div className="relative z-10 flex flex-col justify-center md:justify-start items-center md:items-end w-full md:w-1/2 text-center md:text-right space-y-6 pt-1 md:pt-1 -translate-y-30 px-4 sm:px-8">
+        <div
+          className="relative z-10
+            flex flex-col items-center md:items-end
+            w-full md:w-1/2
+            text-center md:text-right
+            mt-12 md:mt-0
+            px-4 sm:px-8
+            order-1 md:order-2"
+        >
           <div className="max-w-lg">
             <h2
               className="
-              max-w-96
-              font-clash 
-              text-3xl sm:text-4xl lg:text-5xl 
-              font-light leading-tight 
+              font-clash
+              text-2xl sm:text-3xl lg:text-5xl
+              font-light leading-tight
               text-white mb-4
-              relative mx-auto text-center 
-              whitespace-normal 
-              overflow-hidden 
               "
               style={{
                 animation:
@@ -218,16 +229,7 @@ export default function HomeHero() {
           </div>
         </div>
       </div>
-      <div
-        className="absolute z-0
-        w-[780px] h-[780px]  /* size of the circle */
-        -bottom-[290px] -right-[290px]  /* move half of the circle outside */
-        sm:w-[720px] sm:h-[720px] sm:-bottom-[160px] sm:-right-[160px]
-        md:w-[880px] md:h-[880px] md:-bottom-[90px] md:-right-[480px]
-        pointer-events-none
-        overflow-hidden
-        "
-      >
+      <div className="absolute z-0 md:block w-[880px] h-[880px] -bottom-[90px] -right-[480px] pointer-events-none">
         <CircleBackground />
       </div>
     </div>

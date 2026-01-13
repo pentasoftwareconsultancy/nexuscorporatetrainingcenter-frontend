@@ -26,42 +26,41 @@ const UpcomingBatches = () => {
     const e = new Date(end);
 
     const months =
-      (e.getFullYear() - s.getFullYear()) * 12 +
-      (e.getMonth() - s.getMonth());
+      (e.getFullYear() - s.getFullYear()) * 12 + (e.getMonth() - s.getMonth());
 
     return months <= 0 ? 1 : months; // at least 1 month
   };
 
   // ⭐ Fetch API batches
   useEffect(() => {
-  const loadBatches = async () => {
-    try {
-      setLoading(true);
-      const res = await api.apiget(ServerUrl.API_GET_BATCHES);
-      
-      let list = [];
+    const loadBatches = async () => {
+      try {
+        setLoading(true);
+        const res = await api.apiget(ServerUrl.API_GET_BATCHES);
 
-      if (Array.isArray(res.data.data)) {
-        // Case 1: data: [ ... ]
-        list = res.data.data;
-      } else if (res.data.data?.rows) {
-        // Case 2: data: { rows: [ ... ] }
-        list = res.data.data.rows;
-      } else {
-        console.warn("Unknown API batch format:", res.data);
+        let list = [];
+
+        if (Array.isArray(res.data.data)) {
+          // Case 1: data: [ ... ]
+          list = res.data.data;
+        } else if (res.data.data?.rows) {
+          // Case 2: data: { rows: [ ... ] }
+          list = res.data.data.rows;
+        } else {
+          console.warn("Unknown API batch format:", res.data);
+        }
+
+        setBatches(list);
+      } catch (err) {
+        console.error("Error loading batches:", err);
+        setBatches([]); // fallback
+      } finally {
+        setLoading(false);
       }
+    };
 
-      setBatches(list);
-    } catch (err) {
-      console.error("Error loading batches:", err);
-      setBatches([]); // fallback
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  loadBatches();
-}, []);
+    loadBatches();
+  }, []);
 
   // ⭐ Filter search
   const filtered = batches.filter((b) =>
@@ -80,7 +79,7 @@ const UpcomingBatches = () => {
   }
 
   return (
-    <div className="w-full text-white font-sans py-2 px-12 md:px-10">
+    <div className="w-full text-white font-sans py-6 px-4 sm:px-6 md:px-10">
       <h1 className="text-3xl md:text-4xl font-semibold mb-8 tracking-wide">
         Upcoming Batches
       </h1>
@@ -95,14 +94,15 @@ const UpcomingBatches = () => {
       </div>
 
       {/* Search Input */}
-      <div className="relative mb-10 w-full max-w-sm">
+      <div className="relative mb-8 w-full sm:max-w-sm">
         <FaMagnifyingGlass className="absolute left-4 top-3.5 text-gray-400 text-lg" />
         <input
           type="text"
           placeholder="Search course"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-12 pr-4 py-2.5 bg-transparent border border-gray-700 text-white rounded-full focus:outline-none focus:border-gray-400 placeholder-gray-500 text-[15px]"
+          className="w-full pl-12 pr-4 py-2.5 sm:py-3 sm:text-[15px] bg-transparent border border-gray-700 text-white rounded-full 
+          focus:outline-none focus:border-gray-400 placeholder-gray-500 text-[15px]"
         />
       </div>
 
@@ -111,10 +111,18 @@ const UpcomingBatches = () => {
         {displayed.map((b) => (
           <div
             key={b.id}
-            className="relative flex flex-col md:flex-row md:items-center md:justify-between bg-[#1A1A1A] border border-[#4a4a4a] rounded-2xl md:rounded-full px-6 md:px-8 py-5 hover:bg-[#252525] transition-all duration-300"
+            className="relative flex flex-col gap-3
+              sm:gap-4 sm:justify-center
+              md:flex-row md:items-center md:justify-between
+              border border-[#4a4a4a]
+              rounded-2xl md:rounded-full
+              px-4 sm:px-6 md:px-8
+              py-4 sm:py-5
+              hover:bg-[#252525]
+              transition-all duration-300"
           >
             {/* Course + Icon */}
-            <div className="flex items-center gap-4 md:w-1/5 mb-3 md:mb-0">
+            <div className="flex items-center gap-3 sm:gap-4 md:w-1/5">
               <div className="bg-[#2c2c2c] p-2 rounded-full flex items-center justify-center">
                 {(() => {
                   const Icon = getIconByName(b.icon);
@@ -125,17 +133,26 @@ const UpcomingBatches = () => {
             </div>
 
             {/* Duration (months) */}
-            <span className="md:w-1/5 text-[15px] text-gray-300 text-left md:text-center">
+            <span className="block text-xs text-gray-400 sm:hidden">
+              Duration
+            </span>
+            <span className="md:w-1/5 text-[14px] sm:text-[15px] text-gray-300 text-left md:text-center">
               {getMonthDifference(b.start_date, b.end_date)} Months
             </span>
 
             {/* Start Date */}
-            <span className="md:w-1/5 text-[15px] text-gray-300 text-left md:text-center">
+            <span className="block text-xs text-gray-400 sm:hidden">
+              Start Date
+            </span>
+            <span className="md:w-1/5 text-[14px] sm:text-[15px] text-gray-300 text-left md:text-center">
               {formatDate(b.start_date)}
             </span>
 
             {/* End Date */}
-            <span className="md:w-1/5 text-[15px] text-gray-300 text-left md:text-center">
+            <span className="block text-xs text-gray-400 sm:hidden">
+              End Date
+            </span>
+            <span className="md:w-1/5 text-[14px] sm:text-[15px] text-gray-300 text-left md:text-center">
               {formatDate(b.end_date)}
             </span>
 
@@ -143,6 +160,7 @@ const UpcomingBatches = () => {
             <div className="flex items-center justify-between md:justify-end gap-3 md:w-1/5 mt-3 md:mt-0">
               <Button
                 text="Contact Now"
+                className="w-full sm:w-auto"
                 onClick={() => navigate(ROUTES.CONTACT)}
               />
             </div>

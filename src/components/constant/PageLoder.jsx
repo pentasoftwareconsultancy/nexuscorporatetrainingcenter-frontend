@@ -8,16 +8,16 @@ const PageLoader = () => {
           <div className="relative w-32 h-32 flex items-center justify-center">
 
             <div
-              className="absolute w-full h-full rounded-full border-[3px] border-gray-100/10 border-r-[#0ff] border-b-[#0ff] animate-spin"
+              className="absolute w-full h-full rounded-full border-[3px] border-gray-100/10 border-r-[#0051ff] border-b-[#001aff] animate-spin"
               style={{ animationDuration: "3s" }}
             ></div>
 
             <div
-              className="absolute w-full h-full rounded-full border-[3px] border-gray-100/10 border-t-[#0ff] animate-spin"
+              className="absolute w-full h-full rounded-full border-[3px] border-gray-100/10 border-t-[#06f] animate-spin"
               style={{ animationDuration: "2s", animationDirection: "reverse" }}
             ></div>
 
-            <div className="absolute text-cyan-300 font-semibold tracking-widest text-lg select-none">
+            <div className="absolute text-cyan-600 font-semibold tracking-widest text-lg select-none">
               NEXUS
             </div>
 

@@ -83,16 +83,24 @@ const AdminFacultyPage = () => {
                 navigate(ROUTES.ADMIN_FACULTY_FORM_EDIT.replace(":id", v.id))
               }
               className="border border-white rounded-xl p-4 hover:bg-[#222] transition
-              grid grid-cols-1 md:grid-cols-5 gap-2 md:gap-4 items-center cursor-pointer"
+      grid grid-cols-1 md:grid-cols-5 gap-3 md:gap-4 cursor-pointer"
             >
-              <div className="hidden md:block">
+              {/* PROFILE + MOBILE TEXT */}
+              <div className="flex items-center gap-3 md:block">
                 <img
                   src={v.profile}
                   alt={v.facultyName}
                   className="w-12 h-12 rounded-full object-cover border"
                 />
+
+                {/* MOBILE NAME + DESIGNATION */}
+                <div className="md:hidden">
+                  <p className="font-semibold text-white">{v.facultyName}</p>
+                  <p className="text-sm text-gray-400">{v.designation}</p>
+                </div>
               </div>
 
+              {/* DESKTOP FIELDS */}
               <div className="hidden md:block truncate text-white">
                 {v.facultyName}
               </div>
@@ -108,13 +116,22 @@ const AdminFacultyPage = () => {
               <div className="hidden md:block truncate text-gray-400">
                 {v.skills}
               </div>
+
+              {/* MOBILE EXTRA INFO */}
+              <div className="md:hidden text-sm text-gray-300 mt-2 space-y-1">
+                <p>
+                  <span className="font-semibold">Experience:</span>{" "}
+                  {v.experience}
+                </p>
+                <p>
+                  <span className="font-semibold">Skills:</span> {v.skills}
+                </p>
+              </div>
             </div>
           ))}
 
           {finalResult.length === 0 && (
-            <p className="text-center text-gray-400 mt-4">
-              No faculty found
-            </p>
+            <p className="text-center text-gray-400 mt-4">No faculty found</p>
           )}
         </div>
       </div>

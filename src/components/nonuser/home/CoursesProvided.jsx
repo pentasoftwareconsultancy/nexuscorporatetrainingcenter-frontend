@@ -22,17 +22,6 @@ const CoursesProvided = () => {
       : text;
   };
 
-  // ⭐ Calculate cards based on screen width
-  const updateLimit = () => {
-    let cols = 1;
-
-    if (window.innerWidth >= 1024) cols = 4;
-    else if (window.innerWidth >= 768) cols = 3;
-    else if (window.innerWidth >= 640) cols = 2;
-
-    setCardsToShow(cols * 3); // show 3 rows max
-  };
-
   // ⭐ Fetch courses + categories
   useEffect(() => {
     const loadCourses = async () => {
@@ -67,10 +56,7 @@ const CoursesProvided = () => {
     };
 
     loadCourses();
-    updateLimit();
 
-    window.addEventListener("resize", updateLimit);
-    return () => window.removeEventListener("resize", updateLimit);
   }, []);
 
   const visibleCourses = allCourses.slice(0, cardsToShow);
@@ -87,7 +73,14 @@ const CoursesProvided = () => {
     <section className="px-12 text-white">
       <h1 className="text-4xl font-bold mb-10">Courses We Provide</h1>
 
-      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
+      <div className="grid gap-8
+            grid-cols-1
+            sm:grid-cols-2
+            md:grid-cols-3
+            lg:grid-cols-4
+            justify-items-center
+            auto-rows-fr"
+      >
         {visibleCourses.map((course) => (
           <CourseCard
             key={course.id}

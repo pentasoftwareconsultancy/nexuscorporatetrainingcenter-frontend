@@ -14,6 +14,14 @@ export default function PlacementPage() {
   const [active, setActive] = useState("All Placement");
   const [showAll, setShowAll] = useState(false);
 
+  const chunkIntoColumns = (data, size = 10) => {
+    const columns = [];
+    for (let i = 0; i < data.length; i += size) {
+      columns.push(data.slice(i, i + size));
+    }
+    return columns;
+  };
+
   /* ---------------------------------------------
         FETCH CATEGORY → YEAR → PLACEMENTS
   --------------------------------------------- */
