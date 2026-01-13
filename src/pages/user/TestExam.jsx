@@ -50,11 +50,11 @@ export default function TestExam() {
   };
 
   // When user confirms how many questions, prepare final quizQuestions array
+  // When user confirms how many questions, prepare final quizQuestions array
   const prepareQuiz = () => {
     const allQuestions = testData?.questions ?? testData?.Questions ?? [];
 
-    // Normalize question object shape to have:
-    // { id, question_text, options: [{id, option_text}] }
+    // Normalize question object shape
     const normalized = allQuestions.map((q) => {
       const qId = q.id ?? q.questionId;
       const qText = q.question_text ?? q.question ?? q.questionText ?? "";
@@ -62,13 +62,7 @@ export default function TestExam() {
 
       const normalizedOptions = rawOptions.map((opt) => ({
         id: opt.id ?? opt.optionId ?? opt.option_id,
-        text:
-          opt.option_text ??
-          opt.option_text ??
-          opt.text ??
-          opt.optionText ??
-          "",
-        // keep is_correct if exists
+        text: opt.option_text ?? opt.text ?? opt.optionText ?? "",
         is_correct:
           typeof opt.is_correct !== "undefined"
             ? opt.is_correct
@@ -83,8 +77,15 @@ export default function TestExam() {
       };
     });
 
-    // If selectedQuestionCount is less than available, slice. Otherwise use all.
-    const final = normalized.slice(0, selectedQuestionCount);
+    // 🔥 Shuffle questions
+    const shuffled = [...normalized];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    // Slice according to selectedQuestionCount
+    const final = shuffled.slice(0, selectedQuestionCount);
     setQuizQuestions(final);
     setCurrentQuestionIndex(0);
     setShowSelectPopup(false);
@@ -137,7 +138,7 @@ export default function TestExam() {
         testId: Number(id),
         title: testData?.title ?? "Untitled Test",
         answers: buildSubmitPayload.answersArray,
-        totalQuestionsSelected: Number(selectedQuestionCount)
+        totalQuestionsSelected: Number(selectedQuestionCount),
       };
 
       const res = await api.apipost(ServerUrl.API_SUBMIT_TEST, body);
