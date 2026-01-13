@@ -129,8 +129,9 @@ export default function AdminTestDashboardPage() {
             {filteredTests.map((topic) => (
               <div
                 key={topic.id}
-                className="bg-[#1a1a1a] border border-white rounded-2xl p-4 h-36 w-full
-        flex flex-col justify-between items-start hover:border-gray-500 transition"
+                className="bg-[#1a1a1a] border border-white rounded-2xl p-4 w-full
+                  min-h-[170px] sm:min-h-[150px]
+                  flex flex-col justify-between items-start hover:border-gray-500 transition"
               >
                 <div>
                   {/* TITLE */}
@@ -140,16 +141,15 @@ export default function AdminTestDashboardPage() {
                 </div>
 
                 {/* SHOW BUTTON ONLY IF NOT COMPLETED */}
-                <div className="w-full flex justify-end gap-2 mt-8">
+                <div className="w-full flex flex-col sm:flex-row justify-center gap-3 mt-4">
                   <Button
                     text={
-                      <div className="flex gap-3 items-center justify-center">
-                        <Edit />
-                        /
-                        <Delete />
+                      <div className="flex gap-2 items-center justify-center">
+                        <Edit size={16} />
+                        <Delete size={16} />
                       </div>
                     }
-                    className={`px-4 py-4 w-2/3 size-2/5 ${topic.status === 1}`}
+                    className="w-full sm:flex-1 px-4 py-2"
                     showIcon={false}
                     onClick={() =>
                       navigate(
@@ -157,9 +157,10 @@ export default function AdminTestDashboardPage() {
                       )
                     }
                   />
+
                   <Button
                     text="Questions"
-                    className={`px-4 py-4 w-2/3 size-2/5 ${topic.status === 1}`}
+                    className="w-full sm:flex-1 px-4 py-2"
                     showIcon={false}
                     onClick={() =>
                       navigate(

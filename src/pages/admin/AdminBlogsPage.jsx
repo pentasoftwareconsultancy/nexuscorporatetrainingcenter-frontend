@@ -49,7 +49,6 @@ export default function AdminVideoDashboard() {
 
   return (
     <div className="min-h-screen p-4 md:p-8 text-one font-poppins">
-
       <h2 className="text-xl md:text-2xl font-semibold pb-5">
         Total Videos ({finalResult.length})
       </h2>
@@ -83,16 +82,28 @@ export default function AdminVideoDashboard() {
               navigate(ROUTES.ADMIN_BLOGS_FORM_EDIT.replace(":id", v.id))
             }
             className="border border-white rounded-xl p-4 hover:bg-[#222] transition
-            grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 items-center cursor-pointer"
+      grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 cursor-pointer"
           >
-            <div className="hidden md:block">
+            {/* IMAGE + MOBILE TEXT */}
+            <div className="flex items-center gap-3 md:block">
               <img
                 src={v.thumbnail}
                 alt={v.caption}
                 className="w-12 h-12 rounded-full object-cover border"
               />
+
+              {/* MOBILE TEXT */}
+              <div className="md:hidden">
+                <p className="font-semibold text-white">
+                  {truncate(v.caption)}
+                </p>
+                <p className="text-xs text-gray-400 mt-1">
+                  {truncate(v.videoUrl)}
+                </p>
+              </div>
             </div>
 
+            {/* DESKTOP FIELDS */}
             <div className="hidden md:block truncate text-white">
               {truncate(v.caption)}
             </div>
@@ -104,13 +115,16 @@ export default function AdminVideoDashboard() {
             <div className="hidden md:block truncate text-gray-400">
               {truncate(v.videoUrl)}
             </div>
+
+            {/* MOBILE ABOUT */}
+            <div className="md:hidden text-sm text-gray-300 mt-2">
+              {truncate(v.about)}
+            </div>
           </div>
         ))}
 
         {finalResult.length === 0 && (
-          <p className="text-center text-gray-400 mt-4">
-            No videos found
-          </p>
+          <p className="text-center text-gray-400 mt-4">No videos found</p>
         )}
       </div>
 

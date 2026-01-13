@@ -153,11 +153,12 @@ function OurClient() {
       <section className="z-10 w-full  mx-auto px-3 md:px-12">
         <div className="flex flex-col lg:flex-row lg:items-start lg:gap-8">
           {/* Left */}
-          <div className="lg:w-1/3 mb-8 lg:mb-0">
+          <div className="w-full lg:w-1/3 mb-8 lg:mb-0">
             <h2 className="font-semibold text-2xl sm:text-3xl lg:text-4xl mb-4 leading-snug">
               We Build Success <br /> by the Numbers
             </h2>
-            <p className="text-base sm:text-lg text-gray-300 leading-normal max-w-md text-justify">
+            <p className="text-base sm:text-lg text-gray-300 leading-normal 
+                max-w-full lg:max-w-md text-justify">
               Our impact is measured not just in satisfied clients, but in
               tangible results. We are dedicated to creating measurable
               differences, transforming potential into performance and ambition
