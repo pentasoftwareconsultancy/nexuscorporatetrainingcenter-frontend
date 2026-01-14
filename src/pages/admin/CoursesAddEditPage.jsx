@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Edit, Trash2, LogOut, Upload } from "lucide-react"; // Import Upload icon
+import toast from "react-hot-toast";
 
 export default function CoursesAddEditPage() {
   const initialCourseState = {
@@ -28,8 +29,8 @@ export default function CoursesAddEditPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSavedCourse(course);
-    alert("Course submitted!");
-    console.log("Saved Course:", course);
+    toast.success("Course submitted!");
+    // console.log("Saved Course:", course);
   };
 
   const handleDelete = () => {
@@ -43,7 +44,7 @@ export default function CoursesAddEditPage() {
     if (savedCourse) {
       setCourse(savedCourse);
     } else {
-      alert("No saved course to edit!");
+      toast.error("No saved course to edit!");
     }
   };
 

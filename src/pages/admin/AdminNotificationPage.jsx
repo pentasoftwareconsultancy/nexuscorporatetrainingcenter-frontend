@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import toast from "react-hot-toast";
 
 const AdminNotificationPage = () => {
   const api = new ApiService();
@@ -20,7 +21,7 @@ const AdminNotificationPage = () => {
     try {
       const response = await api.apiget(ServerUrl.API_GET_CONTACT_FORMS);
       setNotifications(response?.data || []);
-      console.log("Notifications fetched:", response.data);
+      // console.log("Notifications fetched:", response.data);
     } catch (error) {
       console.error("Error fetching notifications:", error);
     }
@@ -31,10 +32,10 @@ const AdminNotificationPage = () => {
       await api.apidelete(`${ServerUrl.API_DELETE_CONTACT_FORM}${id}`);
       setShowModal(false);
       setNotifications(notifications.filter((n) => n.id !== id));
-      alert("Notification deleted");
+      toast.success("Notification deleted");
     } catch (error) {
       console.error("Delete failed:", error);
-      alert("Failed to delete notification");
+      toast.error("Failed to delete notification");
     }
   };
 

@@ -4,6 +4,7 @@ import { Edit, Trash2, Upload } from "lucide-react"; // Import Upload icon
 import ServerUrl from "../../core/constants/serverURL.constant";
 import ApiService from "../../core/services/api.service";
 import { useSingleClick } from "../../core";
+import toast from "react-hot-toast";
 
 export default function AddCorsesPage() {
   const { id } = useParams();
@@ -99,7 +100,7 @@ export default function AddCorsesPage() {
 
       if (categoryId === "new") {
         if (!newCategory.trim()) {
-          alert("Please enter category name");
+          toast.error("Please enter category name");
           return;
         }
 
@@ -111,7 +112,7 @@ export default function AddCorsesPage() {
       }
 
       if (!categoryId) {
-        alert("Category is required");
+        toast.error("Category is required");
         return;
       }
 
@@ -137,7 +138,7 @@ export default function AddCorsesPage() {
       navigate(-1);
     } catch (err) {
       console.error(err);
-      alert("Something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setIsSubmitting(false);
     }
@@ -165,7 +166,7 @@ export default function AddCorsesPage() {
 
     await api.apiput(ServerUrl.API_UPDATE_COURSE_DETAILS + id, formData);
 
-    alert("Course updated successfully");
+    toast.success("Course updated successfully");
     navigate(-1);
   };
 

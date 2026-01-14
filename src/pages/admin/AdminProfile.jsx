@@ -20,7 +20,7 @@ const AdminProfile = () => {
     const fetchAdmin = async () => {
       try {
         const res = await api.apiget(`${ServerUrl.API_GET_ME}`);
-        console.log("Admin Profile Data:", res.data);
+        // console.log("Admin Profile Data:", res.data);
 
         const user = res?.data?.user;
 

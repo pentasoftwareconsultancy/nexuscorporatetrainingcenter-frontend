@@ -6,6 +6,7 @@ import { ROUTES } from "../../core/constants/routes.constant";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import Button from "../../components/common/Button";
+import toast from "react-hot-toast";
 
 const InputField = ({ type = "text", placeholder, value, onChange }) => (
   <input
@@ -87,8 +88,9 @@ const Login = () => {
         password,
       });
       login(response.data);
-    } catch {
-      alert("Invalid login");
+      toast.success("Login Successfully");
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Wrong Gmail or Password");
     }
   };
 
@@ -183,7 +185,7 @@ const ForgotPasswordModal = ({ onClose }) => {
       setQuestion(res.data.question);
       setStep(2);
     } catch {
-      alert("User not found");
+      toast.error("User not found");
     } finally {
       setLoading(false);
     }
@@ -201,7 +203,7 @@ const ForgotPasswordModal = ({ onClose }) => {
       setResetToken(res.data.resetToken);
       setStep(3);
     } catch {
-      alert("Wrong answer");
+      toast.error("Wrong answer. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -217,10 +219,10 @@ const ForgotPasswordModal = ({ onClose }) => {
         confirmPassword,
       });
 
-      alert("Password reset successful");
+      toast.success("Password reset successful");
       onClose();
     } catch (err) {
-      alert(err?.response?.data?.message || "Failed to reset password");
+      toast.error(err?.response?.data?.message || "Failed to reset password");
     } finally {
       setLoading(false);
     }

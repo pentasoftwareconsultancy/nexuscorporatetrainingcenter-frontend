@@ -14,7 +14,7 @@ const Certification = () => {
     try {
       const response = await api.apiget(ServerUrl.API_MODULE_USER_CERTIFICATION);
 
-      console.log("Certification Data:", response.data);
+      // console.log("Certification Data:", response.data);
 
       if (response.data.success && response.data.data?.length > 0) {
         // For simplicity, take the first certification

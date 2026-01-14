@@ -14,7 +14,6 @@ const SuccessReviews = () => {
       const response = await api.apiget(`${ServerUrl.API_GET_REVIEWS}`);
       const data = response?.data?.data || response?.data || [];
       setReviews(data);
-      console.log("Fetched Reviews:", data);
     } catch (error) {
       console.error("Error fetching reviews:", error);
     }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import toast from "react-hot-toast";
 
 export default function ContactPage() {
   const api = new ApiService();
@@ -30,9 +31,9 @@ export default function ContactPage() {
       );
 
       if (res?.data?.success) {
-        alert("Form submitted successfully!");
+        toast.success("Form submitted successfully!");
       } else {
-        alert("Form Sent.");
+        toast.success("Form Sent.");
       }
 
       // reset form
@@ -44,9 +45,9 @@ export default function ContactPage() {
       });
 
     } catch (err) {
-      console.log("Server Response: ", err?.response?.data);
+      // console.log("Server Response: ", err?.response?.data);
       console.error("❌ Contact Form Error:", err);
-      alert("Something went wrong!");
+      toast.error("Something went wrong!");
     }
   };
 
