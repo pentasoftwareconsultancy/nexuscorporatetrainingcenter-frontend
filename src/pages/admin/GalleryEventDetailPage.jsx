@@ -4,6 +4,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import { ROUTES } from "../../core/constants/routes.constant";
+import toast from "react-hot-toast";
+import { useSingleClick } from "../../core";
 
 const Input = ({ label, ...props }) => (
   <div className="flex flex-col">
@@ -54,6 +56,7 @@ const GalleryEventDetailPage = () => {
   const navigator = useNavigate();
   const location = useLocation();
   const { id } = useParams();
+  const singleClick = useSingleClick();
 
   const mode = location.state?.mode || "add"; // add | edit
   const isEdit = mode === "edit";
@@ -116,11 +119,11 @@ const GalleryEventDetailPage = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      alert("Event Story Added Successfully");
+      toast.success("Event Story Added Successfully");
       navigator(-1);
     } catch (err) {
       console.error("Add Story Failed", err);
-      alert("Failed to add");
+      toast.error("Failed to add");
     }
   };
 
@@ -139,11 +142,11 @@ const GalleryEventDetailPage = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      alert("Updated Successfully");
+      toast.success("Gallery Event Updated Successfully");
       navigator(-1);
     } catch (err) {
       console.error("Update failed", err);
-      alert("Failed");
+      toast.error("Failed");
     }
   };
 
@@ -151,7 +154,7 @@ const GalleryEventDetailPage = () => {
   const handleDeleteStory = async () => {
     try {
       await api.apidelete(`${ServerUrl.API_DELETE_EVENTSTORIES}/${id}`);
-      alert("Deleted Successfully");
+      toast.success("Gallery Event Deleted Successfully");
       navigator(-1);
     } catch (err) {
       console.error("Delete failed", err);
@@ -170,14 +173,14 @@ const GalleryEventDetailPage = () => {
           {isEdit && (
             <div className="flex gap-4">
               <button
-                onClick={handleUpdateStory}
+                onClick={()=>singleClick(handleUpdateStory)}
                 className="bg-[#1a1a1a] p-4 rounded-full"
               >
                 <Check size={20} />
               </button>
 
               <button
-                onClick={handleDeleteStory}
+                onClick={()=>singleClick(handleDeleteStory)}
                 className="bg-[#1a1a1a] p-4 rounded-full"
               >
                 <Trash2 size={20} />
@@ -222,7 +225,7 @@ const GalleryEventDetailPage = () => {
         {/* FLOATING ADD BUTTON */}
         {isAdd && (
           <button
-            onClick={handleAddStory}
+            onClick={()=>singleClick(handleAddStory)}
             className="fixed right-10 bottom-10 w-14 h-14 bg-one text-black text-3xl rounded-full font-bold shadow-lg"
           >
             +

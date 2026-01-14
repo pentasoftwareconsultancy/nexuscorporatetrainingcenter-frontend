@@ -3,12 +3,15 @@ import { Check, Edit, Trash2 } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import toast from "react-hot-toast";
+import { useSingleClick } from "../../core";
 
 const TestCategoryForm = () => {
   const { id } = useParams();
   const isEdit = Boolean(id);
   const navigate = useNavigate();
   const api = new ApiService();
+  const singleClick = useSingleClick();
 
   const [editMode, setEditMode] = useState(!isEdit);
   const [loading, setLoading] = useState(false);
@@ -77,7 +80,7 @@ const TestCategoryForm = () => {
           testTitle: data.course,
           status: true,
         });
-        alert("Updated successfully");
+        toast.success("Updated successfully");
       } else {
         // CREATE
         await api.apipost(ServerUrl.API_POST_CATEGORY_AND_TESTS, {
@@ -85,13 +88,13 @@ const TestCategoryForm = () => {
           testTitle: data.course,
           status: true,
         });
-        alert("Created successfully");
+        toast.success("Created successfully");
       }
 
       navigate(-1);
     } catch (err) {
       console.error(err);
-      alert("Operation failed");
+      toast.error("Operation failed");
     }
   };
 
@@ -113,7 +116,7 @@ const TestCategoryForm = () => {
 
         await api.apidelete(`${ServerUrl.API_DELETE_TEST}${id}`);
 
-        alert("Test deleted");
+        toast.success("Test deleted");
         navigate(-1);
       }
 
@@ -142,19 +145,22 @@ const TestCategoryForm = () => {
 
         await api.apidelete(`${ServerUrl.API_DELETE_CATEGORY}${categoryId}`);
 
-        alert("Category deleted with all tests");
+        toast.success("Category deleted with all tests");
         navigate(-1);
       }
     } catch (err) {
       console.error(err);
-      alert("Delete failed");
+      toast.error("Delete failed");
     }
   };
 
   if (loading) return <p className="p-6">Loading...</p>;
 
   return (
-    <form onSubmit={handleSubmit} className="min-h-screen px-6 lg:px-12 py-4">
+    <form
+      onSubmit={(e) => singleClick(() => handleSubmit(e))}
+      className="min-h-screen px-6 lg:px-12 py-4"
+    >
       {/* HEADER */}
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-semibold">
@@ -167,7 +173,9 @@ const TestCategoryForm = () => {
               type="button"
               className="bg-[#1a1a1a] p-4 rounded-full"
               onClick={() =>
-                editMode ? handleSubmit(new Event("submit")) : setEditMode(true)
+                editMode
+                  ? singleClick(() => handleSubmit(new Event("submit")))
+                  : setEditMode(true)
               }
             >
               {editMode ? <Check size={20} /> : <Edit size={20} />}
@@ -175,7 +183,11 @@ const TestCategoryForm = () => {
 
             <button
               type="button"
-              onClick={handleDelete}
+              onClick={() =>
+                singleClick(async () => {
+                  await handleDelete();
+                })
+              }
               className="bg-[#1a1a1a] p-4 rounded-full"
             >
               <Trash2 size={20} />
@@ -205,6 +217,7 @@ const TestCategoryForm = () => {
       {!isEdit && (
         <button
           type="submit"
+          onClick={(e) => singleClick(() => handleSubmit(e))}
           className="fixed right-10 bottom-10 w-14 h-14 bg-one text-black text-3xl rounded-full font-bold shadow-lg"
         >
           +

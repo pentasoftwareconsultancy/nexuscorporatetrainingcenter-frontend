@@ -4,11 +4,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import toast from "react-hot-toast";
+import { useSingleClick } from "../../core";
 
 export default function BlogsForm() {
   const { id } = useParams();
   const mode = id ? "edit" : "add";
   const navigate = useNavigate();
+  const singleClick = useSingleClick();
   const api = new ApiService();
 
   const [editMode, setEditMode] = useState(true);
@@ -43,9 +45,7 @@ export default function BlogsForm() {
 
     const fetchData = async () => {
       try {
-        const res = await api.apiget(
-          `${ServerUrl.API_GET_VIDEO_BY_ID}/${id}`
-        );
+        const res = await api.apiget(`${ServerUrl.API_GET_VIDEO_BY_ID}/${id}`);
 
         if (!res?.data?.success) return;
 
@@ -70,35 +70,33 @@ export default function BlogsForm() {
   ======================== */
   const handleSubmit = async (e) => {
     e.preventDefault();
+    singleClick(async () => {
+      try {
+        const form = new FormData();
+        form.append("caption", data.caption);
+        form.append("about", data.about);
+        form.append("videoUrl", data.videoUrl);
 
-    try {
-      const form = new FormData();
-      form.append("caption", data.caption);
-      form.append("about", data.about);
-      form.append("videoUrl", data.videoUrl);
+        if (data.image && data.image instanceof File) {
+          form.append("file", data.image);
+        }
 
-      if (data.image && data.image instanceof File) {
-        form.append("file", data.image);
+        let res;
+
+        if (id) {
+          res = await api.apiput(`${ServerUrl.API_UPDATE_VIDEO}/${id}`, form);
+        } else {
+          res = await api.apipost(ServerUrl.API_UPLOAD_VIDEO, form);
+        }
+
+        if (res?.data?.success) {
+          toast.success("Blog Saved Successfully");
+          navigate(-1);
+        }
+      } catch (err) {
+        console.error("❌ Submit Error", err);
       }
-
-      let res;
-
-      if (id) {
-        res = await api.apiput(
-          `${ServerUrl.API_UPDATE_VIDEO}/${id}`,
-          form
-        );
-      } else {
-        res = await api.apipost(ServerUrl.API_UPLOAD_VIDEO, form);
-      }
-
-      if (res?.data?.success) {
-        toast.success("Blog Saved Successfully");
-        navigate(-1);
-      }
-    } catch (err) {
-      console.error("❌ Submit Error", err);
-    }
+    });
   };
 
   /* =======================
@@ -106,21 +104,19 @@ export default function BlogsForm() {
   ======================== */
   const handleDelete = async () => {
     if (!window.confirm("Delete this video?")) return;
-
-    try {
-      await api.apidelete(`${ServerUrl.API_DELETE_VIDEO}/${id}`);
-      toast.success("Blog Deleted Successfully");
-      navigate(-1);
-    } catch (err) {
-      console.error("Delete Error", err);
-    }
+    singleClick(async () => {
+      try {
+        await api.apidelete(`${ServerUrl.API_DELETE_VIDEO}/${id}`);
+        toast.success("Blog Deleted Successfully");
+        navigate(-1);
+      } catch (err) {
+        console.error("Delete Error", err);
+      }
+    });
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="min-h-screen px-6 lg:px-12 py-4"
-    >
+    <form onSubmit={handleSubmit} className="min-h-screen px-6 lg:px-12 py-4">
       {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-semibold">
@@ -132,9 +128,16 @@ export default function BlogsForm() {
             <button
               type="button"
               className="bg-[#1a1a1a] p-4 rounded-full"
-              onClick={() =>
-                editMode ? handleSubmit(new Event("submit")) : setEditMode(true)
-              }
+              onClick={() => {
+                if (!editMode) {
+                  setEditMode(true);
+                  return;
+                }
+
+                singleClick(async () => {
+                  document.querySelector("form")?.requestSubmit();
+                });
+              }}
             >
               {editMode ? <Check size={20} /> : <Edit size={20} />}
             </button>
