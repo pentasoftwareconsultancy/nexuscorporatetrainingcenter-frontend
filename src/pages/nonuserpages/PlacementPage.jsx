@@ -29,7 +29,7 @@ export default function PlacementPage() {
     try {
       const res = await api.apiget(ServerUrl.API_GET_CATEGORY_WITH_PLACEMENT);
 
-      console.log("RAW AXIOS RESPONSE:", res);
+      // console.log("RAW AXIOS RESPONSE:", res);
 
       if (!res?.data?.success || !res?.data?.data) return;
 
@@ -52,8 +52,8 @@ export default function PlacementPage() {
         });
       });
 
-      console.log("FLATTENED PLACEMENTS:", flatPlacements);
-      console.log("CATEGORIES:", categoryList);
+      // console.log("FLATTENED PLACEMENTS:", flatPlacements);
+      // console.log("CATEGORIES:", categoryList);
 
       setPlacements(flatPlacements);
       setCategories(categoryList);

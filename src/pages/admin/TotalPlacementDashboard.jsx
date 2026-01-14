@@ -25,7 +25,7 @@ export default function TotalPlacementDashboard() {
   const fetchCategories = async () => {
     try {
       const res = await api.apiget(ServerUrl.API_GET_PLACEMENT_CATEGORIES);
-      console.log("CATEGORY API:", res.data);
+      // console.log("CATEGORY API:", res.data);
 
       if (!Array.isArray(res.data)) return;
 

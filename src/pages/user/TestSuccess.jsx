@@ -23,7 +23,7 @@ const TestSuccess = () => {
       if (!testId) return;
 
       const res = await api.apiget(`${ServerUrl.API_GET_TEST_RESULT}${testId}`);
-      console.log("Latest Result:", res.data.data);
+      // console.log("Latest Result:", res.data.data);
 
       // FIX: backend returns res.data.success
       if (res.data.success) {

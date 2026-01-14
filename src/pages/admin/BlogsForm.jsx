@@ -3,6 +3,7 @@ import { Upload, Trash2, Check, Edit } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import toast from "react-hot-toast";
 
 export default function BlogsForm() {
   const { id } = useParams();
@@ -92,7 +93,7 @@ export default function BlogsForm() {
       }
 
       if (res?.data?.success) {
-        alert("Saved Successfully");
+        toast.success("Blog Saved Successfully");
         navigate(-1);
       }
     } catch (err) {
@@ -108,7 +109,7 @@ export default function BlogsForm() {
 
     try {
       await api.apidelete(`${ServerUrl.API_DELETE_VIDEO}/${id}`);
-      alert("Deleted Successfully");
+      toast.success("Blog Deleted Successfully");
       navigate(-1);
     } catch (err) {
       console.error("Delete Error", err);

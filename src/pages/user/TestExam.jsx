@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "../../core/constants/routes.constant";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import toast from "react-hot-toast";
 
 export default function TestExam() {
   // UI popups
@@ -45,7 +46,7 @@ export default function TestExam() {
     } catch (err) {
       console.error("Error loading test:", err);
       setLoading(false);
-      alert("Failed to load test. Check console for details.");
+      toast.error("Failed to load test.");
     }
   };
 
@@ -144,10 +145,11 @@ export default function TestExam() {
       const res = await api.apipost(ServerUrl.API_SUBMIT_TEST, body);
 
       navigate(ROUTES.USER_SUCCESS, { state: { testId: id } });
+      toast.success("Test Submitted Successfully");
       // window.location.reload();
     } catch (err) {
       console.error("Submit failed:", err);
-      alert("Failed to submit test. Check console for details.");
+      toast.error("Failed to submit test.");
     } finally {
       setShowSubmitPopup(false);
     }
@@ -201,7 +203,7 @@ export default function TestExam() {
                 // If no questions available from backend, do nothing
                 const available = (testData?.questions ?? []).length;
                 if (!available) {
-                  alert("No questions available for this test.");
+                  toast.error("No questions available for this test.");
                   return;
                 }
                 // If selected count is larger than available, adjust
