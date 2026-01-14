@@ -3,12 +3,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Check, Trash2, Upload, Star } from "lucide-react";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import { useSingleClick } from "../../core";
 
 export default function TotalReviewsForm() {
   const { id } = useParams();
   const isEditMode = Boolean(id);
   const api = new ApiService();
   const navigate = useNavigate();
+  const singleClick = useSingleClick();
 
   const [review, setReview] = useState({
     name: "",
@@ -148,14 +150,14 @@ export default function TotalReviewsForm() {
           {isEditMode && (
             <div className="flex gap-4">
               <button
-                onClick={handleUpdate}
+                onClick={()=>singleClick(handleUpdate)}
                 className="bg-[#1a1a1a] p-4 rounded-full"
               >
                 <Check size={20} />
               </button>
 
               <button
-                onClick={handleDelete}
+                onClick={()=>singleClick(handleDelete)}
                 className="bg-[#1a1a1a] p-4 rounded-full"
               >
                 <Trash2 size={20} />
@@ -257,7 +259,7 @@ export default function TotalReviewsForm() {
       {/* FLOAT ADD BUTTON */}
       {!isEditMode && (
         <button
-          onClick={handleSubmit}
+          onClick={()=>singleClick(handleSubmit)}
           disabled={isSubmitting}
           className={`fixed right-10 bottom-10 w-14 h-14 
           ${isSubmitting ? "bg-gray-400" : "bg-one"}

@@ -73,7 +73,4 @@ export const ROUTES = {
   // 
   ADMIN_NOTIFICATION: "/adminnotification",
   ADMIN_PROFILE: "/adminprofile",
-  ADMIN_VISIT_DETAIL: "/visitdetail",
-  ADMIN_REGISTER_DETAIL: "/registerdetail",
-  ADMIN_TEST_COMPLETE_DETAIL: "/completedetail",
 };

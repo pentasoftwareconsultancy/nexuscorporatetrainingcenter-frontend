@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import toast from "react-hot-toast";
+import { useSingleClick } from "../../core";
 
 const Input = ({ label, ...props }) => (
   <div className="flex flex-col">
@@ -65,6 +66,7 @@ const GalleryCollegeDetailPage = () => {
   const mode = location.state?.mode || "add";
   const isEdit = mode === "edit";
   const isAdd = mode === "add";
+  const singleClick = useSingleClick();
 
   const [cities, setCities] = useState([]);
   const [cityQuery, setCityQuery] = useState("");
@@ -177,7 +179,7 @@ const GalleryCollegeDetailPage = () => {
 
       await api.apipostForm(ServerUrl.API_CREATE_MEDIA_GROUP, formData);
 
-      alert("Created Successfully");
+      toast.success("Gallery College Created Successfully");
       navigator(-1);
     } catch (err) {
       console.error("Create Failed", err);
@@ -209,7 +211,7 @@ const GalleryCollegeDetailPage = () => {
         }
       );
 
-      alert("Updated");
+      toast.success("Gallery College Updated Successfully");
       navigator(-1);
     } catch (err) {
       console.error("Update failed", err);
@@ -223,7 +225,7 @@ const GalleryCollegeDetailPage = () => {
       await api.apidelete(
         `${ServerUrl.API_DELETE_MEDIA_GROUP}${collegeData.collegeId}`
       );
-      alert("Deleted Successfully.");
+      toast.success("Gallery College Deleted Successfully.");
       navigator(-1);
     } catch (err) {
       console.error("Delete failed", err);
@@ -241,14 +243,14 @@ const GalleryCollegeDetailPage = () => {
           {isEdit && (
             <div className="flex gap-4">
               <button
-                onClick={handleUpdateCollege}
+                onClick={()=>singleClick(handleUpdateCollege)}
                 className="bg-[#1a1a1a] p-4 rounded-full"
               >
                 <Check size={20} />
               </button>
 
               <button
-                onClick={handleDeleteCollege}
+                onClick={()=>singleClick(handleDeleteCollege)}
                 className="bg-[#1a1a1a] p-4 rounded-full"
               >
                 <Trash2 size={20} />
@@ -330,7 +332,7 @@ const GalleryCollegeDetailPage = () => {
 
         {isAdd && (
           <button
-            onClick={handleAddCollege}
+            onClick={()=>singleClick(handleAddCollege)}
             className="fixed right-10 bottom-10 w-14 h-14 bg-one text-black text-3xl rounded-full font-bold shadow-lg"
           >
             +

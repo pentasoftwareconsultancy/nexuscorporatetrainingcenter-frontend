@@ -3,11 +3,14 @@ import { Check, Edit, Trash2 } from "lucide-react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import toast from "react-hot-toast";
+import { useSingleClick } from "../../core";
 
 const QuestionsForm = () => {
   const { id: questionId } = useParams(); // questionId for edit
   const { state } = useLocation(); // expect testId from navigation
   const testId = state?.testId;
+  const singleClick = useSingleClick();
 
   const mode = questionId ? "edit" : "add";
   const navigate = useNavigate();
@@ -94,6 +97,11 @@ const QuestionsForm = () => {
       is_correct: o.isCorrect === 1,
     }));
 
+  // ✅ SINGLE-CLICK SAFE WRAPPERS
+  const onSubmitSingleClick = (e) => singleClick(() => handleSubmit(e));
+
+  const onDeleteSingleClick = () => singleClick(() => handleDelete());
+
   /* =======================
         SUBMIT (ADD / EDIT)
   ======================== */
@@ -125,11 +133,11 @@ const QuestionsForm = () => {
         );
       }
 
-      alert("Question saved successfully");
+      toast.success("Question saved successfully");
       navigate(-1);
     } catch (err) {
       console.error(err);
-      alert("Failed to save question");
+      toast.error("Failed to save question");
     } finally {
       setLoading(false);
     }
@@ -151,11 +159,11 @@ const QuestionsForm = () => {
         },
       });
 
-      alert("Question deleted");
+      toast.success("Question deleted successfully");
       navigate(-1);
     } catch (err) {
       console.error("Delete failed", err);
-      alert("Delete failed");
+      toast.error("Delete failed");
     } finally {
       setLoading(false);
     }
@@ -166,7 +174,10 @@ const QuestionsForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="min-h-screen px-6 lg:px-12 py-4">
+    <form
+      onSubmit={onSubmitSingleClick}
+      className="min-h-screen px-6 lg:px-12 py-4"
+    >
       {/* HEADER */}
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-semibold">
@@ -179,7 +190,9 @@ const QuestionsForm = () => {
               type="button"
               className="bg-[#1a1a1a] p-4 rounded-full"
               onClick={() =>
-                editMode ? handleSubmit(new Event("submit")) : setEditMode(true)
+                editMode
+                  ? singleClick(() => handleSubmit(new Event("submit")))
+                  : setEditMode(true)
               }
             >
               {editMode ? <Check size={20} /> : <Edit size={20} />}
@@ -187,7 +200,7 @@ const QuestionsForm = () => {
 
             <button
               type="button"
-              onClick={handleDelete}
+              onClick={onDeleteSingleClick}
               className="bg-[#1a1a1a] p-4 rounded-full"
             >
               <Trash2 size={20} />
@@ -255,6 +268,7 @@ const QuestionsForm = () => {
       {mode === "add" && (
         <button
           type="submit"
+          onClick={onSubmitSingleClick}
           className="fixed right-10 bottom-10 w-14 h-14 bg-one text-black text-3xl rounded-full font-bold shadow-lg flex justify-center items-center"
         >
           +
