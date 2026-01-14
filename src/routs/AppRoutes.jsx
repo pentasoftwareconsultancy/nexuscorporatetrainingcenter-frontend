@@ -47,8 +47,6 @@ const AdminNotificationPage = lazy(() =>import("../pages/admin/AdminNotification
 const AdminProfile = lazy(() => import("../pages/admin/AdminProfile"));
 const AddCoursesPage = lazy(() =>import("../pages/admin/AddCorsesPage"));
 const PlacementDetailPage = lazy(() =>import("../pages/admin/PlacementDetailPage"));
-const RegisterDetailPage = lazy(() =>import("../pages/admin/RegisterDetailPage"));
-const TestCompleteDetailPage = lazy(() =>import("../pages/admin/TestCompleteDetailPage"));
 const GalleryForm = lazy(() => import("../pages/admin/GalleryForm"));
 const GalleryCollegeDetailPage = lazy(() =>import("../pages/admin/GalleryCollegeDetailPage"));
 const GalleryEventPage = lazy(() =>import("../pages/admin/GalleryEventPage"));
@@ -163,8 +161,6 @@ const AppRoutes = () => {
           <Route path={`${ROUTES.ADMIN_QUESTION_FORM_EDIT}/:id`} element={<LazyLoad component={QuestionsForm} />} />
 
           {/* Misc */}
-          <Route path={ROUTES.ADMIN_REGISTER_DETAIL} element={<LazyLoad component={RegisterDetailPage} />} />
-          <Route path={ROUTES.ADMIN_TEST_COMPLETE_DETAIL} element={<LazyLoad component={TestCompleteDetailPage} />} />
           <Route path={ROUTES.ADMIN_NOTIFICATION} element={<LazyLoad component={AdminNotificationPage} />} />
           <Route path={ROUTES.ADMIN_PROFILE} element={<LazyLoad component={AdminProfile} />} />
         </Route>

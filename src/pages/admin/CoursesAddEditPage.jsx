@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Edit, Trash2, LogOut, Upload } from "lucide-react"; // Import Upload icon
 import toast from "react-hot-toast";
+import { useSingleClick } from "../../core";
 
 export default function CoursesAddEditPage() {
   const initialCourseState = {
@@ -16,6 +17,7 @@ export default function CoursesAddEditPage() {
 
   const [course, setCourse] = useState(initialCourseState);
   const [savedCourse, setSavedCourse] = useState(null);
+  const singleClick = useSingleClick();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,24 +30,42 @@ export default function CoursesAddEditPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSavedCourse(course);
-    toast.success("Course submitted!");
-    // console.log("Saved Course:", course);
+
+    singleClick(async () => {
+      try {
+        // simulate API save (replace with real API later)
+        setSavedCourse(course);
+        toast.success("Course submitted!");
+      } catch (err) {
+        toast.error("Failed to submit course");
+        console.error(err);
+      }
+    });
   };
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure you want to delete this course?")) {
-      setCourse(initialCourseState);
-      setSavedCourse(null);
-    }
+    if (!window.confirm("Are you sure you want to delete this course?")) return;
+
+    singleClick(async () => {
+      try {
+        setCourse(initialCourseState);
+        setSavedCourse(null);
+        toast.success("Course deleted");
+      } catch (err) {
+        toast.error("Failed to delete course");
+        console.error(err);
+      }
+    });
   };
 
   const handleEdit = () => {
-    if (savedCourse) {
-      setCourse(savedCourse);
-    } else {
-      toast.error("No saved course to edit!");
-    }
+    singleClick(async () => {
+      if (savedCourse) {
+        setCourse(savedCourse);
+      } else {
+        toast.error("No saved course to edit!");
+      }
+    });
   };
 
   return (
@@ -57,8 +77,12 @@ export default function CoursesAddEditPage() {
           <ul className="space-y-4">
             <li className="bg-[#2a2a2a] px-4 py-2 rounded">Dashboard</li>
             <li className="bg-[#fff] text-black px-4 py-2 rounded">Courses</li>
-            <li className="px-4 py-2 rounded hover:bg-[#2a2a2a] cursor-pointer">Gallery</li>
-            <li className="px-4 py-2 rounded hover:bg-[#2a2a2a] cursor-pointer">Placements</li>
+            <li className="px-4 py-2 rounded hover:bg-[#2a2a2a] cursor-pointer">
+              Gallery
+            </li>
+            <li className="px-4 py-2 rounded hover:bg-[#2a2a2a] cursor-pointer">
+              Placements
+            </li>
           </ul>
         </div>
         <button className="bg-orange-500 px-4 py-2 rounded flex items-center justify-center gap-2 mt-4 md:mt-0">
