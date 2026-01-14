@@ -20,7 +20,7 @@ const AdminQuestionsDashboardPage = () => {
     const fetchQuestions = async () => {
       try {
         const res = await api.apiget(`${ServerUrl.API_GET_QUESTIONS_AND_OPTIONS}${testId}/questions`);
-        console.log("Fetched Questions:", res);
+        // console.log("Fetched Questions:", res);
         setCourseName(res.data.title);
         setQuestions(res.data.questions || []);
       } catch (err) {

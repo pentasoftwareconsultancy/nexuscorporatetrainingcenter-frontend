@@ -14,7 +14,7 @@ class ApiInterceptor {
     ApiInterceptor.axiosReference.interceptors.request.use((config) => {
       ApiInterceptor.requestCounts++;
 
-      console.log("Requesting to:", config.baseURL); // Logs actual base URL
+      // console.log("Requesting to:", config.baseURL); // Logs actual base URL
       config.headers = {
         ...config.headers,
         ...this.generateHeader(),
@@ -30,14 +30,14 @@ class ApiInterceptor {
       },
       (error) => {
         ApiInterceptor.requestCounts--;
-        console.log("API ERROR =>", {
-          url: error.config.url,
-          method: error.config.method,
-          status: error.response?.status,
-          response: error.response?.data,
-          requestHeaders: error.config.headers,
-          payload: error.config.data   // <-- add this
-        });
+        // console.log("API ERROR =>", {
+        //   url: error.config.url,
+        //   method: error.config.method,
+        //   status: error.response?.status,
+        //   response: error.response?.data,
+        //   requestHeaders: error.config.headers,
+        //   payload: error.config.data   // <-- add this
+        // });
         return Promise.reject(error);
       }
     );
@@ -49,14 +49,14 @@ class ApiInterceptor {
     const storedUser = localStorage.getItem("user");
     
     if (!storedUser) {
-      console.log("No user found in localStorage");
+      // console.log("No user found in localStorage");
       return {};
     }
   
     const user = JSON.parse(storedUser);
   
     if (!user.token) {
-      console.log("No token found inside user object");
+      // console.log("No token found inside user object");
       return {};
     }
   

@@ -39,7 +39,7 @@ const CoursesPage = () => {
           courses,
         };
       });
-      console.log("CATEGORY RAW:", categoryList[0]);
+      // console.log("CATEGORY RAW:", categoryList[0]);
 
       setCategories(finalData);
     } catch (err) {

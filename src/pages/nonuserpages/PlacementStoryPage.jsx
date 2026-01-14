@@ -11,14 +11,14 @@ const PlacementStoryPage = () => {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log("student data", student);
+  // console.log("student data", student);
   const fetchPlacement = async () => {
     try {
       const res = await api.apiget(
         ServerUrl.API_GET_PLACEMENT_AND_DETAILS_BY_ID + "/" + id
       );
 
-      console.log("API RAW RESPONSE", res);
+      // console.log("API RAW RESPONSE", res);
 
       // ✅ Correct access
       if (res?.data?.success && res?.data?.data) {

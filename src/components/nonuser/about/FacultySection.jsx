@@ -3,6 +3,7 @@ import ApiService from "../../../core/services/api.service";
 import ServerUrl from "../../../core/constants/serverURL.constant";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../core/constants/routes.constant";
+import toast from "react-hot-toast";
 
 export default function FacultySection() {
   const [faculty, setFaculty] = useState([]);

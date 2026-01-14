@@ -4,6 +4,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi"; // Eye icons
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import Button from "../../components/common/Button";
+import toast from "react-hot-toast";
 
 const InputField = ({
   type = "text",
@@ -169,12 +170,12 @@ const Signup = () => {
       !formData.passwordRecoveryQuestion ||
       !formData.passwordRecoveryAnswer
     ) {
-      alert("All fields are required");
+      toast.error("All fields are required");
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -195,10 +196,10 @@ const Signup = () => {
         passwordRecoveryAnswer: formData.passwordRecoveryAnswer,
       });
 
-      alert("Registration successful! Please login.");
+      toast.success("Registration successful! Please login.");
       navigate("/login");
     } catch (error) {
-      alert(error.response?.data?.message || "Registration failed");
+      toast.error(error.response?.data?.message || "Registration failed");
     }
   };
 

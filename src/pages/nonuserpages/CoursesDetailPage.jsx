@@ -9,7 +9,7 @@ import ServerUrl from "../../core/constants/serverURL.constant";
 
 const CoursesDetailPage = () => {
   const { categoryId } = useParams();
-  console.log("categoryId:", categoryId); // MUST log a number
+  // console.log("categoryId:", categoryId); // MUST log a number
 
   const navigate = useNavigate();
   const api = new ApiService();

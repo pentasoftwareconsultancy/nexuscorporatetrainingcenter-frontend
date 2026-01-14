@@ -16,7 +16,7 @@ export default function TotalReviewsDashboard() {
     const fetchReviews = async () => {
       try {
         const res = await api.apiget(`${ServerUrl.API_GET_REVIEWS}`);
-        console.log("Reviews Data:", res.data);
+        // console.log("Reviews Data:", res.data);
 
         // FIX HERE 👇
         setReviews(res?.data?.data || []);
