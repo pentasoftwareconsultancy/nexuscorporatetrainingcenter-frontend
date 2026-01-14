@@ -3,6 +3,7 @@ import { Edit, Trash2, Upload, Check } from "lucide-react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import toast from "react-hot-toast";
 
 const Input = ({ label, ...props }) => (
   <div className="flex flex-col">
@@ -149,8 +150,8 @@ const GalleryCollegeDetailPage = () => {
   const handleAddCollege = async () => {
     try {
       if (!collegeData.city && !collegeData.cityId)
-        return alert("City is required");
-      if (!collegeData.collegeName) return alert("College name required");
+        return toast.error("City is required");
+      if (!collegeData.collegeName) return toast.error("College name required");
 
       const formData = new FormData();
 
@@ -180,7 +181,7 @@ const GalleryCollegeDetailPage = () => {
       navigator(-1);
     } catch (err) {
       console.error("Create Failed", err);
-      alert("Failed");
+      toast.error("Failed");
     }
   };
 
@@ -212,7 +213,7 @@ const GalleryCollegeDetailPage = () => {
       navigator(-1);
     } catch (err) {
       console.error("Update failed", err);
-      alert("Update Failed");
+      toast.error("Update Failed");
     }
   };
 

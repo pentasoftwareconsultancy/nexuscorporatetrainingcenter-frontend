@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { App } from './App';
 
 export default function CircularGallery({ items, bend, textColor }) {

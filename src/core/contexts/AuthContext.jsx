@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
   // Login
   const login = (data) => {
-    console.log("LOGIN DATA IN CONTEXT:", data);
+    // console.log("LOGIN DATA IN CONTEXT:", data);
     
     // Extract token (works for all backend formats)
     const token =
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       token: token,
     };
   
-    console.log("SAVING USER TO LS:", userData);
+    // console.log("SAVING USER TO LS:", userData);
   
     localStorage.setItem("user", JSON.stringify(userData));
 

@@ -3,6 +3,7 @@ import { Upload, Trash2, Check, Edit } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import toast from "react-hot-toast";
 
 export default function AdminFacultyForm() {
   const { id } = useParams();
@@ -95,7 +96,7 @@ export default function AdminFacultyForm() {
       }
 
       if (res?.data?.success) {
-        alert("Saved Successfully");
+        toast.success("Faculty Saved Successfully");
         navigate(-1);
       }
     } catch (err) {
@@ -111,7 +112,7 @@ export default function AdminFacultyForm() {
 
     try {
       await api.apidelete(`${ServerUrl.API_DELETE_FACULTY}${id}`);
-      alert("Deleted Successfully");
+      toast.success("Faculty Deleted Successfully");
       navigate(-1);
     } catch (err) {
       console.error("Delete Error", err);

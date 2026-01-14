@@ -16,7 +16,7 @@ const CoursesCard = ({
   categoryId,
 }) => {
   const navigate = useNavigate();
-  console.log("categoryId in CoursesCard:", categoryId);
+  // console.log("categoryId in CoursesCard:", categoryId);
   // 🧠 Convert logo string to actual React icon
   const IconComponent = getIconByName(logo);
 

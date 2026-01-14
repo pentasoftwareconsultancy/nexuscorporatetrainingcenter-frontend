@@ -78,7 +78,7 @@ export default function PlacementDetailForm() {
           ServerUrl.API_GET_ALL_PLACEMENT_DETAILS_BYID + id
         );
 
-        console.log("📌 FETCHED DATA -->", res?.data);
+        // console.log("📌 FETCHED DATA -->", res?.data);
 
         if (!res?.data?.success) return;
 
@@ -154,14 +154,14 @@ export default function PlacementDetailForm() {
           formData
         );
 
-        console.log("🟠 UPDATED RESPONSE -->", res?.data);
+        // console.log("🟠 UPDATED RESPONSE -->", res?.data);
       } else {
         res = await api.apipost(
           ServerUrl.API_CREATE_ALL_PLACEMENT_DETAILS,
           formData
         );
 
-        console.log("🟢 CREATED RESPONSE -->", res?.data);
+        // console.log("🟢 CREATED RESPONSE -->", res?.data);
       }
 
       if (res?.data?.success) {
@@ -169,7 +169,7 @@ export default function PlacementDetailForm() {
         navigate(-1);
       }
     } catch (err) {
-      console.error("❌ SUBMIT ERROR --->", err);
+      // console.error("❌ SUBMIT ERROR --->", err);
     }
   };
 
@@ -203,7 +203,7 @@ export default function PlacementDetailForm() {
         handleChange("placementCategoryId", ""); 
         handleChange("newCategory", "");
       }
-      console.log("Category Add Response", res);
+      // console.log("Category Add Response", res);
     } catch (e) {
       console.error("Category Add Error", e);
     }
