@@ -115,6 +115,7 @@ export default function AdminFacultyForm() {
         toast.success("Faculty Deleted Successfully");
         navigate(-1);
       } catch (err) {
+        toast.error("Something went wrong please try again later");
         console.error("Delete Error", err);
       }
     });
