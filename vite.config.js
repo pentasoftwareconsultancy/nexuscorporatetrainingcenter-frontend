@@ -10,5 +10,8 @@ export default defineConfig({
   server: {
     historyApiFallback: true,
   },
-  
+  base: "/",   // 👈 REQUIRED for Vercel SPA
+  build: {
+    outDir: "dist"
+  },
 })
