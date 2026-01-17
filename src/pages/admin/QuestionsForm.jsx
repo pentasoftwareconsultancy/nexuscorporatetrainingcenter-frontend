@@ -256,7 +256,7 @@ const QuestionsForm = () => {
             <button
               type="button"
               disabled={bulkLoading}
-              onClick={handleExcelUpload}
+              onClick={singleClick(handleExcelUpload)}
               className="px-6 py-2 rounded-lg bg-one text-black font-semibold disabled:opacity-60"
             >
               {bulkLoading ? "Uploading..." : "Upload Excel"}
