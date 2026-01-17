@@ -19,6 +19,9 @@ const QuestionsForm = () => {
   const [editMode, setEditMode] = useState(mode === "add");
   const [loading, setLoading] = useState(false);
 
+  const [excelFile, setExcelFile] = useState(null);
+  const [bulkLoading, setBulkLoading] = useState(false);
+
   const [data, setData] = useState({
     question: "",
     options: [
@@ -41,11 +44,11 @@ const QuestionsForm = () => {
         setLoading(true);
 
         const res = await api.apiget(
-          `${ServerUrl.API_GET_QUESTIONS_AND_OPTIONS}${testId}/questions`
+          `${ServerUrl.API_GET_QUESTIONS_AND_OPTIONS}${testId}/questions`,
         );
 
         const q = res.data.questions.find(
-          (item) => item.id === Number(questionId)
+          (item) => item.id === Number(questionId),
         );
 
         if (!q) return;
@@ -129,7 +132,7 @@ const QuestionsForm = () => {
 
         await api.apiput(
           `${ServerUrl.API_UPDATE_QUESTIONS_AND_OPTIONS}${questionId}`,
-          payload
+          payload,
         );
       }
 
@@ -166,6 +169,30 @@ const QuestionsForm = () => {
       toast.error("Delete failed");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleExcelUpload = async () => {
+    if (!excelFile) {
+      toast.error("Please select an Excel file");
+      return;
+    }
+
+    try {
+      setBulkLoading(true);
+
+      const formData = new FormData();
+      formData.append("file", excelFile); // REAL FILE
+
+      await api.apipostForm(`${ServerUrl.API_BULK_POST}${testId}`, formData);
+
+      toast.success("Excel uploaded successfully");
+      navigate(-1);
+    } catch (err) {
+      console.error(err);
+      toast.error("Excel upload failed");
+    } finally {
+      setBulkLoading(false);
     }
   };
 
@@ -208,6 +235,35 @@ const QuestionsForm = () => {
           </div>
         )}
       </div>
+
+      {/* BULK UPLOAD */}
+      {mode === "add" && (
+        <div className="mt-6 p-4 border border-dashed border-gray-600 rounded-xl">
+          <div className="flex md:flex-row gap-4 items-start md:items-center justify-between">
+            <div>
+              <h2 className="text-lg font-medium mb-2">Bulk Upload (Excel)</h2>
+              <input
+                type="file"
+                accept=".xlsx,.xls"
+                onChange={(e) => setExcelFile(e.target.files[0])}
+                className="block text-sm text-gray-400"
+              />
+              <p className="mt-2 text-xs text-gray-400">
+                Excel format must match predefined columns (Question, Option
+                A–D, Correct Option, Explanation)
+              </p>
+            </div>
+            <button
+              type="button"
+              disabled={bulkLoading}
+              onClick={handleExcelUpload}
+              className="px-6 py-2 rounded-lg bg-one text-black font-semibold disabled:opacity-60"
+            >
+              {bulkLoading ? "Uploading..." : "Upload Excel"}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* QUESTION */}
       <div className="mt-6">

@@ -229,6 +229,9 @@ class ServerUrl {
     static API_UPDATE_QUESTIONS_AND_OPTIONS = ServerUrl.API_MODULE_ADMIN_TESTS + "/question/"; // + id
     static API_DELETE_QUESTIONS_AND_OPTIONS = ServerUrl.API_MODULE_ADMIN_TESTS + "/question";
 
+    // BULK UPLOAD
+    static API_BULK_POST = ServerUrl.API_MODULE_ADMIN_TESTS + "/bulk/"; // + testId
+
     // CERTIFICATION
     static API_MODULE_USER_CERTIFICATION = "/api/certification/me";
 }
