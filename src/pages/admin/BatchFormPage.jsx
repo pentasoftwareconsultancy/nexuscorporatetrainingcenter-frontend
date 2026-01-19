@@ -178,7 +178,6 @@ export default function BatchFormPage() {
               type="text"
               value={data.batchName}
               onChange={(e) => handleChange("batchName", e.target.value)}
-              disabled={!editMode}
               className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl px-3 py-3 outline-none"
               placeholder="Enter batch name"
             />
