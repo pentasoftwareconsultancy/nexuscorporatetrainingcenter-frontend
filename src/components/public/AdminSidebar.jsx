@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ROUTES } from "../../core/constants/routes.constant";
-import { NavLink, useNavigate } from "react-router-dom";
+import { href, NavLink, useNavigate } from "react-router-dom";
 import {
   LogOut,
   LayoutDashboard,
@@ -14,33 +14,14 @@ import {
 } from "lucide-react";
 
 const NAV_LINKS = [
-  {
-    label: "Dashboard",
-    icon: <LayoutDashboard />,
-    href: ROUTES.ADMIN_DASHBOARD,
-  },
+  { label: "Dashboard", icon: <LayoutDashboard />, href: ROUTES.ADMIN_DASHBOARD, },
+  { label: "Faculty", icon: <SquareUserRound />, href: ROUTES.ADMIN_FACULTY, },
   { label: "Courses", icon: <BookOpen />, href: ROUTES.ADMIN_COURSES },
+  { label: "Batch", icon: <BookOpen />, href: ROUTES.ADMIN_BATCH_PAGE },
   { label: "Gallery", icon: <Images />, href: ROUTES.ADMIN_GALLERY_FORM },
-  {
-    label: "Placements",
-    icon: <Briefcase />,
-    href: ROUTES.ADMIN_TOTAL_PLACEMENTS,
-  },
-  {
-    label: "Blogs",
-    icon: <TvMinimalPlay />,
-    href: ROUTES.ADMIN_BLOGS,
-  },
-  {
-    label: "Faculty",
-    icon: <SquareUserRound />,
-    href: ROUTES.ADMIN_FACULTY,
-  },
-  {
-    label: "Tests",
-    icon: <School />,
-    href: ROUTES.ADMIN_TEST_DASHBOARD,
-  },
+  { label: "Placements", icon: <Briefcase />, href: ROUTES.ADMIN_TOTAL_PLACEMENTS, },
+  { label: "Blogs", icon: <TvMinimalPlay />, href: ROUTES.ADMIN_BLOGS, },
+  { label: "Tests", icon: <School />, href: ROUTES.ADMIN_TEST_DASHBOARD, },
 ];
 
 function AdminSidebar({ isOpen, setIsOpen }) {
