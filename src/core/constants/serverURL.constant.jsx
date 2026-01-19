@@ -51,9 +51,9 @@ class ServerUrl {
     //BATCH APIs
     static API_ADD_BATCH = ServerUrl.API_MODULE_MASTER + "/batches";
     static API_GET_BATCHES = ServerUrl.API_MODULE_MASTER + "/batches";
-    static API_GET_BATCH_BY_ID = ServerUrl.API_MODULE_MASTER + "/batches/"; // + id
-    static API_UPDATE_BATCH = ServerUrl.API_MODULE_MASTER + "/batches/"; // + id
-    static API_DELETE_BATCH = ServerUrl.API_MODULE_MASTER + "/batches/"; // + id
+    static API_GET_BATCH_BY_ID = ServerUrl.API_MODULE_MASTER + "/batches"; // + id
+    static API_UPDATE_BATCH = ServerUrl.API_MODULE_MASTER + "/batches"; // + id
+    static API_DELETE_BATCH = ServerUrl.API_MODULE_MASTER + "/batches"; // + id
  
     // MEDIA MODULE / GALLERY MODULE
     static API_MODULE_MEDIA = "/api/media";    

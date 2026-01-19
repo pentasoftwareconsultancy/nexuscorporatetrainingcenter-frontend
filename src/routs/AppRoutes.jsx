@@ -60,6 +60,8 @@ const TestCategoryForm = lazy(() =>import("../pages/admin/TestCategoryForm"));
 const AdminTestDashboardPage = lazy(() =>import("../pages/admin/AdminTestDashboardPage"));
 const AdminQuestionsDashboardPage = lazy(() =>import("../pages/admin/AdminQuestionsDashboardPage"));
 const QuestionsForm = lazy(() =>import("../pages/admin/QuestionsForm"));
+const AdminBatchPage = lazy(() => import("../pages/admin/AdminBatchPage"));
+const BatchFormPage = lazy(() => import("../pages/admin/BatchFormPage"));
 
 const AppRoutes = () => {
   
@@ -159,6 +161,11 @@ const AppRoutes = () => {
           <Route path={`${ROUTES.ADMIN_QUESTION_DASHBOARD_BY_ID}/:id`} element={<LazyLoad component={AdminQuestionsDashboardPage} />} />
           <Route path={ROUTES.ADMIN_QUESTION_FORM} element={<LazyLoad component={QuestionsForm} />} />
           <Route path={`${ROUTES.ADMIN_QUESTION_FORM_EDIT}/:id`} element={<LazyLoad component={QuestionsForm} />} />
+
+          {/* Batches */}
+          <Route path={`${ROUTES.ADMIN_BATCH_PAGE}`} element={<LazyLoad component={AdminBatchPage} />} />
+          <Route path={`${ROUTES.ADMIN_BATCH_FORM}`} element={<LazyLoad component={BatchFormPage} />} />
+          <Route path={`${ROUTES.ADMIN_BATCH_FORM_EDIT}`} element={<LazyLoad component={BatchFormPage} />} />
 
           {/* Misc */}
           <Route path={ROUTES.ADMIN_NOTIFICATION} element={<LazyLoad component={AdminNotificationPage} />} />

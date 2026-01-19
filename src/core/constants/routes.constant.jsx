@@ -70,6 +70,10 @@ export const ROUTES = {
   ADMIN_QUESTION_DASHBOARD_BY_ID: "/questiondashboard",
   ADMIN_QUESTION_FORM: "/questionform",
   ADMIN_QUESTION_FORM_EDIT: "/questionform",
+  //Batch
+  ADMIN_BATCH_PAGE: "/adminbatch",
+  ADMIN_BATCH_FORM: "/batchform",
+  ADMIN_BATCH_FORM_EDIT: "/batchform/:id",
   // 
   ADMIN_NOTIFICATION: "/adminnotification",
   ADMIN_PROFILE: "/adminprofile",
