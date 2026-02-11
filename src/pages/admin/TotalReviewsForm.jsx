@@ -83,7 +83,7 @@ export default function TotalReviewsForm() {
 
   // ---------------- SUBMIT ----------------
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setIsSubmitting(true);
 
     try {
