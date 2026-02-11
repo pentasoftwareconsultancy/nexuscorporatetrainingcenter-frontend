@@ -167,7 +167,7 @@ export default function TotalReviewsForm() {
         </div>
 
         {/* FORM */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form id="reviewForm" onSubmit={handleSubmit} className="space-y-6">
           {/* NAME + POSITION + RATING */}
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 flex flex-col">
@@ -259,7 +259,8 @@ export default function TotalReviewsForm() {
       {/* FLOAT ADD BUTTON */}
       {!isEditMode && (
         <button
-          onClick={()=>singleClick(handleSubmit)}
+          type="submit"
+          form="reviewForm"
           disabled={isSubmitting}
           className={`fixed right-10 bottom-10 w-14 h-14 
           ${isSubmitting ? "bg-gray-400" : "bg-one"}
