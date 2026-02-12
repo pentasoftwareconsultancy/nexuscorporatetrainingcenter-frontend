@@ -67,6 +67,8 @@ function OurClient() {
     autoplay: !isPaused,
     autoplaySpeed: 0,
     cssEase: "linear",
+    centerMode: false,
+    variableWidth: false,
     slidesToShow: 6,
     slidesToScroll: 1,
     arrows: false,
@@ -121,12 +123,15 @@ function OurClient() {
                   <img
                     src={imageMap[client.src]}
                     alt={client.name}
-                    className="h-9  lg:h-12 object-contain mx-auto grayscale hover:grayscale-0 transition-all duration-300"
-                    style={{
-                      maxWidth: "140px",
-                      filter: "brightness(1)",
-                      opacity: 1,
-                    }}
+                    className="
+                      w-full 
+                      max-w-[100px] 
+                      h-auto
+                      object-contain 
+                      mx-auto 
+                      grayscale hover:grayscale-0 
+                      transition-all duration-300
+                    "
                     onClick={() => setIsPaused(true)}
                   />
                 </div>
@@ -157,8 +162,10 @@ function OurClient() {
             <h2 className="font-semibold text-2xl sm:text-3xl lg:text-4xl mb-4 leading-snug">
               We Build Success <br /> by the Numbers
             </h2>
-            <p className="text-base sm:text-lg text-gray-300 leading-normal 
-                max-w-full lg:max-w-md text-justify">
+            <p
+              className="text-base sm:text-lg text-gray-300 leading-normal 
+                max-w-full lg:max-w-md text-justify"
+            >
               Our impact is measured not just in satisfied clients, but in
               tangible results. We are dedicated to creating measurable
               differences, transforming potential into performance and ambition

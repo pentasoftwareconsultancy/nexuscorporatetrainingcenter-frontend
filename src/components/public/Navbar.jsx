@@ -8,38 +8,55 @@ const NAV_LINKS = [
   { label: "About us", href: ROUTES.ABOUT },
   { label: "Courses", href: ROUTES.COURSES },
   { label: "Gallery", href: ROUTES.GALLERY },
-
-  // Placements Dropdown
-  { 
-    label: "Placements", 
+  {
+    label: "Placements",
     dropdown: [
       { label: "Placement Records", href: ROUTES.PLACEMENTS },
       { label: "Video Testimonials", href: ROUTES.VIDEO_TESTIMONIALS }
     ]
   },
-
   { label: "Contact us", href: ROUTES.CONTACT },
 ];
 
 function Navbar() {
   const [activeTab, setActiveTab] = useState("");
-  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+
+  // 🔥 NEW STATES
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  const location = useLocation();
   const navigate = useNavigate();
 
+  // Active tab detection
   useEffect(() => {
     const currentPath = location.pathname;
     const activeLink = NAV_LINKS.find((link) => link.href === currentPath);
     setActiveTab(activeLink ? activeLink.label : "");
   }, [location.pathname]);
 
+  // Scroll detection (Hide on scroll down, show on scroll up)
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      setIsScrolled(currentScrollY > 50);
+
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setShowNavbar(false); // scrolling down
+      } else {
+        setShowNavbar(true); // scrolling up
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   const handleLinkClick = (label) => {
     setActiveTab(label);
@@ -54,12 +71,13 @@ function Navbar() {
   return (
     <>
       <nav
-        className={`fixed w-full top-0 left-0 z-50 flex items-center justify-between px-6 lg:px-12 h-16 lg:h-20 transition-all duration-300
-          ${isScrolled}`}
-        style={{
-          borderBottomLeftRadius: "1.2rem",
-          borderBottomRightRadius: "1.2rem",
-        }}
+        className={`fixed w-full top-0 left-0 z-50
+        bg-black/40 border border-white/20 backdrop-blur-md
+        flex items-center justify-between px-6 lg:px-12 h-16 lg:h-20
+        transition-all duration-1000 ease-in-out
+        ${showNavbar ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}
+        ${isScrolled ? "shadow-lg" : ""}
+        `}
       >
         {/* Logo */}
         <div onClick={() => navigate(ROUTES.HOME)} className="flex flex-col items-center">
