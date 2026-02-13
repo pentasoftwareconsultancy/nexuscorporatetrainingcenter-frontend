@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import VisionImg from "../../../assets/about/OurVision.png";
-import MissionImg from "../../../assets/about/OurMission.png";
-import ValuesImg from "../../../assets/about/OurValues.png";
+import VisionImg from "../../../assets/about/OurVision.avif";
+import MissionImg from "../../../assets/about/OurMission.avif";
+import ValuesImg from "../../../assets/about/OurValues.avif";
 
 const VMVSection = () => {
   useEffect(() => {
