@@ -24,41 +24,17 @@ export default function Branches() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-black text-white px-6 py-20 relative overflow-hidden">
+    <div className="min-h-screen w-full text-white px-12 pt-5 relative overflow-hidden">
 
-      {/* 🔥 1. Animated Gradient Clouds */}
-      <motion.div
-        animate={{ opacity: [0.2, 0.4, 0.25] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[1200px] 
-                   bg-gradient-to-br from-purple-700/30 via-blue-600/20 to-transparent 
-                   rounded-full blur-[150px]"
-      />
-
-      {/* 🔷 2. Floating Geometric Shapes */}
-      <motion.div
-        animate={{ y: [0, -25, 0], rotate: [0, 15, -15, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-40 right-20 w-44 h-44 border border-white/10 
-                   rounded-2xl rotate-12 backdrop-blur-xl"
-      />
-
-      <motion.div
-        animate={{ y: [0, 35, 0], rotate: [0, -20, 20, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-20 left-10 w-52 h-52 border border-white/5 
-                   rounded-full backdrop-blur-md"
-      />
 
       {/* 🟦 3. Subtle Grid Overlay */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.05] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:50px_50px]" />
 
       {/* TITLE */}
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="ml-10 text-5xl md:text-6xl font-extrabold mb-16 tracking-wide 
+        className="text-5xl md:text-6xl font-extrabold mb-8 tracking-wide 
              bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400"
       >
         Branches
@@ -93,12 +69,12 @@ export default function Branches() {
             <h2 className="text-xl font-semibold mb-3">{item.title}</h2>
 
             <p className="flex items-start gap-3 text-sm text-gray-300 leading-tight">
-              <MapPin className="w-5 h-5 text-white mt-1" />
+              <MapPin className="w-5 h-5 text-white shrink-0" />
               {item.address}
             </p>
 
             <p className="flex items-center gap-3 text-sm text-gray-300 mt-3">
-              <Phone className="w-5 h-5 text-white" />
+              <Phone className="w-5 h-5 text-white shrink-0" />
               {item.phone}
             </p>
           </motion.div>
