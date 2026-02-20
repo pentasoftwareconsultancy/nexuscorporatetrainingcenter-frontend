@@ -7,7 +7,7 @@ const Button = ({
   showIcon = true,   
   type = "button"
 }) => {
-  return (
+  return ( 
     <button
       type={type}
       onClick={onClick}

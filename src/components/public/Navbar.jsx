@@ -164,7 +164,7 @@ function Navbar() {
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 rounded-lg bg-black/50 border border-white/30 text-white focus:outline-none"
+            className="p-2 rounded-lg bg-twopointo border border-white/30 text-white focus:outline-none"
           >
             {isMenuOpen ? (
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
