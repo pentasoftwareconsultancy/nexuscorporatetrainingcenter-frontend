@@ -3,12 +3,14 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../public/Navbar";
 import Footer from "../public/Footer";
 import ButtonGroup from "./ButtonGroup";
+import ClickTopBtn from "./ClickTopBtn";
 
 const PublicLayout = () => {
   return (
     <div>
       {/* You can add a navbar or footer here */}
       <Navbar />
+      <ClickTopBtn />
       <ButtonGroup />
       {/* Nested pages like HomePage, AboutPage, etc. will appear here */}
       <div className="mt-18">

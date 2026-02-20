@@ -45,7 +45,7 @@ export default function FacultySection() {
             display: flex;
             gap: 16px;
             width: max-content;
-            animation: facultyScroll 5s linear infinite;
+            animation: facultyScroll 20s linear infinite;
           }
 
           .faculty-wrapper:hover .faculty-track {

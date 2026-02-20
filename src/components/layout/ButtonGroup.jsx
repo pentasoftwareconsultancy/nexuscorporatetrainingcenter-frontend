@@ -24,13 +24,13 @@ const ButtonGroup = () => {
   return (
     <div
       className="
-        fixed right-2 sm:right-3 md:right-6 lg:right-8 
+        fixed right-2 sm:right-2 md:right-2 lg:right-2 
         bottom-8 sm:bottom-10 md:bottom-12 
         flex flex-col items-center 
         bg-[#FFF6EF] border border-[#e8d7c9]
         rounded-lg sm:rounded-xl md:rounded-2xl
         shadow-[inset_2px_2px_6px_rgba(0,0,0,0.55)]
-        px-3 py-3 sm:px-4 sm:py-5 md:px-5 md:py-8 
+        px-2 py-3 sm:px-2 sm:py-4 md:px-3 md:py-6 
         space-y-3 sm:space-y-5 md:space-y-8 
         z-50
       "
