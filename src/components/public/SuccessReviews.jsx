@@ -94,14 +94,14 @@ const SuccessReviews = () => {
                     key={review.id || review._id || index}
                     onClick={() => setSelectedReview(review)}
                     className="flex flex-col justify-between rounded-2xl cursor-pointer overflow-hidden border-2
-                    max-w-[280px] sm:max-w-[240px] md:max-w-[260px]
-                    text-white transition-all duration-300 ease-in-out hover:scale-[1.02]"
+                    max-w-[300px] sm:max-w-[260px] md:max-w-[280px]
+                    text-white transition-all duration-300 ease-in-out"
                   >
-                    <div className="w-full h-48 overflow-hidden bg-black">
+                    <div className="w-full h-64 overflow-hidden bg-black">
                       <img
                         src={review?.imageUrl || "/fallback.png"}
                         alt={review?.name}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                        className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
                         onError={(e) => (e.target.src = "/fallback.png")}
                       />
                     </div>
@@ -157,7 +157,7 @@ const SuccessReviews = () => {
             <img
               src={selectedReview?.imageUrl || "/fallback.png"}
               alt={selectedReview?.name}
-              className="w-full h-56 object-cover rounded-lg mb-4"
+              className="w-full h-72 object-contain rounded-lg mb-4"
             />
 
             <h3 className="text-2xl font-bold mb-1">
