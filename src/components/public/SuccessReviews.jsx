@@ -10,14 +10,22 @@ const SuccessReviews = () => {
   const mainScrollRef = useRef(null);
 
   const fetchReviews = async () => {
-    try {
-      const response = await api.apiget(`${ServerUrl.API_GET_REVIEWS}`);
-      const data = response?.data?.data || response?.data || [];
-      setReviews(data);
-    } catch (error) {
-      console.error("Error fetching reviews:", error);
+  try {
+    const response = await api.apiget(ServerUrl.API_GET_REVIEWS);
+
+    let data = response?.data?.data ?? response?.data ?? [];
+
+    // Ensure array
+    if (!Array.isArray(data)) {
+      data = Object.values(data || {});
     }
-  };
+
+    setReviews(data);
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+    setReviews([]); // always safe fallback
+  }
+};
 
   useEffect(() => {
     fetchReviews();
