@@ -168,7 +168,7 @@ export default function HomeHero() {
             </div>
             <div className="flex justify-center md:justify-start">
               <Button
-                text="Enroll Now Add"
+                text="Enroll Now"
                 onClick={() => navigate(ROUTES.CONTACT)}
               />
             </div>
