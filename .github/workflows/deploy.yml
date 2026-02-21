@@ -21,6 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # 🔥 ADD THIS STEP
+      - name: Create .env file
+        run: |
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
+
       - name: Build project
         run: npm run build
 
@@ -34,3 +39,4 @@ jobs:
           protocol: ftp
           local-dir: dist/
           server-dir: ./
+          dangerous-clean-slate: true
