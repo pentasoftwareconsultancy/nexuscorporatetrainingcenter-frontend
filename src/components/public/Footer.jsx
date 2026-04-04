@@ -124,7 +124,7 @@ export default function Footer() {
     navigate(link.path);
   };
   return (
-    <footer className="flex justify-center items-center text-white w-full min-h-screen relative mx-auto md:m-10 md:px-12">
+    <footer className="flex justify-center items-center text-white w-full min-h-screen relative mx-auto md:px-12">
       <div className="relative w-full min-h-[700px] overflow-hidden md:rounded-2xl border-0 md:border-2 md:border-one">
         {/* Background Gradient */}
         <div className="absolute inset-0 z-0 bg-gradient-to-b via-[#1b1008] to-[#e77b2ee1]" />
