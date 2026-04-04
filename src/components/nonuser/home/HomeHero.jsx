@@ -67,7 +67,7 @@ export default function HomeHero() {
       className="relative font-sora w-full min-h-screen
         flex flex-col md:flex-row
         items-center justify-center
-        px-4 sm:px-6 md:px-12
+        px-4 sm:px-6 md:px-12 pb-20 md:pb-0
         text-one overflow-hidden"
     >
       <div className="absolute z-0 hidden md:block w-[880px] h-[880px] -bottom-[150px] -left-[450px] pointer-events-none">

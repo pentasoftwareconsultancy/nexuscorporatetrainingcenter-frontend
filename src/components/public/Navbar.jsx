@@ -23,37 +23,29 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-
-  // 🔥 NEW STATES
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Active tab detection
   useEffect(() => {
     const currentPath = location.pathname;
     const activeLink = NAV_LINKS.find((link) => link.href === currentPath);
     setActiveTab(activeLink ? activeLink.label : "");
   }, [location.pathname]);
 
-  // Scroll detection (Hide on scroll down, show on scroll up)
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
       setIsScrolled(currentScrollY > 50);
-
       if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        setShowNavbar(false); // scrolling down
+        setShowNavbar(false);
       } else {
-        setShowNavbar(true); // scrolling up
+        setShowNavbar(true);
       }
-
       setLastScrollY(currentScrollY);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
@@ -75,12 +67,12 @@ function Navbar() {
         bg-black/40 border border-white/20 backdrop-blur-md
         flex items-center justify-between px-6 lg:px-12 h-16 lg:h-20
         transition-all duration-1000 ease-in-out
-        ${showNavbar ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}
+        ${showNavbar ? "translate-y-0 opacity-100" : "lg:-translate-y-full lg:opacity-0"}
         ${isScrolled ? "shadow-lg" : ""}
         `}
       >
         {/* Logo */}
-        <div onClick={() => navigate(ROUTES.HOME)} className="flex flex-col items-center">
+        <div onClick={() => navigate(ROUTES.HOME)} className="cursor-pointer flex flex-col items-center">
           <h1 className="text-2xl lg:text-3xl font-medium flex items-center justify-center">
             <span className="text-white font-playfair">NE</span>
             <span className="text-orange-500 text-5xl pt-1">
@@ -96,26 +88,16 @@ function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center justify-center flex-1">
-          <div
-            className="flex items-center justify-center space-x-2 px-4 py-2 bg-black/40 border border-white/20 
-            rounded-2xl backdrop-blur-md transition-all duration-300"
-          >
+          <div className="flex items-center justify-center space-x-2 px-4 py-2 bg-black/40 border border-white/20 rounded-2xl backdrop-blur-md transition-all duration-300">
             {NAV_LINKS.map((item) =>
               item.dropdown ? (
                 <div key={item.label} className="relative">
-                  
-                  {/* CLICK TO OPEN DROPDOWN */}
                   <button
-                    onClick={() =>
-                      setOpenDropdown(openDropdown === item.label ? null : item.label)
-                    }
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-white/90 
-                    hover:bg-white hover:text-black`}
+                    onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
+                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-white/90 hover:bg-white hover:text-black"
                   >
                     {item.label}
                   </button>
-
-                  {/* DROPDOWN MENU */}
                   {openDropdown === item.label && (
                     <div className="absolute top-full left-0 mt-2 bg-white text-black rounded-lg shadow-lg overflow-hidden w-48">
                       {item.dropdown.map((drop) => (
@@ -137,11 +119,7 @@ function Navbar() {
                   to={item.href}
                   onClick={() => handleLinkClick(item.label)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
-                  ${
-                    activeTab === item.label
-                      ? "bg-white text-black shadow-md"
-                      : "text-white/90 hover:bg-white hover:text-black"
-                  }`}
+                  ${activeTab === item.label ? "bg-white text-black shadow-md" : "text-white/90 hover:bg-white hover:text-black"}`}
                 >
                   {item.label}
                 </Link>
@@ -150,84 +128,69 @@ function Navbar() {
           </div>
         </div>
 
-        {/* Right: Test Button */}
+        {/* Desktop Right Button */}
         <div className="hidden lg:flex items-center justify-end">
           <Button text="Test" onClick={() => navigate(ROUTES.LOGIN)} />
         </div>
 
-        {/* Mobile Section */}
+        {/* Mobile: Button + Hamburger */}
         <div className="flex lg:hidden items-center space-x-4">
-          <Button 
-            text="Test"
-            onClick={() => navigate(ROUTES.LOGIN)}
-          />
-
+          <Button text="Test" onClick={() => navigate(ROUTES.LOGIN)} />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="p-2 rounded-lg bg-twopointo border border-white/30 text-white focus:outline-none"
           >
-            {isMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-            )}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <div
-          className={`fixed inset-0 bg-black/70 backdrop-blur-xl flex flex-col items-center justify-center space-y-6 
-          transition-all duration-500 lg:hidden z-40
-          ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
-        >
-          {NAV_LINKS.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="w-60">
-                <div className="text-center text-white text-lg mb-2">{item.label}</div>
-
-                {item.dropdown.map((drop) => (
-                  <Link
-                    key={drop.label}
-                    to={drop.href}
-                    onClick={() => handleLinkClick(drop.label)}
-                    className="block w-full px-6 py-3 text-lg rounded-xl bg-white/10 text-white 
-                    hover:bg-white hover:text-black transition-all duration-300 mb-2"
-                  >
-                    {drop.label}
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                to={item.href}
-                onClick={() => handleLinkClick(item.label)}
-                className={`w-60 text-center px-6 py-3 text-lg rounded-xl font-medium transition-all duration-300
-                ${
-                  activeTab === item.label
-                    ? "bg-white text-black shadow-lg scale-105"
-                    : "bg-white/10 text-white hover:bg-white hover:text-black"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-
-          <button
-            onClick={() => setIsMenuOpen(false)}
-            className="absolute top-6 text-white"
-          >
-            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
           </button>
         </div>
       </nav>
+
+      {/* Mobile Menu — outside <nav> so fixed inset-0 covers full screen */}
+      <div
+        className={`fixed inset-0 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-4
+        transition-all duration-500 lg:hidden z-[999]
+        ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+      >
+        {NAV_LINKS.map((item) =>
+          item.dropdown ? (
+            <div key={item.label} className="w-60">
+              <div className="text-center text-white text-lg mb-2">{item.label}</div>
+              {item.dropdown.map((drop) => (
+                <Link
+                  key={drop.label}
+                  to={drop.href}
+                  onClick={() => handleLinkClick(drop.label)}
+                  className="block w-full px-6 py-3 text-lg rounded-xl bg-white/10 text-white hover:bg-white hover:text-black transition-all duration-300 mb-2"
+                >
+                  {drop.label}
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <Link
+              key={item.label}
+              to={item.href}
+              onClick={() => handleLinkClick(item.label)}
+              className={`w-60 text-center px-6 py-3 text-lg rounded-xl font-medium transition-all duration-300
+              ${activeTab === item.label ? "bg-white text-black shadow-lg scale-105" : "bg-white/10 text-white hover:bg-white hover:text-black"}`}
+            >
+              {item.label}
+            </Link>
+          )
+        )}
+
+        {/* Close Button */}
+        <button
+          onClick={() => setIsMenuOpen(false)}
+          className="absolute top-6 right-6 text-white"
+        >
+          <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
     </>
   );
 }

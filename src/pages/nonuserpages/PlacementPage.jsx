@@ -186,7 +186,7 @@ export default function PlacementPage() {
       initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6 }}
-      className="text-white py-6 px-12 overflow-hidden"
+      className="text-white py-6 px-1 lg:px-12 overflow-hidden"
     >
       <h1 className="text-4xl font-bold mb-8">From Potential to Performance</h1>
 

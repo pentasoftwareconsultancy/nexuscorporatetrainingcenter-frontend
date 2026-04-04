@@ -124,8 +124,8 @@ export default function Footer() {
     navigate(link.path);
   };
   return (
-    <footer className="flex justify-center items-center text-white w-full min-h-screen relative mx-auto m-10 px-12">
-      <div className="relative w-full min-h-[700px] overflow-hidden rounded-2xl border-0 md:border-2 md:border-one">
+    <footer className="flex justify-center items-center text-white w-full min-h-screen relative mx-auto md:m-10 md:px-12">
+      <div className="relative w-full min-h-[700px] overflow-hidden md:rounded-2xl border-0 md:border-2 md:border-one">
         {/* Background Gradient */}
         <div className="absolute inset-0 z-0 bg-gradient-to-b via-[#1b1008] to-[#e77b2ee1]" />
 
@@ -195,11 +195,11 @@ export default function Footer() {
         </div>
 
         {/* Footer Image */}
-        <div className="relative z-10 flex justify-center -translate-y-12">
+        <div className="relative z-10 flex justify-center -translate-y-6 md:-translate-y-12">
           <img
             src={footerImg}
             alt="Nexus Footer Image"
-            className="w-[80%] md:w-[90%] object-contain opacity-90"
+            className="w-[60%] md:w-[90%] object-contain opacity-90"
           />
         </div>
 
