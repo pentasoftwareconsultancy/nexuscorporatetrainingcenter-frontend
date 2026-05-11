@@ -115,7 +115,7 @@ function OurClient() {
         <h2 className=" text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
           Our Clients
         </h2>
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/75 to-transparent my-6"></div>
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
         <div className="relative [mask-image:_linear-gradient(to_right,transparent_0%,white_15%,white_85%,transparent_100%)]">
           <Slider {...sliderSettings}>
             {clients.map((client, idx) => (
@@ -142,7 +142,7 @@ function OurClient() {
             ))}
           </Slider>
         </div>
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/75 to-transparent my-6"></div>
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
       </section>
 
       {/* <div className="w-full border-t border-[#c0bbbb] my-6"></div> */}
@@ -151,7 +151,7 @@ function OurClient() {
       <section className="z-10 w-full  mx-auto px-3 md:px-12">
         <div className="flex flex-col lg:flex-row lg:items-start lg:gap-8">
           {/* Left */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.2 }}
@@ -186,8 +186,8 @@ function OurClient() {
                     damping: 18,
                     delay: idx * 0.08,
                   }}
-                  whileHover={{ 
-                    y: -6, 
+                  whileHover={{
+                    y: -6,
                     backgroundColor: "rgba(255, 255, 255, 0.06)",
                     borderColor: "rgba(255, 106, 0, 0.35)",
                     boxShadow: "0 15px 35px -10px rgba(255, 106, 0, 0.15)"
@@ -212,7 +212,7 @@ function OurClient() {
           </div>
         </div>
       </section>
-      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/75 to-transparent my-6"></div>
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
     </div>
   );
 }

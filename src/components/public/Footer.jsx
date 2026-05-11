@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // import Link
 import { ROUTES } from "../../core/constants/routes.constant"; // import your routes
 import footerImg from "../../assets/footer/footer.png";
-import { FaLinkedin, FaFacebook, FaPhoneAlt } from "react-icons/fa";
+import { FaLinkedin, FaFacebook, FaPhoneAlt, FaChevronDown } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaYoutube, FaLocationDot } from "react-icons/fa6";
@@ -180,9 +180,17 @@ const socialMedia = [
 export default function Footer() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState(fallbackCategories);
+  const [expandedCategories, setExpandedCategories] = useState({});
 
   const handleCategoryClick = (category) => {
     navigate(ROUTES.COURSES);
+  };
+
+  const toggleCategory = (categoryId) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [categoryId]: !prev[categoryId],
+    }));
   };
 
   const handlenavigate = (link) => {
@@ -195,8 +203,8 @@ export default function Footer() {
   const rightCols = categories.slice(half);
 
   return (
-    <footer className="flex justify-center items-center text-white w-full min-h-screen relative mx-auto md:px-12">
-      <div className="relative w-full min-h-[700px] pb-16 md:pb-24 overflow-hidden md:rounded-2xl border-0 md:border-2 md:border-one">
+    <footer className="flex justify-center items-center text-white w-full relative mx-auto md:px-12 mt-8">
+      <div className="relative w-full overflow-hidden md:rounded-2xl border-0 md:border-2 md:border-one pt-10 pb-12 md:pb-16">
         {/* Background Gradient */}
         <div className="absolute inset-0 z-0 bg-gradient-to-b via-[#1b1008] to-[#e77b2ee1]" />
 
@@ -205,7 +213,7 @@ export default function Footer() {
             {/* Company Links */}
             <div className="w-full md:w-[15%] mb-8 md:mb-0 text-start">
               <h3 className="font-bold mb-3 text-lg">Company</h3>
-              <ul className="space-y-1 text-sm text-gray-300">
+              <ul className="space-y-1 text-sm text-white">
                 {companyLinks.map((link) => (
                   <li
                     key={link.title}
@@ -227,13 +235,13 @@ export default function Footer() {
                     <h4 className="font-bold text-xs sm:text-sm text-orange-400/90 mb-1.5 flex items-center gap-1">
                       {group.category}
                     </h4>
-                    <ul className="space-y-2 text-[11px] text-gray-300">
+                    <ul className="space-y-2 text-[11px] text-white">
                       {group.items.map((item) => (
                         <li key={item.title} className="hover:text-white hover:translate-x-0.5 cursor-pointer transition-all duration-200">
-                          <div className="font-semibold text-white/95 text-xs">
+                          <div className="font-semibold text-white text-xs">
                             {item.title}
                           </div>
-                          <p className="pl-1 text-[10px] text-gray-400 flex items-start gap-1.5 mt-0.5">
+                          <p className="pl-1 text-[10px] text-white flex items-start gap-1.5 mt-0.5">
                             <FaLocationDot className="mt-0.5 text-orange-500/80 shrink-0" />
                             <span>{item.address}</span>
                           </p>
@@ -263,13 +271,17 @@ export default function Footer() {
                       <div key={category.id} className="group">
                         <h4
                           onClick={() => handleCategoryClick(category)}
-                          className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center gap-1"
+                          className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center justify-between gap-1"
                         >
-                          {category.name}
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">→</span>
+                          <span>{category.name}</span>
+                          <FaChevronDown
+                            className="text-[10px] text-orange-500/80 group-hover:rotate-180 transition-transform duration-300 shrink-0"
+                          />
                         </h4>
-                        <ul className="space-y-1 text-[11px] text-gray-300">
-                          {category.courses.map((course) => (
+                        
+                        {/* Always visible top 3 courses */}
+                        <ul className="space-y-1 text-[11px] text-white">
+                          {category.courses.slice(0, 3).map((course) => (
                             <li
                               key={course.id}
                               onClick={() => handleCategoryClick(category)}
@@ -279,6 +291,27 @@ export default function Footer() {
                             </li>
                           ))}
                         </ul>
+
+                        {/* Expandable remaining courses on hover */}
+                        {category.courses.length > 3 && (
+                          <div
+                            className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-in-out overflow-hidden"
+                          >
+                            <ul
+                              className="min-h-0 space-y-1 text-[11px] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 pt-1"
+                            >
+                              {category.courses.slice(3).map((course) => (
+                                <li
+                                  key={course.id}
+                                  onClick={() => handleCategoryClick(category)}
+                                  className="hover:text-white hover:translate-x-1 cursor-pointer transition-all duration-200"
+                                >
+                                  {course.title}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -290,13 +323,17 @@ export default function Footer() {
                       <div key={category.id} className="group">
                         <h4
                           onClick={() => handleCategoryClick(category)}
-                          className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center gap-1"
+                          className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center justify-between gap-1"
                         >
-                          {category.name}
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">→</span>
+                          <span>{category.name}</span>
+                          <FaChevronDown
+                            className="text-[10px] text-orange-500/80 group-hover:rotate-180 transition-transform duration-300 shrink-0"
+                          />
                         </h4>
-                        <ul className="space-y-1 text-[11px] text-gray-300">
-                          {category.courses.map((course) => (
+                        
+                        {/* Always visible top 3 courses */}
+                        <ul className="space-y-1 text-[11px] text-white">
+                          {category.courses.slice(0, 3).map((course) => (
                             <li
                               key={course.id}
                               onClick={() => handleCategoryClick(category)}
@@ -306,6 +343,27 @@ export default function Footer() {
                             </li>
                           ))}
                         </ul>
+
+                        {/* Expandable remaining courses on hover */}
+                        {category.courses.length > 3 && (
+                          <div
+                            className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-in-out overflow-hidden"
+                          >
+                            <ul
+                              className="min-h-0 space-y-1 text-[11px] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 pt-1"
+                            >
+                              {category.courses.slice(3).map((course) => (
+                                <li
+                                  key={course.id}
+                                  onClick={() => handleCategoryClick(category)}
+                                  className="hover:text-white hover:translate-x-1 cursor-pointer transition-all duration-200"
+                                >
+                                  {course.title}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -324,7 +382,7 @@ export default function Footer() {
         </div>
 
         {/* Footer Image */}
-        <div className="relative z-10 flex justify-center -translate-y-6 md:-translate-y-12">
+        <div className="relative z-10 flex justify-center -translate-y-48 md:-translate-y-80">
           <img
             src={footerImg}
             alt="Nexus Footer Image"
@@ -333,68 +391,67 @@ export default function Footer() {
         </div>
 
         {/* Contact Info */}
-        <div className="relative z-20 text-left -translate-y-8 px-6 sm:px-10 md:px-16">
-          <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-2">
-            Corporate Training Center LLP
-          </h2>
-          <p className="text-[10px] sm:text-xs md:text-sm max-w-2xl text-gray-300 mb-4">
-            Address: Office No. 4-B, Second Floor, Ganesham Commercial -A,
-            Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027
-          </p>
-
-          <div className="flex flex-col gap-3 sm:gap-3 md:gap-4 font-semibold text-[10px] sm:text-sm leading-relaxed">
-            <p>
-              <span className="font-bold text-white flex items-center gap-2 leading-1">
-                <FaPhoneAlt /> Contact:
-                <a
-                  href="tel:+919545450788"
-                  className="text-white hover:underline ml-1"
-                >
-                  +91 9545450788
-                </a>{" "}
-                /
-                <a
-                  href="tel:+919545450677"
-                  className="text-white hover:underline ml-1"
-                >
-                  +91 9545450677
-                </a>
-              </span>
-            </p>
-            <p>
-              <span className="font-bold text-white flex items-center gap-2 leading-1">
-                <IoIosMail /> Email:
-                <a
-                  href="mailto:nexusCTC2020@gmail.com"
-                  className="text-white hover:underline ml-1"
-                >
-                  nexusCTC2020@gmail.com
-                </a>
-              </span>
+        <div className="relative z-20 text-left -translate-y-36 md:-translate-y-64 -mb-36 md:-mb-64 px-6 sm:px-10 md:px-16 flex flex-col md:flex-row justify-between gap-8 md:gap-12">
+          {/* Left Side: Name and Address */}
+          <div className="flex-1 text-start">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-2">
+              Corporate Training Center LLP
+            </h2>
+            <p className="text-[10px] sm:text-xs md:text-sm max-w-xl text-white leading-relaxed">
+              Address: Office No. 4-B, Second Floor, Ganesham Commercial -A,
+              Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027
             </p>
           </div>
 
-          <div className="flex justify-start gap-4 mt-5">
-            {socialMedia.map((item, i) => {
-              const IconComponent = item.icon;
+          {/* Right Side: Contact, Email, Socials, Copyright */}
+          <div className="flex-1 flex flex-col md:items-end text-left gap-4 w-full">
+            <div className="md:w-fit md:ml-auto flex flex-col gap-4">
+              <div className="space-y-3 text-[11px] sm:text-xs md:text-sm text-white font-semibold">
+                {/* Phone Line */}
+                <div className="flex items-center gap-3">
+                  <FaPhoneAlt className="text-orange-500 shrink-0" size={14} />
+                  <div>
+                    <span className="text-white font-bold">Contact: </span>
+                    <a href="tel:+919545450788" className="hover:text-orange-400 transition ml-1">+91 9545450788</a>
+                    <span className="mx-2 text-white">/</span>
+                    <a href="tel:+919545450677" className="hover:text-orange-400 transition">+91 9545450677</a>
+                  </div>
+                </div>
 
-              return (
-                <a
-                  key={i}
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-orange-400 transition"
-                >
-                  <IconComponent size={28} />
-                </a>
-              );
-            })}
+                {/* Email Line */}
+                <div className="flex items-center gap-3">
+                  <IoIosMail className="text-orange-500 shrink-0" size={18} />
+                  <div>
+                    <span className="text-white font-bold">Email: </span>
+                    <a href="mailto:nexusCTC2020@gmail.com" className="hover:text-orange-400 transition ml-1">nexusCTC2020@gmail.com</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Social Media Icons */}
+              <div className="flex items-center gap-4 mt-1">
+                {socialMedia.map((item, i) => {
+                  const IconComponent = item.icon;
+                  return (
+                    <a
+                      key={i}
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white hover:text-orange-400 transition duration-200"
+                    >
+                      <IconComponent size={22} />
+                    </a>
+                  );
+                })}
+              </div>
+
+              {/* Copyright */}
+              <p className="text-white text-[10px] sm:text-xs mt-1">
+                © 2025 All rights reserved Nexusctc.com
+              </p>
+            </div>
           </div>
-
-          <p className="text-white text-[10px] sm:text-xs md:text-sm mt-5 text-left">
-            © 2025 All rights reserved Nexusctc.com
-          </p>
         </div>
       </div>
     </footer>
