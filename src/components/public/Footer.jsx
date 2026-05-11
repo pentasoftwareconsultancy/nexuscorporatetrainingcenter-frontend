@@ -19,36 +19,54 @@ const companyLinks = [
   { title: "Book appointment", path: ROUTES.CONTACT },
 ];
 
-const branches = [
+const categorizedBranches = [
   {
-    title: "Pimple Saudagar",
-    address:
-      "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
+    category: "Pune Region",
+    items: [
+      {
+        title: "Pimple Saudagar",
+        address:
+          "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
+      },
+      {
+        title: "Wagholi",
+        address: "502 Radheeshwari Nagar, Bakori road, Wagholi",
+      },
+      {
+        title: "Katraj",
+        address:
+          "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
+      },
+    ],
   },
   {
-    title: "Akole",
-    address: "4/45, Collector colony, Near ST stand, 111 Road, Akole",
+    category: "Maharashtra",
+    items: [
+      {
+        title: "Akole",
+        address: "4/45, Collector colony, Near ST stand, 111 Road, Akole",
+      },
+      {
+        title: "Nashik",
+        address:
+          "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
+      },
+      {
+        title: "Manchar",
+        address:
+          "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
+      },
+    ],
   },
-  { title: "Wagholi", address: "502 Radheeshwari Nagar, Bakori road, Wagholi" },
   {
-    title: "Katraj",
-    address:
-      "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
-  },
-  {
-    title: "Nashik",
-    address:
-      "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
-  },
-  {
-    title: "Manchar",
-    address:
-      "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
-  },
-  {
-    title: "United Kingdom",
-    address:
-      "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
+    category: "International",
+    items: [
+      {
+        title: "United Kingdom",
+        address:
+          "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
+      },
+    ],
   },
 ];
 
@@ -202,20 +220,29 @@ export default function Footer() {
 
             {/* Branches */}
             <div className="w-full md:w-[45%] mb-8 md:mb-0 text-start">
-              <h3 className="font-bold mb-3 text-lg">Branches</h3>
-              <ul className="space-y-2 text-xs text-gray-300">
-                {branches.map((branch) => (
-                  <li key={branch.title}>
-                    <div className="font-bold text-white mb-1">
-                      {branch.title}
-                    </div>
-                    <p className="ml-2 flex items-center gap-2 align-top">
-                      <FaLocationDot />
-                      {branch.address}
-                    </p>
-                  </li>
+              <h3 className="font-bold mb-4 text-lg border-b border-white/10 pb-1">Branches</h3>
+              <div className="space-y-4">
+                {categorizedBranches.map((group) => (
+                  <div key={group.category} className="group">
+                    <h4 className="font-bold text-xs sm:text-sm text-orange-400/90 mb-1.5 flex items-center gap-1">
+                      {group.category}
+                    </h4>
+                    <ul className="space-y-2 text-[11px] text-gray-300">
+                      {group.items.map((item) => (
+                        <li key={item.title} className="hover:text-white hover:translate-x-0.5 cursor-pointer transition-all duration-200">
+                          <div className="font-semibold text-white/95 text-xs">
+                            {item.title}
+                          </div>
+                          <p className="pl-1 text-[10px] text-gray-400 flex items-start gap-1.5 mt-0.5">
+                            <FaLocationDot className="mt-0.5 text-orange-500/80 shrink-0" />
+                            <span>{item.address}</span>
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </ul>
+              </div>
 
               {/* See More Button */}
               <div
