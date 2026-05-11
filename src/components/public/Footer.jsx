@@ -261,7 +261,7 @@ export default function Footer() {
                   <div className="space-y-5">
                     {leftCols.map((category) => (
                       <div key={category.id} className="group">
-                        <h4 
+                        <h4
                           onClick={() => handleCategoryClick(category)}
                           className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center gap-1"
                         >
@@ -270,8 +270,8 @@ export default function Footer() {
                         </h4>
                         <ul className="space-y-1 text-[11px] text-gray-300">
                           {category.courses.map((course) => (
-                            <li 
-                              key={course.id} 
+                            <li
+                              key={course.id}
                               onClick={() => handleCategoryClick(category)}
                               className="hover:text-white hover:translate-x-1 cursor-pointer transition-all duration-200"
                             >
@@ -288,7 +288,7 @@ export default function Footer() {
                   <div className="space-y-5">
                     {rightCols.map((category) => (
                       <div key={category.id} className="group">
-                        <h4 
+                        <h4
                           onClick={() => handleCategoryClick(category)}
                           className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center gap-1"
                         >
@@ -297,8 +297,8 @@ export default function Footer() {
                         </h4>
                         <ul className="space-y-1 text-[11px] text-gray-300">
                           {category.courses.map((course) => (
-                            <li 
-                              key={course.id} 
+                            <li
+                              key={course.id}
                               onClick={() => handleCategoryClick(category)}
                               className="hover:text-white hover:translate-x-1 cursor-pointer transition-all duration-200"
                             >
