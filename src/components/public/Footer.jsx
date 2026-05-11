@@ -63,7 +63,9 @@ const fallbackCategories = [
       { id: 3, title: "Full Stack Python" },
       { id: 4, title: "Full Stack Java" },
       { id: 5, title: "C# and .Net" },
-      { id: 6, title: "Full Stack react js / Angular" }
+      { id: 6, title: "Full Stack react js / Angular" },
+      { id: 7, title: "Full Stack .net" },
+      { id: 8, title: "Core Engine" }
     ]
   },
   {
@@ -71,12 +73,13 @@ const fallbackCategories = [
     name: "Cloud & DevOps",
     isFallback: true,
     courses: [
-      { id: 1, title: "AWS Solution Architect" },
-      { id: 2, title: "Dev-Ops" },
-      { id: 3, title: "Google Cloud" },
-      { id: 4, title: "Azure 104 admin" },
-      { id: 5, title: "Networking" },
-      { id: 6, title: "Cyber Security" }
+      { id: 9, title: "AWS Solution Architect" },
+      { id: 10, title: "Dev-Ops" },
+      { id: 11, title: "Google Cloud" },
+      { id: 12, title: "Azure 104 admin" },
+      { id: 13, title: "Networking" },
+      { id: 14, title: "Cyber Security" },
+      { id: 15, title: "CC NA" }
     ]
   },
   {
@@ -84,11 +87,12 @@ const fallbackCategories = [
     name: "Software Testing / QA",
     isFallback: true,
     courses: [
-      { id: 1, title: "Software Testing / QA" },
-      { id: 2, title: "Web testing" },
-      { id: 3, title: "Auto testing" },
-      { id: 4, title: "Database testing" },
-      { id: 5, title: "Mobile testing" }
+      { id: 16, title: "Software Testing/ QA" },
+      { id: 17, title: "Web testing" },
+      { id: 18, title: "Auto testing" },
+      { id: 19, title: "Database testing" },
+      { id: 20, title: "Mobile testing" },
+      { id: 21, title: "ETC testing" }
     ]
   },
   {
@@ -96,10 +100,10 @@ const fallbackCategories = [
     name: "Data & Analytics",
     isFallback: true,
     courses: [
-      { id: 1, title: "Power BI / Data Analyst" },
-      { id: 2, title: "Data Science" },
-      { id: 3, title: "Big Data" },
-      { id: 4, title: "Business Analyst" }
+      { id: 22, title: "Power BI/ Data analyst" },
+      { id: 23, title: "Data Science" },
+      { id: 24, title: "Big Data" },
+      { id: 25, title: "Business Analyst" }
     ]
   },
   {
@@ -107,10 +111,11 @@ const fallbackCategories = [
     name: "Design & Marketing",
     isFallback: true,
     courses: [
-      { id: 1, title: "Graphic Design" },
-      { id: 2, title: "3D Animation" },
-      { id: 3, title: "Digital Marketing" },
-      { id: 4, title: "UX/UI Design" }
+      { id: 26, title: "Graphic Design" },
+      { id: 27, title: "3D animation" },
+      { id: 28, title: "Digital Marketing" },
+      { id: 29, title: "UX/UI Design" },
+      { id: 30, title: "DV-360" }
     ]
   },
   {
@@ -118,11 +123,19 @@ const fallbackCategories = [
     name: "Healthcare & Others",
     isFallback: true,
     courses: [
-      { id: 1, title: "Medical Coding" },
-      { id: 2, title: "Medical Billing" },
-      { id: 3, title: "AR Caller Non" },
-      { id: 4, title: "SAP (fico)" },
-      { id: 5, title: "Soft Skills" }
+      { id: 31, title: "Medical Coding" },
+      { id: 32, title: "Medical Billing" },
+      { id: 33, title: "AR Caller Non" },
+      { id: 34, title: "SAP (fico)" },
+      { id: 35, title: "SAP (mm)" },
+      { id: 36, title: "OSI soft (PI system)" },
+      { id: 37, title: "Soft Skills" },
+      { id: 38, title: "Ethical Hacking" },
+      { id: 39, title: "Sales Force Admin/ Dev" },
+      { id: 40, title: "SQL unix production support (L2)" },
+      { id: 41, title: "Scrum Master" },
+      { id: 42, title: "Asset Management" },
+      { id: 43, title: "Service OP" }
     ]
   }
 ];
@@ -267,7 +280,7 @@ export default function Footer() {
                           <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">→</span>
                         </h4>
                         <ul className="space-y-1 text-[11px] text-gray-300">
-                          {category.courses.slice(0, 4).map((course) => (
+                          {category.courses.map((course) => (
                             <li 
                               key={course.id} 
                               onClick={() => handleCategoryClick(category)}
@@ -294,7 +307,7 @@ export default function Footer() {
                           <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">→</span>
                         </h4>
                         <ul className="space-y-1 text-[11px] text-gray-300">
-                          {category.courses.slice(0, 4).map((course) => (
+                          {category.courses.map((course) => (
                             <li 
                               key={course.id} 
                               onClick={() => handleCategoryClick(category)}
