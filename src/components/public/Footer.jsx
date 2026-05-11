@@ -161,48 +161,10 @@ const socialMedia = [
 
 export default function Footer() {
   const navigate = useNavigate();
-  const api = new ApiService();
   const [categories, setCategories] = useState(fallbackCategories);
 
-  useEffect(() => {
-    const fetchFooterCourses = async () => {
-      try {
-        const catRes = await api.apiget(ServerUrl.API_GET_COURSE_CATEGORIES);
-        const categoryList = catRes.data.data || [];
-        
-        const courseRes = await api.apiget(ServerUrl.API_GET_COURSES);
-        const allCourses = Array.isArray(courseRes.data.data?.rows)
-          ? courseRes.data.data.rows
-          : [];
-        
-        if (categoryList.length > 0) {
-          const finalData = categoryList.map((category) => {
-            const courses = allCourses.filter(
-              (course) => course.categoryId === category.id
-            );
-            return {
-              id: category.id,
-              name: category.name,
-              isFallback: false,
-              courses: courses.map(c => ({ id: c.id, title: c.title })),
-            };
-          }).filter(cat => cat.courses.length > 0);
-          
-          setCategories(finalData);
-        }
-      } catch (err) {
-        console.error("Error fetching footer courses dynamically:", err);
-      }
-    };
-    fetchFooterCourses();
-  }, []);
-
   const handleCategoryClick = (category) => {
-    if (category.isFallback) {
-      navigate(ROUTES.COURSES);
-    } else {
-      navigate(ROUTES.COURSE_DETAILS.replace(":categoryId", category.id));
-    }
+    navigate(ROUTES.COURSES);
   };
 
   const handlenavigate = (link) => {
