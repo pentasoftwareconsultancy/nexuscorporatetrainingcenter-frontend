@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // import Link
 import { ROUTES } from "../../core/constants/routes.constant"; // import your routes
 import footerImg from "../../assets/footer/footer.png";
@@ -6,6 +6,8 @@ import { FaLinkedin, FaFacebook, FaPhoneAlt } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaYoutube, FaLocationDot } from "react-icons/fa6";
+import ApiService from "../../core/services/api.service";
+import ServerUrl from "../../core/constants/serverURL.constant";
 
 const companyLinks = [
   { title: "Home", path: ROUTES.HOME },
@@ -50,53 +52,79 @@ const branches = [
   },
 ];
 
-const coursesLeft = [
-  "AWS Solution Architect",
-  "Dev-Ops",
-  "Power BI/ Data analyst",
-  "Data Science",
-  "Full Stack Developer",
-  "Big Data",
-  "Full Stack Python",
-  "Core Engine",
-  "Google Cloud",
-  "Azure 104 admin",
-  "DV-360",
-  "Software Testing/ QA",
-  "Web testing",
-  "Auto testing",
-  "Database testing",
-  "Mobile testing",
-  "ETC testing",
-  "Ethical Hacking",
-  "Graphic Design",
-  "3D animation",
-  "Full Stack .net",
-];
-
-const coursesRight = [
-  "Medical Coding",
-  "Medical Billing",
-  "AR Caller Non",
-  "Full Stack Java",
-  "C# and .Net",
-  "Business Analyst",
-  "Sales Force Admin/ Dev",
-  "SQL unix production support (L2)",
-  "Scrum Master",
-  "Digital Marketing",
-  "Soft Skills",
-  "MERN Stack Developer",
-  "UX/UI Design",
-  "SAP (fico)",
-  "SAP (mm)",
-  "OSI soft (PI system)",
-  "Networking",
-  "Cyber Security",
-  "Asset Management",
-  "Service OP",
-  "CC NA",
-  "Full Stack react js/ Angular",
+const fallbackCategories = [
+  {
+    id: "software-development",
+    name: "Software Development",
+    isFallback: true,
+    courses: [
+      { id: 1, title: "Full Stack Developer" },
+      { id: 2, title: "MERN Stack Developer" },
+      { id: 3, title: "Full Stack Python" },
+      { id: 4, title: "Full Stack Java" },
+      { id: 5, title: "C# and .Net" },
+      { id: 6, title: "Full Stack react js / Angular" }
+    ]
+  },
+  {
+    id: "cloud-devops",
+    name: "Cloud & DevOps",
+    isFallback: true,
+    courses: [
+      { id: 1, title: "AWS Solution Architect" },
+      { id: 2, title: "Dev-Ops" },
+      { id: 3, title: "Google Cloud" },
+      { id: 4, title: "Azure 104 admin" },
+      { id: 5, title: "Networking" },
+      { id: 6, title: "Cyber Security" }
+    ]
+  },
+  {
+    id: "testing-qa",
+    name: "Software Testing / QA",
+    isFallback: true,
+    courses: [
+      { id: 1, title: "Software Testing / QA" },
+      { id: 2, title: "Web testing" },
+      { id: 3, title: "Auto testing" },
+      { id: 4, title: "Database testing" },
+      { id: 5, title: "Mobile testing" }
+    ]
+  },
+  {
+    id: "data-analytics",
+    name: "Data & Analytics",
+    isFallback: true,
+    courses: [
+      { id: 1, title: "Power BI / Data Analyst" },
+      { id: 2, title: "Data Science" },
+      { id: 3, title: "Big Data" },
+      { id: 4, title: "Business Analyst" }
+    ]
+  },
+  {
+    id: "design-marketing",
+    name: "Design & Marketing",
+    isFallback: true,
+    courses: [
+      { id: 1, title: "Graphic Design" },
+      { id: 2, title: "3D Animation" },
+      { id: 3, title: "Digital Marketing" },
+      { id: 4, title: "UX/UI Design" }
+    ]
+  },
+  {
+    id: "healthcare-coding",
+    name: "Healthcare & Others",
+    isFallback: true,
+    courses: [
+      { id: 1, title: "Medical Coding" },
+      { id: 2, title: "Medical Billing" },
+      { id: 3, title: "AR Caller Non" },
+      { id: 4, title: "SAP (fico)" },
+      { id: 5, title: "Soft Skills" }
+    ]
+  }
 ];
 
 const socialMedia = [
@@ -120,19 +148,69 @@ const socialMedia = [
 
 export default function Footer() {
   const navigate = useNavigate();
+  const api = new ApiService();
+  const [categories, setCategories] = useState(fallbackCategories);
+
+  useEffect(() => {
+    const fetchFooterCourses = async () => {
+      try {
+        const catRes = await api.apiget(ServerUrl.API_GET_COURSE_CATEGORIES);
+        const categoryList = catRes.data.data || [];
+        
+        const courseRes = await api.apiget(ServerUrl.API_GET_COURSES);
+        const allCourses = Array.isArray(courseRes.data.data?.rows)
+          ? courseRes.data.data.rows
+          : [];
+        
+        if (categoryList.length > 0) {
+          const finalData = categoryList.map((category) => {
+            const courses = allCourses.filter(
+              (course) => course.categoryId === category.id
+            );
+            return {
+              id: category.id,
+              name: category.name,
+              isFallback: false,
+              courses: courses.map(c => ({ id: c.id, title: c.title })),
+            };
+          }).filter(cat => cat.courses.length > 0);
+          
+          setCategories(finalData);
+        }
+      } catch (err) {
+        console.error("Error fetching footer courses dynamically:", err);
+      }
+    };
+    fetchFooterCourses();
+  }, []);
+
+  const handleCategoryClick = (category) => {
+    if (category.isFallback) {
+      navigate(ROUTES.COURSES);
+    } else {
+      navigate(ROUTES.COURSE_DETAILS.replace(":categoryId", category.id));
+    }
+  };
+
   const handlenavigate = (link) => {
     navigate(link.path);
   };
+
+  // Split categories into 2 columns
+  const half = Math.ceil(categories.length / 2);
+  const leftCols = categories.slice(0, half);
+  const rightCols = categories.slice(half);
+
   return (
     <footer className="flex justify-center items-center text-white w-full min-h-screen relative mx-auto md:px-12">
-      <div className="relative w-full min-h-[700px] overflow-hidden md:rounded-2xl border-0 md:border-2 md:border-one">
+      <div className="relative w-full min-h-[700px] pb-16 md:pb-24 overflow-hidden md:rounded-2xl border-0 md:border-2 md:border-one">
         {/* Background Gradient */}
         <div className="absolute inset-0 z-0 bg-gradient-to-b via-[#1b1008] to-[#e77b2ee1]" />
 
-        <div className="relative z-10 max-w-7xl mx-auto py-6 px-4 md:px-8 text-start">
+        <div className="relative z-20 max-w-7xl mx-auto py-6 px-4 md:px-8 text-start">
           <div className="flex flex-col md:flex-row md:flex-nowrap md:items-start md:justify-between gap-10 md:gap-6">
             {/* Company Links */}
-            <div className="md:w-1/4 mb-8 md:mb-0">
+            <div className="w-full md:w-[15%] mb-8 md:mb-0 text-start">
               <h3 className="font-bold mb-3 text-lg">Company</h3>
               <ul className="space-y-1 text-sm text-gray-300">
                 {companyLinks.map((link) => (
@@ -148,7 +226,7 @@ export default function Footer() {
             </div>
 
             {/* Branches */}
-            <div className="md:w-1/2 mb-8 md:mb-0 text-start">
+            <div className="w-full md:w-[45%] mb-8 md:mb-0 text-start">
               <h3 className="font-bold mb-3 text-lg">Branches</h3>
               <ul className="space-y-2 text-xs text-gray-300">
                 {branches.map((branch) => (
@@ -166,29 +244,78 @@ export default function Footer() {
 
               {/* See More Button */}
               <div
-                className="mt-4 cursor-pointer"
+                className="mt-5 cursor-pointer text-orange-500 font-bold hover:text-orange-400 transition-colors inline-block text-sm"
                 onClick={() => navigate(ROUTES.BRANCHES)}
               >
-                See More
+                See More Branches &rarr;
               </div>
             </div>
 
-            {/* Courses */}
-            <div className="md:w-1/4 flex flex-row gap-4">
-              <div>
-                <h3 className="font-bold mb-3 text-lg">Courses</h3>
-                <ul className="space-y-1 text-xs text-gray-300">
-                  {coursesLeft.map((course) => (
-                    <li key={course}>{course}</li>
-                  ))}
-                </ul>
+            {/* Courses Column (Width [40%]) */}
+            <div className="w-full md:w-[40%] flex flex-col justify-between text-start">
+              <div className="flex flex-row gap-6 md:gap-8">
+                <div className="flex-1">
+                  <h3 className="font-bold mb-4 text-lg border-b border-white/10 pb-1">Courses</h3>
+                  <div className="space-y-5">
+                    {leftCols.map((category) => (
+                      <div key={category.id} className="group">
+                        <h4 
+                          onClick={() => handleCategoryClick(category)}
+                          className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center gap-1"
+                        >
+                          {category.name}
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">→</span>
+                        </h4>
+                        <ul className="space-y-1 text-[11px] text-gray-300">
+                          {category.courses.slice(0, 4).map((course) => (
+                            <li 
+                              key={course.id} 
+                              onClick={() => handleCategoryClick(category)}
+                              className="hover:text-white hover:translate-x-1 cursor-pointer transition-all duration-200"
+                            >
+                              {course.title}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex-1 mt-11">
+                  <div className="space-y-5">
+                    {rightCols.map((category) => (
+                      <div key={category.id} className="group">
+                        <h4 
+                          onClick={() => handleCategoryClick(category)}
+                          className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center gap-1"
+                        >
+                          {category.name}
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">→</span>
+                        </h4>
+                        <ul className="space-y-1 text-[11px] text-gray-300">
+                          {category.courses.slice(0, 4).map((course) => (
+                            <li 
+                              key={course.id} 
+                              onClick={() => handleCategoryClick(category)}
+                              className="hover:text-white hover:translate-x-1 cursor-pointer transition-all duration-200"
+                            >
+                              {course.title}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <div>
-                <ul className="mt-9 space-y-1 text-xs text-gray-300">
-                  {coursesRight.map((course) => (
-                    <li key={course}>{course}</li>
-                  ))}
-                </ul>
+
+              {/* See All Courses Button */}
+              <div
+                className="mt-6 cursor-pointer text-orange-500 font-bold hover:text-orange-400 transition-colors inline-block text-sm"
+                onClick={() => navigate(ROUTES.COURSES)}
+              >
+                See All Courses &rarr;
               </div>
             </div>
           </div>
@@ -204,7 +331,7 @@ export default function Footer() {
         </div>
 
         {/* Contact Info */}
-        <div className="relative z-10 text-left -translate-y-8 px-6 sm:px-10 md:px-16">
+        <div className="relative z-20 text-left -translate-y-8 px-6 sm:px-10 md:px-16">
           <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-2">
             Corporate Training Center LLP
           </h2>
