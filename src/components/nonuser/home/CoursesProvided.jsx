@@ -71,13 +71,12 @@ const CoursesProvided = () => {
 
   return (
     <section className="px-12 text-white">
-      <h1 className="text-4xl font-bold mb-10">Courses We Provide</h1>
+      <h1 className="text-4xl font-bold mb-10">Courses we provide</h1>
 
       <div className="grid gap-8
             grid-cols-1
             sm:grid-cols-2
-            md:grid-cols-3
-            lg:grid-cols-4
+            lg:grid-cols-3
             justify-items-center
             auto-rows-fr"
       >

@@ -5,7 +5,7 @@ import { ROUTES } from "../../../core/constants/routes.constant";
 
 import ApiService from "../../../core/services/api.service";
 import ServerUrl from "../../../core/constants/serverURL.constant";
-import { getIconByName } from "../../../core/utils/iconMap";
+import { getIconBySubject } from "../../../core/utils/iconMap";
 import Button from "../../common/Button";
 
 const UpcomingBatches = () => {
@@ -117,7 +117,7 @@ const UpcomingBatches = () => {
               border border-[#4a4a4a]
               rounded-2xl md:rounded-full
               px-4 sm:px-6 md:px-8
-              py-4 sm:py-5
+              py-3.5 sm:py-4
               hover:bg-[#252525]
               transition-all duration-300"
           >
@@ -125,18 +125,18 @@ const UpcomingBatches = () => {
             <div className="flex items-center gap-3 sm:gap-4 md:w-1/5">
               <div className="bg-[#2c2c2c] p-2 rounded-full flex items-center justify-center">
                 {(() => {
-                  const Icon = getIconByName(b.icon);
-                  return Icon ? <Icon size={28} /> : null;
+                  const Icon = getIconBySubject(b.name);
+                  return Icon ? <Icon size={26} /> : null;
                 })()}
               </div>
-              <span className="text-[15px] font-medium">{b.name}</span>
+              <span className="text-sm sm:text-[15px] font-medium">{b.name}</span>
             </div>
 
             {/* Duration (months) */}
             <span className="block text-xs text-gray-400 sm:hidden">
               Duration
             </span>
-            <span className="md:w-1/5 text-[14px] sm:text-[15px] text-gray-300 text-left md:text-center">
+            <span className="md:w-1/5 text-sm sm:text-[15px] text-gray-300 text-left md:text-center">
               {getMonthDifference(b.start_date, b.end_date)} Months
             </span>
 
@@ -144,7 +144,7 @@ const UpcomingBatches = () => {
             <span className="block text-xs text-gray-400 sm:hidden">
               Start Date
             </span>
-            <span className="md:w-1/5 text-[14px] sm:text-[15px] text-gray-300 text-left md:text-center">
+            <span className="md:w-1/5 text-sm sm:text-[15px] text-gray-300 text-left md:text-center">
               {formatDate(b.start_date)}
             </span>
 
@@ -152,15 +152,15 @@ const UpcomingBatches = () => {
             <span className="block text-xs text-gray-400 sm:hidden">
               End Date
             </span>
-            <span className="md:w-1/5 text-[14px] sm:text-[15px] text-gray-300 text-left md:text-center">
+            <span className="md:w-1/5 text-sm sm:text-[15px] text-gray-300 text-left md:text-center">
               {formatDate(b.end_date)}
             </span>
 
             {/* Contact */}
-            <div className="flex items-center justify-between md:justify-end gap-3 md:w-1/5 mt-3 md:mt-0">
+            <div className="flex items-center justify-between md:justify-end gap-3 md:w-1/5 mt-2 md:mt-0">
               <Button
                 text="Contact Now"
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto py-1.5 px-4 text-xs h-[42px] flex items-center justify-center shrink-0"
                 onClick={() => navigate(ROUTES.CONTACT)}
               />
             </div>

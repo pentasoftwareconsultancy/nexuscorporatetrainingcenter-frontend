@@ -7,6 +7,9 @@ const Button = ({
   showIcon = true,   
   type = "button"
 }) => {
+  const hasPadding = className.includes("px-") || className.includes("py-");
+  const paddingClass = hasPadding ? "" : "px-6 py-3";
+
   return ( 
     <button
       type={type}
@@ -19,7 +22,8 @@ const Button = ({
       }}
       className={`
         flex bg-one shadow-[inset_2px_2px_6px_rgba(0,0,0,0.75)] border-2
-        rounded-full px-6 py-3 gap-3 text-three items-center justify-center
+        rounded-full gap-3 text-three items-center justify-center
+        ${paddingClass}
         ${className}   // 👈 YOUR CUSTOM CLASSES HERE
       `}
     >

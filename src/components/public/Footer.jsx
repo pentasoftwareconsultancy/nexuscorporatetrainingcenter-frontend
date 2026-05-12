@@ -232,11 +232,14 @@ export default function Footer() {
               <div className="space-y-4">
                 {categorizedBranches.map((group) => (
                   <div key={group.category} className="group">
-                    <h4 className="font-bold text-xs sm:text-sm text-orange-400/90 mb-1.5 flex items-center gap-1">
-                      {group.category}
+                    <h4 className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center justify-between gap-1">
+                      <span>{group.category}</span>
+                      <FaChevronDown className="text-[10px] text-orange-500/80 group-hover:rotate-180 transition-transform duration-300 shrink-0" />
                     </h4>
+                    
+                    {/* Always visible top 1 branch */}
                     <ul className="space-y-2 text-[11px] text-white">
-                      {group.items.map((item) => (
+                      {group.items.slice(0, 1).map((item) => (
                         <li key={item.title} className="hover:text-white hover:translate-x-0.5 cursor-pointer transition-all duration-200">
                           <div className="font-semibold text-white text-xs">
                             {item.title}
@@ -248,6 +251,25 @@ export default function Footer() {
                         </li>
                       ))}
                     </ul>
+
+                    {/* Expandable remaining branches on hover */}
+                    {group.items.length > 1 && (
+                      <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-in-out overflow-hidden">
+                        <ul className="min-h-0 space-y-2 text-[11px] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 pt-2">
+                          {group.items.slice(1).map((item) => (
+                            <li key={item.title} className="hover:text-white hover:translate-x-0.5 cursor-pointer transition-all duration-200">
+                              <div className="font-semibold text-white text-xs">
+                                {item.title}
+                              </div>
+                              <p className="pl-1 text-[10px] text-white flex items-start gap-1.5 mt-0.5">
+                                <FaLocationDot className="mt-0.5 text-orange-500/80 shrink-0" />
+                                <span>{item.address}</span>
+                              </p>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
