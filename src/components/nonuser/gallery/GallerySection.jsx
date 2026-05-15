@@ -4,6 +4,23 @@ import { useNavigate } from "react-router-dom";
 import ApiService from "../../../core/services/api.service";
 import ServerUrl from "../../../core/constants/serverURL.constant";
 
+import zeal1 from "../../../assets/gallary/zeal1.jpeg";
+import zeal2 from "../../../assets/gallary/zeal2.jpeg";
+import zeal3 from "../../../assets/gallary/zeal3.jpeg";
+import zeal4 from "../../../assets/gallary/zeal4.jpeg";
+import zeal5 from "../../../assets/gallary/zeal5.jpeg";
+import zeal6 from "../../../assets/gallary/zeal6.jpeg";
+import zeal7 from "../../../assets/gallary/zeal7.jpeg";
+import govtpoly1 from "../../../assets/gallary/govtpoly1.jpeg";
+import govtpoly2 from "../../../assets/gallary/govtpoly2.jpeg";
+import govtpoly3 from "../../../assets/gallary/govtpoly3.jpeg";
+import akola1 from "../../../assets/gallary/akolaclg/Screenshot (81) 5.png";
+import akola2 from "../../../assets/gallary/akolaclg/Screenshot (81) 8.png";
+import akola3 from "../../../assets/gallary/akolaclg/Screenshot (81) 10.png";
+import akola4 from "../../../assets/gallary/akolaclg/Screenshot (81) 11.png";
+
+const fallbackImages = [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7];
+
 export default function GallerySection() {
   const navigate = useNavigate();
   const api = new ApiService();
@@ -21,12 +38,13 @@ export default function GallerySection() {
         const cityList = res.data.data || [];
         setCities(cityList);
 
-        // ⭐ Auto-select first city
-        if (cityList.length > 0) {
-          setSelectedCity("all");
-        }
+        // ⭐ Auto-select 'all' regardless of cities returned
+        setSelectedCity("all");
       })
-      .catch((err) => console.error("CITY FETCH ERROR:", err));
+      .catch((err) => {
+        console.error("CITY FETCH ERROR:", err);
+        setSelectedCity("all");
+      });
   }, []);
 
   // 🔥 Fetch colleges based on selected city
@@ -76,12 +94,48 @@ export default function GallerySection() {
         allColleges.push(...enriched);
       }
 
+      // If no colleges are returned from backend, use fallback dummy data
+      if (allColleges.length === 0) {
+        allColleges = [
+          { id: 1, name: "Akola College", cityId: "all" },
+          { id: 2, name: "Pune College", cityId: "all" },
+          { id: 3, name: "Asian College of Pharmacy", cityId: "all" },
+          { id: 4, name: "Navsahyadri institute of pharmacy", cityId: "all" },
+          { id: 5, name: "Manav College of engineering", cityId: "all" },
+          { id: 6, name: "Shankarlal Khandelwal, Akola", cityId: "all" },
+          { id: 7, name: "G.S. College, Khamgaon", cityId: "all" },
+          { id: 8, name: "Shree Goraksha College of Pharmacy and Research Center", cityId: "all" },
+          { id: 9, name: "D Y Patil Talegoan, with Devcons placement", cityId: "all" },
+          { id: 10, name: "Genba Sopanrao Moze College of Engineering", cityId: "all" },
+          { id: 11, name: "Pankaj Laddhad institute of Technology", cityId: "all" },
+          { id: 12, name: "Mahatma Gandhi Pharmacy, Nashik", cityId: "all" },
+          { id: 13, name: "Government College, Pune", cityId: "all" },
+          { id: 14, name: "Zeal College, Pune", cityId: "all" },
+        ];
+      }
+
       // Now fetch images for all colleges
       await fetchCollegeImages(allColleges);
     } catch (err) {
       console.error("ALL-COLLEGE FETCH ERROR:", err);
-      setColleges([]);
-      setLoading(false);
+      // Fallback
+      const dummyColleges = [
+        { id: 1, name: "Akola College", cityId: "all" },
+        { id: 2, name: "Pune College", cityId: "all" },
+        { id: 3, name: "Asian College of Pharmacy", cityId: "all" },
+        { id: 4, name: "Navsahyadri institute of pharmacy", cityId: "all" },
+        { id: 5, name: "Manav College of engineering", cityId: "all" },
+        { id: 6, name: "Shankarlal Khandelwal, Akola", cityId: "all" },
+        { id: 7, name: "G.S. College, Khamgaon", cityId: "all" },
+        { id: 8, name: "Shree Goraksha College of Pharmacy and Research Center", cityId: "all" },
+        { id: 9, name: "D Y Patil Talegoan, with Devcons placement", cityId: "all" },
+        { id: 10, name: "Genba Sopanrao Moze College of Engineering", cityId: "all" },
+        { id: 11, name: "Pankaj Laddhad institute of Technology", cityId: "all" },
+        { id: 12, name: "Mahatma Gandhi Pharmacy, Nashik", cityId: "all" },
+        { id: 13, name: "Government College", cityId: "all" },
+        { id: 14, name: "Zeal College", cityId: "all" },
+      ];
+      await fetchCollegeImages(dummyColleges);
     }
   };
 
@@ -94,17 +148,33 @@ export default function GallerySection() {
     }
 
     const updated = await Promise.all(
-      collegeList.map(async (college) => {
+      collegeList.map(async (college, index) => {
         try {
           const imgRes = await api.apiget(
             ServerUrl.API_GET_IMAGES_BY_COLLEGE + college.id
           );
+          const imagesToUse = imgRes.data.data?.length > 0
+            ? imgRes.data.data.map((img) => img.url)
+            : (college.name === "Government College, Pune"
+              ? [govtpoly1, govtpoly2, govtpoly3]
+              : (college.name === "Zeal College, Pune"
+                ? [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7]
+                : (college.name === "Akola College"
+                  ? [akola1, akola2, akola3, akola4]
+                  : [fallbackImages[index % fallbackImages.length]])));
           return {
             ...college,
-            images: imgRes.data.data?.map((img) => img.url) || [],
+            images: imagesToUse,
           };
         } catch {
-          return { ...college, images: [] };
+          const imagesToUse = college.name === "Government College, Pune"
+            ? [govtpoly1, govtpoly2, govtpoly3]
+            : (college.name === "Zeal College, Pune"
+              ? [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7]
+              : (college.name === "Akola College"
+                ? [akola1, akola2, akola3, akola4]
+                : [fallbackImages[index % fallbackImages.length]]));
+          return { ...college, images: imagesToUse };
         }
       })
     );
@@ -121,25 +191,27 @@ export default function GallerySection() {
   };
 
   const thumb = (college) =>
-    college.images?.[0] || "/assets/placeholder-college.jpg";
+    college.images?.[0] || fallbackImages[0];
 
   return (
     <section className="w-full px-12 py-10 text-white">
       {/* HEADER */}
-      <div className="max-w-[2400px] mx-auto">
-        <h2 className="text-4xl font-extrabold mb-6">Gallery</h2>
-        <h1 className="text-4xl pb-6">Collaboration with Colleges</h1>
+      <div className="max-w-[2400px] mx-auto mb-12">
+        <h2 className="text-4xl font-extrabold mb-4">Gallery</h2>
+        <p className="text-gray-300 text-sm md:text-base max-w-4xl leading-relaxed mb-8">
+          Explore our vibrant corporate and academic ecosystem. This gallery is a visual testament to the energy and hands-on learning environment fostered at every Nexus event, from intensive industry workshops to successful college placement drives. Witness our strong collaborative spirit and the moments where professional growth begins.
+        </p>
+        <h1 className="text-2xl md:text-3xl font-bold">Collaboration with Colleges</h1>
       </div>
 
       {/* CITY FILTER */}
       <div className="flex flex-wrap gap-4 mb-10 max-w-[2400px] mx-auto">
         <button
           onClick={() => setSelectedCity("all")}
-          className={`px-6 py-2 rounded-full border ${
-            selectedCity === "all"
+          className={`px-6 py-2 rounded-full border ${selectedCity === "all"
               ? "bg-orange-500 text-black"
               : "border-gray-500"
-          }`}
+            }`}
         >
           Show All
         </button>
@@ -147,11 +219,10 @@ export default function GallerySection() {
           <button
             key={city.id}
             onClick={() => setSelectedCity(city.id)}
-            className={`px-6 py-2 rounded-full border ${
-              selectedCity === city.id
+            className={`px-6 py-2 rounded-full border ${selectedCity === city.id
                 ? "bg-orange-500 text-black"
                 : "border-gray-500"
-            }`}
+              }`}
           >
             {city.name}
           </button>
@@ -173,10 +244,10 @@ export default function GallerySection() {
               No colleges found.
             </div>
           ) : (
-            colleges.map((college) => (
+            colleges.map((college, idx) => (
               <div
                 key={college.id}
-                className="cursor-pointer group"
+                className="cursor-pointer group flex flex-col items-center sm:items-start"
                 onClick={() =>
                   openAlbum(
                     college,
@@ -184,15 +255,31 @@ export default function GallerySection() {
                   )
                 }
               >
-                <div className="relative w-full aspect-square group-hover:scale-105 duration-500">
+                <div className="relative w-full aspect-[4/3] group-hover:scale-105 duration-500 pr-4 mb-4">
+                  {/* Back stacked card */}
+                  <img
+                    src={thumb(college)}
+                    alt="stack-back"
+                    className="absolute inset-0 translate-x-4 w-[calc(100%-1rem)] h-full object-cover rounded-xl border border-gray-800 opacity-40"
+                  />
+                  {/* Middle stacked card */}
+                  <img
+                    src={thumb(college)}
+                    alt="stack-mid"
+                    className="absolute inset-0 translate-x-2 w-[calc(100%-1rem)] h-full object-cover rounded-xl border border-gray-800 opacity-70"
+                  />
+
+                  {/* Front card (Image) */}
                   <img
                     src={thumb(college)}
                     alt={college.name}
-                    className="absolute w-full h-full object-cover rounded-xl grayscale group-hover:grayscale-0 transition"
+                    className="absolute z-10 inset-0 w-[calc(100%-1rem)] h-full object-cover rounded-xl transition duration-500"
                   />
                 </div>
 
-                <p className="mt-4 text-lg font-semibold">{college.name}</p>
+                <p className="mt-2 text-sm md:text-base font-semibold max-w-[calc(100%-1rem)] text-gray-200">
+                  {college.name}
+                </p>
               </div>
             ))
           )}
