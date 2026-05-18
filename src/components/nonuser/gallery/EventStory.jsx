@@ -64,12 +64,29 @@ export default function EventStory() {
         const res = await api.apiget(ServerUrl.API_GET_EVENTSTORIES);
         const data = res?.data?.data || [];
         
-        // Use fallback images for any events missing an image
-        const enrichedData = data.map((item, index) => ({
-          ...item,
-          image: item.image || fallbackImages[index % fallbackImages.length],
-          allImages: item.images?.length ? item.images : fallbackImages
-        }));
+        const enrichedData = data.map((item, index) => {
+          let eventImg = item.image;
+          if (typeof eventImg !== "string" || !eventImg.startsWith("http")) {
+            if (item.eventName === "Zeal College Event" || eventImg === "zeal1") eventImg = zeal1;
+            else if (item.eventName === "Government College Event" || eventImg === "govtpoly1") eventImg = govtpoly1;
+            else if (item.eventName === "Akola College Event" || eventImg === "akola1") eventImg = akola1;
+            else eventImg = fallbackImages[index % fallbackImages.length];
+          }
+
+          let eventAllImages = item.images?.length ? item.images : null;
+          if (!eventAllImages) {
+            if (item.eventName === "Zeal College Event" || item.image === "zeal1") eventAllImages = fallbackImages;
+            else if (item.eventName === "Government College Event" || item.image === "govtpoly1") eventAllImages = [govtpoly1, govtpoly2, govtpoly3];
+            else if (item.eventName === "Akola College Event" || item.image === "akola1") eventAllImages = [akola1, akola2, akola3, akola4];
+            else eventAllImages = fallbackImages;
+          }
+
+          return {
+            ...item,
+            image: eventImg,
+            allImages: eventAllImages
+          };
+        });
         
         setEventStories(enrichedData);
       } catch (error) {

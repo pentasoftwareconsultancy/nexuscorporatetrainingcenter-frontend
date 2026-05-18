@@ -7,7 +7,7 @@ export default function Branches() {
     { title: "Pimple Saudagar:", address: "Address: Office No. 4-B, Second Floor, Ganesham Commercial-A, Survey No. 21/B-2/2-A, BRTS Road, Pimple Saudagar, Pune - 411027", phone: "+919545450788 / +919545450677" },
     { title: "Katraj:", address: "Address: Office No. 4-B, Second Floor, Ganesham Commercial-A, Survey No. 21/B-2/2-A, BRTS Road, Pimple Saudagar, Pune - 411027", phone: "+919545450788 / +919545450677" },
     { title: "United Kingdom:", address: "Address: Office No. 4-B, Second Floor, Ganesham Commercial-A, Survey No. 21/B-2/2-A, BRTS Road, Pimple Saudagar, Pune - 411027", phone: "+919545450788 / +919545450677" },
-    { title: "Akola:", address: "Address: A-45, Collector colony, Near ST stand, ITI Road, Akola", phone: "+919545450788 / +919545450677" },
+    { title: "Akola:", address: "Address: Nexus Corporate Training Centre LLP, Geeta Nagar, Dahigaon Gawande, Akola, Maharashtra 444002", phone: "+919545450788 / +919545450677" },
     { title: "Nashik:", address: "Address: Office No. 4-B, Second Floor, Ganesham Commercial-A, Survey No. 21/B-2/2-A, BRTS Road, Pimple Saudagar, Pune - 411027", phone: "+919545450788 / +919545450677" },
     { title: "Wagholi:", address: "Address: 502 Radheeshwari Nagar, Bakori road, Wagholi", phone: "+919545450788 / +919545450677" },
     { title: "Manchar:", address: "Address: Office No. 4-B, Second Floor, Ganesham Commercial-A, Survey No. 21/B-2/2-A, BRTS Road, Pimple Saudagar, Pune - 411027", phone: "+919545450788 / +919545450677" },

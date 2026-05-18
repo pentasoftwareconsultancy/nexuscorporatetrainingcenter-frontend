@@ -13,7 +13,7 @@ export default function PlacementDetailForm() {
   const api = new ApiService();
   const singleClick = useSingleClick();
 
-  const [editMode, setEditMode] = useState(true);
+  const [editMode, setEditMode] = useState(mode === "add");
   const [categories, setCategories] = useState([]);
 
   /* =======================
@@ -233,10 +233,11 @@ export default function PlacementDetailForm() {
 
             <select
               value={data.placementCategoryId}
+              disabled={!editMode}
               onChange={(e) =>
                 handleChange("placementCategoryId", e.target.value)
               }
-              className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl px-3 py-2 outline-none"
+              className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl px-3 py-2 outline-none disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <option value="">Select Category</option>
 
@@ -255,11 +256,13 @@ export default function PlacementDetailForm() {
                 <DetailBox
                   label="Add Category"
                   value={data.newCategory}
+                  disabled={!editMode}
                   onChange={(v) => handleChange("newCategory", v)}
                 />
                 <button
                   type="button"
-                  className="bg-[#1a1a1a] px-4 rounded-xl "
+                  disabled={!editMode}
+                  className="bg-[#1a1a1a] px-4 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
                   onClick={handleAddCategory}
                 >
                   Add
@@ -274,11 +277,13 @@ export default function PlacementDetailForm() {
             <button
               type="button"
               className="bg-[#1a1a1a] p-4 rounded-full"
-              onClick={() =>
-                editMode
-                  ? singleClick(() => handleSubmit(new Event("submit")))
-                  : setEditMode(true)
-              }
+              onClick={() => {
+                if (!editMode) {
+                  setEditMode(true);
+                  return;
+                }
+                handleSubmit(new Event("submit"));
+              }}
             >
               {editMode ? <Check size={20} /> : <Edit size={20} />}
             </button>
@@ -298,41 +303,49 @@ export default function PlacementDetailForm() {
         <DetailBox
           label="Full Name"
           value={data.name}
+          disabled={!editMode}
           onChange={(v) => handleChange("name", v)}
         />
         <DetailBox
           label="Email"
           value={data.email}
+          disabled={!editMode}
           onChange={(v) => handleChange("email", v)}
         />
         <DetailBox
           label="Company Name"
           value={data.placedIn}
+          disabled={!editMode}
           onChange={(v) => handleChange("placedIn", v)}
         />
         <DetailBox
           label="Role"
           value={data.role}
+          disabled={!editMode}
           onChange={(v) => handleChange("role", v)}
         />
         <DetailBox
           label="Course Name"
           value={data.courseName}
+          disabled={!editMode}
           onChange={(v) => handleChange("courseName", v)}
         />
         <DetailBox
           label="Course Duration"
           value={data.courseDuration}
+          disabled={!editMode}
           onChange={(v) => handleChange("courseDuration", v)}
         />
         <DetailBox
           label="Package"
           value={data.packageOffered}
+          disabled={!editMode}
           onChange={(v) => handleChange("packageOffered", v)}
         />
         <DetailBox
           label="Year"
           value={data.year}
+          disabled={!editMode}
           onChange={(v) => handleChange("year", v)}
         />
       </div>
@@ -344,12 +357,14 @@ export default function PlacementDetailForm() {
           field="successStory"
           data={data}
           setData={setData}
+          disabled={!editMode}
         />
         <Section
           title="Facing Challenges"
           field="challenges"
           data={data}
           setData={setData}
+          disabled={!editMode}
         />
       </div>
 
@@ -359,12 +374,14 @@ export default function PlacementDetailForm() {
           field="highlights"
           data={data}
           setData={setData}
+          disabled={!editMode}
         />
         <Section
           title="Final Evaluation"
           field="evaluation"
           data={data}
           setData={setData}
+          disabled={!editMode}
         />
       </div>
 
@@ -374,12 +391,14 @@ export default function PlacementDetailForm() {
           field="experience"
           data={data}
           setData={setData}
+          disabled={!editMode}
         />
 
         <SingleImageUpload
           image={data.image}
           onChange={handleStoryImageUpload}
           onRemove={removeStoryImage}
+          disabled={!editMode}
         />
       </div>
 
@@ -397,58 +416,63 @@ export default function PlacementDetailForm() {
 }
 
 /* Utilities */
-const DetailBox = ({ label, value, onChange }) => (
+const DetailBox = ({ label, value, onChange, disabled }) => (
   <div className="space-y-1">
     <h2 className="text-lg font-medium">{label}</h2>
     <input
       value={value}
       placeholder={label}
+      disabled={disabled}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl px-3 py-2 outline-none"
+      className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl px-3 py-2 outline-none disabled:opacity-50 disabled:cursor-not-allowed"
     />
   </div>
 );
 
-const Section = ({ title, field, data, setData }) => (
+const Section = ({ title, field, data, setData, disabled }) => (
   <div>
     <h2 className="mt-5 mb-3 text-lg font-semibold">{title}</h2>
     <textarea
       value={data[field]}
       placeholder={title}
+      disabled={disabled}
       onChange={(e) => setData({ ...data, [field]: e.target.value })}
-      className="bg-[#1a1a1a] border border-gray-700 rounded-xl p-6 w-full outline-none"
+      className="bg-[#1a1a1a] border border-gray-700 rounded-xl p-6 w-full outline-none disabled:opacity-50 disabled:cursor-not-allowed"
     />
   </div>
 );
 
-const SingleImageUpload = ({ image, onChange, onRemove }) => (
+const SingleImageUpload = ({ image, onChange, onRemove, disabled }) => (
   <div>
     <h2 className="mt-5 mb-3 text-lg font-semibold">Image</h2>
 
     {!image && (
-      <label className="flex items-center gap-3 cursor-pointer border border-dashed border-gray-500 p-6 rounded-lg w-fit">
+      <label className={`flex items-center gap-3 border border-dashed border-gray-500 p-6 rounded-lg w-fit ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>
         <Upload size={20} />
         <span>Upload image</span>
-        <input type="file" hidden onChange={onChange} />
+        {!disabled && <input type="file" hidden onChange={onChange} />}
       </label>
     )}
 
     {image && (
       <div className="relative w-64 mt-2">
-        <label>
+        <label className={disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}>
           <img
             src={typeof image === "string" ? image : URL.createObjectURL(image)}
-            className="w-full h-40 object-cover rounded-lg cursor-pointer"
+            className="w-full h-40 object-cover rounded-lg"
           />
-          <input type="file" hidden onChange={onChange} />
+          {!disabled && <input type="file" hidden onChange={onChange} />}
         </label>
 
-        <button
-          onClick={onRemove}
-          className="absolute top-2 right-2 bg-black/70 text-white rounded-full w-6 h-6 text-sm"
-        >
-          ✕
-        </button>
+        {!disabled && (
+          <button
+            onClick={onRemove}
+            type="button"
+            className="absolute top-2 right-2 bg-black/70 text-white rounded-full w-6 h-6 text-sm"
+          >
+            ✕
+          </button>
+        )}
       </div>
     )}
   </div>

@@ -4,6 +4,10 @@ import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import { ROUTES } from "../../core/constants/routes.constant";
 
+import zeal1 from "../../assets/gallary/zeal1.jpeg";
+import govtpoly1 from "../../assets/gallary/govtpoly1.jpeg";
+import akola1 from "../../assets/gallary/akolaclg/Screenshot (81) 5.png";
+
 const GalleryEventPage = () => {
   const [eventStories, setEventStories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +18,23 @@ const GalleryEventPage = () => {
     try {
       setLoading(true);
       const res = await api.apiget(ServerUrl.API_GET_EVENTSTORIES);
-      setEventStories(res?.data?.data || []);
+      const data = res?.data?.data || [];
+      
+      const enrichedData = data.map((item) => {
+        let imgToUse = item.image;
+        if (typeof imgToUse !== "string" || !imgToUse.startsWith("http")) {
+          if (item.eventName === "Zeal College Event" || imgToUse === "zeal1") imgToUse = zeal1;
+          else if (item.eventName === "Government College Event" || imgToUse === "govtpoly1") imgToUse = govtpoly1;
+          else if (item.eventName === "Akola College Event" || imgToUse === "akola1") imgToUse = akola1;
+          else imgToUse = zeal1;
+        }
+        return {
+          ...item,
+          image: imgToUse
+        };
+      });
+
+      setEventStories(enrichedData);
     } catch (err) {
       console.error("Event gallery fetch error", err);
     } finally {

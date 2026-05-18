@@ -155,11 +155,11 @@ export default function GallerySection() {
           );
           const imagesToUse = imgRes.data.data?.length > 0
             ? imgRes.data.data.map((img) => img.url)
-            : (college.name === "Government College, Pune"
+            : (college.name?.toLowerCase().includes("government") || college.name?.toLowerCase().includes("govt") || college.id === 14 || college.id === 13
               ? [govtpoly1, govtpoly2, govtpoly3]
-              : (college.name === "Zeal College, Pune"
+              : (college.name?.toLowerCase().includes("zeal") || college.id === 15 || college.id === 14
                 ? [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7]
-                : (college.name === "Akola College"
+                : (college.name?.toLowerCase().includes("akola") || college.id === 2 || college.id === 1
                   ? [akola1, akola2, akola3, akola4]
                   : [fallbackImages[index % fallbackImages.length]])));
           return {
@@ -167,11 +167,11 @@ export default function GallerySection() {
             images: imagesToUse,
           };
         } catch {
-          const imagesToUse = college.name === "Government College, Pune"
+          const imagesToUse = college.name?.toLowerCase().includes("government") || college.name?.toLowerCase().includes("govt") || college.id === 14 || college.id === 13
             ? [govtpoly1, govtpoly2, govtpoly3]
-            : (college.name === "Zeal College, Pune"
+            : (college.name?.toLowerCase().includes("zeal") || college.id === 15 || college.id === 14
               ? [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7]
-              : (college.name === "Akola College"
+              : (college.name?.toLowerCase().includes("akola") || college.id === 2 || college.id === 1
                 ? [akola1, akola2, akola3, akola4]
                 : [fallbackImages[index % fallbackImages.length]]));
           return { ...college, images: imagesToUse };

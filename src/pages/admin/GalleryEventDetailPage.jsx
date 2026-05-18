@@ -7,6 +7,21 @@ import { ROUTES } from "../../core/constants/routes.constant";
 import toast from "react-hot-toast";
 import { useSingleClick } from "../../core";
 
+import zeal1 from "../../assets/gallary/zeal1.jpeg";
+import zeal2 from "../../assets/gallary/zeal2.jpeg";
+import zeal3 from "../../assets/gallary/zeal3.jpeg";
+import zeal4 from "../../assets/gallary/zeal4.jpeg";
+import zeal5 from "../../assets/gallary/zeal5.jpeg";
+import zeal6 from "../../assets/gallary/zeal6.jpeg";
+import zeal7 from "../../assets/gallary/zeal7.jpeg";
+import govtpoly1 from "../../assets/gallary/govtpoly1.jpeg";
+import govtpoly2 from "../../assets/gallary/govtpoly2.jpeg";
+import govtpoly3 from "../../assets/gallary/govtpoly3.jpeg";
+import akola1 from "../../assets/gallary/akolaclg/Screenshot (81) 5.png";
+import akola2 from "../../assets/gallary/akolaclg/Screenshot (81) 8.png";
+import akola3 from "../../assets/gallary/akolaclg/Screenshot (81) 10.png";
+import akola4 from "../../assets/gallary/akolaclg/Screenshot (81) 11.png";
+
 const Input = ({ label, ...props }) => (
   <div className="flex flex-col">
     <label className="text-sm font-semibold mb-1">{label}</label>
@@ -69,6 +84,27 @@ const GalleryEventDetailPage = () => {
     image: null,
   });
 
+  const [allImages, setAllImages] = useState([]);
+
+  useEffect(() => {
+    let imgToUse = storyData.image;
+    let eventAllImages = [];
+    const nameLower = storyData.eventName?.toLowerCase() || "";
+
+    if (imgToUse instanceof File) {
+      eventAllImages = []; // No fallback gallery needed for unsaved custom file upload yet
+    } else {
+      if (nameLower.includes("zeal") || (typeof imgToUse === "string" && imgToUse.includes("zeal"))) {
+        eventAllImages = [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7];
+      } else if (nameLower.includes("government") || nameLower.includes("govt") || (typeof imgToUse === "string" && imgToUse.includes("govtpoly"))) {
+        eventAllImages = [govtpoly1, govtpoly2, govtpoly3];
+      } else if (nameLower.includes("akola") || (typeof imgToUse === "string" && imgToUse.includes("akola"))) {
+        eventAllImages = [akola1, akola2, akola3, akola4];
+      }
+    }
+    setAllImages(eventAllImages.filter(Boolean));
+  }, [storyData.eventName, storyData.image]);
+
   const handleStoryChange = (e) => {
     const { name, value } = e.target;
     setStoryData((prev) => ({ ...prev, [name]: value }));
@@ -91,11 +127,18 @@ const GalleryEventDetailPage = () => {
         const res = await api.apiget(`${ServerUrl.API_GET_EVENTSTORY_BY_ID}/${id}`);
         const data = res?.data?.data;
 
+        let imgToUse = data?.image;
+        if (typeof imgToUse !== "string" || !imgToUse.startsWith("http")) {
+          if (data?.eventName === "Zeal College Event" || imgToUse === "zeal1") imgToUse = zeal1;
+          else if (data?.eventName === "Government College Event" || imgToUse === "govtpoly1") imgToUse = govtpoly1;
+          else if (data?.eventName === "Akola College Event" || imgToUse === "akola1") imgToUse = akola1;
+        }
+
         setStoryData({
           eventName: data?.eventName || "",
           date: data?.date ? data.date.split("T")[0] : "",
           location: data?.location || "",
-          image: data?.image || null,
+          image: imgToUse || null,
         });
       } catch (err) {
         console.error("Fetch story failed", err);
@@ -220,6 +263,24 @@ const GalleryEventDetailPage = () => {
             onChange={handleStoryImageUpload}
             onRemove={removeStoryImage}
           />
+
+          {/* Gallery Images Section */}
+          {allImages.length > 0 && (
+            <div className="mt-8 pt-8 border-t border-gray-700">
+              <h3 className="text-lg font-semibold mb-4 text-orange-500">Event Album Gallery ({allImages.length} images)</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                {allImages.map((url, idx) => (
+                  <div key={idx} className="relative overflow-hidden rounded-xl border border-gray-600 aspect-video group">
+                    <img
+                      src={url}
+                      alt={`Event Image ${idx + 1}`}
+                      className="w-full h-full object-cover transition duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* FLOATING ADD BUTTON */}

@@ -130,12 +130,20 @@ function Navbar() {
 
         {/* Desktop Right Button */}
         <div className="hidden lg:flex items-center justify-end">
-          <Button text="Test" onClick={() => navigate(ROUTES.LOGIN)} />
+          <Button 
+            text="Test" 
+            className="px-5 py-2 text-sm gap-2" 
+            onClick={() => navigate(ROUTES.LOGIN)} 
+          />
         </div>
 
         {/* Mobile: Button + Hamburger */}
         <div className="flex lg:hidden items-center space-x-4">
-          <Button text="Test" onClick={() => navigate(ROUTES.LOGIN)} />
+          <Button 
+            text="Test" 
+            className="px-4 py-1.5 text-xs gap-1.5" 
+            onClick={() => navigate(ROUTES.LOGIN)} 
+          />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="p-2 rounded-lg bg-twopointo text-white focus:outline-none"

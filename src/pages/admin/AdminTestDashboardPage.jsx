@@ -67,11 +67,10 @@ export default function AdminTestDashboardPage() {
               key={item.id}
               onClick={() => setSelectedCategory(item.id)}
               className={`border px-3 py-2 rounded-full text-sm transition 
-      ${
-        selectedCategory === item.id
-          ? "bg-orange-500 border-orange-500 text-black"
-          : "border-white hover:bg-gray-800"
-      }`}
+      ${selectedCategory === item.id
+                  ? "bg-orange-500 border-orange-500 text-black"
+                  : "border-white hover:bg-gray-800"
+                }`}
             >
               {item.name}
             </button>
@@ -88,11 +87,10 @@ export default function AdminTestDashboardPage() {
               key={item.id}
               onClick={() => setSelectedCategory(item.id)}
               className={`px-4 py-2 rounded-full text-sm border transition flex-shrink-0
-      ${
-        selectedCategory === item.id
-          ? "bg-orange-500 border-orange-500 text-black"
-          : "border-white"
-      }`}
+      ${selectedCategory === item.id
+                  ? "bg-orange-500 border-orange-500 text-black"
+                  : "border-white"
+                }`}
             >
               {item.name}
             </button>
@@ -125,7 +123,7 @@ export default function AdminTestDashboardPage() {
             {categories.find((c) => c.id === selectedCategory)?.name || ""}
           </h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {filteredTests.map((topic) => (
               <div
                 key={topic.id}

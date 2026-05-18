@@ -43,8 +43,8 @@ const categorizedBranches = [
     category: "Maharashtra",
     items: [
       {
-        title: "Akole",
-        address: "4/45, Collector colony, Near ST stand, 111 Road, Akole",
+        title: "Akola",
+        address: "Nexus Corporate Training Centre LLP, Geeta Nagar, Dahigaon Gawande, Akola, Maharashtra 444002",
       },
       {
         title: "Nashik",

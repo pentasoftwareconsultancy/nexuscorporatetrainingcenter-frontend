@@ -6,6 +6,23 @@ import ServerUrl from "../../core/constants/serverURL.constant";
 import toast from "react-hot-toast";
 import { useSingleClick } from "../../core";
 
+import zeal1 from "../../assets/gallary/zeal1.jpeg";
+import zeal2 from "../../assets/gallary/zeal2.jpeg";
+import zeal3 from "../../assets/gallary/zeal3.jpeg";
+import zeal4 from "../../assets/gallary/zeal4.jpeg";
+import zeal5 from "../../assets/gallary/zeal5.jpeg";
+import zeal6 from "../../assets/gallary/zeal6.jpeg";
+import zeal7 from "../../assets/gallary/zeal7.jpeg";
+import govtpoly1 from "../../assets/gallary/govtpoly1.jpeg";
+import govtpoly2 from "../../assets/gallary/govtpoly2.jpeg";
+import govtpoly3 from "../../assets/gallary/govtpoly3.jpeg";
+import akola1 from "../../assets/gallary/akolaclg/Screenshot (81) 5.png";
+import akola2 from "../../assets/gallary/akolaclg/Screenshot (81) 8.png";
+import akola3 from "../../assets/gallary/akolaclg/Screenshot (81) 10.png";
+import akola4 from "../../assets/gallary/akolaclg/Screenshot (81) 11.png";
+
+const fallbackImages = [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7];
+
 const Input = ({ label, ...props }) => (
   <div className="flex flex-col">
     <label className="text-sm font-semibold mb-1">{label}</label>
@@ -129,6 +146,17 @@ const GalleryCollegeDetailPage = () => {
         const res = await api.apiget(ServerUrl.API_GET_ALL_MEDIA_GROUPS + id);
         const data = res?.data?.data;
 
+        const dbImages = data?.images || [];
+        const imagesToUse = dbImages.length > 0
+          ? dbImages
+          : (data?.name?.toLowerCase().includes("government") || data?.name?.toLowerCase().includes("govt") || data?.id === 14 || data?.id === 13
+            ? [govtpoly1, govtpoly2, govtpoly3].map(url => ({ url }))
+            : (data?.name?.toLowerCase().includes("zeal") || data?.id === 15 || data?.id === 14
+              ? [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7].map(url => ({ url }))
+              : (data?.name?.toLowerCase().includes("akola") || data?.id === 2 || data?.id === 1
+                ? [akola1, akola2, akola3, akola4].map(url => ({ url }))
+                : [fallbackImages[(data?.id || 0) % fallbackImages.length]].map(url => ({ url })))));
+
         setCollegeData({
           cityId: data?.city?.id || null,
           collegeId: data?.id || null,
@@ -137,7 +165,7 @@ const GalleryCollegeDetailPage = () => {
           city: data?.city?.name || "",
           collegeName: data?.name || "",
           description: data?.images?.[0]?.description || "",
-          images: data?.images || [],
+          images: imagesToUse,
         });
         setCityQuery(data?.city?.name || "");
       } catch (err) {

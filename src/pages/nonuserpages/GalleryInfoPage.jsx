@@ -43,17 +43,35 @@ export default function GalleryInfoPage() {
     const loadImages = async () => {
       setLoading(true);
       try {
+        let activeCollege = college;
+        if (!activeCollege) {
+          try {
+            const clgRes = await api.apiget(ServerUrl.API_GET_COLLEGES_BY_ID + collegeId);
+            const clgData = clgRes?.data?.data;
+            if (clgData) {
+              activeCollege = clgData;
+              setCollege(clgData);
+              if (clgData.city) {
+                setCity(clgData.city);
+              }
+            }
+          } catch (e) {
+            console.error("Failed to load college details", e);
+          }
+        }
+
         const imgRes = await api.apiget(
           ServerUrl.API_GET_IMAGES_BY_COLLEGE + collegeId
         );
+        const data = imgRes?.data?.data || [];
         const govtPolyImages = [govtpoly1, govtpoly2, govtpoly3].map(url => ({ url }));
         const zealImages = [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7].map(url => ({ url }));
         const akolaImages = [akola1, akola2, akola3, akola4].map(url => ({ url }));
-        const fallback = (college?.name === "Government College, Pune" || collegeId === 13) 
+        const fallback = (activeCollege?.name?.toLowerCase().includes("government") || activeCollege?.name?.toLowerCase().includes("govt") || collegeId === 14 || collegeId === 13) 
           ? govtPolyImages 
-          : (college?.name === "Zeal College, Pune" || collegeId === 14)
+          : (activeCollege?.name?.toLowerCase().includes("zeal") || collegeId === 15 || collegeId === 14)
             ? zealImages
-            : (college?.name === "Akola College" || collegeId === 1)
+            : (activeCollege?.name?.toLowerCase().includes("akola") || collegeId === 2 || collegeId === 1)
               ? akolaImages
               : fallbackImages;
         setImages(data.length > 0 ? data : fallback);
@@ -62,11 +80,11 @@ export default function GalleryInfoPage() {
         const govtPolyImages = [govtpoly1, govtpoly2, govtpoly3].map(url => ({ url }));
         const zealImages = [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7].map(url => ({ url }));
         const akolaImages = [akola1, akola2, akola3, akola4].map(url => ({ url }));
-        const fallback = (college?.name === "Government College, Pune" || collegeId === 13) 
+        const fallback = (college?.name?.toLowerCase().includes("government") || college?.name?.toLowerCase().includes("govt") || collegeId === 14 || collegeId === 13) 
           ? govtPolyImages 
-          : (college?.name === "Zeal College, Pune" || collegeId === 14)
+          : (college?.name?.toLowerCase().includes("zeal") || collegeId === 15 || collegeId === 14)
             ? zealImages
-            : (college?.name === "Akola College" || collegeId === 1)
+            : (college?.name?.toLowerCase().includes("akola") || collegeId === 2 || collegeId === 1)
               ? akolaImages
               : fallbackImages;
         setImages(fallback);
