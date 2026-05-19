@@ -31,7 +31,7 @@ const CoursesProvided = () => {
         const catRes = await api.apiget(ServerUrl.API_GET_COURSE_CATEGORIES);
         const categories = catRes.data.data || [];
 
-        const courseRes = await api.apiget(ServerUrl.API_GET_COURSES);
+        const courseRes = await api.apiget(`${ServerUrl.API_GET_COURSES}?limit=100`);
         const courseList = courseRes.data.data?.rows || [];
 
         // ⭐ Flatten courses (IMPORTANT PART)

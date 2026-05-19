@@ -24,7 +24,7 @@ const PartnerSection = () => {
 
   return (
     <div className="relative w-full min-h-[78vh] pt-10 pb-10">
-      
+
       {/* Title */}
       <div className="flex px-5 md:px-10">
         <h1 className="text-2xl md:text-3xl font-semibold text-white">
@@ -47,10 +47,10 @@ const PartnerSection = () => {
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.15, duration: 0.6, type: "spring", stiffness: 100 }}
-                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px 15px rgba(0,102,255,0.4)" }}
-                  className={`flex items-center justify-between bg-[#1a1a1a] rounded-full px-6 py-4 
-                    shadow-md border border-white/10 transition-all duration-500 ease-in-out 
-                    hover:shadow-[0_0_30px_15px_rgba(0,102,255,0.4)] hover:scale-105 
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px 15px rgba(255,100,0,0.5)" }}
+                  className={`flex items-center justify-between bg-[#383838] rounded-full px-6 py-4 
+                    shadow-md border border-white transition-all duration-500 ease-in-out 
+                    hover:shadow-[0_0_30px_15px_rgba(255,100,0,0.5)] hover:scale-105 
                     ${item.translate} group relative`}
                 >
                   <div>
@@ -68,11 +68,11 @@ const PartnerSection = () => {
           {/* CENTER CIRCLE */}
           <motion.div
             className="flex justify-center items-center w-[200px] h-[200px] md:w-60 md:h-60 rounded-full 
-              bg-[radial-gradient(circle,rgba(0,65,255,0.30)_5%,rgba(0,65,255,0.1)_60%)] 
-              border-dashed border-2 border-gray-500 shadow-[0_0_20px_rgba(0,65,255,0.3)]"
+              bg-[radial-gradient(circle,rgba(255,106,0,0.30)_5%,rgba(255,106,0,0.1)_60%)] 
+              border-dashed border-2 border-gray-500 shadow-[0_0_20px_rgba(255,106,0,0.3)]"
             animate={{
               scale: [1, 1.05, 1],
-              boxShadow: ["0 0 20px rgba(0,65,255,0.3)", "0 0 40px rgba(0,65,255,0.5)", "0 0 20px rgba(0,65,255,0.3)"],
+              boxShadow: ["0 0 20px rgba(255,106,0,0.3)", "0 0 40px rgba(255,106,0,0.5)", "0 0 20px rgba(255,106,0,0.3)"],
             }}
             transition={{ repeat: Infinity, duration: 2 }}
           >
@@ -88,9 +88,9 @@ const PartnerSection = () => {
               return (
                 <div
                   key={item.id}
-                  className={`flex items-center gap-3 bg-[#1a1a1a] rounded-full px-5 py-4 
-                    shadow-md border border-white/10 transition-all duration-500 ease-in-out
-                    hover:scale-105 hover:shadow-[0_0_30px_15px_rgba(0,102,255,0.4)]
+                  className={`flex items-center gap-3 bg-[#383838] rounded-full px-5 py-4 
+                    shadow-md border border-white transition-transform duration-500 ease-in-out
+                    hover:scale-105 hover:shadow-[0_0_30px_15px_rgba(255,100,0,0.5)]
                     ${item.translate}`}
                 >
                   <div className="bg-[#101010] w-14 h-14 rounded-full flex justify-center items-center shrink-0">
@@ -109,45 +109,45 @@ const PartnerSection = () => {
         {/* ================= MOBILE VIEW ================= */}
         <div className="flex md:hidden flex-col items-center gap-4 w-full">
 
-  {/* Center Circle */}
-  <motion.div
-  animate={{
+          {/* Center Circle */}
+          <motion.div
+            animate={{
               scale: [1, 1.05, 1],
-              boxShadow: ["0 0 20px rgba(0,65,255,0.3)","0 0 40px rgba(0,65,255,0.5)", "0 0 20px rgba(0,65,255,0.3)"],
+              boxShadow: ["0 0 20px rgba(255,106,0,0.3)", "0 0 40px rgba(255,106,0,0.5)", "0 0 20px rgba(255,106,0,0.3)"],
             }}
             transition={{ repeat: Infinity, duration: 2 }}
-    className="flex justify-center items-center w-40 h-40 mb-7 rounded-full 
-      bg-[radial-gradient(circle,rgba(0,65,255,0.30)_5%,rgba(0,65,255,0.1)_60%)] 
-      shadow-[0_0_40px_#0041FF] border-dashed border-2 border-gray-500 text-center"
-  >
-    <h2 className="text-sm font-semibold">
-      Why Partner <br /> with Nexus?
-    </h2>
-  </motion.div>
+            className="flex justify-center items-center w-40 h-40 mb-7 rounded-full 
+      bg-[radial-gradient(circle,rgba(255,106,0,0.30)_5%,rgba(255,106,0,0.1)_60%)] 
+      shadow-[0_0_40px_#FF6A00] border-dashed border-2 border-gray-500 text-center"
+          >
+            <h2 className="text-sm font-semibold">
+              Why Partner <br /> with Nexus?
+            </h2>
+          </motion.div>
 
-  {/* Items */}
-  {partnerData.map((item, i) => {
-    const Icon = icons[item.icon];
-    const align = i % 2 === 0 ? "self-start" : "self-end";
+          {/* Items */}
+          {partnerData.map((item, i) => {
+            const Icon = icons[item.icon];
+            const align = i % 2 === 0 ? "self-start" : "self-end";
 
-    return (
-      <div
-        key={item.id}
-        className={`flex items-center gap-4 bg-[#1a1a1a] rounded-full px-5 py-4 
-          w-[95%] sm:w-[80%] border border-white/10 shadow-md ${align}`}
-      >
-        <div className="bg-[#101010] w-14 h-14 rounded-full flex justify-center items-center shrink-0">
-          <Icon className="text-2xl text-white" />
+            return (
+              <div
+                key={item.id}
+                className={`flex items-center gap-4 bg-[#383838] rounded-full px-5 py-4 
+          w-[95%] sm:w-[80%] border border-white shadow-md ${align}`}
+              >
+                <div className="bg-[#101010] w-14 h-14 rounded-full flex justify-center items-center shrink-0">
+                  <Icon className="text-2xl text-white" />
+                </div>
+
+                <div>
+                  <h3 className="font-semibold text-sm">{item.title}</h3>
+                  <p className="text-xs text-gray-400">{item.description}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
-
-        <div>
-          <h3 className="font-semibold text-sm">{item.title}</h3>
-          <p className="text-xs text-gray-400">{item.description}</p>
-        </div>
-      </div>
-    );
-  })}
-</div>
 
       </div>
     </div>

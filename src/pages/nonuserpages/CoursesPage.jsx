@@ -3,6 +3,15 @@ import CourseCard from "../../components/common/CoursesCard";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 
+const targetCategories = [
+  { id: "software-dev", name: "Software Development", originalIds: [1, 5] },
+  { id: "cloud-devops", name: "Cloud & DevOps", originalIds: [4] },
+  { id: "testing-qa", name: "Software Testing / QA", originalIds: [3] },
+  { id: "data-analytics", name: "Data & Analytics", originalIds: [6] },
+  { id: "design-marketing", name: "Design & Marketing", originalIds: [8] },
+  { id: "healthcare-others", name: "Healthcare & Others", originalIds: [7, 2] }
+];
+
 const CoursesPage = () => {
   const api = new ApiService();
 
@@ -27,17 +36,19 @@ const CoursesPage = () => {
         const catRes = await api.apiget(ServerUrl.API_GET_COURSE_CATEGORIES);
         const categoryList = catRes.data.data || [];
         
-        const courseRes = await api.apiget(ServerUrl.API_GET_COURSES);
+        const courseRes = await api.apiget(`${ServerUrl.API_GET_COURSES}?limit=100`);
         const allCourses = Array.isArray(courseRes.data.data?.rows)
           ? courseRes.data.data.rows
           : [];
         
-        const finalData = categoryList.map((category) => {
-          const courses = allCourses.filter(
-            (course) => course.categoryId === category.id
+        // Map the original database courses to the 6 target categories on-the-fly
+        const finalData = targetCategories.map((target) => {
+          const courses = allCourses.filter((course) =>
+            target.originalIds.includes(course.categoryId)
           );
           return {
-            ...category,
+            id: target.id,
+            name: target.name,
             courses,
           };
         });
@@ -53,7 +64,7 @@ const CoursesPage = () => {
     loadData();
   }, []);
 
-  const categoryNames = ["All", ...categories.map((c) => c.name)];
+  const categoryNames = ["All", ...targetCategories.map((c) => c.name)];
 
   const filteredCategories = categories
     .map((category) => {
@@ -66,8 +77,8 @@ const CoursesPage = () => {
         course.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
-      // If category has no matching courses, hide it
-      if (courses.length === 0) return null;
+      // If category has no matching courses and activeCategory is "All", or we are searching, hide the section
+      if (courses.length === 0 && (activeCategory === "All" || searchQuery !== "")) return null;
 
       return {
         ...category,
@@ -75,6 +86,12 @@ const CoursesPage = () => {
       };
     })
     .filter(Boolean);
+
+  // Check if we actually have any courses to display across all filtered categories
+  const totalDisplayCourses = filteredCategories.reduce(
+    (acc, cat) => acc + cat.courses.length,
+    0
+  );
 
   if (loading) {
     return <div className="text-white text-center mt-20">Loading...</div>;
@@ -141,7 +158,7 @@ const CoursesPage = () => {
         </div>
       </div>
 
-      {filteredCategories.length === 0 ? (
+      {totalDisplayCourses === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center w-11/12">
           <svg
             className="h-16 w-16 text-gray-600 mb-4 animate-bounce"
@@ -162,28 +179,31 @@ const CoursesPage = () => {
           </p>
         </div>
       ) : (
-        filteredCategories.map((category) => (
-          <div key={category.id} className="mb-12">
-            <p className="text-[18px] font-bold mb-3 inline-block text-white border-b-2 border-orange-500 pb-1">
-              {category.name}
-            </p>
+        filteredCategories.map((category) => {
+          if (category.courses.length === 0) return null;
+          return (
+            <div key={category.id} className="mb-12">
+              <p className="text-[18px] font-bold mb-3 inline-block text-white border-b-2 border-orange-500 pb-1">
+                {category.name}
+              </p>
 
-            <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center auto-rows-fr">
-              {category.courses.map((course) => (
-                <CourseCard
-                  key={course.id}
-                  id={course.id}
-                  categoryId={category.id}
-                  title={course.title}
-                  logo={course.logo || null}
-                  description={truncateDescription(course.description)}
-                  duration={course.duration}
-                  categoryName={category.name}
-                />
-              ))}
+              <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center auto-rows-fr">
+                {category.courses.map((course) => (
+                  <CourseCard
+                    key={course.id}
+                    id={course.id}
+                    categoryId={course.categoryId} // Use the original categoryId for details navigation
+                    title={course.title}
+                    logo={course.logo || null}
+                    description={truncateDescription(course.description)}
+                    duration={course.duration}
+                    categoryName={category.name}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ))
+          );
+        })
       )}
     </section>
   );
