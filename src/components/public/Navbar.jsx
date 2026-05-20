@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ROUTES } from "../../core/constants/routes.constant";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import Button from "../common/Button";
+import { useAuth } from "../../core/contexts/AuthContext";
 
 const NAV_LINKS = [
   { label: "Home", href: ROUTES.HOME },
@@ -28,6 +29,7 @@ function Navbar() {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const { isLoggedIn, user, logout } = useAuth();
 
   useEffect(() => {
     const currentPath = location.pathname;
@@ -129,21 +131,60 @@ function Navbar() {
         </div>
 
         {/* Desktop Right Button */}
-        <div className="hidden lg:flex items-center justify-end">
-          <Button 
-            text="Test" 
-            className="px-5 py-2 text-sm gap-2" 
-            onClick={() => navigate(ROUTES.LOGIN)} 
-          />
+        <div className="hidden lg:flex items-center justify-end gap-3">
+          {isLoggedIn ? (
+            <>
+              <Button
+                text={user?.role === "admin" ? "Dashboard" : "My Exams"}
+                className="px-5 py-2 text-sm gap-2"
+                onClick={() =>
+                  navigate(
+                    user?.role === "admin"
+                      ? ROUTES.ADMIN_DASHBOARD
+                      : ROUTES.USER_APPITUDE
+                  )
+                }
+              />
+              <button
+                onClick={() => {
+                  logout();
+                  navigate(ROUTES.HOME);
+                }}
+                className="px-5 py-2 text-sm font-medium border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300 cursor-pointer"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Button
+              text="Test"
+              className="px-5 py-2 text-sm gap-2"
+              onClick={() => navigate(ROUTES.LOGIN)}
+            />
+          )}
         </div>
 
         {/* Mobile: Button + Hamburger */}
         <div className="flex lg:hidden items-center space-x-4">
-          <Button 
-            text="Test" 
-            className="px-4 py-1.5 text-xs gap-1.5" 
-            onClick={() => navigate(ROUTES.LOGIN)} 
-          />
+          {isLoggedIn ? (
+            <Button
+              text={user?.role === "admin" ? "Dashboard" : "Exams"}
+              className="px-4 py-1.5 text-xs gap-1.5"
+              onClick={() =>
+                navigate(
+                  user?.role === "admin"
+                    ? ROUTES.ADMIN_DASHBOARD
+                    : ROUTES.USER_APPITUDE
+                )
+              }
+            />
+          ) : (
+            <Button
+              text="Test"
+              className="px-4 py-1.5 text-xs gap-1.5"
+              onClick={() => navigate(ROUTES.LOGIN)}
+            />
+          )}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="p-2 rounded-lg bg-twopointo text-white focus:outline-none"
@@ -187,6 +228,19 @@ function Navbar() {
               {item.label}
             </Link>
           )
+        )}
+
+        {isLoggedIn && (
+          <button
+            onClick={() => {
+              setIsMenuOpen(false);
+              logout();
+              navigate(ROUTES.HOME);
+            }}
+            className="w-60 text-center px-6 py-3 text-lg rounded-xl font-medium bg-red-600/20 text-red-500 border border-red-500/30 hover:bg-red-600 hover:text-white transition-all duration-300 cursor-pointer"
+          >
+            Logout
+          </button>
         )}
 
         {/* Close Button */}
