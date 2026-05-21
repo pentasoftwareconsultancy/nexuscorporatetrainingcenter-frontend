@@ -116,7 +116,7 @@ const CoursesCard = ({
         <p className="text-xs font-semibold text-one">Duration: {duration}</p>
         <button
           onClick={() =>
-            navigate(ROUTES.COURSE_DETAILS.replace(":categoryId", categoryId))
+            navigate(`${ROUTES.COURSE_DETAILS.replace(":categoryId", categoryId)}?courseId=${id}`)
           }
           className="text-five hover:text-orange-400 font-normal text-xs flex items-center gap-1 group transition-colors duration-300 cursor-pointer"
         >
