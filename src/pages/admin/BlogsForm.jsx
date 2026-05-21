@@ -90,7 +90,7 @@ export default function BlogsForm() {
         }
 
         if (res?.data?.success) {
-          toast.success("Blog Saved Successfully");
+          toast.success("Video Saved Successfully");
           navigate(-1);
         }
       } catch (err) {
@@ -107,7 +107,7 @@ export default function BlogsForm() {
     singleClick(async () => {
       try {
         await api.apidelete(`${ServerUrl.API_DELETE_VIDEO}/${id}`);
-        toast.success("Blog Deleted Successfully");
+        toast.success("Video Deleted Successfully");
         navigate(-1);
       } catch (err) {
         console.error("Delete Error", err);
@@ -120,7 +120,7 @@ export default function BlogsForm() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-semibold">
-          {mode === "add" ? "Add Video Blog" : "Edit Video Blog"}
+          {mode === "add" ? "Add Video" : "Edit Video"}
         </h1>
 
         {mode === "edit" && (

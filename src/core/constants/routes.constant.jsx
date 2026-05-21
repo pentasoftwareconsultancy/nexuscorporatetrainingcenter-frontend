@@ -12,6 +12,7 @@ export const ROUTES = {
   UPCOMING: "/upcoming",
   BRANCHES: "/branch",
   PROFESSOR: "/professor",
+  COURSE_VIDEOS: "/courses/videos",
   VIDEO_TESTIMONIALS: "/videotestimonials",
   CONTACT: "/contact",
 
@@ -37,9 +38,9 @@ export const ROUTES = {
   ADMIN_FACULTY_FORM: "/facultyform",
   ADMIN_FACULTY_FORM_EDIT: "/facultyform/:id",
   // Video
-  ADMIN_BLOGS: "/adminblog",
-  ADMIN_BLOGS_FORM: "/blogsform",
-  ADMIN_BLOGS_FORM_EDIT: "/blogsform/:id",
+  ADMIN_VIDEOS: "/adminvideos",
+  ADMIN_VIDEOS_FORM: "/videosform",
+  ADMIN_VIDEOS_FORM_EDIT: "/videosform/:id",
   // Reviews
   ADMIN_REVIEWS: "/reviewsdashboard",
   ADMIN_REVIEW_ADD: "/reviewsadd",
@@ -50,6 +51,9 @@ export const ROUTES = {
     ADMIN_GALLERY_EVENT: "/galleryevent",
     ADMIN_EVENT_DETAIL_ADD: "/eventdetail/add",
     ADMIN_EVENT_DETAIL_EDIT: "/eventdetail/edit/:id",
+    // training centre event
+    ADMIN_TRAINING_CENTRE_EVENT_ADD: "/trainingcentreevent/add",
+    ADMIN_TRAINING_CENTRE_EVENT_EDIT: "/trainingcentreevent/edit/:id",
     // gallery college
     // ADMIN_GALLERY_COLLEGE: "/gallerycollege",
     ADMIN_EVENT_COLLEGE_ADD: "/eventcollege/add",

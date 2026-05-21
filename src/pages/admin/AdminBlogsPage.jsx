@@ -79,7 +79,7 @@ export default function AdminVideoDashboard() {
           <div
             key={idx}
             onClick={() =>
-              navigate(ROUTES.ADMIN_BLOGS_FORM_EDIT.replace(":id", v.id))
+              navigate(ROUTES.ADMIN_VIDEOS_FORM_EDIT.replace(":id", v.id))
             }
             className="border border-white rounded-xl p-4 hover:bg-[#222] transition
       grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 cursor-pointer"
@@ -130,7 +130,7 @@ export default function AdminVideoDashboard() {
 
       {/* ADD BUTTON */}
       <button
-        onClick={() => navigate(ROUTES.ADMIN_BLOGS_FORM)}
+        onClick={() => navigate(ROUTES.ADMIN_VIDEOS_FORM)}
         className="fixed right-10 bottom-10 w-14 h-14 bg-one text-black text-3xl rounded-full font-bold shadow-lg"
       >
         +

@@ -62,6 +62,7 @@ const AdminQuestionsDashboardPage = lazy(() =>import("../pages/admin/AdminQuesti
 const QuestionsForm = lazy(() =>import("../pages/admin/QuestionsForm"));
 const AdminBatchPage = lazy(() => import("../pages/admin/AdminBatchPage"));
 const BatchFormPage = lazy(() => import("../pages/admin/BatchFormPage"));
+const TrainingCentreEventDetailPage = lazy(() => import("../pages/admin/TrainingCentreEventDetailPage"));
 
 const AppRoutes = () => {
   
@@ -90,6 +91,10 @@ const AppRoutes = () => {
         <Route path={ROUTES.UPCOMING} element={<LazyLoad component={UpcomingPage} />} />
         <Route path={ROUTES.BRANCHES} element={<LazyLoad component={BranchesPage} />} />
         <Route path={ROUTES.PROFESSOR} element={<LazyLoad component={ProfessorPage} />} />
+        <Route
+          path={ROUTES.COURSE_VIDEOS}
+          element={<LazyLoad component={VideoTestiomoniualsPage} />}
+        />
         <Route
           path={ROUTES.VIDEO_TESTIMONIALS}
           element={<LazyLoad component={VideoTestiomoniualsPage} />}
@@ -120,10 +125,10 @@ const AppRoutes = () => {
           <Route path={ROUTES.ADMIN_FACULTY_FORM} element={<LazyLoad component={AdminFacultyForm} />} />
           <Route path={ROUTES.ADMIN_FACULTY_FORM_EDIT} element={<LazyLoad component={AdminFacultyForm} />} />
 
-          {/* Blogs */}
-          <Route path={ROUTES.ADMIN_BLOGS} element={<LazyLoad component={AdminBlogsPage} />} />
-          <Route path={ROUTES.ADMIN_BLOGS_FORM} element={<LazyLoad component={BlogsForm} />} />
-          <Route path={ROUTES.ADMIN_BLOGS_FORM_EDIT} element={<LazyLoad component={BlogsForm} />} />
+          {/* Videos */}
+          <Route path={ROUTES.ADMIN_VIDEOS} element={<LazyLoad component={AdminBlogsPage} />} />
+          <Route path={ROUTES.ADMIN_VIDEOS_FORM} element={<LazyLoad component={BlogsForm} />} />
+          <Route path={ROUTES.ADMIN_VIDEOS_FORM_EDIT} element={<LazyLoad component={BlogsForm} />} />
 
           {/* Reviews */}
           <Route path={ROUTES.ADMIN_REVIEWS} element={<LazyLoad component={TotalReviewsDashboard} />} />
@@ -137,6 +142,10 @@ const AppRoutes = () => {
           <Route path={ROUTES.ADMIN_GALLERY_EVENT} element={<LazyLoad component={GalleryEventPage} />} />
           <Route path={ROUTES.ADMIN_EVENT_DETAIL_ADD} element={<LazyLoad component={GalleryEventDetailPage} />} />
           <Route path={ROUTES.ADMIN_EVENT_DETAIL_EDIT} element={<LazyLoad component={GalleryEventDetailPage} />} />
+
+          {/* Training Centre Event */}
+          <Route path={ROUTES.ADMIN_TRAINING_CENTRE_EVENT_ADD} element={<LazyLoad component={TrainingCentreEventDetailPage} />} />
+          <Route path={ROUTES.ADMIN_TRAINING_CENTRE_EVENT_EDIT} element={<LazyLoad component={TrainingCentreEventDetailPage} />} />
 
           {/* Gallery College */}
           <Route path={ROUTES.ADMIN_EVENT_COLLEGE_ADD} element={<LazyLoad component={GalleryCollegeDetailPage} />} />
