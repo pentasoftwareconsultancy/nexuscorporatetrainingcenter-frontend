@@ -31,7 +31,7 @@ export default function BatchFormPage() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await api.apiget(ServerUrl.API_GET_COURSES);
+        const res = await api.apiget(`${ServerUrl.API_GET_COURSES}?limit=1000`);
 
         let list = [];
 

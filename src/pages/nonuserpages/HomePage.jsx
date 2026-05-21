@@ -3,6 +3,8 @@ import HomeHero from '../../components/nonuser/home/HomeHero.jsx';
 import OurClient from '../../components/nonuser/home/OurClient.jsx';
 import CoursesProvided from '../../components/nonuser/home/CoursesProvided.jsx';
 import UpcomingBatches from '../../components/nonuser/home/UpcomingBatches.jsx';
+import GallerySection from '../../components/nonuser/gallery/GallerySection.jsx';
+import EventStory from '../../components/nonuser/gallery/EventStory.jsx';
 import FAQ from '../../components/nonuser/home/FAQ.jsx';
 import SuccessReviews from '../../components/public/SuccessReviews.jsx';
 
@@ -13,6 +15,8 @@ const HomePage = () => {
       <OurClient />
       <CoursesProvided />
       <UpcomingBatches />
+      <GallerySection />
+      <EventStory />
       <FAQ />
       <SuccessReviews />
     </div>

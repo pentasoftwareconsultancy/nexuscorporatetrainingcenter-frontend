@@ -20,16 +20,7 @@ const AdminLayout = () => {
         )}
 
         {/* ---------- SIDEBAR ---------- */}
-        <div
-          className={`
-            fixed md:static top-0 left-0 h-full z-50
-            transition-transform duration-300
-            ${isOpen ? "translate-x-0" : "-translate-x-full"}
-            md:translate-x-0
-          `}
-        >
-          <AdminSidebar isOpen={isOpen} setIsOpen={setIsOpen} />
-        </div>
+        <AdminSidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
         {/* ---------- CONTENT ---------- */}
         <div

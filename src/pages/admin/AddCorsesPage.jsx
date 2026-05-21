@@ -39,29 +39,39 @@ export default function AddCorsesPage() {
 
     const fetchFullCourse = async () => {
       try {
-        // 1️⃣ fetch course
-        const courseRes = await api.apiget(ServerUrl.API_GET_COURSE_BY_ID + id);
+        let courseData = null;
+        let detailsData = null;
 
-        // 2️⃣ fetch course details
-        const detailsRes = await api.apiget(
-          ServerUrl.API_GET_COURSE_DETAILS_BY_ID + id
-        );
+        try {
+          const courseRes = await api.apiget(ServerUrl.API_GET_COURSE_BY_ID + id);
+          courseData = courseRes.data.data;
+        } catch (err) {
+          console.error("Failed to fetch course", err);
+        }
 
-        const course = courseRes.data.data;
-        const details = detailsRes.data.data;
+        try {
+          const detailsRes = await api.apiget(
+            ServerUrl.API_GET_COURSE_DETAILS_BY_ID + id
+          );
+          detailsData = detailsRes.data.data;
+        } catch (err) {
+          console.warn("Failed to fetch course details (might be missing)", err);
+        }
 
-        setCourse({
-          title: course.title || "",
-          description: course.description || "",
-          duration: course.duration || "",
-          fees: course.fees || "",
-          categoryId: course.categoryId || "",
+        if (courseData) {
+          setCourse({
+            title: courseData.title || "",
+            description: courseData.description || "",
+            duration: courseData.duration || "",
+            fees: courseData.fees || "",
+            categoryId: courseData.categoryId || "",
 
-          instructor: details?.instructor || "",
-          what_you_will_learn: details?.what_you_will_learn || "",
-          syllabus: details?.syllabus || "",
-          syllabus_pdf: null, // never prefill file
-        });
+            instructor: detailsData?.instructor || "",
+            what_you_will_learn: detailsData?.what_you_will_learn || "",
+            syllabus: detailsData?.syllabus || "",
+            syllabus_pdf: null, // never prefill file
+          });
+        }
       } catch (err) {
         console.error("Failed to fetch course data", err);
       }
@@ -93,27 +103,26 @@ export default function AddCorsesPage() {
   };
 
   const handleSubmit = async () => {
+    let categoryId = course.categoryId;
+
+    if (categoryId === "new" && !newCategory.trim()) {
+      toast.error("Please enter category name");
+      return;
+    }
+
+    if (!categoryId) {
+      toast.error("Category is required");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      let categoryId = course.categoryId;
-
       if (categoryId === "new") {
-        if (!newCategory.trim()) {
-          toast.error("Please enter category name");
-          return;
-        }
-
         const catRes = await api.apipost(ServerUrl.API_ADD_COURSE_CATEGORY, {
           name: newCategory,
         });
-
         categoryId = catRes.data.data.id;
-      }
-
-      if (!categoryId) {
-        toast.error("Category is required");
-        return;
       }
 
       const formData = new FormData();
@@ -134,6 +143,7 @@ export default function AddCorsesPage() {
 
       await api.apipost(ServerUrl.API_ADD_COURSE_WITH_DETAILS, formData);
 
+      toast.success("Course added successfully");
       resetForm();
       navigate(-1);
     } catch (err) {
@@ -145,39 +155,78 @@ export default function AddCorsesPage() {
   };
 
   const handleEdit = async () => {
-    // 1️⃣ update course
-    await api.apiput(ServerUrl.API_UPDATE_COURSE + id, {
-      title: course.title,
-      description: course.description,
-      duration: course.duration,
-      fees: course.fees,
-      categoryId: course.categoryId,
-    });
+    let categoryId = course.categoryId;
 
-    // 2️⃣ update course details
-    const formData = new FormData();
-    formData.append("instructor", course.instructor);
-    formData.append("what_you_will_learn", course.what_you_will_learn);
-    formData.append("syllabus", course.syllabus);
-
-    if (course.syllabus_pdf) {
-      formData.append("syllabus_pdf", course.syllabus_pdf);
+    if (categoryId === "new" && !newCategory.trim()) {
+      toast.error("Please enter category name");
+      return;
     }
 
-    await api.apiput(ServerUrl.API_UPDATE_COURSE_DETAILS + id, formData);
+    if (!categoryId) {
+      toast.error("Category is required");
+      return;
+    }
 
-    toast.success("Course updated successfully");
-    navigate(-1);
+    setIsSubmitting(true);
+
+    try {
+      if (categoryId === "new") {
+        const catRes = await api.apipost(ServerUrl.API_ADD_COURSE_CATEGORY, {
+          name: newCategory,
+        });
+        categoryId = catRes.data.data.id;
+      }
+
+      // 1️⃣ update course
+      await api.apiput(ServerUrl.API_UPDATE_COURSE + id, {
+        title: course.title,
+        description: course.description,
+        duration: course.duration,
+        fees: course.fees,
+        categoryId: Number(categoryId),
+      });
+
+      // 2️⃣ update course details
+      const formData = new FormData();
+      formData.append("instructor", course.instructor);
+      formData.append("what_you_will_learn", course.what_you_will_learn);
+      formData.append("syllabus", course.syllabus);
+
+      if (course.syllabus_pdf) {
+        formData.append("syllabus_pdf", course.syllabus_pdf);
+      }
+
+      await api.apiput(ServerUrl.API_UPDATE_COURSE_DETAILS + id, formData);
+
+      toast.success("Course updated successfully");
+      navigate(-1);
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleDelete = async () => {
     if (!window.confirm("Delete this course permanently?")) return;
+    setIsSubmitting(true);
 
-    await api.apidelete(ServerUrl.API_DELETE_COURSE_DETAILS + id);
-
-    await api.apidelete(ServerUrl.API_DELETE_COURSE + id);
-
-    navigate(-1);
+    try {
+      try {
+        await api.apidelete(ServerUrl.API_DELETE_COURSE_DETAILS + id);
+      } catch (err) {
+        console.warn("Could not delete course details (might be missing):", err);
+      }
+      await api.apidelete(ServerUrl.API_DELETE_COURSE + id);
+      toast.success("Course deleted successfully");
+      navigate(-1);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to delete course");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -186,20 +235,24 @@ export default function AddCorsesPage() {
       <div className="flex-1 p-4 md:p-8 space-y-6 relative">
         <div className="flex justify-between items-center mb-6">
           {/* Title */}
-          <h2 className="text-xl font-semibold mb-4">Add Course</h2>
+          <h2 className="text-xl font-semibold mb-4">
+            {isEditMode ? "Edit Course" : "Add Course"}
+          </h2>
           {/* Top-right icon buttons */}
           {isEditMode && (
             <div className="flex gap-4">
               <button
                 onClick={() => singleClick(handleEdit)}
-                className="bg-white p-2 rounded"
+                disabled={isSubmitting}
+                className="bg-white p-2 rounded disabled:opacity-50"
               >
                 <Edit size={20} color="orange" />
               </button>
 
               <button
                 onClick={() => singleClick(handleDelete)}
-                className="bg-white p-2 rounded"
+                disabled={isSubmitting}
+                className="bg-white p-2 rounded disabled:opacity-50"
               >
                 <Trash2 size={20} color="orange" />
               </button>

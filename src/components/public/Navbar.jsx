@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ROUTES } from "../../core/constants/routes.constant";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import Button from "../common/Button";
+import { useAuth } from "../../core/contexts/AuthContext";
 
 const NAV_LINKS = [
   { label: "Home", href: ROUTES.HOME },
@@ -23,37 +24,30 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-
-  // 🔥 NEW STATES
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const location = useLocation();
   const navigate = useNavigate();
+  const { isLoggedIn, user, logout } = useAuth();
 
-  // Active tab detection
   useEffect(() => {
     const currentPath = location.pathname;
     const activeLink = NAV_LINKS.find((link) => link.href === currentPath);
     setActiveTab(activeLink ? activeLink.label : "");
   }, [location.pathname]);
 
-  // Scroll detection (Hide on scroll down, show on scroll up)
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
       setIsScrolled(currentScrollY > 50);
-
       if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        setShowNavbar(false); // scrolling down
+        setShowNavbar(false);
       } else {
-        setShowNavbar(true); // scrolling up
+        setShowNavbar(true);
       }
-
       setLastScrollY(currentScrollY);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
@@ -72,21 +66,21 @@ function Navbar() {
     <>
       <nav
         className={`fixed w-full top-0 left-0 z-50
-        bg-black/40 border border-white/20 backdrop-blur-md
+        bg-black/40 backdrop-blur-md
         flex items-center justify-between px-6 lg:px-12 h-16 lg:h-20
         transition-all duration-1000 ease-in-out
-        ${showNavbar ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}
+        ${showNavbar ? "translate-y-0 opacity-100" : "lg:-translate-y-full lg:opacity-0"}
         ${isScrolled ? "shadow-lg" : ""}
         `}
       >
         {/* Logo */}
-        <div onClick={() => navigate(ROUTES.HOME)} className="flex flex-col items-center">
+        <div onClick={() => navigate(ROUTES.HOME)} className="cursor-pointer flex flex-col items-center">
           <h1 className="text-2xl lg:text-3xl font-medium flex items-center justify-center">
             <span className="text-white font-playfair">NE</span>
             <span className="text-orange-500 text-5xl pt-1">
               <svg width="40" height="34" viewBox="0 0 40 34" fill="none">
-                <path d="M31.5408 0.000221879L39.5234 0.00080831L34.5562 2.77579C33.3436 3.45323 32.2854 4.37587 31.4491 5.4849L12.364 30.7934C11.2302 32.2968 9.45642 33.1808 7.57341 33.1808H-0.000190735L5.03663 30.275C6.22264 29.5907 7.25551 28.6702 8.07121 27.5704L26.7213 2.42583C27.8531 0.899828 29.6409 8.23028e-05 31.5408 0.000221879Z" fill="#FF6A00"/>
-                <path d="M7.98262 0.000221879L0 0.00080831L4.96721 2.77579C6.17983 3.45323 7.23802 4.37587 8.07433 5.4849L27.1595 30.7934C28.2932 32.2968 30.067 33.1808 31.95 33.1808H39.5236L34.4868 30.275C33.3008 29.5907 32.2679 28.6702 31.4522 27.5704L12.8022 2.42583C11.6703 0.899828 9.88257 8.23028e-05 7.98262 0.000221879Z" fill="#FF6A00"/>
+                <path d="M31.5408 0.000221879L39.5234 0.00080831L34.5562 2.77579C33.3436 3.45323 32.2854 4.37587 31.4491 5.4849L12.364 30.7934C11.2302 32.2968 9.45642 33.1808 7.57341 33.1808H-0.000190735L5.03663 30.275C6.22264 29.5907 7.25551 28.6702 8.07121 27.5704L26.7213 2.42583C27.8531 0.899828 29.6409 8.23028e-05 31.5408 0.000221879Z" fill="#FF6A00" />
+                <path d="M7.98262 0.000221879L0 0.00080831L4.96721 2.77579C6.17983 3.45323 7.23802 4.37587 8.07433 5.4849L27.1595 30.7934C28.2932 32.2968 30.067 33.1808 31.95 33.1808H39.5236L34.4868 30.275C33.3008 29.5907 32.2679 28.6702 31.4522 27.5704L12.8022 2.42583C11.6703 0.899828 9.88257 8.23028e-05 7.98262 0.000221879Z" fill="#FF6A00" />
               </svg>
             </span>
             <span className="text-white font-playfair">US</span>
@@ -96,26 +90,16 @@ function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center justify-center flex-1">
-          <div
-            className="flex items-center justify-center space-x-2 px-4 py-2 bg-black/40 border border-white/20 
-            rounded-2xl backdrop-blur-md transition-all duration-300"
-          >
+          <div className="flex items-center justify-center space-x-2 px-4 py-2 bg-black/40 rounded-2xl backdrop-blur-md transition-all duration-300">
             {NAV_LINKS.map((item) =>
               item.dropdown ? (
                 <div key={item.label} className="relative">
-                  
-                  {/* CLICK TO OPEN DROPDOWN */}
                   <button
-                    onClick={() =>
-                      setOpenDropdown(openDropdown === item.label ? null : item.label)
-                    }
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-white/90 
-                    hover:bg-white hover:text-black`}
+                    onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
+                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-white/90 hover:bg-white hover:text-black"
                   >
                     {item.label}
                   </button>
-
-                  {/* DROPDOWN MENU */}
                   {openDropdown === item.label && (
                     <div className="absolute top-full left-0 mt-2 bg-white text-black rounded-lg shadow-lg overflow-hidden w-48">
                       {item.dropdown.map((drop) => (
@@ -137,11 +121,7 @@ function Navbar() {
                   to={item.href}
                   onClick={() => handleLinkClick(item.label)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
-                  ${
-                    activeTab === item.label
-                      ? "bg-white text-black shadow-md"
-                      : "text-white/90 hover:bg-white hover:text-black"
-                  }`}
+                  ${activeTab === item.label ? "bg-white text-black shadow-md" : "text-white/90 hover:bg-white hover:text-black"}`}
                 >
                   {item.label}
                 </Link>
@@ -150,84 +130,129 @@ function Navbar() {
           </div>
         </div>
 
-        {/* Right: Test Button */}
-        <div className="hidden lg:flex items-center justify-end">
-          <Button text="Test" onClick={() => navigate(ROUTES.LOGIN)} />
+        {/* Desktop Right Button */}
+        <div className="hidden lg:flex items-center justify-end gap-3">
+          {isLoggedIn ? (
+            <>
+              <Button
+                text={user?.role === "admin" ? "Dashboard" : "My Exams"}
+                className="px-5 py-2 text-sm gap-2"
+                onClick={() =>
+                  navigate(
+                    user?.role === "admin"
+                      ? ROUTES.ADMIN_DASHBOARD
+                      : ROUTES.USER_APPITUDE
+                  )
+                }
+              />
+              <button
+                onClick={() => {
+                  logout();
+                  navigate(ROUTES.HOME);
+                }}
+                className="px-5 py-2 text-sm font-medium border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300 cursor-pointer"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Button
+              text="Test"
+              className="px-5 py-2 text-sm gap-2"
+              onClick={() => navigate(ROUTES.LOGIN)}
+            />
+          )}
         </div>
 
-        {/* Mobile Section */}
+        {/* Mobile: Button + Hamburger */}
         <div className="flex lg:hidden items-center space-x-4">
-          <Button 
-            text="Test"
-            onClick={() => navigate(ROUTES.LOGIN)}
-          />
-
+          {isLoggedIn ? (
+            <Button
+              text={user?.role === "admin" ? "Dashboard" : "Exams"}
+              className="px-4 py-1.5 text-xs gap-1.5"
+              onClick={() =>
+                navigate(
+                  user?.role === "admin"
+                    ? ROUTES.ADMIN_DASHBOARD
+                    : ROUTES.USER_APPITUDE
+                )
+              }
+            />
+          ) : (
+            <Button
+              text="Test"
+              className="px-4 py-1.5 text-xs gap-1.5"
+              onClick={() => navigate(ROUTES.LOGIN)}
+            />
+          )}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 rounded-lg bg-twopointo border border-white/30 text-white focus:outline-none"
+            className="p-2 rounded-lg bg-twopointo text-white focus:outline-none"
           >
-            {isMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-            )}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <div
-          className={`fixed inset-0 bg-black/70 backdrop-blur-xl flex flex-col items-center justify-center space-y-6 
-          transition-all duration-500 lg:hidden z-40
-          ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
-        >
-          {NAV_LINKS.map((item) =>
-            item.dropdown ? (
-              <div key={item.label} className="w-60">
-                <div className="text-center text-white text-lg mb-2">{item.label}</div>
-
-                {item.dropdown.map((drop) => (
-                  <Link
-                    key={drop.label}
-                    to={drop.href}
-                    onClick={() => handleLinkClick(drop.label)}
-                    className="block w-full px-6 py-3 text-lg rounded-xl bg-white/10 text-white 
-                    hover:bg-white hover:text-black transition-all duration-300 mb-2"
-                  >
-                    {drop.label}
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                to={item.href}
-                onClick={() => handleLinkClick(item.label)}
-                className={`w-60 text-center px-6 py-3 text-lg rounded-xl font-medium transition-all duration-300
-                ${
-                  activeTab === item.label
-                    ? "bg-white text-black shadow-lg scale-105"
-                    : "bg-white/10 text-white hover:bg-white hover:text-black"
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-
-          <button
-            onClick={() => setIsMenuOpen(false)}
-            className="absolute top-6 text-white"
-          >
-            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
       </nav>
+
+      {/* Mobile Menu — outside <nav> so fixed inset-0 covers full screen */}
+      <div
+        className={`fixed inset-0 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-4
+        transition-all duration-500 lg:hidden z-[999]
+        ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+      >
+        {NAV_LINKS.map((item) =>
+          item.dropdown ? (
+            <div key={item.label} className="w-60">
+              <div className="text-center text-white text-lg mb-2">{item.label}</div>
+              {item.dropdown.map((drop) => (
+                <Link
+                  key={drop.label}
+                  to={drop.href}
+                  onClick={() => handleLinkClick(drop.label)}
+                  className="block w-full px-6 py-3 text-lg rounded-xl bg-white/10 text-white hover:bg-white hover:text-black transition-all duration-300 mb-2"
+                >
+                  {drop.label}
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <Link
+              key={item.label}
+              to={item.href}
+              onClick={() => handleLinkClick(item.label)}
+              className={`w-60 text-center px-6 py-3 text-lg rounded-xl font-medium transition-all duration-300
+              ${activeTab === item.label ? "bg-white text-black shadow-lg scale-105" : "bg-white/10 text-white hover:bg-white hover:text-black"}`}
+            >
+              {item.label}
+            </Link>
+          )
+        )}
+
+        {isLoggedIn && (
+          <button
+            onClick={() => {
+              setIsMenuOpen(false);
+              logout();
+              navigate(ROUTES.HOME);
+            }}
+            className="w-60 text-center px-6 py-3 text-lg rounded-xl font-medium bg-red-600/20 text-red-500 border border-red-500/30 hover:bg-red-600 hover:text-white transition-all duration-300 cursor-pointer"
+          >
+            Logout
+          </button>
+        )}
+
+        {/* Close Button */}
+        <button
+          onClick={() => setIsMenuOpen(false)}
+          className="absolute top-6 right-6 text-white"
+        >
+          <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
     </>
   );
 }

@@ -33,8 +33,7 @@ function StatCard({ title, value, info, icon, click }) {
          border border-white rounded-2xl p-6 flex flex-col
         text-white shadow-md transition duration-200
         hover:shadow-[0_0_48px_12px_rgba(255,115,0,0.5)]
-        cursor-pointer
-        w-full sm:w-[47%] lg:w-[30%] xl:w-[31%]
+        cursor-pointer w-full
       "
     >
       <div className="flex justify-between items-start">
@@ -225,17 +224,10 @@ export default function AdminDashboard() {
         Dashboard
       </h1>
 
-      {/* STATS ROW 1 */}
-      <div className="flex flex-wrap justify-between gap-4 mb-5">
-        {stats.slice(0, 3).map((card, i) => (
+      {/* STATS GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        {stats.map((card, i) => (
           <StatCard key={i} {...card} />
-        ))}
-      </div>
-
-      {/* STATS ROW 2 */}
-      <div className="flex flex-wrap justify-between gap-4 mb-6">
-        {stats.slice(3, 6).map((card, i) => (
-          <StatCard key={i + 3} {...card} />
         ))}
       </div>
 
@@ -250,22 +242,20 @@ export default function AdminDashboard() {
         <div className="flex gap-3 mb-4">
           <button
             onClick={() => setGraphType("monthly")}
-            className={`px-4 py-2 rounded-lg ${
-              graphType === "monthly"
+            className={`px-4 py-2 rounded-lg ${graphType === "monthly"
                 ? "bg-orange-600 text-white"
                 : "bg-zinc-800 text-zinc-300"
-            }`}
+              }`}
           >
             Monthly
           </button>
 
           <button
             onClick={() => setGraphType("yearly")}
-            className={`px-4 py-2 rounded-lg ${
-              graphType === "yearly"
+            className={`px-4 py-2 rounded-lg ${graphType === "yearly"
                 ? "bg-orange-600 text-white"
                 : "bg-zinc-800 text-zinc-300"
-            }`}
+              }`}
           >
             Yearly
           </button>

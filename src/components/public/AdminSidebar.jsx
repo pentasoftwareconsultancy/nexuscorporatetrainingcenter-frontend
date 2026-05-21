@@ -80,7 +80,7 @@ function AdminSidebar({ isOpen, setIsOpen }) {
         `}
       >
         {/* NAV LINKS */}
-        <nav className="flex flex-col px-1 space-y-3 mt-6 flex-grow overflow-hidden">
+        <nav className="flex flex-col px-1 space-y-3 mt-6 flex-grow overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {NAV_LINKS.map((item) => (
             <NavLink
               key={item.label}

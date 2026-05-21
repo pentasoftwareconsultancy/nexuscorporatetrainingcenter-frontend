@@ -4,6 +4,23 @@ import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import { ROUTES } from "../../core/constants/routes.constant";
 
+import zeal1 from "../../assets/gallary/zeal1.jpeg";
+import zeal2 from "../../assets/gallary/zeal2.jpeg";
+import zeal3 from "../../assets/gallary/zeal3.jpeg";
+import zeal4 from "../../assets/gallary/zeal4.jpeg";
+import zeal5 from "../../assets/gallary/zeal5.jpeg";
+import zeal6 from "../../assets/gallary/zeal6.jpeg";
+import zeal7 from "../../assets/gallary/zeal7.jpeg";
+import govtpoly1 from "../../assets/gallary/govtpoly1.jpeg";
+import govtpoly2 from "../../assets/gallary/govtpoly2.jpeg";
+import govtpoly3 from "../../assets/gallary/govtpoly3.jpeg";
+import akola1 from "../../assets/gallary/akolaclg/Screenshot (81) 5.png";
+import akola2 from "../../assets/gallary/akolaclg/Screenshot (81) 8.png";
+import akola3 from "../../assets/gallary/akolaclg/Screenshot (81) 10.png";
+import akola4 from "../../assets/gallary/akolaclg/Screenshot (81) 11.png";
+
+const fallbackImages = [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7];
+
 const GalleryCollegePage = () => {
   const [colleges, setColleges] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,15 +53,33 @@ const GalleryCollegePage = () => {
       }
 
       const withImages = await Promise.all(
-        all.map(async (college) => {
+        all.map(async (college, index) => {
           try {
             const imgRes = await api.apiget(
               ServerUrl.API_GET_IMAGES_BY_COLLEGE + college.id
             );
+            const dbImages = imgRes?.data?.data || [];
+            
+            const imagesToUse = dbImages.length > 0
+              ? dbImages
+              : (college.name?.toLowerCase().includes("government") || college.name?.toLowerCase().includes("govt") || college.id === 14 || college.id === 13
+                ? [govtpoly1, govtpoly2, govtpoly3].map(url => ({ url }))
+                : (college.name?.toLowerCase().includes("zeal") || college.id === 15 || college.id === 14
+                  ? [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7].map(url => ({ url }))
+                  : (college.name?.toLowerCase().includes("akola") || college.id === 2 || college.id === 1
+                    ? [akola1, akola2, akola3, akola4].map(url => ({ url }))
+                    : [fallbackImages[index % fallbackImages.length]].map(url => ({ url })))));
 
-            return { ...college, images: imgRes?.data?.data || [] };
+            return { ...college, images: imagesToUse };
           } catch {
-            return { ...college, images: [] };
+            const imagesToUse = college.name?.toLowerCase().includes("government") || college.name?.toLowerCase().includes("govt") || college.id === 14 || college.id === 13
+              ? [govtpoly1, govtpoly2, govtpoly3].map(url => ({ url }))
+              : (college.name?.toLowerCase().includes("zeal") || college.id === 15 || college.id === 14
+                ? [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7].map(url => ({ url }))
+                : (college.name?.toLowerCase().includes("akola") || college.id === 2 || college.id === 1
+                  ? [akola1, akola2, akola3, akola4].map(url => ({ url }))
+                  : [fallbackImages[index % fallbackImages.length]].map(url => ({ url }))));
+            return { ...college, images: imagesToUse };
           }
         })
       );

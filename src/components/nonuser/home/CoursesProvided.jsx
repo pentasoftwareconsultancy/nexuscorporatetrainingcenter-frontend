@@ -31,7 +31,7 @@ const CoursesProvided = () => {
         const catRes = await api.apiget(ServerUrl.API_GET_COURSE_CATEGORIES);
         const categories = catRes.data.data || [];
 
-        const courseRes = await api.apiget(ServerUrl.API_GET_COURSES);
+        const courseRes = await api.apiget(`${ServerUrl.API_GET_COURSES}?limit=100`);
         const courseList = courseRes.data.data?.rows || [];
 
         // ⭐ Flatten courses (IMPORTANT PART)
@@ -71,13 +71,12 @@ const CoursesProvided = () => {
 
   return (
     <section className="px-12 text-white">
-      <h1 className="text-4xl font-bold mb-10">Courses We Provide</h1>
+      <h1 className="text-4xl font-bold mb-10">Courses we provide</h1>
 
       <div className="grid gap-8
             grid-cols-1
             sm:grid-cols-2
-            md:grid-cols-3
-            lg:grid-cols-4
+            lg:grid-cols-3
             justify-items-center
             auto-rows-fr"
       >

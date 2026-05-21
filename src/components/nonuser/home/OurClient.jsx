@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Slider from "react-slick";
 import CountUp from "react-countup";
+import { motion } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -32,8 +33,6 @@ import client20 from "../../../assets/home/client20.png";
 import client21 from "../../../assets/home/client21.png";
 
 function OurClient() {
-  const [isPaused, setIsPaused] = useState(false);
-
   const imageMap = {
     "client1.png": client1,
     "client2.png": client2,
@@ -63,8 +62,8 @@ function OurClient() {
   const sliderSettings = {
     dots: false,
     infinite: true,
-    speed: 2600,
-    autoplay: !isPaused,
+    speed: 1300,
+    autoplay: true,
     autoplaySpeed: 0,
     cssEase: "linear",
     centerMode: false,
@@ -73,13 +72,15 @@ function OurClient() {
     slidesToScroll: 1,
     arrows: false,
     pauseOnHover: false,
+    swipeToSlide: true,
+    draggable: true,
     responsive: [
-      { breakpoint: 1536, settings: { slidesToShow: 6, speed: 2200 } },
-      { breakpoint: 1280, settings: { slidesToShow: 5, speed: 1800 } },
-      { breakpoint: 1024, settings: { slidesToShow: 4, speed: 1200 } },
-      { breakpoint: 768, settings: { slidesToShow: 3, speed: 1000 } },
-      { breakpoint: 480, settings: { slidesToShow: 2, speed: 800 } },
-      { breakpoint: 360, settings: { slidesToShow: 1, speed: 600 } },
+      { breakpoint: 1536, settings: { slidesToShow: 6, speed: 1100 } },
+      { breakpoint: 1280, settings: { slidesToShow: 5, speed: 900 } },
+      { breakpoint: 1024, settings: { slidesToShow: 4, speed: 600 } },
+      { breakpoint: 768, settings: { slidesToShow: 3, speed: 500 } },
+      { breakpoint: 480, settings: { slidesToShow: 2, speed: 400 } },
+      { breakpoint: 360, settings: { slidesToShow: 1, speed: 300 } },
     ],
   };
 
@@ -114,42 +115,34 @@ function OurClient() {
         <h2 className=" text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
           Our Clients
         </h2>
-        <div className=" w-full border-t border-[#c0bbbb] my-6"></div>
-        <div className="relative">
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
+        <div className="relative [mask-image:_linear-gradient(to_right,transparent_0%,white_15%,white_85%,transparent_100%)]">
           <Slider {...sliderSettings}>
             {clients.map((client, idx) => (
               <div key={idx} className="px-2 my-2">
-                <div className="flex items-center justify-center h-14 sm:h-16">
+                <div className="flex items-center justify-center h-20 sm:h-24 p-2">
                   <img
                     src={imageMap[client.src]}
                     alt={client.name}
                     className="
-                      w-full 
-                      max-w-[100px] 
-                      h-auto
+                      max-w-[120px] 
+                      max-h-[60px]
+                      w-auto
+                      h-full
                       object-contain 
                       mx-auto 
                       grayscale hover:grayscale-0 
                       transition-all duration-300
+                      hover:scale-110 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]
+                      cursor-grab active:cursor-grabbing
                     "
-                    onClick={() => setIsPaused(true)}
                   />
                 </div>
               </div>
             ))}
           </Slider>
         </div>
-        {isPaused && (
-          <div className="text-center mt-3">
-            <button
-              className="px-5 py-2 bg-white text-black rounded-md shadow hover:bg-gray-200 text-sm sm:text-base font-medium"
-              onClick={() => setIsPaused(false)}
-            >
-              Resume Scrolling
-            </button>
-          </div>
-        )}
-        <div className="w-full border-t border-[#c0bbbb] my-6"></div>
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
       </section>
 
       {/* <div className="w-full border-t border-[#c0bbbb] my-6"></div> */}
@@ -158,7 +151,13 @@ function OurClient() {
       <section className="z-10 w-full  mx-auto px-3 md:px-12">
         <div className="flex flex-col lg:flex-row lg:items-start lg:gap-8">
           {/* Left */}
-          <div className="w-full lg:w-1/3 mb-8 lg:mb-0">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8 }}
+            className="w-full lg:w-1/3 mb-8 lg:mb-0"
+          >
             <h2 className="font-semibold text-2xl sm:text-3xl lg:text-4xl mb-4 leading-snug">
               We Build Success <br /> by the Numbers
             </h2>
@@ -171,29 +170,49 @@ function OurClient() {
               differences, transforming potential into performance and ambition
               into achievement.
             </p>
-          </div>
+          </motion.div>
           {/* Right */}
           <div className="lg:w-2/3">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-7">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
               {metrics.map((item, idx) => (
-                <div key={idx} className="text-center">
-                  <span className="block font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mb-2">
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: false, amount: 0.1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 18,
+                    delay: idx * 0.08,
+                  }}
+                  whileHover={{
+                    y: -6,
+                    backgroundColor: "rgba(255, 255, 255, 0.06)",
+                    borderColor: "rgba(255, 106, 0, 0.35)",
+                    boxShadow: "0 15px 35px -10px rgba(255, 106, 0, 0.15)"
+                  }}
+                  className="flex flex-col items-center justify-center text-center bg-white/[0.02] backdrop-blur-md border border-white/[0.05] rounded-2xl p-5 select-none cursor-default"
+                >
+                  <span className="block font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mb-1 text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gray-400">
                     <CountUp
                       end={item.value}
                       duration={2}
                       suffix={item.suffix}
+                      enableScrollSpy={true}
+                      scrollSpyOnce={false}
                     />
                   </span>
-                  <span className="block text-sm sm:text-base font-medium text-gray-200 tracking-tight">
+                  <span className="block text-xs sm:text-sm font-medium text-gray-300 tracking-tight leading-snug">
                     {item.label}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </div>
       </section>
-      <div className="w-full border-t border-[#c0bbbb] my-6"></div>
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
     </div>
   );
 }

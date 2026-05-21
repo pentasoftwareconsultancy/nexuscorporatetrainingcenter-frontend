@@ -1,237 +1,92 @@
-import React from "react";
-import { ArrowUpRight } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../core/constants/routes.constant";
-import CircleBackground from "../../common/CircleBackground";
 import Button from "../../common/Button";
 
-// 🔥 GSAP imports
-import gsap from "gsap";
+// Import the 4 custom gradient X background images
+import x1 from "../../../assets/home/x1.png";
+import x2 from "../../../assets/home/x2.png";
+import x3 from "../../../assets/home/x3.png";
+import x4 from "../../../assets/home/x4.png";
+
+const backgroundImages = [x1, x2, x3, x4];
 
 export default function HomeHero() {
   const navigate = useNavigate();
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 🔥 This ref is for animated slogan text
-  const textRef = React.useRef(null);
-
-  // Rotate every 3 seconds
-  React.useEffect(() => {
+  // Cycle background images every 4.5 seconds
+  useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % sloganPhrases.length);
-    }, 3000);
-
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
+    }, 4500);
     return () => clearInterval(interval);
   }, []);
 
-  const sloganPhrases = [
-    "India's No. 1 Corporate Training Center",
-    "Best Software training institute in Pune",
-    "No 1 Corporate Training Center for IT Courses In Pune",
-    "US Billing & Insurance Traning center in pune",
-  ];
-
-  // 🔥 GSAP ANIMATION ON TEXT CHANGE
-  React.useEffect(() => {
-    if (!textRef.current) return;
-
-    const element = textRef.current;
-    const words = sloganPhrases[currentIndex].split(" ");
-
-    element.innerHTML = "";
-
-    words.forEach((word) => {
-      const span = document.createElement("span");
-      span.textContent = word + " ";
-      span.style.display = "inline-block";
-      element.appendChild(span);
-    });
-
-    const spans = element.querySelectorAll("span");
-
-    gsap.fromTo(
-      spans,
-      { y: 30, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power3.out",
-      }
-    );
-  }, [currentIndex]);
-
   return (
-    <div
-      className="relative font-sora w-full min-h-screen
-        flex flex-col md:flex-row
-        items-center justify-center
-        px-4 sm:px-6 md:px-12
-        text-one overflow-hidden"
-    >
-      <div className="absolute z-0 hidden md:block w-[880px] h-[880px] -bottom-[150px] -left-[450px] pointer-events-none">
-        <CircleBackground />
+    <div className="relative font-sora w-full min-h-[92vh] flex flex-col md:grid md:grid-cols-2 pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-12 md:pr-12 lg:pl-12 lg:pr-12 py-16 md:py-24 text-white overflow-hidden bg-black gap-12 md:gap-0">
+      
+      {/* 🌟 ROTATING BLUE COLOR SPOTLIGHT (Smart Animate ease-out circular motion 2500ms) */}
+      <div 
+        className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 select-none transition-transform duration-[2500ms] ease-out"
+        style={{ transform: `rotate(${currentIndex * 90}deg)` }}
+      >
+        {/* Glowing blue color orb offset from center to create a circular orbit sweep around the screen */}
+        <div className="absolute w-[550px] h-[550px] rounded-full bg-blue-600/15 blur-[120px] -translate-x-[25%] -translate-y-[25%]" />
       </div>
 
-      <div className="absolute md:flex items-center justify-center pointer-events-none">
-        {/* MAIN X */}
-        <div className="flex justify-center items-center">
-          <h1
-            className="
-              relative w-full 
-              xl:text-[300px] md:text-9xl text-5xl 
-              sm:tracking-[17px] tracking-[10px] 
-              uppercase text-center 
-              leading-[0.70em] outline-none 
-              animate-dimlight box-reflect flex items-center justify-center
-            "
-          >
-            <span className="font-playfair">NE</span>
-            <span className="text-5xl pt-1">
-              <svg width="300" height="300" viewBox="0 0 40 34" fill="none">
-                <path
-                  d="M31.5408 0.000221879L39.5234 0.00080831L34.5562 2.77579C33.3436 3.45323 32.2854 4.37587 31.4491 5.4849L12.364 30.7934C11.2302 32.2968 9.45642 33.1808 7.57341 33.1808H-0.000190735L5.03663 30.275C6.22264 29.5907 7.25551 28.6702 8.07121 27.5704L26.7213 2.42583C27.8531 0.899828 29.6409 8.23028e-05 31.5408 0.000221879Z"
-                  fill="#FF6A00"
-                />
-                <path
-                  d="M7.98262 0.000221879L0 0.00080831L4.96721 2.77579C6.17983 3.45323 7.23802 4.37587 8.07433 5.4849L27.1595 30.7934C28.2932 32.2968 30.067 33.1808 31.95 33.1808H39.5236L34.4868 30.275C33.3008 29.5907 32.2679 28.6702 31.4522 27.5704L12.8022 2.42583C11.6703 0.899828 9.88257 8.23028e-05 7.98262 0.000221879Z"
-                  fill="#FF6A00"
-                />
-              </svg>
-            </span>
-            <span className="font-playfair">US</span>
-          </h1>
+      {/* 🌟 STATIC PURPLE GLOW (Remains anchored on the bottom right for contrast) */}
+      <div className="absolute bottom-[5%] right-[-10%] w-[500px] h-[500px] bg-purple-950/15 rounded-full blur-[130px] pointer-events-none z-0" />
 
-          <style>
-            {`
-              @keyframes dimlight {
-                /* OFF STATE — soft light (#FFF3EA) */
-                0%, 18%, 20%, 50.1%, 60%, 65.1%, 80%, 90.1%, 92% {
-                  color: #FFF3EA;
-                  box-shadow: none;
-                }
-            
-                /* ON STATE — bright glow (#FF6A00) */
-                18.1%, 20.1%, 30%, 50%, 60.1%, 65%, 80.1%, 90%, 92.1%, 100% {
-                  color: #FF6A00;
-                  text-shadow: 0 0 10px #FF6A00;
-                }
-              }
-            
-              .animate-dimlight {
-                animation: dimlight 15s infinite;
-              }
-            
-              .box-reflect {
-                -webkit-box-reflect: below 1px linear-gradient(transparent, #0004);
-              }
-            `}
-            {`
-              .fade-text {
-                transition: opacity 0.8s ease-in-out;
-              }
-            `}
-            {`
-              .inline-char {
-                display: inline-block;
-                white-space: nowrap;
-              }
-            `}
-          </style>
+      {/* 🌟 CENTRAL GIANT GRADIENT "X" (Statically cross-fading over 2500ms) */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 select-none">
+        {backgroundImages.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt="Glowing X Background"
+            className={`absolute w-auto h-[55vh] md:h-[75vh] object-contain transition-opacity duration-[2500ms] ease-out transform md:scale-100 scale-75 ${
+              index === currentIndex ? "opacity-75" : "opacity-0 pointer-events-none"
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* 🌟 LEFT CONTENT PANEL (Pushed to Bottom-Left on Desktop with decreased left margin) */}
+      <div className="relative z-10 w-full flex flex-col items-start text-left order-2 md:order-none md:self-end md:pb-6">
+        <h1 className="flex flex-col tracking-tight leading-[1.1] select-none">
+          <span className="text-[#FF6A00] text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold">Nexus</span>
+          <span className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-light mt-1">Corporate training</span>
+          <span className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-light lowercase mt-1">center</span>
+        </h1>
+        
+        {/* ENROLL NOW BUTTON */}
+        <Button
+          text="Enroll now"
+          onClick={() => navigate(ROUTES.CONTACT)}
+          className="mt-8 px-5 py-1.5 hover:-translate-y-0.5 transition-all duration-300 font-semibold"
+        />
+      </div>
+
+      {/* 🌟 RIGHT CONTENT PANEL (Pushed to Top-Right on Desktop) */}
+      <div className="relative z-10 w-full flex flex-col items-end text-right order-1 md:order-none md:self-start md:pt-4">
+        <div className="max-w-xl flex flex-col items-end">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-light leading-[1.1] text-white tracking-tight flex flex-col items-end">
+            <span>Your Growth</span>
+            <span>Our Expertise</span>
+          </h2>
+          
+          <p className="mt-6 text-[#D1D5DB] text-[12px] sm:text-[13px] md:text-[14.5px] leading-[1.65] text-right font-light max-w-[465px]">
+            We believe true business growth is built on the strength of your
+            people. Our expertise is in crafting bespoke training programs
+            that don't just teach skills—they transform teams. We partner with you to
+            understand your unique challenges, delivering proven solutions that
+            drive real, measurable results and empower your workforce to
+            achieve more.
+          </p>
         </div>
       </div>
 
-      <div className="flex justify-center w-full h-full z-20 ">
-        <div className="absolute inset-0 bg-three/5 backdrop-blur-sm rounded-2xl pointer-events-none w-full h-full"></div>
-        {/* 🔸 Left Section (slightly down) */}
-        <div
-          className="relative z-10
-            flex flex-col justify-center
-            w-full md:w-1/2
-            text-center md:text-left
-            pt-24 md:pt-0
-            order-2 md:order-1"
-        >
-          <div className="p-4 sm:p-6 md:p-10 rounded-2xl space-y-6 text-center md:text-left">
-            <div className="max-w-3xl">
-              <h1
-                key={currentIndex} // 🔥 Key to re-render on index change
-                ref={textRef} // 🔥 GSAP target
-                className="
-                  text-2xl sm:text-3xl md:text-4xl lg:text-6xl
-                    font-medium leading-snug
-                "
-              >
-                {sloganPhrases[currentIndex]}
-              </h1>
-            </div>
-            <div className="flex justify-center md:justify-start">
-              <Button
-                text="Enroll Now"
-                onClick={() => navigate(ROUTES.CONTACT)}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* 🔸 Right Section (slightly up) */}
-        <div
-          className="relative z-10
-            flex flex-col items-center md:items-end
-            w-full md:w-1/2
-            text-center md:text-right
-            mt-12 md:mt-0
-            px-4 sm:px-8
-            order-1 md:order-2"
-        >
-          <div className="max-w-lg">
-            <h2
-              className="
-              font-clash
-              text-2xl sm:text-3xl lg:text-5xl
-              font-light leading-tight
-              text-white mb-4
-              "
-              style={{
-                animation:
-                  "typing 4s steps(40, end) infinite, blink .75s step-end infinite",
-              }}
-            >
-              <style>
-                {`
-                  @keyframes typing {
-                    0% { clip-path: inset(0 100% 0 0); }
-                    50% { clip-path: inset(0 0 0 0); }
-                    80% { clip-path: inset(0 0 0 0); }
-                    100% { clip-path: inset(0 100% 0 0); }
-                  }
-
-                  @keyframes blink {
-                    0%, 50% { border-right-color: rgba(255,255,255,0.75); }
-                    51%, 100% { border-right-color: transparent; }
-                    }
-                    `}
-              </style>
-
-              <span className="border-r-2 border-one pr-1 inline-block">
-                Your Growth Our Expertise
-              </span>
-            </h2>
-            <p className="text-gray-200 text-base sm:text-lg leading-relaxed text-justify md:text-right">
-              We believe true business growth is built on the strength of your
-              people. Our expertise lies in crafting bespoke training programs
-              that don’t just teach skills — they transform teams. We partner
-              with you to understand your unique challenges, delivering proven
-              solutions that drive measurable results and empower your workforce
-              to achieve more.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="absolute z-0 md:block w-[880px] h-[880px] -bottom-[90px] -right-[480px] pointer-events-none">
-        <CircleBackground />
-      </div>
     </div>
   );
 }

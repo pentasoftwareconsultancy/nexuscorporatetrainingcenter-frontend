@@ -5,7 +5,7 @@ import { ROUTES } from "../../core/constants/routes.constant";
 
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
-import { getIconByName } from "../../core/utils/iconMap";
+import { getIconBySubject } from "../../core/utils/iconMap";
 import Button from "../../components/common/Button";
 
 const UpcomingPage = () => {
@@ -100,38 +100,39 @@ const UpcomingPage = () => {
         {filtered.map((c) => (
           <div
             key={c.id}
-            className="relative flex flex-col md:flex-row md:items-center md:justify-between bg-[#1A1A1A] border border-[#4a4a4a] rounded-2xl md:rounded-full px-6 md:px-8 py-5 hover:bg-[#252525] transition-all duration-300"
+            className="relative flex flex-col md:flex-row md:items-center md:justify-between bg-[#1A1A1A] border border-[#4a4a4a] rounded-2xl md:rounded-full px-6 md:px-8 py-3.5 sm:py-4 hover:bg-[#252525] transition-all duration-300"
           >
             {/* Icon + Name */}
             <div className="flex items-center gap-4 md:w-1/5 mb-3 md:mb-0">
               <div className="bg-[#2c2c2c] p-2 rounded-full flex items-center justify-center">
                 {(() => {
-                  const IconComponent = getIconByName(c.icon);
-                  return IconComponent ? <IconComponent size={28} /> : null;
+                  const IconComponent = getIconBySubject(c.name);
+                  return IconComponent ? <IconComponent size={26} /> : null;
                 })()}
               </div>
-              <span className="text-[15px] font-medium">{c.name}</span>
+              <span className="text-sm sm:text-[15px] font-medium">{c.name}</span>
             </div>
 
             {/* Duration */}
-            <span className="md:w-1/5 text-[15px] text-gray-300 text-left md:text-center">
+            <span className="md:w-1/5 text-sm sm:text-[15px] text-gray-300 text-left md:text-center">
               {getMonthDifference(c.start_date, c.end_date)} Months
             </span>
 
             {/* Start Date */}
-            <span className="md:w-1/5 text-[15px] text-gray-300 text-left md:text-center">
+            <span className="md:w-1/5 text-sm sm:text-[15px] text-gray-300 text-left md:text-center">
               {formatDate(c.start_date)}
             </span>
 
             {/* End Date */}
-            <span className="md:w-1/5 text-[15px] text-gray-300 text-left md:text-center">
+            <span className="md:w-1/5 text-sm sm:text-[15px] text-gray-300 text-left md:text-center">
               {formatDate(c.end_date)}
             </span>
 
             {/* Contact */}
-            <div className="flex items-center justify-between md:justify-end gap-3 md:w-1/5 mt-3 md:mt-0">
+            <div className="flex items-center justify-between md:justify-end gap-3 md:w-1/5 mt-2 md:mt-0">
               <Button
                 text="Contact Now"
+                className="w-full sm:w-auto py-1.5 px-4 text-xs h-[42px] flex items-center justify-center shrink-0"
                 onClick={() => navigate(ROUTES.CONTACT)}
               />
             </div>
