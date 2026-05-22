@@ -98,7 +98,41 @@ const CoursesPage = () => {
   }
 
   return (
-    <section className="w-full min-h-screen py-6 px-12 text-one">
+    <section className="relative w-full min-h-screen py-6 px-12 text-one overflow-hidden">
+
+      {/* ── Animated background particles ── */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        {[...Array(18)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full opacity-20"
+            style={{
+              width: `${Math.random() * 6 + 2}px`,
+              height: `${Math.random() * 6 + 2}px`,
+              backgroundColor: ["#60a5fa","#fb923c","#34d399","#c084fc","#f472b6","#22d3ee"][i % 6],
+              left: `${(i * 5.5) % 100}%`,
+              top: `${(i * 7.3) % 100}%`,
+              animation: `floatParticle ${8 + (i % 6)}s ease-in-out infinite`,
+              animationDelay: `${(i * 0.7) % 5}s`,
+            }}
+          />
+        ))}
+        {/* large soft glows */}
+        <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-blue-600/8 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] bg-orange-500/8 blur-[100px] rounded-full" />
+        <div className="absolute top-[40%] left-[40%] w-[300px] h-[300px] bg-purple-600/6 blur-[90px] rounded-full" />
+      </div>
+
+      <style>{`
+        @keyframes floatParticle {
+          0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.15; }
+          25%       { transform: translateY(-30px) translateX(10px); opacity: 0.3; }
+          50%       { transform: translateY(-15px) translateX(-10px); opacity: 0.2; }
+          75%       { transform: translateY(-40px) translateX(5px); opacity: 0.25; }
+        }
+      `}</style>
+
+      <div className="relative z-10">
       <h1 className="text-4xl text-white font-bold mb-10">Our Courses</h1>
 
       <p className="text-[18px] text-justify mb-8 w-11/12">
@@ -187,7 +221,7 @@ const CoursesPage = () => {
                 {category.name}
               </p>
 
-              <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center auto-rows-fr">
+              <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center auto-rows-fr">
                 {category.courses.map((course) => (
                   <CourseCard
                     key={course.id}
@@ -205,6 +239,7 @@ const CoursesPage = () => {
           );
         })
       )}
+      </div>
     </section>
   );
 };
