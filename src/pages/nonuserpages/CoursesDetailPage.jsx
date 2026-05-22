@@ -51,7 +51,7 @@ const CoursesDetailPage = () => {
     };
 
     fetchCategoryCourses();
-  }, [categoryId]);
+  }, [categoryId, courseId]);
 
   const renderTextAsListOrParagraph = (text) => {
   if (!text) return null;
