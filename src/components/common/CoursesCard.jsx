@@ -246,7 +246,7 @@ const CoursesCard = ({ logo, title, description, duration, id, categoryId }) => 
             <span className="w-1 h-1 rounded-full opacity-20" style={{ backgroundColor: ORANGE }} />
           </div>
           <button
-            onClick={() => navigate(ROUTES.COURSE_DETAILS.replace(":categoryId", categoryId))}
+            onClick={() => navigate(`${ROUTES.COURSE_DETAILS.replace(":categoryId", categoryId)}?courseId=${id}`)}
             className="flex items-center gap-1 text-[11px] font-semibold px-3 py-1 rounded-full border transition-all duration-200 cursor-pointer"
             style={{ color: ORANGE, borderColor: `${ORANGE}40`, backgroundColor: `${ORANGE}10` }}
             onMouseEnter={e => e.currentTarget.style.backgroundColor = `${ORANGE}22`}
