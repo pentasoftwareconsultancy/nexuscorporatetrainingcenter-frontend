@@ -6,9 +6,9 @@ import TrainingCentreEventsSection from '../../components/nonuser/gallery/Traini
 const GalleryPage = () => {
   return (
     <div>
+      <TrainingCentreEventsSection />
       <GallerySection />
       <EventStory />
-      <TrainingCentreEventsSection />
     </div>
   )
 }
