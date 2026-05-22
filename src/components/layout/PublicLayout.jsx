@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../public/Navbar";
 import { ROUTES } from "../../core/constants/routes.constant";
@@ -7,10 +8,15 @@ import ClickTopBtn from "./ClickTopBtn";
 
 const PublicLayout = () => {
   const location = useLocation();
+  const ref = useRef(null);
   const isExcludedPage = location.pathname === ROUTES.CONTACT || location.pathname === ROUTES.LOGIN;
 
+  useEffect(() => {
+    if (ref.current) ref.current.scrollTop = 0;
+  }, [location.pathname]);
+
   return (
-    <div className="relative min-h-screen bg-black overflow-hidden">
+    <div ref={ref} className="relative min-h-screen bg-black overflow-y-auto overflow-x-hidden h-screen">
       {/* Global Blue Glow Effects - Hidden on Contact and Login */}
       {!isExcludedPage && (
         <>

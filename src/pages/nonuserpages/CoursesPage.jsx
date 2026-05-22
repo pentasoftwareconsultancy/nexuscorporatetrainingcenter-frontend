@@ -94,7 +94,7 @@ const CoursesPage = () => {
   );
 
   if (loading) {
-    return <div className="text-white text-center mt-20">Loading...</div>;
+    return <div className="min-h-screen text-white text-center mt-20">Loading...</div>;
   }
 
   return (
