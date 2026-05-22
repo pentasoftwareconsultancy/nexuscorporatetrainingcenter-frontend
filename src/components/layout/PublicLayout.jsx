@@ -1,7 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../public/Navbar";
-import { ROUTES } from "../../core/constants/routes.constant";
 import Footer from "../public/Footer";
 import ButtonGroup from "./ButtonGroup";
 import ClickTopBtn from "./ClickTopBtn";
@@ -9,22 +8,13 @@ import ClickTopBtn from "./ClickTopBtn";
 const PublicLayout = () => {
   const location = useLocation();
   const ref = useRef(null);
-  const isExcludedPage = location.pathname === ROUTES.CONTACT || location.pathname === ROUTES.LOGIN;
 
   useEffect(() => {
     if (ref.current) ref.current.scrollTop = 0;
   }, [location.pathname]);
 
   return (
-    <div ref={ref} className="relative min-h-screen bg-black overflow-y-auto overflow-x-hidden h-screen">
-      {/* Global Blue Glow Effects - Hidden on Contact and Login */}
-      {!isExcludedPage && (
-        <>
-          <div className="fixed top-[-10%] left-[-15%] w-[700px] h-[700px] bg-blue-600/20 blur-[130px] rounded-full pointer-events-none z-0"></div>
-          <div className="fixed bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-blue-700/15 blur-[120px] rounded-full pointer-events-none z-0"></div>
-        </>
-      )}
-
+    <div ref={ref} className="relative min-h-screen overflow-y-auto overflow-x-hidden h-screen">
       <div className="relative z-10">
         <Navbar />
         <ClickTopBtn />

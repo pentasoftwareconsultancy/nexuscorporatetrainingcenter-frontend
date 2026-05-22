@@ -1,480 +1,206 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // import Link
-import { ROUTES } from "../../core/constants/routes.constant"; // import your routes
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../core/constants/routes.constant";
+import { FaLinkedin, FaFacebook, FaPhoneAlt } from "react-icons/fa";
 import footerImg from "../../assets/footer/footer.png";
-import { FaLinkedin, FaFacebook, FaPhoneAlt, FaChevronDown } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaYoutube, FaLocationDot } from "react-icons/fa6";
-import ApiService from "../../core/services/api.service";
-import ServerUrl from "../../core/constants/serverURL.constant";
+
+const courseCategories = [
+  { title: "Software Development",  path: ROUTES.COURSES },
+  { title: "Cloud & DevOps",        path: ROUTES.COURSES },
+  { title: "Software Testing / QA", path: ROUTES.COURSES },
+  { title: "Data & Analytics",      path: ROUTES.COURSES },
+  { title: "Design & Marketing",    path: ROUTES.COURSES },
+  { title: "Healthcare & Others",   path: ROUTES.COURSES },
+];
 
 const companyLinks = [
-  { title: "Home", path: ROUTES.HOME },
-  { title: "About us", path: ROUTES.ABOUT },
-  { title: "Courses", path: ROUTES.COURSES },
-  { title: "Gallery", path: ROUTES.GALLERY },
-  { title: "Success stories", path: ROUTES.PLACEMENTS },
-  { title: "Contact us", path: ROUTES.CONTACT },
-  { title: "Book appointment", path: ROUTES.CONTACT },
+  { title: "Home",             path: ROUTES.HOME },
+  { title: "About Us",         path: ROUTES.ABOUT },
+  { title: "Courses",          path: ROUTES.COURSES },
+  { title: "Gallery",          path: ROUTES.GALLERY },
+  { title: "Placements",       path: ROUTES.PLACEMENTS },
+  { title: "Contact Us",       path: ROUTES.CONTACT },
+  { title: "Book Appointment", path: ROUTES.CONTACT },
 ];
 
-const categorizedBranches = [
-  {
-    category: "Pune Region",
-    items: [
-      {
-        title: "Pimple Saudagar",
-        address:
-          "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
-      },
-      {
-        title: "Wagholi",
-        address: "502 Radheeshwari Nagar, Bakori road, Wagholi",
-      },
-      {
-        title: "Katraj",
-        address:
-          "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
-      },
-    ],
-  },
-  {
-    category: "Maharashtra",
-    items: [
-      {
-        title: "Akola",
-        address: "Nexus Corporate Training Centre LLP, Geeta Nagar, Dahigaon Gawande, Akola, Maharashtra 444002",
-      },
-      {
-        title: "Nashik",
-        address:
-          "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
-      },
-      {
-        title: "Manchar",
-        address:
-          "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
-      },
-    ],
-  },
-  {
-    category: "International",
-    items: [
-      {
-        title: "United Kingdom",
-        address:
-          "Office No. 4-B, Second Floor, Ganesham Commercial -A, Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027",
-      },
-    ],
-  },
+const quickLinks = [
+  { title: "Upcoming Batches", path: ROUTES.UPCOMING },
+  { title: "Our Faculty",      path: ROUTES.PROFESSOR },
+  { title: "Testimonials",     path: ROUTES.VIDEO_TESTIMONIALS },
+  { title: "Placements",       path: ROUTES.PLACEMENTS },
+  { title: "Gallery",          path: ROUTES.GALLERY },
 ];
 
-const fallbackCategories = [
-  {
-    id: "software-development",
-    name: "Software Development",
-    isFallback: true,
-    courses: [
-      { id: 1, title: "Full Stack Developer" },
-      { id: 2, title: "MERN Stack Developer" },
-      { id: 3, title: "Full Stack Python" },
-      { id: 4, title: "Full Stack Java" },
-      { id: 5, title: "C# and .Net" },
-      { id: 6, title: "Full Stack react js / Angular" },
-      { id: 7, title: "Full Stack .net" },
-      { id: 8, title: "Core Engine" }
-    ]
-  },
-  {
-    id: "cloud-devops",
-    name: "Cloud & DevOps",
-    isFallback: true,
-    courses: [
-      { id: 9, title: "AWS Solution Architect" },
-      { id: 10, title: "Dev-Ops" },
-      { id: 11, title: "Google Cloud" },
-      { id: 12, title: "Azure 104 admin" },
-      { id: 13, title: "Networking" },
-      { id: 14, title: "Cyber Security" },
-      { id: 15, title: "CC NA" }
-    ]
-  },
-  {
-    id: "testing-qa",
-    name: "Software Testing / QA",
-    isFallback: true,
-    courses: [
-      { id: 16, title: "Software Testing/ QA" },
-      { id: 17, title: "Web testing" },
-      { id: 18, title: "Auto testing" },
-      { id: 19, title: "Database testing" },
-      { id: 20, title: "Mobile testing" },
-      { id: 21, title: "ETC testing" }
-    ]
-  },
-  {
-    id: "data-analytics",
-    name: "Data & Analytics",
-    isFallback: true,
-    courses: [
-      { id: 22, title: "Power BI/ Data analyst" },
-      { id: 23, title: "Data Science" },
-      { id: 24, title: "Big Data" },
-      { id: 25, title: "Business Analyst" }
-    ]
-  },
-  {
-    id: "design-marketing",
-    name: "Design & Marketing",
-    isFallback: true,
-    courses: [
-      { id: 26, title: "Graphic Design" },
-      { id: 27, title: "3D animation" },
-      { id: 28, title: "Digital Marketing" },
-      { id: 29, title: "UX/UI Design" },
-      { id: 30, title: "DV-360" }
-    ]
-  },
-  {
-    id: "healthcare-coding",
-    name: "Healthcare & Others",
-    isFallback: true,
-    courses: [
-      { id: 31, title: "Medical Coding" },
-      { id: 32, title: "Medical Billing" },
-      { id: 33, title: "AR Caller Non" },
-      { id: 34, title: "SAP (fico)" },
-      { id: 35, title: "SAP (mm)" },
-      { id: 36, title: "OSI soft (PI system)" },
-      { id: 37, title: "Soft Skills" },
-      { id: 38, title: "Ethical Hacking" },
-      { id: 39, title: "Sales Force Admin/ Dev" },
-      { id: 40, title: "SQL unix production support (L2)" },
-      { id: 41, title: "Scrum Master" },
-      { id: 42, title: "Asset Management" },
-      { id: 43, title: "Service OP" }
-    ]
-  }
+const branches = [
+  { title: "Pimple Saudagar, Pune", path: ROUTES.BRANCHES },
+  { title: "Wagholi, Pune",         path: ROUTES.BRANCHES },
+  { title: "Katraj, Pune",          path: ROUTES.BRANCHES },
+  { title: "Akola",                 path: ROUTES.BRANCHES },
+  { title: "Nashik",                path: ROUTES.BRANCHES },
+  { title: "Manchar",               path: ROUTES.BRANCHES },
+  { title: "United Kingdom",        path: ROUTES.BRANCHES },
 ];
 
 const socialMedia = [
-  {
-    icon: FaLinkedin,
-    link: "https://www.linkedin.com/company/nexuxctc/?originalSubdomain=in",
-  },
-  {
-    icon: FaFacebook,
-    link: "https://www.facebook.com/p/Nexus-Corporate-Training-Center-100092539515709/",
-  },
-  {
-    icon: AiFillInstagram,
-    link: "https://www.instagram.com/nexus_ctc/?hl=en",
-  },
-  {
-    icon: FaYoutube,
-    link: "www.youtube.com/@NexusCorporateTrainingCentre",
-  },
+  { icon: FaLinkedin,      link: "https://www.linkedin.com/company/nexuxctc/?originalSubdomain=in" },
+  { icon: FaFacebook,      link: "https://www.facebook.com/p/Nexus-Corporate-Training-Center-100092539515709/" },
+  { icon: AiFillInstagram, link: "https://www.instagram.com/nexus_ctc/?hl=en" },
+  { icon: FaYoutube,       link: "https://www.youtube.com/@NexusCorporateTrainingCentre" },
 ];
+
+const ColTitle = ({ children }) => (
+  <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-4 pb-2 border-b border-white/10">
+    {children}
+  </h3>
+);
+
+const FLink = ({ onClick, children }) => (
+  <li
+    onClick={onClick}
+    className="text-gray-300 text-[15px] hover:text-orange-400 hover:translate-x-1 transition-all duration-200 cursor-pointer leading-relaxed"
+  >
+    {children}
+  </li>
+);
 
 export default function Footer() {
   const navigate = useNavigate();
-  const [categories, setCategories] = useState(fallbackCategories);
-  const [expandedCategories, setExpandedCategories] = useState({});
-
-  const handleCategoryClick = (category) => {
-    navigate(ROUTES.COURSES);
-  };
-
-  const toggleCategory = (categoryId) => {
-    setExpandedCategories((prev) => ({
-      ...prev,
-      [categoryId]: !prev[categoryId],
-    }));
-  };
-
-  const handlenavigate = (link) => {
-    navigate(link.path);
-  };
-
-  // Split categories into 2 columns
-  const half = Math.ceil(categories.length / 2);
-  const leftCols = categories.slice(0, half);
-  const rightCols = categories.slice(half);
 
   return (
-    <footer className="flex justify-center items-center text-white w-full relative mx-auto md:px-12 mt-8">
-      <div className="relative w-full overflow-hidden md:rounded-2xl border-0 md:border-2 md:border-one pt-10 pb-12 md:pb-16">
-        {/* Background Gradient */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-b via-[#1b1008] to-[#e77b2ee1]" />
+    <footer className="relative w-full font-sora px-4 md:px-8 pb-6 mt-8">
 
-        <div className="relative z-20 max-w-7xl mx-auto py-6 px-4 md:px-8 text-start">
-          <div className="flex flex-col md:flex-row md:flex-nowrap md:items-start md:justify-between gap-10 md:gap-6">
-            {/* Company Links */}
-            <div className="w-full md:w-[15%] mb-8 md:mb-0 text-start">
-              <h3 className="font-bold mb-3 text-lg">Company</h3>
-              <ul className="space-y-1 text-sm text-white">
-                {companyLinks.map((link) => (
-                  <li
-                    key={link.title}
-                    onClick={() => handlenavigate(link)}
-                    className="hover:text-orange-400 cursor-pointer"
-                  >
-                    {link.title}
-                  </li>
-                ))}
-              </ul>
-            </div>
+      <div className="relative border-2 border-white/50 rounded-3xl overflow-hidden">
 
-            {/* Branches */}
-            <div className="w-full md:w-[45%] mb-8 md:mb-0 text-start">
-              <h3 className="font-bold mb-4 text-lg border-b border-white/10 pb-1">Branches</h3>
-              <div className="space-y-4">
-                {categorizedBranches.map((group) => (
-                  <div key={group.category} className="group">
-                    <h4 className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center justify-between gap-1">
-                      <span>{group.category}</span>
-                      <FaChevronDown className="text-[10px] text-orange-500/80 group-hover:rotate-180 transition-transform duration-300 shrink-0" />
-                    </h4>
-                    
-                    {/* Always visible top 1 branch */}
-                    <ul className="space-y-2 text-[11px] text-white">
-                      {group.items.slice(0, 1).map((item) => (
-                        <li key={item.title} className="hover:text-white hover:translate-x-0.5 cursor-pointer transition-all duration-200">
-                          <div className="font-semibold text-white text-xs">
-                            {item.title}
-                          </div>
-                          <p className="pl-1 text-[10px] text-white flex items-start gap-1.5 mt-0.5">
-                            <FaLocationDot className="mt-0.5 text-orange-500/80 shrink-0" />
-                            <span>{item.address}</span>
-                          </p>
-                        </li>
-                      ))}
-                    </ul>
+      {/* Background Nexus watermark image */}
+      <img
+        src={footerImg}
+        alt=""
+        className="absolute inset-0 w-full h-full object-contain pointer-events-none z-0"
+        style={{ opacity: 0.40, mixBlendMode: "screen" }}
+      />
 
-                    {/* Expandable remaining branches on hover */}
-                    {group.items.length > 1 && (
-                      <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-in-out overflow-hidden">
-                        <ul className="min-h-0 space-y-2 text-[11px] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 pt-2">
-                          {group.items.slice(1).map((item) => (
-                            <li key={item.title} className="hover:text-white hover:translate-x-0.5 cursor-pointer transition-all duration-200">
-                              <div className="font-semibold text-white text-xs">
-                                {item.title}
-                              </div>
-                              <p className="pl-1 text-[10px] text-white flex items-start gap-1.5 mt-0.5">
-                                <FaLocationDot className="mt-0.5 text-orange-500/80 shrink-0" />
-                                <span>{item.address}</span>
-                              </p>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+      {/* MAIN CONTENT */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-12">
 
-              {/* See More Button */}
-              <div
-                className="mt-5 cursor-pointer text-orange-500 font-bold hover:text-orange-400 transition-colors inline-block text-sm"
+        {/* 5-column grid — all on one line */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+
+          {/* Col 1 — Company */}
+          <div>
+            <ColTitle>Company</ColTitle>
+            <ul className="space-y-2">
+              {companyLinks.map((l) => (
+                <FLink key={l.title} onClick={() => navigate(l.path)}>
+                  {l.title}
+                </FLink>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 2 — Feature Categories */}
+          <div>
+            <ColTitle>Feature Categories</ColTitle>
+            <ul className="space-y-2">
+              {courseCategories.map((c) => (
+                <FLink key={c.title} onClick={() => navigate(c.path)}>
+                  {c.title}
+                </FLink>
+              ))}
+              <li
+                onClick={() => { navigate(ROUTES.COURSES); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                className="text-orange-500 text-sm font-semibold hover:text-orange-400 cursor-pointer mt-2 transition"
+              >
+                View All Courses →
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 3 — Branches */}
+          <div>
+            <ColTitle>Branches</ColTitle>
+            <ul className="space-y-2">
+              {branches.map((b) => (
+                <FLink key={b.title} onClick={() => navigate(b.path)}>
+                  <span className="flex items-center gap-1.5">
+                    <FaLocationDot size={10} className="text-orange-500 shrink-0" />
+                    {b.title}
+                  </span>
+                </FLink>
+              ))}
+              <li
                 onClick={() => navigate(ROUTES.BRANCHES)}
+                className="text-orange-500 text-sm font-semibold hover:text-orange-400 cursor-pointer mt-2 transition"
               >
-                See More Branches &rarr;
-              </div>
-            </div>
-
-            {/* Courses Column (Width [40%]) */}
-            <div className="w-full md:w-[40%] flex flex-col justify-between text-start">
-              <div className="flex flex-row gap-6 md:gap-8">
-                <div className="flex-1">
-                  <h3 className="font-bold mb-4 text-lg border-b border-white/10 pb-1">Courses</h3>
-                  <div className="space-y-5">
-                    {leftCols.map((category) => (
-                      <div key={category.id} className="group">
-                        <h4
-                          onClick={() => handleCategoryClick(category)}
-                          className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center justify-between gap-1"
-                        >
-                          <span>{category.name}</span>
-                          <FaChevronDown
-                            className="text-[10px] text-orange-500/80 group-hover:rotate-180 transition-transform duration-300 shrink-0"
-                          />
-                        </h4>
-                        
-                        {/* Always visible top 3 courses */}
-                        <ul className="space-y-1 text-[11px] text-white">
-                          {category.courses.slice(0, 3).map((course) => (
-                            <li
-                              key={course.id}
-                              onClick={() => handleCategoryClick(category)}
-                              className="hover:text-white hover:translate-x-1 cursor-pointer transition-all duration-200"
-                            >
-                              {course.title}
-                            </li>
-                          ))}
-                        </ul>
-
-                        {/* Expandable remaining courses on hover */}
-                        {category.courses.length > 3 && (
-                          <div
-                            className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-in-out overflow-hidden"
-                          >
-                            <ul
-                              className="min-h-0 space-y-1 text-[11px] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 pt-1"
-                            >
-                              {category.courses.slice(3).map((course) => (
-                                <li
-                                  key={course.id}
-                                  onClick={() => handleCategoryClick(category)}
-                                  className="hover:text-white hover:translate-x-1 cursor-pointer transition-all duration-200"
-                                >
-                                  {course.title}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex-1 mt-11">
-                  <div className="space-y-5">
-                    {rightCols.map((category) => (
-                      <div key={category.id} className="group">
-                        <h4
-                          onClick={() => handleCategoryClick(category)}
-                          className="font-bold text-xs sm:text-sm text-orange-400/90 group-hover:text-orange-400 transition-colors cursor-pointer mb-1.5 flex items-center justify-between gap-1"
-                        >
-                          <span>{category.name}</span>
-                          <FaChevronDown
-                            className="text-[10px] text-orange-500/80 group-hover:rotate-180 transition-transform duration-300 shrink-0"
-                          />
-                        </h4>
-                        
-                        {/* Always visible top 3 courses */}
-                        <ul className="space-y-1 text-[11px] text-white">
-                          {category.courses.slice(0, 3).map((course) => (
-                            <li
-                              key={course.id}
-                              onClick={() => handleCategoryClick(category)}
-                              className="hover:text-white hover:translate-x-1 cursor-pointer transition-all duration-200"
-                            >
-                              {course.title}
-                            </li>
-                          ))}
-                        </ul>
-
-                        {/* Expandable remaining courses on hover */}
-                        {category.courses.length > 3 && (
-                          <div
-                            className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-in-out overflow-hidden"
-                          >
-                            <ul
-                              className="min-h-0 space-y-1 text-[11px] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 pt-1"
-                            >
-                              {category.courses.slice(3).map((course) => (
-                                <li
-                                  key={course.id}
-                                  onClick={() => handleCategoryClick(category)}
-                                  className="hover:text-white hover:translate-x-1 cursor-pointer transition-all duration-200"
-                                >
-                                  {course.title}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* See All Courses Button */}
-              <div
-                className="mt-6 cursor-pointer text-orange-500 font-bold hover:text-orange-400 transition-colors inline-block text-sm"
-                onClick={() => navigate(ROUTES.COURSES)}
-              >
-                See All Courses &rarr;
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer Image */}
-        <div className="relative z-10 flex justify-center -translate-y-48 md:-translate-y-80">
-          <img
-            src={footerImg}
-            alt="Nexus Footer Image"
-            className="w-[60%] md:w-[90%] object-contain opacity-90"
-          />
-        </div>
-
-        {/* Contact Info */}
-        <div className="relative z-20 text-left -translate-y-36 md:-translate-y-64 -mb-36 md:-mb-64 px-6 sm:px-10 md:px-16 flex flex-col md:flex-row justify-between gap-8 md:gap-12">
-          {/* Left Side: Name and Address */}
-          <div className="flex-1 text-start">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-2">
-              Corporate Training Center LLP
-            </h2>
-            <p className="text-[10px] sm:text-xs md:text-sm max-w-xl text-white leading-relaxed">
-              Address: Office No. 4-B, Second Floor, Ganesham Commercial -A,
-              Survey No. 21/8-21/24, BRTS Road, Pimple Saudagar, Pune - 411027
-            </p>
+                See All →
+              </li>
+            </ul>
           </div>
 
-          {/* Right Side: Contact, Email, Socials, Copyright */}
-          <div className="flex-1 flex flex-col md:items-end text-left gap-4 w-full">
-            <div className="md:w-fit md:ml-auto flex flex-col gap-4">
-              <div className="space-y-3 text-[11px] sm:text-xs md:text-sm text-white font-semibold">
-                {/* Phone Line */}
-                <div className="flex items-center gap-3">
-                  <FaPhoneAlt className="text-orange-500 shrink-0" size={14} />
-                  <div>
-                    <span className="text-white font-bold">Contact: </span>
-                    <a href="tel:+919545450788" className="hover:text-orange-400 transition ml-1">+91 9545450788</a>
-                    <span className="mx-2 text-white">/</span>
-                    <a href="tel:+919545450677" className="hover:text-orange-400 transition">+91 9545450677</a>
-                  </div>
-                </div>
+          {/* Col 4 — Quick Links */}
+          <div>
+            <ColTitle>Quick Links</ColTitle>
+            <ul className="space-y-2">
+              {quickLinks.map((l) => (
+                <FLink key={l.title} onClick={() => navigate(l.path)}>
+                  {l.title}
+                </FLink>
+              ))}
+            </ul>
+          </div>
 
-                {/* Email Line */}
-                <div className="flex items-center gap-3">
-                  <IoIosMail className="text-orange-500 shrink-0" size={18} />
-                  <div>
-                    <span className="text-white font-bold">Email: </span>
-                    <a href="mailto:nexusCTC2020@gmail.com" className="hover:text-orange-400 transition ml-1">nexusCTC2020@gmail.com</a>
-                  </div>
-                </div>
-              </div>
+          {/* Col 5 — Location */}
+          <div>
+            <ColTitle>Locations</ColTitle>
+            <div className="space-y-3 mb-5">
+              <a href="tel:+919545450788" className="flex items-center gap-2 text-gray-300 hover:text-orange-400 transition text-sm">
+                <FaPhoneAlt size={13} className="text-orange-500 shrink-0" />
+                +91 9545450788
+              </a>
+              <a href="tel:+919545450677" className="flex items-center gap-2 text-gray-300 hover:text-orange-400 transition text-sm">
+                <FaPhoneAlt size={13} className="text-orange-500 shrink-0" />
+                +91 9545450677
+              </a>
+              <a href="mailto:nexusCTC2020@gmail.com" className="flex items-center gap-2 text-gray-300 hover:text-orange-400 transition text-sm">
+                <IoIosMail size={16} className="text-orange-500 shrink-0" />
+                nexusCTC2020@gmail.com
+              </a>
+            </div>
 
-              {/* Social Media Icons */}
-              <div className="flex items-center gap-4 mt-1">
-                {socialMedia.map((item, i) => {
-                  const IconComponent = item.icon;
-                  return (
-                    <a
-                      key={i}
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white hover:text-orange-400 transition duration-200"
-                    >
-                      <IconComponent size={22} />
-                    </a>
-                  );
-                })}
-              </div>
-
-              {/* Copyright */}
-              <p className="text-white text-[10px] sm:text-xs mt-1">
-                © 2025 All rights reserved Nexusctc.com
-              </p>
+            <div className="flex items-center gap-2 flex-wrap">
+              {socialMedia.map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <a
+                    key={i}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center text-gray-400 hover:text-orange-400 hover:border-orange-500/40 hover:bg-orange-500/10 transition-all duration-200"
+                  >
+                    <Icon size={14} />
+                  </a>
+                );
+              })}
             </div>
           </div>
+
         </div>
+      </div>
+
+      {/* BOTTOM BAR */}
+      <div className="relative z-10 border-t border-orange-500/20">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex flex-col md:flex-row items-center justify-between gap-2">
+          <div className="flex items-center gap-2 text-gray-300 text-xs">
+            <FaLocationDot size={12} className="text-orange-500 shrink-0" />
+            <span className="hover:text-orange-400 transition-colors duration-200">Office No. 4-B, Second Floor, Ganesham Commercial-A, BRTS Road, Pimple Saudagar, Pune – 411027</span>
+          </div>
+          <p className="text-gray-500 text-xs">© 2025 All rights reserved — nexusctc.com</p>
+        </div>
+      </div>
+
       </div>
     </footer>
   );
