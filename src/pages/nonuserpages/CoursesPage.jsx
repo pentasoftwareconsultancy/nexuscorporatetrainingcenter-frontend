@@ -94,11 +94,13 @@ const CoursesPage = () => {
   );
 
   if (loading) {
-    return <div className="text-white text-center mt-20">Loading...</div>;
+    return <div className="min-h-screen text-white text-center mt-20">Loading...</div>;
   }
 
   return (
-    <section className="w-full min-h-screen py-6 px-12 text-one">
+    <section className="relative w-full min-h-screen py-6 px-12 text-one overflow-hidden">
+
+      <div className="relative z-10">
       <h1 className="text-4xl text-white font-bold mb-10">Our Courses</h1>
 
       <p className="text-[18px] text-justify mb-8 w-11/12">
@@ -187,7 +189,7 @@ const CoursesPage = () => {
                 {category.name}
               </p>
 
-              <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center auto-rows-fr">
+              <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center auto-rows-fr">
                 {category.courses.map((course) => (
                   <CourseCard
                     key={course.id}
@@ -205,6 +207,7 @@ const CoursesPage = () => {
           );
         })
       )}
+      </div>
     </section>
   );
 };

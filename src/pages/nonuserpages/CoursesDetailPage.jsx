@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../components/common/Button";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { FaUser, FaClock, FaMoneyBill1Wave, FaPhone } from "react-icons/fa6";
 import { IoMdDownload } from "react-icons/io";
 import { ROUTES } from "../../core/constants/routes.constant";
@@ -9,7 +9,8 @@ import ServerUrl from "../../core/constants/serverURL.constant";
 
 const CoursesDetailPage = () => {
   const { categoryId } = useParams();
-  // console.log("categoryId:", categoryId); // MUST log a number
+  const [searchParams] = useSearchParams();
+  const courseId = searchParams.get("courseId");
 
   const navigate = useNavigate();
   const api = new ApiService();
@@ -40,7 +41,8 @@ const CoursesDetailPage = () => {
         );
 
         setCategory(res.data.data);
-        setCourses(res.data.data.courses || []);
+        const allCourses = res.data.data.courses || [];
+        setCourses(courseId ? allCourses.filter(c => String(c.id) === String(courseId)) : allCourses);
         setLoading(false);
       } catch (err) {
         console.error(err);
@@ -49,7 +51,7 @@ const CoursesDetailPage = () => {
     };
 
     fetchCategoryCourses();
-  }, [categoryId]);
+  }, [categoryId, courseId]);
 
   const renderTextAsListOrParagraph = (text) => {
   if (!text) return null;
@@ -79,11 +81,11 @@ const CoursesDetailPage = () => {
 };
 
   if (loading) {
-    return <div className="text-white p-6">Loading...</div>;
+    return <div className="min-h-screen text-white p-6">Loading...</div>;
   }
 
   if (!category) {
-    return <div className="text-white p-6">Category not found</div>;
+    return <div className="min-h-screen text-white p-6">Category not found</div>;
   }
 
   return (
