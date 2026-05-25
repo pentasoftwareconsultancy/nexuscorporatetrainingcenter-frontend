@@ -95,6 +95,10 @@ class ServerUrl {
     static API_UPDATE_EVENT = ServerUrl.API_MODULE_EVENTS + "/gallery";        // + id
     static API_DELETE_EVENT = ServerUrl.API_MODULE_EVENTS + "/gallery";        // + id
 
+    // TRAINING CENTRE EVENT CRUD
+    static API_TRAINING_CENTRE_EVENTS = ServerUrl.API_MODULE_EVENTS + "/training-centre";
+    static API_DELETE_TRAINING_CENTRE_MEDIA = ServerUrl.API_MODULE_EVENTS + "/training-centre/media";
+
     // EVENT IMAGES
     static API_UPLOAD_EVENT_IMAGE = ServerUrl.API_MODULE_EVENTS + "/upload";
     static API_DELETE_EVENT_IMAGE = ServerUrl.API_MODULE_EVENTS + "/image/";   // + id

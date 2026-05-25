@@ -4,21 +4,6 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import Button from "../common/Button";
 import { useAuth } from "../../core/contexts/AuthContext";
 
-const NAV_LINKS = [
-  { label: "Home", href: ROUTES.HOME },
-  { label: "About us", href: ROUTES.ABOUT },
-  { label: "Courses", href: ROUTES.COURSES },
-  { label: "Gallery", href: ROUTES.GALLERY },
-  {
-    label: "Placements",
-    dropdown: [
-      { label: "Placement Records", href: ROUTES.PLACEMENTS },
-      { label: "Video Testimonials", href: ROUTES.VIDEO_TESTIMONIALS }
-    ]
-  },
-  { label: "Contact us", href: ROUTES.CONTACT },
-];
-
 function Navbar() {
   const [activeTab, setActiveTab] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,15 +12,61 @@ function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
+
   const location = useLocation();
   const navigate = useNavigate();
   const { isLoggedIn, user, logout } = useAuth();
 
+  const navLinks = [
+    { label: "Home", href: ROUTES.HOME },
+    { label: "About us", href: ROUTES.ABOUT },
+    {
+      label: "Courses",
+      dropdown: [
+        { label: "Courses", href: ROUTES.COURSES },
+        { label: "Videos", href: ROUTES.COURSE_VIDEOS }
+      ],
+    },
+    { label: "Gallery", href: ROUTES.GALLERY },
+    {
+      label: "Placements",
+      dropdown: [
+        { label: "Placement Records", href: ROUTES.PLACEMENTS },
+        { label: "Video Testimonials", href: ROUTES.VIDEO_TESTIMONIALS }
+      ]
+    },
+    { label: "Contact us", href: ROUTES.CONTACT },
+  ];
+
   useEffect(() => {
-    const currentPath = location.pathname;
-    const activeLink = NAV_LINKS.find((link) => link.href === currentPath);
-    setActiveTab(activeLink ? activeLink.label : "");
+    const path = location.pathname;
+    if (path === ROUTES.HOME) {
+      setActiveTab("Home");
+    } else if (path.startsWith("/about")) {
+      setActiveTab("About us");
+    } else if (path.startsWith("/courses")) {
+      setActiveTab("Courses");
+    } else if (path.startsWith("/gallery")) {
+      setActiveTab("Gallery");
+    } else if (path.startsWith("/placements") || path.startsWith("/videotestimonials")) {
+      setActiveTab("Placements");
+    } else if (path.startsWith("/contact")) {
+      setActiveTab("Contact us");
+    } else {
+      setActiveTab("");
+    }
   }, [location.pathname]);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (!event.target.closest(".relative")) {
+        setOpenDropdown(null);
+      }
+    };
+    window.addEventListener("click", handleOutsideClick);
+    return () => window.removeEventListener("click", handleOutsideClick);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -91,27 +122,35 @@ function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center justify-center flex-1">
           <div className="flex items-center justify-center space-x-2 px-4 py-2 bg-black/40 rounded-2xl backdrop-blur-md transition-all duration-300">
-            {NAV_LINKS.map((item) =>
+            {navLinks.map((item) =>
               item.dropdown ? (
-                <div key={item.label} className="relative">
+                <div 
+                  key={item.label} 
+                  className="relative"
+                  onMouseEnter={() => setOpenDropdown(item.label)}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                >
                   <button
-                    onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
-                    className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-white/90 hover:bg-white hover:text-black"
+                    onClick={() => setOpenDropdown(item.label)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer
+                    ${activeTab === item.label ? "bg-white text-black shadow-md" : "text-white/90 hover:bg-white hover:text-black"}`}
                   >
                     {item.label}
                   </button>
                   {openDropdown === item.label && (
-                    <div className="absolute top-full left-0 mt-2 bg-white text-black rounded-lg shadow-lg overflow-hidden w-48">
-                      {item.dropdown.map((drop) => (
-                        <Link
-                          key={drop.label}
-                          to={drop.href}
-                          onClick={() => handleLinkClick(drop.label)}
-                          className="block px-4 py-2 hover:bg-gray-200 text-sm"
-                        >
-                          {drop.label}
-                        </Link>
-                      ))}
+                    <div className="absolute top-full left-0 pt-2 w-60 z-[100]">
+                      <div className="bg-black/95 text-white/90 border border-white/10 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] overflow-hidden backdrop-blur-md">
+                        {item.dropdown.map((drop) => (
+                          <Link
+                            key={drop.label}
+                            to={drop.href}
+                            onClick={() => handleLinkClick(drop.label)}
+                            className="block px-4 py-2.5 hover:bg-gradient-to-r hover:from-orange-500 hover:to-amber-600 hover:text-white text-sm transition-all duration-200"
+                          >
+                            {drop.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -198,24 +237,43 @@ function Navbar() {
 
       {/* Mobile Menu — outside <nav> so fixed inset-0 covers full screen */}
       <div
-        className={`fixed inset-0 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-4
-        transition-all duration-500 lg:hidden z-[999]
+        className={`fixed inset-0 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-start py-20 space-y-4
+        transition-all duration-500 lg:hidden z-[999] overflow-y-auto
         ${isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
       >
-        {NAV_LINKS.map((item) =>
+        {navLinks.map((item) =>
           item.dropdown ? (
-            <div key={item.label} className="w-60">
-              <div className="text-center text-white text-lg mb-2">{item.label}</div>
-              {item.dropdown.map((drop) => (
-                <Link
-                  key={drop.label}
-                  to={drop.href}
-                  onClick={() => handleLinkClick(drop.label)}
-                  className="block w-full px-6 py-3 text-lg rounded-xl bg-white/10 text-white hover:bg-white hover:text-black transition-all duration-300 mb-2"
+            <div key={item.label} className="w-60 flex flex-col items-center">
+              <button
+                onClick={() => setOpenMobileDropdown(openMobileDropdown === item.label ? null : item.label)}
+                className="w-full text-center text-white text-lg font-medium py-3 flex items-center justify-center gap-2 cursor-pointer"
+              >
+                {item.label}
+                <svg
+                  className={`w-4 h-4 transition-transform duration-300 ${openMobileDropdown === item.label ? "rotate-180" : ""}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  {drop.label}
-                </Link>
-              ))}
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div
+                className={`w-full overflow-hidden transition-all duration-300 ${
+                  openMobileDropdown === item.label ? "max-h-[500px] opacity-100 mt-1" : "max-h-0 opacity-0"
+                }`}
+              >
+                {item.dropdown.map((drop) => (
+                  <Link
+                    key={drop.label}
+                    to={drop.href}
+                    onClick={() => handleLinkClick(drop.label)}
+                    className="block w-full px-6 py-2.5 text-center text-sm rounded-xl bg-white/5 text-white/80 hover:bg-white hover:text-black transition-all duration-300 mb-1.5"
+                  >
+                    {drop.label}
+                  </Link>
+                ))}
+              </div>
             </div>
           ) : (
             <Link
@@ -246,7 +304,7 @@ function Navbar() {
         {/* Close Button */}
         <button
           onClick={() => setIsMenuOpen(false)}
-          className="absolute top-6 right-6 text-white"
+          className="fixed top-6 right-6 text-white z-[1000] cursor-pointer"
         >
           <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

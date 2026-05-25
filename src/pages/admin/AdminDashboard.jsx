@@ -18,6 +18,7 @@ import { ROUTES } from "../../core/constants/routes.constant";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import { TvMinimalPlay } from "lucide-react";
 
 // -----------------------------------------------------
 // STAT CARD COMPONENT
@@ -101,6 +102,7 @@ export default function AdminDashboard() {
     totalColleges: 0,
     totalPlacements: 0,
     totalReviews: 0,
+    totalVideos: 0,
   });
 
   useEffect(() => {
@@ -119,6 +121,7 @@ export default function AdminDashboard() {
             totalColleges: data.totalColleges,
             totalPlacements: data.totalPlacements,
             totalReviews: data.totalReviews,
+            totalVideos: data.totalVideos || 0,
           });
 
           // ✅ DEFAULT GRAPH = MONTHLY
@@ -188,6 +191,13 @@ export default function AdminDashboard() {
       info: [],
       icon: LiaVectorSquareSolid,
       click: ROUTES.ADMIN_TOTAL_PLACEMENTS,
+    },
+    {
+      title: "Total Videos",
+      value: counts.totalVideos,
+      info: [],
+      icon: TvMinimalPlay,
+      click: ROUTES.ADMIN_VIDEOS,
     },
     {
       title: "Total Reviews",

@@ -16,6 +16,7 @@ export default function BlogsForm() {
   const [editMode, setEditMode] = useState(true);
 
   const [data, setData] = useState({
+    category: "video",
     caption: "",
     about: "",
     image: null,
@@ -52,6 +53,7 @@ export default function BlogsForm() {
         const v = res.data.data;
 
         setData({
+          category: v.category || "video",
           caption: v.caption || "",
           about: v.about || "",
           image: v.image || null,
@@ -73,6 +75,7 @@ export default function BlogsForm() {
     singleClick(async () => {
       try {
         const form = new FormData();
+        form.append("category", data.category);
         form.append("caption", data.caption);
         form.append("about", data.about);
         form.append("videoUrl", data.videoUrl);
@@ -90,11 +93,13 @@ export default function BlogsForm() {
         }
 
         if (res?.data?.success) {
-          toast.success("Blog Saved Successfully");
+          toast.success(`${data.category === "blog" ? "Blog" : "Video"} Saved Successfully`);
           navigate(-1);
         }
       } catch (err) {
         console.error("❌ Submit Error", err);
+        const errMsg = err?.response?.data?.message || "Failed to save. Make sure all fields (including the image file) are filled.";
+        toast.error(errMsg);
       }
     });
   };
@@ -103,14 +108,16 @@ export default function BlogsForm() {
            DELETE
   ======================== */
   const handleDelete = async () => {
-    if (!window.confirm("Delete this video?")) return;
+    if (!window.confirm(`Delete this ${data.category === "blog" ? "blog" : "video"}?`)) return;
     singleClick(async () => {
       try {
         await api.apidelete(`${ServerUrl.API_DELETE_VIDEO}/${id}`);
-        toast.success("Blog Deleted Successfully");
+        toast.success(`${data.category === "blog" ? "Blog" : "Video"} Deleted Successfully`);
         navigate(-1);
       } catch (err) {
         console.error("Delete Error", err);
+        const errMsg = err?.response?.data?.message || "Failed to delete.";
+        toast.error(errMsg);
       }
     });
   };
@@ -119,24 +126,19 @@ export default function BlogsForm() {
     <form onSubmit={handleSubmit} className="min-h-screen px-6 lg:px-12 py-4">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h1 className="text-xl font-semibold">
-          {mode === "add" ? "Add Video Blog" : "Edit Video Blog"}
+        <h1 className="text-xl font-semibold capitalize">
+          {mode === "add" ? `Add ${data.category}` : `Edit ${data.category}`}
         </h1>
 
         {mode === "edit" && (
           <div className="flex gap-4">
             <button
-              type="button"
+              type={editMode ? "submit" : "button"}
               className="bg-[#1a1a1a] p-4 rounded-full"
               onClick={() => {
                 if (!editMode) {
                   setEditMode(true);
-                  return;
                 }
-
-                singleClick(async () => {
-                  document.querySelector("form")?.requestSubmit();
-                });
               }}
             >
               {editMode ? <Check size={20} /> : <Edit size={20} />}
@@ -154,16 +156,31 @@ export default function BlogsForm() {
       </div>
 
       {/* Fields */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+        <div className="space-y-1">
+          <h2 className="text-lg font-medium">Category</h2>
+          <select
+            value={data.category}
+            disabled={!editMode}
+            onChange={(e) => handleChange("category", e.target.value)}
+            className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl px-3 py-2 outline-none text-white cursor-pointer disabled:opacity-50"
+          >
+            <option value="video">Video</option>
+            <option value="blog">Blog</option>
+          </select>
+        </div>
+
         <InputBox
           label="Caption"
           value={data.caption}
+          disabled={!editMode}
           onChange={(v) => handleChange("caption", v)}
         />
 
         <InputBox
           label="Video URL"
           value={data.videoUrl}
+          disabled={!editMode}
           onChange={(v) => handleChange("videoUrl", v)}
         />
       </div>
@@ -172,8 +189,9 @@ export default function BlogsForm() {
         <h2 className="mb-2 text-lg font-medium">About</h2>
         <textarea
           value={data.about}
+          disabled={!editMode}
           onChange={(e) => handleChange("about", e.target.value)}
-          className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl p-4 outline-none"
+          className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl p-4 outline-none disabled:opacity-50"
           rows={6}
           placeholder="Write description..."
         />
@@ -184,16 +202,16 @@ export default function BlogsForm() {
         <h2 className="mb-2 text-lg font-medium">Image</h2>
 
         {!data.image && (
-          <label className="flex items-center gap-3 cursor-pointer border border-dashed border-gray-500 p-6 rounded-lg w-fit">
+          <label className={`flex items-center gap-3 cursor-pointer border border-dashed border-gray-500 p-6 rounded-lg w-fit ${!editMode ? "pointer-events-none opacity-50" : ""}`}>
             <Upload size={20} />
             <span>Upload image</span>
-            <input type="file" hidden onChange={handleImageUpload} />
+            {editMode && <input type="file" hidden onChange={handleImageUpload} />}
           </label>
         )}
 
         {data.image && (
           <div className="relative w-64">
-            <label>
+            <label className={!editMode ? "pointer-events-none" : ""}>
               <img
                 src={
                   typeof data.image === "string"
@@ -202,16 +220,18 @@ export default function BlogsForm() {
                 }
                 className="w-full h-40 object-cover rounded-lg cursor-pointer"
               />
-              <input type="file" hidden onChange={handleImageUpload} />
+              {editMode && <input type="file" hidden onChange={handleImageUpload} />}
             </label>
 
-            <button
-              onClick={removeImage}
-              type="button"
-              className="absolute top-2 right-2 bg-black/70 text-white rounded-full w-6 h-6 text-sm"
-            >
-              ✕
-            </button>
+            {editMode && (
+              <button
+                onClick={removeImage}
+                type="button"
+                className="absolute top-2 right-2 bg-black/70 text-white rounded-full w-6 h-6 text-sm"
+              >
+                ✕
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -229,14 +249,15 @@ export default function BlogsForm() {
 }
 
 /* Reusable Input Box */
-const InputBox = ({ label, value, onChange }) => (
+const InputBox = ({ label, value, onChange, disabled }) => (
   <div className="space-y-1">
     <h2 className="text-lg font-medium">{label}</h2>
     <input
       value={value}
       placeholder={label}
+      disabled={disabled}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl px-3 py-2 outline-none"
+      className="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl px-3 py-2 outline-none disabled:opacity-50"
     />
   </div>
 );

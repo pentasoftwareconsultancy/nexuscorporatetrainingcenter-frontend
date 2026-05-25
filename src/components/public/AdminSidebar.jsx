@@ -20,7 +20,7 @@ const NAV_LINKS = [
   { label: "Batch", icon: <BookOpen />, href: ROUTES.ADMIN_BATCH_PAGE },
   { label: "Gallery", icon: <Images />, href: ROUTES.ADMIN_GALLERY_FORM },
   { label: "Placements", icon: <Briefcase />, href: ROUTES.ADMIN_TOTAL_PLACEMENTS, },
-  { label: "Blogs", icon: <TvMinimalPlay />, href: ROUTES.ADMIN_BLOGS, },
+  { label: "Videos", icon: <TvMinimalPlay />, href: ROUTES.ADMIN_VIDEOS, },
   { label: "Tests", icon: <School />, href: ROUTES.ADMIN_TEST_DASHBOARD, },
 ];
 
