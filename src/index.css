@@ -270,3 +270,64 @@ body {
   box-shadow: 0 25px 50px -12px rgba(255, 106, 0, 0.4);
   border-color: rgba(255, 106, 0, 0.6);
 }
+
+/* --- Premium Cinematic Luxury Styles --- */
+.luxury-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+}
+
+.glass-luxury {
+  background: rgba(18, 18, 18, 0.65);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+@keyframes floatBlob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(40px, -60px) scale(1.15);
+  }
+  66% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-float-blob {
+  animation: floatBlob 22s infinite ease-in-out;
+}
+
+.animate-float-blob-reverse {
+  animation: floatBlob 28s infinite ease-in-out reverse;
+}
+
+@keyframes slidingGlow {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.glow-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 106, 0, 0.05) 20%, rgba(255, 106, 0, 0.5) 50%, rgba(255, 106, 0, 0.05) 80%, transparent);
+  background-size: 200% 100%;
+  animation: slidingGlow 8s infinite linear;
+}
+
+.glow-divider-blue {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(18, 84, 250, 0.05) 20%, rgba(18, 84, 250, 0.5) 50%, rgba(18, 84, 250, 0.05) 80%, transparent);
+  background-size: 200% 100%;
+  animation: slidingGlow 8s infinite linear;
+}

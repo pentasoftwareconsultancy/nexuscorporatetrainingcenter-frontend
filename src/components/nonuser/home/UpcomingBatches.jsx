@@ -127,11 +127,11 @@ const UpcomingBatches = () => {
             <div className="flex items-center gap-3 sm:gap-4 md:w-1/5">
               <div className="bg-[#2c2c2c] p-2 rounded-full flex items-center justify-center">
                 {(() => {
-                  const Icon = getIconBySubject(b.name);
+                  const Icon = getIconBySubject(b.course?.title || b.name);
                   return Icon ? <Icon size={26} /> : null;
                 })()}
               </div>
-              <span className="text-sm sm:text-[15px] font-medium">{b.name}</span>
+              <span className="text-sm sm:text-[15px] font-medium">{b.course?.title || b.name}</span>
             </div>
 
             {/* Duration (months) */}
