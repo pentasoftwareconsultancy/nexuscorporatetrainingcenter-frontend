@@ -108,11 +108,11 @@ const UpcomingPage = () => {
             <div className="flex items-center gap-4 md:w-1/5 mb-3 md:mb-0">
               <div className="bg-[#2c2c2c] p-2 rounded-full flex items-center justify-center">
                 {(() => {
-                  const IconComponent = getIconBySubject(c.name);
+                  const IconComponent = getIconBySubject(c.course?.title || c.name);
                   return IconComponent ? <IconComponent size={26} /> : null;
                 })()}
               </div>
-              <span className="text-sm sm:text-[15px] font-medium">{c.name}</span>
+              <span className="text-sm sm:text-[15px] font-medium">{c.course?.title || c.name}</span>
             </div>
 
             {/* Duration */}

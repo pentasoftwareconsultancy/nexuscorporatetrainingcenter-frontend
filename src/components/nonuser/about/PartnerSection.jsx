@@ -68,11 +68,11 @@ const PartnerSection = () => {
           {/* CENTER CIRCLE */}
           <motion.div
             className="flex justify-center items-center w-[200px] h-[200px] md:w-60 md:h-60 rounded-full 
-              bg-[radial-gradient(circle,rgba(255,106,0,0.30)_5%,rgba(255,106,0,0.1)_60%)] 
-              border-dashed border-2 border-gray-500 shadow-[0_0_20px_rgba(255,106,0,0.3)]"
+              bg-[radial-gradient(circle,rgba(18,84,250,0.30)_5%,rgba(18,84,250,0.1)_60%)] 
+              border-dashed border-2 border-gray-500 shadow-[0_0_20px_rgba(18,84,250,0.3)]"
             animate={{
               scale: [1, 1.05, 1],
-              boxShadow: ["0 0 20px rgba(255,106,0,0.3)", "0 0 40px rgba(255,106,0,0.5)", "0 0 20px rgba(255,106,0,0.3)"],
+              boxShadow: ["0 0 20px rgba(18,84,250,0.3)", "0 0 40px rgba(18,84,250,0.5)", "0 0 20px rgba(18,84,250,0.3)"],
             }}
             transition={{ repeat: Infinity, duration: 2 }}
           >
@@ -88,15 +88,15 @@ const PartnerSection = () => {
               return (
                 <div
                   key={item.id}
-                  className={`flex items-center gap-3 bg-[#383838] rounded-full px-5 py-4 
-                    shadow-md border border-white transition-transform duration-500 ease-in-out
+                  className={`flex items-center justify-start gap-5 bg-[#383838] rounded-full px-6 py-4 
+                    shadow-md border border-white transition-all duration-500 ease-in-out
                     hover:scale-105 hover:shadow-[0_0_30px_15px_rgba(255,100,0,0.5)]
-                    ${item.translate}`}
+                    ${item.translate} group relative`}
                 >
                   <div className="bg-[#101010] w-14 h-14 rounded-full flex justify-center items-center shrink-0">
                     <Icon className="text-2xl text-white" />
                   </div>
-                  <div className="text-right">
+                  <div className="text-left flex-1">
                     <h3 className="font-semibold text-lg">{item.title}</h3>
                     <p className="text-sm text-gray-400">{item.description}</p>
                   </div>
@@ -113,12 +113,12 @@ const PartnerSection = () => {
           <motion.div
             animate={{
               scale: [1, 1.05, 1],
-              boxShadow: ["0 0 20px rgba(255,106,0,0.3)", "0 0 40px rgba(255,106,0,0.5)", "0 0 20px rgba(255,106,0,0.3)"],
+              boxShadow: ["0 0 20px rgba(18,84,250,0.3)", "0 0 40px rgba(18,84,250,0.5)", "0 0 20px rgba(18,84,250,0.3)"],
             }}
             transition={{ repeat: Infinity, duration: 2 }}
             className="flex justify-center items-center w-40 h-40 mb-7 rounded-full 
-      bg-[radial-gradient(circle,rgba(255,106,0,0.30)_5%,rgba(255,106,0,0.1)_60%)] 
-      shadow-[0_0_40px_#FF6A00] border-dashed border-2 border-gray-500 text-center"
+      bg-[radial-gradient(circle,rgba(18,84,250,0.30)_5%,rgba(18,84,250,0.1)_60%)] 
+      shadow-[0_0_40px_rgba(18,84,250,0.4)] border-dashed border-2 border-gray-500 text-center"
           >
             <h2 className="text-sm font-semibold">
               Why Partner <br /> with Nexus?
