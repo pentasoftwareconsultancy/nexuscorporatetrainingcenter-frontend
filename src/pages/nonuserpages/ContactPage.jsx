@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, CheckCircle } from "lucide-react";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import toast from "react-hot-toast";
+import Button from "../../components/common/Button";
 
 const contactInfo = [
   {
@@ -161,10 +162,12 @@ export default function ContactPage() {
               <textarea name="message" placeholder="Tell us how we can help you..." value={formData.message} onChange={handleChange} required rows="5"
                 className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500/60 focus:bg-orange-500/5 transition-all duration-200 resize-none" />
             </div>
-            <button type="submit" disabled={loading}
-              className="w-full py-3.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold text-sm tracking-wide transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,106,0,0.35)] disabled:opacity-60 disabled:cursor-not-allowed">
-              {loading ? "Sending..." : "Send Message →"}
-            </button>
+            <Button
+              type="submit"
+              text={loading ? "Sending..." : "Send Message →"}
+              disabled={loading}
+              className="w-full py-3.5 rounded-xl text-sm gap-2 font-semibold justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+            />
           </form>
         </div>
       </div>
