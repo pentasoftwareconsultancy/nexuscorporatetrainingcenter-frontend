@@ -28,7 +28,7 @@ const PartnerSection = () => {
       {/* Title */}
       <div className="flex px-5 md:px-10">
         <h1 className="text-2xl md:text-3xl font-semibold text-white">
-          Why Partner with Nexus?
+        Why Choose Nexus as <span className="text-orange-500"> Your Partner?</span>
         </h1>
       </div>
 
@@ -77,7 +77,7 @@ const PartnerSection = () => {
             transition={{ repeat: Infinity, duration: 2 }}
           >
             <h2 className="text-lg md:text-xl font-semibold text-center leading-tight">
-              Why Partner <br /> with Nexus?
+              Why Choose <br />  <span className="text-orange-500">Nexus?</span>
             </h2>
           </motion.div>
 

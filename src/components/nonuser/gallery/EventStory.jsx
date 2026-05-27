@@ -121,7 +121,7 @@ export default function EventStory() {
       {/* Title */}
       <div className="max-w-[2400px] mx-auto mb-10 relative z-10">
         <h2 className="text-start text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 tracking-wide">
-          Event Stories
+          Event  <span className="text-orange-500"> Stories </span>
         </h2>
         <p className="text-gray-300 text-sm md:text-base max-w-4xl leading-relaxed">
           Immerse yourself in our world of collaboration and innovation. Our

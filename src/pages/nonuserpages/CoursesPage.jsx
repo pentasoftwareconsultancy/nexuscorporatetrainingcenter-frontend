@@ -101,7 +101,8 @@ const CoursesPage = () => {
     <section className="relative w-full min-h-screen py-6 px-12 text-one overflow-hidden">
 
       <div className="relative z-10">
-      <h1 className="text-4xl text-white font-bold mb-10">Our Courses</h1>
+      <h1 className="text-4xl text-white font-bold mb-10">Our 
+        <span className="text-orange-500"> Courses</span></h1>
 
       <p className="text-[18px] text-justify mb-8 w-11/12">
         Our extensive catalog of corporate training courses is meticulously
