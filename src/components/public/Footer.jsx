@@ -79,7 +79,7 @@ export default function Footer() {
         src={footerImg}
         alt=""
         className="absolute inset-0 w-full h-full object-contain pointer-events-none z-0"
-        style={{ opacity: 0.40, mixBlendMode: "screen" }}
+        style={{ opacity: 1, mixBlendMode: "multiply", padding: "0 60px" }}
       />
 
       {/* MAIN CONTENT */}
