@@ -71,7 +71,9 @@ const CoursesProvided = () => {
 
   return (
     <section className="px-12 text-white">
-      <h1 className="text-4xl font-bold mb-10">Courses we provide</h1>
+      <h1 className="text-4xl font-bold mb-10">Courses Provided by Us</h1>
+      <h2 className="text-lg text-2x1 ">
+        We provide high-quality courses to help students build strong technical and professional skills.</h2>
 
       <div className="grid gap-8
             grid-cols-1

@@ -86,9 +86,12 @@ function OurClient() {
 
       {/* Clients Section */}
       <section className="relative z-10 w-full  mx-auto px-3 md:px-10">
-        <h2 className=" text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
-          Our Clients
+        
+        <h2 className="text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
+          Our  <span className="text-orange-500">Clients</span>
         </h2>
+        <h1 className="text-lg text-2x1">Our clients inspire us to deliver quality services, innovative solutions, and lasting relationships.</h1>
+
         <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
         
         <style>{`

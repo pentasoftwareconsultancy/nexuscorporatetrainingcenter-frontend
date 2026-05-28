@@ -28,7 +28,7 @@ const PartnerSection = () => {
       {/* Title */}
       <div className="flex px-5 md:px-10">
         <h1 className="text-2xl md:text-3xl font-semibold text-white">
-          Why Partner with Nexus?
+          Why Choose Nexus as <span className="text-orange-500"> Your Partner?</span>
         </h1>
       </div>
 
@@ -68,16 +68,20 @@ const PartnerSection = () => {
           {/* CENTER CIRCLE */}
           <motion.div
             className="flex justify-center items-center w-[200px] h-[200px] md:w-60 md:h-60 rounded-full 
-              bg-[radial-gradient(circle,rgba(18,84,250,0.30)_5%,rgba(18,84,250,0.1)_60%)] 
-              border-dashed border-2 border-gray-500 shadow-[0_0_20px_rgba(18,84,250,0.3)]"
+                      bg-[radial-gradient(circle,rgba(194,65,12,0.35)_5%,rgba(154,52,18,0.12)_60%)] 
+                      border-dashed border-2 border-gray-500 shadow-[0_0_20px_rgba(194,65,12,0.4)]"
             animate={{
               scale: [1, 1.05, 1],
-              boxShadow: ["0 0 20px rgba(18,84,250,0.3)", "0 0 40px rgba(18,84,250,0.5)", "0 0 20px rgba(18,84,250,0.3)"],
+              boxShadow: [
+                "0 0 20px rgba(194,65,12,0.4)",
+                "0 0 40px rgba(194,65,12,0.6)",
+                "0 0 20px rgba(194,65,12,0.4)"
+              ],
             }}
             transition={{ repeat: Infinity, duration: 2 }}
           >
             <h2 className="text-lg md:text-xl font-semibold text-center leading-tight">
-              Why Partner <br /> with Nexus?
+              Why Choose <br /> <span className="text-orange-500">Nexus?</span>
             </h2>
           </motion.div>
 

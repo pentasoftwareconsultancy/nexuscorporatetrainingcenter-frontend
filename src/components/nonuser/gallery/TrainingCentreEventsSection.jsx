@@ -92,7 +92,8 @@ export default function TrainingCentreEventsSection() {
       {/* Title */}
       <div className="max-w-[2400px] mx-auto mb-10 relative z-10">
         <h2 className="text-start text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 tracking-wide">
-          Training Centre Events
+          Training Centre 
+          <span className="text-orange-500"> Events </span>
         </h2>
         <p className="text-gray-300 text-sm md:text-base max-w-4xl leading-relaxed">
           Take a look at the latest happenings, training workshops, bootcamps, and events at our training centre. Browse through high-quality photos and video sessions of our learners in action.

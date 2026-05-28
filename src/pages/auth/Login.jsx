@@ -1,9 +1,6 @@
-//  ================= LOGIN + FORGOT PASSWORD =================
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
 import { useAuth } from "../../core/contexts/AuthContext";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
@@ -12,7 +9,6 @@ import { ROUTES } from "../../core/constants/routes.constant";
 import login from "../../assets/home/login.jpg";
 
 // ================= INPUT FIELD =================
-
 const InputField = ({
   type = "text",
   placeholder,
@@ -24,24 +20,10 @@ const InputField = ({
     placeholder={placeholder}
     value={value}
     onChange={onChange}
-    className="
-      w-full
-      border border-gray-600
-      rounded-md
-      p-3
-      mb-4
-      bg-[#1e1e1e]
-      text-white
-      placeholder-gray-400
-      focus:outline-none
-      focus:ring-2
-      focus:ring-orange-400
-    "
-  />
+    className="w-full border border-gray-600 rounded-md p-3 mb-4 bg-[#1e1e1e] text-white
+      placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400 "  />
 );
-
 // ================= LOGIN FORM =================
-
 const LoginForm = ({
   email,
   password,
@@ -53,49 +35,24 @@ const LoginForm = ({
   <form onSubmit={onSubmit} className="w-full">
 
     <InputField
-      placeholder="Email or Phone Number"
-      value={email}
+      placeholder="Email or Phone Number" value={email}
       onChange={(e) => setEmail(e.target.value)}
     />
-
-    <InputField
-      type="password"
-      placeholder="Password"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-    />
-
-    <Button
-      type="submit"
-      text="Login"
-      className="w-full"
-    />
+    <InputField type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+    <Button type="submit" text="Login" className="w-full" />
 
     <div className="text-right mt-3">
-      <button
-        type="button"
-        onClick={onForgot}
-        className="text-sm text-orange-400"
-      >
-        Forgot Password?
-      </button>
+      <button type="button" onClick={onForgot} className="text-sm text-orange-400"  > Forgot Password? </button>
     </div>
-
   </form>
 );
-
 // ================= MAIN LOGIN =================
-
 const Login = () => {
   const navigate = useNavigate();
-
   const { login, isLoggedIn, user } = useAuth();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [showForgot, setShowForgot] = useState(false);
-
   // ================= LOGIN SUBMIT =================
 
   const handleSubmit = async (e) => {
@@ -111,9 +68,7 @@ const Login = () => {
       );
 
       login(response.data);
-
       toast.success("Login Successful");
-
       navigate(
         response?.data?.role === "admin"
           ? ROUTES.ADMIN_DASHBOARD
@@ -128,73 +83,45 @@ const Login = () => {
     }
   };
 
-  return (
-    <>
-     <div className="min-h-screen flex items-center justify-center bg-black px-4">
-
-  <div
-    className="
-      w-full
-      max-w-md
-      p-8
-      rounded-2xl
-      border border-white/20
-      bg-white/10
-      backdrop-blur-md
-      relative
-      overflow-hidden
-    "
-  >
-
-    {/* Background Image Inside Card */}
+ return (
+  <>
     <div
-      className="absolute inset-0 opacity-20 bg-cover bg-center"
-      style={{
-        backgroundImage: `{login}`,
-      }}
-    ></div>
+      className="min-h-screen flex items-center justify-center px-4 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${login})` }}
+    >
+      <div
+        className="w-full max-w-md p-8 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md relative overflow-hidden"
+      >
+        {/* Card Content */}
+        <div className="relative z-10">
+          <h1 className="text-4xl font-bold text-white mb-6">
+            Login
+          </h1>
 
-    {/* Card Content */}
-    <div className="relative z-10">
+          <LoginForm
+            email={email}
+            password={password}
+            setEmail={setEmail}
+            setPassword={setPassword}
+            onSubmit={handleSubmit}
+            onForgot={() => setShowForgot(true)}
+          />
 
-      <h1 className="text-4xl font-bold text-white mb-6">
-        Login
-      </h1>
+          <div className="text-center mt-5 text-gray-300">
+            Don't have account?
 
-      <LoginForm
-        email={email}
-        password={password}
-        setEmail={setEmail}
-        setPassword={setPassword}
-        onSubmit={handleSubmit}
-        onForgot={() => setShowForgot(true)}
-      />
-
-      <div className="text-center mt-5 text-gray-300">
-        Don't have account?
-
-        <span
-          onClick={() => navigate(ROUTES.SIGNUP)}
-          className="text-orange-400 ml-2 cursor-pointer"
-        >
-          Sign Up
-        </span>
+            <span
+              onClick={() => navigate(ROUTES.SIGNUP)}
+              className="text-orange-400 ml-2 cursor-pointer"
+            >
+              Sign Up
+            </span>
+          </div>
+        </div>
       </div>
-
     </div>
-
-  </div>
-</div>
-
-      {/* FORGOT PASSWORD MODAL */}
-
-      {showForgot && (
-        <ForgotPasswordModal
-          onClose={() => setShowForgot(false)}
-        />
-      )}
-    </>
-  );
+  </>
+);
 };
 
 export default Login;
@@ -204,35 +131,21 @@ export default Login;
 const ForgotPasswordModal = ({ onClose }) => {
 
   const api = new ApiService();
-
   const [step, setStep] = useState(1);
-
   const [emailOrPhone, setEmailOrPhone] = useState("");
-
   const [question, setQuestion] = useState("");
-
   const [answer, setAnswer] = useState("");
-
   const [resetToken, setResetToken] = useState("");
-
   const [newPassword, setNewPassword] = useState("");
-
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
-
   // ================= STEP 1 =================
-
   const handleFindUser = async () => {
-
     if (!emailOrPhone) {
       return toast.error("Enter Email or Phone");
     }
-
     try {
-
       setLoading(true);
-
       const res = await api.apipost(
         ServerUrl.API_FORGOT_PASSWORD,
         {
@@ -264,9 +177,7 @@ const ForgotPasswordModal = ({ onClose }) => {
     }
 
     try {
-
       setLoading(true);
-
       const res = await api.apipost(
         ServerUrl.API_FORGOT_PASSWORD_VERIFY,
         {
@@ -274,38 +185,24 @@ const ForgotPasswordModal = ({ onClose }) => {
           answer,
         }
       );
-
       setResetToken(res.data.resetToken);
-
       setStep(3);
-
     } catch (err) {
-
       toast.error("Wrong Answer");
-
     } finally {
-
       setLoading(false);
-
     }
   };
-
   // ================= STEP 3 =================
-
   const handleResetPassword = async () => {
-
     if (!newPassword || !confirmPassword) {
       return toast.error("Fill all fields");
     }
-
     if (newPassword !== confirmPassword) {
       return toast.error("Passwords do not match");
     }
-
     try {
-
       setLoading(true);
-
       await api.apipost(
         ServerUrl.API_FORGOT_PASSWORD_RESET,
         {
@@ -314,36 +211,25 @@ const ForgotPasswordModal = ({ onClose }) => {
           confirmPassword,
         }
       );
-
       toast.success("Password Reset Successful");
-
       onClose();
-
     } catch (err) {
-
       toast.error(
         err?.response?.data?.message ||
         "Reset Failed"
       );
-
     } finally {
-
       setLoading(false);
-
     }
   };
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-
       <div className="bg-[#111] p-6 rounded-xl w-[90%] max-w-md border border-gray-700">
-
         <h2 className="text-2xl text-white font-bold mb-5">
           Forgot Password
         </h2>
-
         {/* STEP 1 */}
-
         {step === 1 && (
           <>
             <InputField
@@ -360,32 +246,14 @@ const ForgotPasswordModal = ({ onClose }) => {
             />
           </>
         )}
-
         {/* STEP 2 */}
-
         {step === 2 && (
           <>
-            <p className="text-gray-300 mb-3">
-              {question}
-            </p>
-
-            <InputField
-              placeholder="Enter Answer"
-              value={answer}
-              onChange={(e) =>
-                setAnswer(e.target.value)
-              }
-            />
-
-            <Button
-              text={loading ? "Verifying..." : "Verify"}
-              onClick={handleVerifyAnswer}
-            />
-          </>
+            <p className="text-gray-300 mb-3"> {question}   </p>
+            <InputField placeholder="Enter Answer" value={answer} onChange={(e) => setAnswer(e.target.value)} />
+            <Button text={loading ? "Verifying..." : "Verify"} onClick={handleVerifyAnswer} />  </>
         )}
-
         {/* STEP 3 */}
-
         {step === 3 && (
           <>
             <InputField
@@ -397,29 +265,14 @@ const ForgotPasswordModal = ({ onClose }) => {
               }
             />
 
-            <InputField
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) =>
-                setConfirmPassword(e.target.value)
-              }
-            />
+            <InputField type="password" placeholder="Confirm Password" value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)} />
 
-            <Button
-              text={loading ? "Resetting..." : "Reset Password"}
-              onClick={handleResetPassword}
-            />
-          </>
+            <Button text={loading ? "Resetting..." : "Reset Password"}
+              onClick={handleResetPassword} />  </>
         )}
 
-        <button
-          onClick={onClose}
-          className="mt-4 text-gray-400 text-sm"
-        >
-          Cancel
-        </button>
-
+        <button onClick={onClose} className="mt-4 text-gray-400 text-sm" > Cancel  </button>
       </div>
     </div>
   );
