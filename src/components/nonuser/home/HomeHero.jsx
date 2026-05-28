@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../core/constants/routes.constant";
 import Button from "../../common/Button";
@@ -6,13 +6,6 @@ import nexusAnimation from "../../../assets/home/nexus animation.mp4";
 
 export default function HomeHero() {
   const navigate = useNavigate();
-  const videoRef = useRef(null);
-
-  const handleTimeUpdate = () => {
-    if (videoRef.current && videoRef.current.currentTime >= 6) {
-      videoRef.current.currentTime = 0;
-    }
-  };
 
   return (
     <div className="relative font-sora w-full min-h-[92vh] flex items-center pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-16 md:pr-16 lg:pl-24 lg:pr-24 py-16 md:py-24 text-white overflow-hidden bg-black">
@@ -20,19 +13,19 @@ export default function HomeHero() {
       {/* 🌟 BACKGROUND VIDEO */}
       <div className="absolute inset-y-0 right-0 w-full md:w-[65%] flex items-center justify-center overflow-hidden z-0 select-none pointer-events-none">
         <video
-          ref={videoRef}
           src={nexusAnimation}
           autoPlay
+          loop
           muted
           playsInline
-          onTimeUpdate={handleTimeUpdate}
           className="w-full h-full object-contain"
         />
       </div>
 
       {/* 🌟 VIGNETTE SHADOWS & SEAMLESS GRADIENTS (Soft readability overlay) */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-5 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/35 z-5 pointer-events-none" />
+      {/* Limit horizontal gradient to the left 60% on desktop to keep the video completely crisp, and hide the vertical vignette on desktop. */}
+      <div className="absolute inset-0 md:right-auto md:w-[60%] bg-gradient-to-r from-black/90 via-black/60 to-black/20 md:from-black md:via-black/70 md:to-transparent z-5 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/35 md:hidden z-5 pointer-events-none" />
 
       {/* 🌟 LEFT CONTENT PANEL */}
       <div className="relative z-10 w-full max-w-[480px] flex flex-col items-start text-left gap-4 mt-10 md:mt-0">
