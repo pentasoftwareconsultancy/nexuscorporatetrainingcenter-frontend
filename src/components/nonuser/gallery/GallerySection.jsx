@@ -194,7 +194,7 @@ export default function GallerySection() {
     college.images?.[0] || fallbackImages[0];
 
   return (
-    <section className="w-full px-12 py-10 text-white">
+    <section className="w-full px-4 sm:px-8 lg:px-12 py-10 text-white">
       {/* HEADER */}
       <div className="max-w-[2400px] mx-auto mb-12">
         <h2 className="text-4xl font-extrabold mb-4">Gallery</h2>
@@ -235,7 +235,7 @@ export default function GallerySection() {
       ) : (
         <div
           className="
-          grid gap-18 w-full max-w-[2400px] mx-auto px-12 
+          grid gap-8 sm:gap-12 lg:gap-16 w-full max-w-[2400px] mx-auto
           grid-cols-[repeat(auto-fit,minmax(260px,1fr))] 
           xl:grid-cols-4"
         >

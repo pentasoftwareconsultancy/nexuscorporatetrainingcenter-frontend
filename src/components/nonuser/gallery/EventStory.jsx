@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { X } from "lucide-react";
+import React, { useEffect, useState, useMemo } from "react";
+import { X, Calendar, MapPin, Image as ImageIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import CoursesCard from "../../common/StoryCard";
 import ApiService from "../../../core/services/api.service";
 import ServerUrl from "../../../core/constants/serverURL.constant";
@@ -24,12 +24,11 @@ const fallbackImages = [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7];
 export default function EventStory() {
   const api = new ApiService();
 
-  const mainScrollRef = useRef(null);
-  const isMainPaused = useRef(false);
-
   const [eventStories, setEventStories] = useState([]);
-  const [selectedEventImages, setSelectedEventImages] = useState(null);
-  const [fullScreenImage, setFullScreenImage] = useState(null);
+  const [lightboxImages, setLightboxImages] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  
+  const [activeIndex, setActiveIndex] = useState(0);
   
   const dummyStories = [
     {
@@ -97,152 +96,200 @@ export default function EventStory() {
     fetchEventStories();
   }, []);
 
-  /* ================= AUTO SCROLL ================= */
-  useEffect(() => {
-    const scrollContainer = mainScrollRef.current;
-    if (!scrollContainer) return;
-
-    let scrollPosition = 0;
-    const speed = 2;
-    let animationFrameId;
-
-    const smoothScroll = () => {
-      if (!isMainPaused.current) {
-        scrollPosition += speed;
-        if (scrollPosition >= scrollContainer.scrollWidth / 2) {
-          scrollPosition = 0;
-        }
-        scrollContainer.scrollLeft = scrollPosition;
+  const displayStories = useMemo(() => {
+    if (safeStories.length === 0) return [];
+    let list = [...safeStories];
+    if (list.length < 5) {
+      while (list.length < 5) {
+        list = [...list, ...safeStories];
       }
-      animationFrameId = requestAnimationFrame(smoothScroll);
-    };
-
-    if (safeStories.length > 2) {
-      animationFrameId = requestAnimationFrame(smoothScroll);
     }
-    return () => {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    return list;
+  }, [safeStories]);
+
+  useEffect(() => {
+    if (displayStories.length === 0) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % displayStories.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [displayStories.length]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Don't trigger if lightbox is open (lightbox has its own state)
+      if (lightboxImages) return;
+      if (e.key === "ArrowLeft") {
+        setActiveIndex((prev) => (prev === 0 ? displayStories.length - 1 : prev - 1));
+      } else if (e.key === "ArrowRight") {
+        setActiveIndex((prev) => (prev + 1) % displayStories.length);
+      }
     };
-  }, [safeStories.length]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [displayStories.length, lightboxImages]);
 
   return (
-    <div className="relative w-full text-white py-2 px-12">
+    <div className="relative w-full text-white py-16 px-6 sm:px-12 border-t border-zinc-900 bg-black/10 overflow-hidden">
       {/* Title */}
-      <h2 className="text-start text-2xl sm:text-3xl md:text-5xl font-extrabold mb-8 tracking-wide">
-        Event Stories
-      </h2>
+      <div className="max-w-[2400px] mx-auto mb-10 relative z-10">
+        <h2 className="text-start text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 tracking-wide">
+          Event  <span className="text-orange-500"> Stories </span>
+        </h2>
+        <p className="text-gray-300 text-sm md:text-base max-w-4xl leading-relaxed">
+          Immerse yourself in our world of collaboration and innovation. Our
+          gallery showcases the dynamic events, expert-led workshops, and
+          successful placement drives conducted in partnership with leading
+          colleges and industry clients.
+        </p>
+      </div>
 
-      <p className="pb-8">
-        Immerse yourself in our world of collaboration and innovation. Our
-        gallery showcases the dynamic events, expert-led workshops, and
-        successful placement drives conducted in partnership with leading
-        colleges and industry clients.
-      </p>
+      <div className="relative w-full max-w-[2400px] mx-auto flex flex-col items-center select-none">
+        {/* Spotlight Glow Background */}
+        <div className="carousel-spotlight"></div>
+        
+        {/* Carousel Perspective Area */}
+        <div className="perspective-container z-10 my-4 relative w-full flex justify-center">
 
-      <div className="relative w-full flex items-center justify-start grayscale hover:grayscale-0">
-        <div
-          ref={mainScrollRef}
-          className="w-full overflow-x-auto whitespace-nowrap pb-6 custom-scrollbar"
-          onMouseEnter={() => (isMainPaused.current = true)}
-          onMouseLeave={() => (isMainPaused.current = false)}
-        >
-          <div className="inline-flex gap-4 sm:gap-6 px-2 sm:px-4">
-            {/* If only 1 story, don't duplicate it. Duplicate only if enough items to scroll */}
-            {(safeStories.length > 2 ? [...safeStories, ...safeStories] : safeStories).map((event, index) => (
+          {displayStories.map((event, i) => {
+            const imageCount = event.allImages?.length || 0;
+            
+            // Calculate circular offset
+            const N = displayStories.length;
+            let diff = i - activeIndex;
+            if (diff > N / 2) {
+              diff -= N;
+            } else if (diff < -N / 2) {
+              diff += N;
+            }
+            
+            // Class assignment
+            let slotClass = "slot-hidden";
+            if (diff === 0) slotClass = "slot-active";
+            else if (diff === -1) slotClass = "slot-left-1";
+            else if (diff === 1) slotClass = "slot-right-1";
+            else if (diff === -2) slotClass = "slot-left-2";
+            else if (diff === 2) slotClass = "slot-right-2";
+            
+            const isActive = diff === 0;
+            
+            return (
               <div
-                key={index}
-                onClick={() => setSelectedEventImages(event.allImages || fallbackImages)}
-                className="relative flex flex-col justify-between rounded-2xl cursor-pointer
-                overflow-hidden border-2 min-w-[280px] sm:min-w-[240px] md:min-w-[260px]
-                transition-all duration-300 hover:scale-[1.02] group"
+                key={`${event.id || event._id || i}-${i}`}
+                onClick={() => {
+                  if (isActive) {
+                    setLightboxImages(event.allImages || fallbackImages);
+                    setSelectedIndex(0);
+                  } else {
+                    setActiveIndex(i);
+                  }
+                }}
+                className={`carousel-card ${slotClass} bg-zinc-900 border border-zinc-800/80 rounded-[2rem] overflow-hidden cursor-pointer group transition-all duration-500 shadow-xl flex flex-col justify-end`}
               >
-                <div className="w-full h-56 overflow-hidden">
+                {/* Card Background Image */}
+                <div className="absolute inset-0 w-full h-full bg-black">
                   <img
                     src={event.image}
                     alt={event.eventName}
-                    className="w-full h-full p-2 rounded-3xl object-cover
-                    transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-transparent opacity-90"></div>
                 </div>
 
-                <div className="p-4 whitespace-normal">
-                  <p>
-                    Event Name - <span>{event.eventName}</span>
-                  </p>
-                  <p>
-                    Date - <span>{new Date(event.date).toLocaleDateString()}</span>
-                  </p>
-                  <p>
-                    Location - <span>{event.location}</span>
-                  </p>
+                {/* Top Right Media count badge */}
+                {imageCount > 0 && (
+                  <div className="absolute top-4 right-4 flex gap-1.5 z-20">
+                    <span className="flex items-center gap-1 bg-black/60 backdrop-blur-md text-[10px] sm:text-xs px-2.5 py-1 rounded-full text-gray-200 border border-white/5">
+                      <ImageIcon size={11} className="text-orange-400" /> {imageCount}
+                    </span>
+                  </div>
+                )}
+
+                {/* Content Overlays at the bottom */}
+                <div className="relative p-6 z-10 flex flex-col justify-end h-full">
+                  <span className="text-[10px] uppercase tracking-widest text-orange-400 font-extrabold mb-1">
+                    Event Story
+                  </span>
+                  
+                  <h3 className="text-lg sm:text-xl font-bold text-white transition-colors duration-200 line-clamp-1 mb-2">
+                    {event.eventName}
+                  </h3>
+                  
+                  <div className="flex flex-wrap gap-y-2 justify-between items-center text-[10px] sm:text-xs text-gray-400 border-t border-white/10 pt-3">
+                    {event.date && (
+                      <span className="flex items-center gap-1">
+                        <Calendar size={11} className="text-orange-400" />
+                        {new Date(event.date).toLocaleDateString(undefined, {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
+                    )}
+                    {event.location && (
+                      <span className="flex items-center gap-1 max-w-[120px] truncate">
+                        <MapPin size={11} className="text-orange-400" />
+                        {event.location}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* MODAL / LIGHTBOX FOR EVENT PHOTOS */}
-      {selectedEventImages && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 sm:p-8">
-          <div className="relative w-full max-w-6xl h-full max-h-[90vh] flex flex-col bg-gray-900 rounded-2xl overflow-hidden border border-gray-700">
-            {/* Header */}
-            <div className="flex justify-between items-center p-4 border-b border-gray-800">
-              <h3 className="text-xl font-bold">Event Photos</h3>
-              <button 
-                onClick={() => setSelectedEventImages(null)}
-                className="p-2 hover:bg-gray-800 text-gray-300 hover:text-white rounded-full transition-colors"
-              >
-                <X size={24} />
-              </button>
-            </div>
-            {/* Grid */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-                {selectedEventImages.map((img, idx) => (
-                  <div 
-                    key={idx} 
-                    className="relative aspect-square rounded-xl overflow-hidden group border border-gray-700 shadow-lg cursor-pointer"
-                    onClick={() => setFullScreenImage(img.url || img)}
-                  >
-                    <img 
-                      src={img.url || img} 
-                      alt={`Event photo ${idx + 1}`} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* FULL SCREEN LIGHTBOX FOR INDIVIDUAL PHOTO */}
-      {fullScreenImage && (
+      {/* FULL SCREEN CAROUSEL LIGHTBOX */}
+      {lightboxImages && lightboxImages.length > 0 && (
         <div 
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 animate-in fade-in duration-300"
-          onClick={() => setFullScreenImage(null)}
+          onClick={() => setLightboxImages(null)}
         >
           <button 
-            className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"
+            className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white z-50"
             onClick={(e) => {
               e.stopPropagation();
-              setFullScreenImage(null);
+              setLightboxImages(null);
             }}
           >
             <X size={32} />
           </button>
           
+          {lightboxImages.length > 1 && (
+            <button 
+              className="absolute left-4 sm:left-10 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white z-50"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedIndex((prev) => (prev === 0 ? lightboxImages.length - 1 : prev - 1));
+              }}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            </button>
+          )}
+
           <div 
-            className="relative max-w-7xl max-h-[90vh] flex items-center justify-center"
+            className="relative max-w-7xl w-full max-h-[90vh] flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <img 
-              src={fullScreenImage} 
-              alt="Full view" 
+              src={lightboxImages[selectedIndex].url || lightboxImages[selectedIndex]} 
+              alt="Event full view" 
               className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-white/10"
             />
           </div>
+
+          {lightboxImages.length > 1 && (
+            <button 
+              className="absolute right-4 sm:right-10 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white z-50"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedIndex((prev) => (prev === lightboxImages.length - 1 ? 0 : prev + 1));
+              }}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+          )}
         </div>
       )}
     </div>

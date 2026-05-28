@@ -5,6 +5,7 @@ import CoursesProvided from '../../components/nonuser/home/CoursesProvided.jsx';
 import UpcomingBatches from '../../components/nonuser/home/UpcomingBatches.jsx';
 import GallerySection from '../../components/nonuser/gallery/GallerySection.jsx';
 import EventStory from '../../components/nonuser/gallery/EventStory.jsx';
+import TrainingCentreEventsSection from '../../components/nonuser/gallery/TrainingCentreEventsSection.jsx';
 import FAQ from '../../components/nonuser/home/FAQ.jsx';
 import SuccessReviews from '../../components/public/SuccessReviews.jsx';
 
@@ -14,7 +15,11 @@ const HomePage = () => {
       <HomeHero />
       <OurClient />
       <CoursesProvided />
+      <div className="px-4 sm:px-6 md:px-10 my-4">
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-600 to-transparent opacity-60"></div>
+      </div>
       <UpcomingBatches />
+      <TrainingCentreEventsSection />
       <GallerySection />
       <EventStory />
       <FAQ />

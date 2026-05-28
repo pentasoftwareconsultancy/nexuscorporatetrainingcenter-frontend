@@ -5,7 +5,9 @@ const Button = ({
   onClick, 
   className = "", 
   showIcon = true,   
-  type = "button"
+  type = "button",
+  disabled = false,
+  ...props
 }) => {
   const hasPadding = className.includes("px-") || className.includes("py-");
   const paddingClass = hasPadding ? "" : "px-6 py-3";
@@ -14,6 +16,8 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
+      disabled={disabled}
+      {...props}
       style={{
         borderTop: "2px solid transparent",
         borderBottom: "2px solid transparent",

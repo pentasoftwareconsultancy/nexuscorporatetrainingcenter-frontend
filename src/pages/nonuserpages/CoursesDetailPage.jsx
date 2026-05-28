@@ -1,15 +1,313 @@
 import React, { useEffect, useState } from "react";
-import Button from "../../components/common/Button";
-import { useParams, useNavigate } from "react-router-dom";
-import { FaUser, FaClock, FaMoneyBill1Wave, FaPhone } from "react-icons/fa6";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  FaUser,
+  FaClock,
+  FaPhone,
+  FaChevronLeft,
+  FaCheckCircle,
+  FaBookOpen,
+  FaGraduationCap,
+  FaArrowRight,
+} from "react-icons/fa";
+import { FaMoneyBill1Wave } from "react-icons/fa6";
 import { IoMdDownload } from "react-icons/io";
+import { MdOutlineSchool } from "react-icons/md";
 import { ROUTES } from "../../core/constants/routes.constant";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
+import Button from "../../components/common/Button";
 
+// ── Brand colours
+const ORANGE = "#FF6A00";
+const ORANGE_DARK = "#c94d00";
+
+// ── Splits a dot-separated string into clean items
+const splitToItems = (text) => {
+  if (!text) return [];
+  return text.split(".").map((s) => s.trim()).filter(Boolean);
+};
+
+// ────────────────────────────────────────
+//  Loading Skeleton
+// ────────────────────────────────────────
+const LoadingSkeleton = () => (
+  <div className="min-h-screen text-white px-4 sm:px-8 md:px-14 py-10 font-sora animate-pulse bg-gradient-to-br from-[#05112d] via-[#01040f] to-[#000000]">
+    <div className="h-5 w-32 bg-white/10 rounded-full mb-10" />
+    <div className="h-14 w-3/4 bg-white/10 rounded-2xl mb-4" />
+    <div className="h-3 w-24 bg-white/5 rounded mb-10" />
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      {[...Array(4)].map((_, i) => <div key={i} className="h-24 bg-white/5 rounded-2xl" />)}
+    </div>
+    <div className="h-32 bg-white/5 rounded-3xl mb-6" />
+    <div className="grid grid-cols-2 gap-4 mb-6">
+      {[...Array(6)].map((_, i) => <div key={i} className="h-8 bg-white/5 rounded-lg" />)}
+    </div>
+    <div className="h-52 bg-white/5 rounded-3xl" />
+  </div>
+);
+
+// ────────────────────────────────────────
+//  Section Heading
+// ────────────────────────────────────────
+const SectionHeading = ({ icon, label, badge, className = "mb-6" }) => (
+  <div className={`flex items-center gap-3 ml-4 ${className}`}>
+    <span
+      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+      style={{ backgroundColor: `${ORANGE}20`, color: ORANGE, border: `1px solid ${ORANGE}40` }}
+    >
+      {icon}
+    </span>
+    <h3 className="text-base font-bold text-white uppercase tracking-widest">
+      {label}
+    </h3>
+    {badge != null && (
+      <span
+        className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full"
+        style={{ backgroundColor: `${ORANGE}18`, color: ORANGE, border: `1px solid ${ORANGE}35` }}
+      >
+        {badge}
+      </span>
+    )}
+  </div>
+);
+
+// ────────────────────────────────────────
+//  Single Course Card
+// ────────────────────────────────────────
+const CourseSection = ({ course, onContact }) => {
+  const learnItems = splitToItems(course.details?.what_you_will_learn);
+  const syllabusItems = splitToItems(course.details?.syllabus);
+
+  const handlePdfDownload = async () => {
+    try {
+      const response = await fetch(course.details.syllabus_pdf);
+      const blob = await response.blob();
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `${course.title}-syllabus.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (e) {
+      console.error("PDF download failed", e);
+    }
+  };
+
+  const stats = [
+    { icon: <FaUser size={15} />, label: "Instructor", value: course.details?.instructor || "N/A" },
+    { icon: <FaClock size={15} />, label: "Duration", value: course.duration || "N/A" },
+    { icon: <FaMoneyBill1Wave size={15} />, label: "Fees", value: course.fees || "N/A" },
+    { icon: <FaPhone size={15} />, label: "Contact", value: course.contact || "N/A" },
+  ];
+
+  return (
+    <div
+      className="rounded-3xl overflow-hidden"
+      style={{
+        background: "linear-gradient(160deg, #0e0e0e 0%, #080808 100%)",
+        border: "1px solid rgba(255,255,255,0.08)",
+        borderTop: `2px solid ${ORANGE}`,
+        boxShadow: `0 0 60px rgba(255,106,0,0.06), 0 2px 0 ${ORANGE}`,
+      }}
+    >
+      {/* ══ 1. HEADER ══ */}
+      <div
+        className="px-6 sm:px-10 pt-6 pb-5"
+        style={{
+          background: "linear-gradient(180deg, rgba(255,106,0,0.07) 0%, transparent 100%)",
+          borderBottom: "1px solid rgba(255,255,255,0.08)",
+        }}
+      >
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5">
+          <div className="space-y-3">
+            {course.categoryName && (
+              <span
+                className="inline-flex items-center gap-1.5 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-widest"
+                style={{
+                  backgroundColor: `${ORANGE}18`,
+                  color: ORANGE,
+                  border: `1px solid ${ORANGE}40`,
+                }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: ORANGE }} />
+                {course.categoryName}
+              </span>
+            )}
+            <h2 className="text-2xl sm:text-3xl md:text-[42px] font-bold text-white leading-tight tracking-tight">
+              {course.title}
+            </h2>
+            <p className="text-gray-400 text-sm">
+              Master the skills that drive real-world impact.
+            </p>
+          </div>
+
+          <Button text="Enquire Now" onClick={onContact} className="py-2 px-6 text-sm" />
+        </div>
+      </div>
+
+      {/* ══ 2. STATS BAR ══ */}
+      <div
+        className="px-6 sm:px-10 py-4"
+        style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", backgroundColor: "rgba(0,0,0,0.3)" }}
+      >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+          {stats.map(({ icon, label, value }) => (
+            <div
+              key={label}
+              className="flex items-center gap-3 rounded-2xl px-4 py-4"
+              style={{
+                background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)",
+                border: "1px solid rgba(255,255,255,0.10)",
+              }}
+            >
+              <span
+                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                style={{ backgroundColor: `${ORANGE}20`, color: ORANGE, border: `1px solid ${ORANGE}35`, boxShadow: `0 0 12px ${ORANGE}20` }}
+              >
+                {icon}
+              </span>
+              <div className="min-w-0">
+                <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-widest mb-0.5">
+                  {label}
+                </p>
+                <p className="text-[13px] text-white font-bold truncate">{value}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ══ 3. DESCRIPTION ══ */}
+      {course.description && (
+        <div
+          className="px-6 sm:px-10 py-5"
+          style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+        >
+          <SectionHeading icon={<MdOutlineSchool size={17} />} label="About This Course" />
+          <p className="text-gray-200 text-[15px] leading-[1.85] max-w-4xl ml-[68px]">
+            {course.description}
+          </p>
+        </div>
+      )}
+
+      {/* ══ 4. WHAT YOU'LL LEARN ══ */}
+      {learnItems.length > 0 && (
+        <div
+          className="px-6 sm:px-10 py-5"
+          style={{
+            borderBottom: "1px solid rgba(255,255,255,0.08)",
+            background: "linear-gradient(180deg, rgba(255,106,0,0.03) 0%, transparent 60%)",
+          }}
+        >
+          <SectionHeading
+            icon={<FaGraduationCap size={16} />}
+            label="What You'll Learn"
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-3 ml-[68px]">
+            {learnItems.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-3 rounded-xl px-3 py-2.5"
+                style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
+              >
+                <FaCheckCircle
+                  size={13}
+                  className="mt-0.5 shrink-0 text-white"
+                />
+                <span className="text-gray-100 text-[13px] leading-snug">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ══ 5. SYLLABUS ══ */}
+      {syllabusItems.length > 0 && (
+        <div
+          className="px-6 sm:px-10 py-5"
+          style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.2)" }}
+        >
+          <div className="flex items-center justify-between mb-3">
+            <SectionHeading
+              icon={<FaBookOpen size={15} />}
+              label="Syllabus"
+              className="mb-0"
+            />
+            {course.details?.syllabus_pdf && (
+              <button
+                onClick={handlePdfDownload}
+                className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-full cursor-pointer -mt-6"
+                style={{
+                  color: ORANGE,
+                  border: `1px solid ${ORANGE}50`,
+                  backgroundColor: `${ORANGE}12`,
+                  boxShadow: `0 0 12px ${ORANGE}18`,
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = `${ORANGE}25`)}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = `${ORANGE}12`)}
+              >
+                <IoMdDownload size={14} />
+                Download PDF
+              </button>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-0 ml-[68px]">
+            {syllabusItems.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-3 py-2"
+                style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}
+              >
+                <span
+                  className="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-black shrink-0 text-white bg-white/10 border border-white/20"
+                >
+                  {i + 1}
+                </span>
+                <span className="text-gray-100 text-[13px] leading-snug">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ══ 6. BOTTOM CTA ══ */}
+      <div
+        className="px-6 sm:px-10 py-5"
+        style={{ background: "linear-gradient(180deg, transparent 0%, rgba(255,106,0,0.06) 100%)" }}
+      >
+        <div
+          className="flex flex-col sm:flex-row items-center justify-between gap-5 rounded-2xl px-7 py-6"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,106,0,0.12) 0%, rgba(255,106,0,0.04) 100%)",
+            border: `1px solid ${ORANGE}35`,
+            boxShadow: `0 0 40px ${ORANGE}10`,
+          }}
+        >
+          <div>
+            <p className="text-white font-bold text-xl mb-1">
+              Ready to enroll in{" "}
+              <span style={{ color: ORANGE }}>{course.title}</span>?
+            </p>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              Get in touch with us and kickstart your professional learning journey today.
+            </p>
+          </div>
+          <Button text="Contact Us" onClick={onContact} className="whitespace-nowrap py-2 px-6 text-sm" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ────────────────────────────────────────
+//  Main Page
+// ────────────────────────────────────────
 const CoursesDetailPage = () => {
   const { categoryId } = useParams();
-  // console.log("categoryId:", categoryId); // MUST log a number
+  const [searchParams] = useSearchParams();
+  const courseId = searchParams.get("courseId");
 
   const navigate = useNavigate();
   const api = new ApiService();
@@ -17,177 +315,98 @@ const CoursesDetailPage = () => {
   const [category, setCategory] = useState(null);
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  const handlePdfDownload = async (url, filename = "syllabus.pdf") => {
-  const response = await fetch(url);
-  const blob = await response.blob();
-
-  const link = document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
 
   useEffect(() => {
     if (!categoryId) return;
-
     const fetchCategoryCourses = async () => {
       try {
         const res = await api.apiget(
           `${ServerUrl.API_GET_CATEGORY_WITH_COURSES}/${categoryId}`
         );
-
-        setCategory(res.data.data);
-        setCourses(res.data.data.courses || []);
-        setLoading(false);
+        const cat = res.data.data;
+        setCategory(cat);
+        const all = cat.courses || [];
+        setCourses(
+          courseId ? all.filter((c) => String(c.id) === String(courseId)) : all
+        );
       } catch (err) {
         console.error(err);
+      } finally {
         setLoading(false);
       }
     };
-
     fetchCategoryCourses();
-  }, [categoryId]);
+  }, [categoryId, courseId]);
 
-  const renderTextAsListOrParagraph = (text) => {
-  if (!text) return null;
+  if (loading) return <LoadingSkeleton />;
 
-  const items = text
-    .split(".")
-    .map(item => item.trim())
-    .filter(Boolean);
-
-  if (items.length > 1) {
+  if (!category)
     return (
-      <ul
-        style={{
-          listStyleType: "disc",
-          paddingLeft: "1.5rem"
-        }}
-        className="space-y-2 text-gray-300"
-      >
-        {items.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+      <div className="min-h-screen text-white flex items-center justify-center font-sora bg-gradient-to-br from-[#05112d] via-[#01040f] to-[#000000]">
+        <p className="text-gray-400">Category not found.</p>
+      </div>
     );
-  }
-
-  return <p className="text-gray-300">{text}</p>;
-};
-
-  if (loading) {
-    return <div className="text-white p-6">Loading...</div>;
-  }
-
-  if (!category) {
-    return <div className="text-white p-6">Category not found</div>;
-  }
 
   return (
-    <div className="relative text-white min-h-screen px-4 sm:px-6 md:px-10 lg:px-12 py-6 font-sans flex flex-col">
-      {/* CATEGORY NAME */}
-      <h1 className="text-2xl sm:text-3xl md:text-5xl font-clashDisplay font-semibold mb-10">
-        {category.name}
-      </h1>
+    <div className="text-white min-h-screen px-4 sm:px-8 md:px-14 py-10 font-sora bg-gradient-to-br from-[#05112d] via-[#01040f] to-[#000000]">
+      {/* ── Back nav */}
+      <button
+        onClick={() => navigate(-1)}
+        className="flex items-center gap-2 text-sm text-gray-300 hover:text-white mb-10 group cursor-pointer"
+        style={{ transition: "color 0.15s" }}
+      >
+        <span
+          className="w-8 h-8 rounded-full flex items-center justify-center"
+          style={{ border: "1px solid rgba(255,255,255,0.15)", transition: "border-color 0.15s" }}
+          onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.4)")}
+          onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)")}
+        >
+          <FaChevronLeft size={10} />
+        </span>
+        Back to Courses
+      </button>
 
-      <div className="flex flex-col gap-12">
-        {courses.map((course) => (
-          <div
-            key={course.id}
-            className="relative border border-[#f8f0f0] rounded-3xl p-4 sm:p-6 md:p-10 shadow-lg overflow-hidden"
-          >
-            <div className="absolute -top-24 -left-24 w-64 sm:w-[420px] h-64 sm:h-[420px] bg-blue-700/40 blur-[160px] rounded-full pointer-events-none"></div>
-
-            {/* HEADER */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold">
-                {course.title}
-              </h2>
-
-              <Button
-                text="Know more"
-                onClick={() => navigate(ROUTES.CONTACT)}
-                className="text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2"
-              />
-            </div>
-
-            {/* MAIN GRID */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10">
-              {/* LEFT */}
-              <div className="lg:col-span-2 space-y-6">
-                <div className="flex flex-col lg:flex-row gap-6">
-                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed lg:w-3/4">
-                    {course.description}
-                  </p>
-
-                  <div className="bg-[#2f2e2e] rounded-2xl p-4 sm:p-8 border border-[#f8f0f0]">
-                    <h3 className="text-sm sm:text-lg font-semibold mb-3">
-                      Course Details
-                    </h3>
-                    <ul className="text-xs sm:text-sm text-gray-300 space-y-2">
-                      <li className="flex items-center gap-2">
-                        <FaUser size={14} />
-                        Instructor: {course.details?.instructor || "N/A"}
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <FaClock size={14} />
-                        Duration: {course.duration}
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <FaMoneyBill1Wave size={14} />
-                        Fees: {course.fees}
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <FaPhone size={14} />
-                        Contact: {course.contact || "N/A"}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                {course.details?.what_you_will_learn && (
-                  <div className="bg-[#2f2e2e] border border-[#f8f0f0] rounded-2xl p-4 sm:p-6">
-                    <h3 className="text-sm sm:text-lg font-semibold mb-4">
-                      What You'll Learn
-                    </h3>
-                    {renderTextAsListOrParagraph(course.details.what_you_will_learn)}
-                  </div>
-                )}
-              </div>
-
-              {/* RIGHT */}
-              {course.details?.syllabus && (
-                <div className="bg-[#2f2e2e] border border-[#f8f0f0] rounded-2xl p-4 sm:p-6 h-full">
-                  <div className="flex justify-between items-center mb-3">
-                    <h3 className="text-sm sm:text-lg font-semibold">
-                      Syllabus
-                    </h3>
-
-                    {course.details?.syllabus_pdf && (
-                      <button
-                        onClick={() =>
-                          handlePdfDownload(
-                            course.details.syllabus_pdf,
-                            `${course.title}-syllabus.pdf`
-                          )
-                        }
-                        className="text-black rounded-full p-2 bg-gradient-to-b from-[#fdfaf7] via-[#f7f1ea] to-[#efe4da] border border-[#e8d7c9]"
-                      >
-                        <IoMdDownload size={16} />
-                      </button>
-                    )}
-                  </div>
-
-                  {renderTextAsListOrParagraph(course.details.syllabus)}
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
+      {/* ── Page heading */}
+      <div className="mb-10">
+        <div
+          className="inline-block text-[11px] font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-widest"
+          style={{ backgroundColor: `${ORANGE}18`, color: ORANGE, border: `1px solid ${ORANGE}35` }}
+        >
+          Course Details
+        </div>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-3">
+          {category.name}
+        </h1>
+        <div className="flex items-center gap-2">
+          <div className="h-[3px] w-12 rounded-full" style={{ background: ORANGE }} />
+          <div className="h-[3px] w-6 rounded-full" style={{ background: `${ORANGE}50` }} />
+          <div className="h-[3px] w-3 rounded-full" style={{ background: `${ORANGE}25` }} />
+        </div>
       </div>
+
+      {/* ── Course cards */}
+      {courses.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-32 text-center">
+          <div
+            className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
+            style={{ backgroundColor: `${ORANGE}15`, border: `1px solid ${ORANGE}30` }}
+          >
+            <FaBookOpen size={28} style={{ color: ORANGE }} />
+          </div>
+          <h3 className="text-xl font-semibold text-gray-300 mb-2">No courses found</h3>
+          <p className="text-sm text-gray-500">Try browsing other categories.</p>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-10">
+          {courses.map((course) => (
+            <CourseSection
+              key={course.id}
+              course={course}
+              onContact={() => navigate(ROUTES.CONTACT)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

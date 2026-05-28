@@ -1,9 +1,6 @@
 import React from "react";
-import Slider from "react-slick";
 import CountUp from "react-countup";
 import { motion } from "framer-motion";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 // Import JSON data
 import OurClientdata from "../../../assets/home/json/OurClientdata.json";
@@ -59,30 +56,7 @@ function OurClient() {
 
   const { clients } = OurClientdata;
 
-  const sliderSettings = {
-    dots: false,
-    infinite: true,
-    speed: 1300,
-    autoplay: true,
-    autoplaySpeed: 0,
-    cssEase: "linear",
-    centerMode: false,
-    variableWidth: false,
-    slidesToShow: 6,
-    slidesToScroll: 1,
-    arrows: false,
-    pauseOnHover: false,
-    swipeToSlide: true,
-    draggable: true,
-    responsive: [
-      { breakpoint: 1536, settings: { slidesToShow: 6, speed: 1100 } },
-      { breakpoint: 1280, settings: { slidesToShow: 5, speed: 900 } },
-      { breakpoint: 1024, settings: { slidesToShow: 4, speed: 600 } },
-      { breakpoint: 768, settings: { slidesToShow: 3, speed: 500 } },
-      { breakpoint: 480, settings: { slidesToShow: 2, speed: 400 } },
-      { breakpoint: 360, settings: { slidesToShow: 1, speed: 300 } },
-    ],
-  };
+
 
   const metrics = [
     { label: "Years of Experience", value: 15, suffix: "+" },
@@ -112,21 +86,40 @@ function OurClient() {
 
       {/* Clients Section */}
       <section className="relative z-10 w-full  mx-auto px-3 md:px-10">
-        <h2 className=" text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
-          Our Clients
+        
+        <h2 className="text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
+          Our  <span className="text-orange-500">Clients</span>
         </h2>
+        <h1 className="text-lg text-2x1">Our clients inspire us to deliver quality services, innovative solutions, and lasting relationships.</h1>
+
         <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
-        <div className="relative [mask-image:_linear-gradient(to_right,transparent_0%,white_15%,white_85%,transparent_100%)]">
-          <Slider {...sliderSettings}>
-            {clients.map((client, idx) => (
-              <div key={idx} className="px-2 my-2">
-                <div className="flex items-center justify-center h-20 sm:h-24 p-2">
+        
+        <style>{`
+          @keyframes scrollMarquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: scrollMarquee 35s linear infinite;
+          }
+          .animate-marquee:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+
+        <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0%,white_15%,white_85%,transparent_100%)]">
+          <div className="animate-marquee">
+            {[...clients, ...clients].map((client, idx) => (
+              <div key={idx} className="px-4 sm:px-6 md:px-8 my-2 flex-shrink-0">
+                <div className="flex items-center justify-center h-16 sm:h-24">
                   <img
                     src={imageMap[client.src]}
                     alt={client.name}
                     className="
-                      max-w-[120px] 
-                      max-h-[60px]
+                      max-w-[100px] sm:max-w-[140px] 
+                      max-h-[40px] sm:max-h-[60px]
                       w-auto
                       h-full
                       object-contain 
@@ -134,13 +127,12 @@ function OurClient() {
                       grayscale hover:grayscale-0 
                       transition-all duration-300
                       hover:scale-110 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]
-                      cursor-grab active:cursor-grabbing
                     "
                   />
                 </div>
               </div>
             ))}
-          </Slider>
+          </div>
         </div>
         <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
       </section>

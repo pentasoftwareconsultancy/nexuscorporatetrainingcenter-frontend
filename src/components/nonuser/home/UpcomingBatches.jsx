@@ -80,9 +80,24 @@ const UpcomingBatches = () => {
 
   return (
     <div className="w-full text-white font-sans py-6 px-4 sm:px-6 md:px-10">
-      <h1 className="text-3xl md:text-4xl font-semibold mb-8 tracking-wide">
-        Upcoming Batches
-      </h1>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+        <h1 className="text-3xl md:text-4xl font-semibold tracking-wide">
+          Upcoming Batches
+        </h1>
+
+        {/* Search Input */}
+        <div className="relative w-full sm:max-w-sm">
+          <FaMagnifyingGlass className="absolute left-4 top-3.5 text-gray-400 text-lg" />
+          <input
+            type="text"
+            placeholder="Search course"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-12 pr-4 py-2.5 sm:py-3 sm:text-[15px] bg-transparent border border-gray-700 text-white rounded-full 
+            focus:outline-none focus:border-gray-400 placeholder-gray-500 text-[15px]"
+          />
+        </div>
+      </div>
 
       {/* Desktop labels */}
       <div className="hidden md:grid grid-cols-5 text-gray-300 text-lg border border-gray-700 rounded-lg px-6 py-4 mb-8">
@@ -91,19 +106,6 @@ const UpcomingBatches = () => {
         <span className="text-center">Start date</span>
         <span className="text-center">End date</span>
         <span className="text-center">Contact</span>
-      </div>
-
-      {/* Search Input */}
-      <div className="relative mb-8 w-full sm:max-w-sm">
-        <FaMagnifyingGlass className="absolute left-4 top-3.5 text-gray-400 text-lg" />
-        <input
-          type="text"
-          placeholder="Search course"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-12 pr-4 py-2.5 sm:py-3 sm:text-[15px] bg-transparent border border-gray-700 text-white rounded-full 
-          focus:outline-none focus:border-gray-400 placeholder-gray-500 text-[15px]"
-        />
       </div>
 
       {/* Batch List */}
@@ -125,11 +127,11 @@ const UpcomingBatches = () => {
             <div className="flex items-center gap-3 sm:gap-4 md:w-1/5">
               <div className="bg-[#2c2c2c] p-2 rounded-full flex items-center justify-center">
                 {(() => {
-                  const Icon = getIconBySubject(b.name);
+                  const Icon = getIconBySubject(b.course?.title || b.name);
                   return Icon ? <Icon size={26} /> : null;
                 })()}
               </div>
-              <span className="text-sm sm:text-[15px] font-medium">{b.name}</span>
+              <span className="text-sm sm:text-[15px] font-medium">{b.course?.title || b.name}</span>
             </div>
 
             {/* Duration (months) */}

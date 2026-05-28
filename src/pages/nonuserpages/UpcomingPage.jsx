@@ -73,9 +73,22 @@ const UpcomingPage = () => {
 
   return (
     <div className="w-full text-white font-sans py-2 px-12 md:px-10">
-      <h1 className="text-3xl md:text-4xl font-semibold mb-8 tracking-wide">
-        Upcoming Batches
-      </h1>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+        <h1 className="text-3xl md:text-4xl font-semibold tracking-wide">
+          Upcoming Batches
+        </h1>
+
+        <div className="relative w-full max-w-sm">
+          <FaMagnifyingGlass className="absolute left-4 top-3.5 text-gray-400 text-lg" />
+          <input
+            type="text"
+            placeholder="Search course"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-12 pr-4 py-2.5 bg-transparent border border-gray-700 text-white rounded-full focus:outline-none focus:border-gray-400 placeholder-gray-500 text-[15px]"
+          />
+        </div>
+      </div>
 
       <div className="hidden md:grid grid-cols-5 text-gray-300 text-lg border border-gray-700 rounded-lg px-6 py-4 mb-8">
         <span>Course name</span>
@@ -83,17 +96,6 @@ const UpcomingPage = () => {
         <span className="text-center">Start date</span>
         <span className="text-center">End date</span>
         <span className="text-center">Contact</span>
-      </div>
-
-      <div className="relative mb-10 w-full max-w-sm">
-        <FaMagnifyingGlass className="absolute left-4 top-3.5 text-gray-400 text-lg" />
-        <input
-          type="text"
-          placeholder="Search course"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-12 pr-4 py-2.5 bg-transparent border border-gray-700 text-white rounded-full focus:outline-none focus:border-gray-400 placeholder-gray-500 text-[15px]"
-        />
       </div>
 
       <div className="flex flex-col gap-4">
@@ -106,11 +108,11 @@ const UpcomingPage = () => {
             <div className="flex items-center gap-4 md:w-1/5 mb-3 md:mb-0">
               <div className="bg-[#2c2c2c] p-2 rounded-full flex items-center justify-center">
                 {(() => {
-                  const IconComponent = getIconBySubject(c.name);
+                  const IconComponent = getIconBySubject(c.course?.title || c.name);
                   return IconComponent ? <IconComponent size={26} /> : null;
                 })()}
               </div>
-              <span className="text-sm sm:text-[15px] font-medium">{c.name}</span>
+              <span className="text-sm sm:text-[15px] font-medium">{c.course?.title || c.name}</span>
             </div>
 
             {/* Duration */}
