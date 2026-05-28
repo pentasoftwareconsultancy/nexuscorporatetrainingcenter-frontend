@@ -35,7 +35,7 @@ export default function GalleryInfoPage() {
   const [city, setCity] = useState(passedCity || null);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   useEffect(() => {
     if (!collegeId) return;
@@ -128,7 +128,7 @@ export default function GalleryInfoPage() {
               hover:shadow-[0_0_40px_rgba(255,165,0,0.8)]
               transition-all duration-500 cursor-pointer"
             style={{ width: "300px", height: "350px" }}
-            onClick={() => setSelectedImage(img.url)}
+            onClick={() => setSelectedIndex(index)}
           >
             <img
               src={img.url}
@@ -148,31 +148,55 @@ export default function GalleryInfoPage() {
       </div>
 
       {/* LIGHTBOX MODAL */}
-      {selectedImage && (
+      {selectedIndex !== null && images[selectedIndex] && (
         <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 animate-in fade-in duration-300"
-          onClick={() => setSelectedImage(null)}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 animate-in fade-in duration-300"
+          onClick={() => setSelectedIndex(null)}
         >
           <button 
-            className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"
+            className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white z-50"
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedImage(null);
+              setSelectedIndex(null);
             }}
           >
             <X size={32} />
           </button>
           
+          {images.length > 1 && (
+            <button 
+              className="absolute left-4 sm:left-10 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white z-50"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+              }}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            </button>
+          )}
+
           <div 
-            className="relative max-w-7xl max-h-[90vh] flex items-center justify-center"
+            className="relative max-w-7xl w-full max-h-[90vh] flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <img 
-              src={selectedImage} 
+              src={images[selectedIndex].url} 
               alt="Full view" 
               className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-white/10"
             />
           </div>
+
+          {images.length > 1 && (
+            <button 
+              className="absolute right-4 sm:right-10 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white z-50"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+              }}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+          )}
         </div>
       )}
     </div>

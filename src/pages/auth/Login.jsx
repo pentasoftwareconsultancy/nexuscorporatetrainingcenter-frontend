@@ -83,52 +83,45 @@ const Login = () => {
     }
   };
 
-  return (
-    <>
-      <div className="min-h-screen flex items-center justify-center bg-black px-4">
-        <div
-          className="w-full max-w-md p-8 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md relative overflow-hidden " >
-          {/* Background Image Inside Card */}
-          <div
-            className="absolute inset-0 opacity-20 bg-cover bg-center"
-            style={{ backgroundImage: `{login}`, }} ></div>
+ return (
+  <>
+    <div
+      className="min-h-screen flex items-center justify-center px-4 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${login})` }}
+    >
+      <div
+        className="w-full max-w-md p-8 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md relative overflow-hidden"
+      >
+        {/* Card Content */}
+        <div className="relative z-10">
+          <h1 className="text-4xl font-bold text-white mb-6">
+            Login
+          </h1>
 
-          {/* Card Content */}
-          <div className="relative z-10">
-            <h1 className="text-4xl font-bold text-white mb-6">   Login  </h1>
+          <LoginForm
+            email={email}
+            password={password}
+            setEmail={setEmail}
+            setPassword={setPassword}
+            onSubmit={handleSubmit}
+            onForgot={() => setShowForgot(true)}
+          />
 
-            <LoginForm
-              email={email}
-              password={password}
-              setEmail={setEmail}
-              setPassword={setPassword}
-              onSubmit={handleSubmit}
-              onForgot={() => setShowForgot(true)}
-            />
+          <div className="text-center mt-5 text-gray-300">
+            Don't have account?
 
-            <div className="text-center mt-5 text-gray-300">
-              Don't have account?
-
-              <span
-                onClick={() => navigate(ROUTES.SIGNUP)}
-                className="text-orange-400 ml-2 cursor-pointer"
-              >
-                Sign Up
-              </span>
-            </div>
+            <span
+              onClick={() => navigate(ROUTES.SIGNUP)}
+              className="text-orange-400 ml-2 cursor-pointer"
+            >
+              Sign Up
+            </span>
           </div>
         </div>
       </div>
-
-      {/* FORGOT PASSWORD MODAL */}
-
-      {showForgot && (
-        <ForgotPasswordModal
-          onClose={() => setShowForgot(false)}
-        />
-      )}
-    </>
-  );
+    </div>
+  </>
+);
 };
 
 export default Login;

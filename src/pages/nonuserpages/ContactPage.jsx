@@ -164,7 +164,7 @@ export default function ContactPage() {
             </div>
             <Button
               type="submit"
-              text={loading ? "Sending..." : "Send Message →"}
+              text={loading ? "Sending..." : "Send Message "}
               disabled={loading}
               className="w-full py-3.5 rounded-xl text-sm gap-2 font-semibold justify-center disabled:opacity-60 disabled:cursor-not-allowed"
             />

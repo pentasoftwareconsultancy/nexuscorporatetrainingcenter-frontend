@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { X, Calendar, MapPin, Image as ImageIcon } from "lucide-react";
+import { X, Calendar, MapPin, Image as ImageIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import CoursesCard from "../../common/StoryCard";
 import ApiService from "../../../core/services/api.service";
 import ServerUrl from "../../../core/constants/serverURL.constant";
@@ -25,11 +25,10 @@ export default function EventStory() {
   const api = new ApiService();
 
   const [eventStories, setEventStories] = useState([]);
-  const [selectedEventImages, setSelectedEventImages] = useState(null);
-  const [fullScreenImage, setFullScreenImage] = useState(null);
+  const [lightboxImages, setLightboxImages] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
   
   const dummyStories = [
     {
@@ -109,12 +108,26 @@ export default function EventStory() {
   }, [safeStories]);
 
   useEffect(() => {
-    if (displayStories.length === 0 || isHovered) return;
+    if (displayStories.length === 0) return;
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % displayStories.length);
     }, 2000);
     return () => clearInterval(interval);
-  }, [displayStories.length, isHovered]);
+  }, [displayStories.length]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Don't trigger if lightbox is open (lightbox has its own state)
+      if (lightboxImages) return;
+      if (e.key === "ArrowLeft") {
+        setActiveIndex((prev) => (prev === 0 ? displayStories.length - 1 : prev - 1));
+      } else if (e.key === "ArrowRight") {
+        setActiveIndex((prev) => (prev + 1) % displayStories.length);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [displayStories.length, lightboxImages]);
 
   return (
     <div className="relative w-full text-white py-16 px-6 sm:px-12 border-t border-zinc-900 bg-black/10 overflow-hidden">
@@ -136,11 +149,8 @@ export default function EventStory() {
         <div className="carousel-spotlight"></div>
         
         {/* Carousel Perspective Area */}
-        <div 
-          className="perspective-container z-10 my-4"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
+        <div className="perspective-container z-10 my-4 relative w-full flex justify-center">
+
           {displayStories.map((event, i) => {
             const imageCount = event.allImages?.length || 0;
             
@@ -168,7 +178,8 @@ export default function EventStory() {
                 key={`${event.id || event._id || i}-${i}`}
                 onClick={() => {
                   if (isActive) {
-                    setSelectedEventImages(event.allImages || fallbackImages);
+                    setLightboxImages(event.allImages || fallbackImages);
+                    setSelectedIndex(0);
                   } else {
                     setActiveIndex(i);
                   }
@@ -229,67 +240,56 @@ export default function EventStory() {
         </div>
       </div>
 
-      {/* MODAL / LIGHTBOX FOR EVENT PHOTOS */}
-      {selectedEventImages && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 sm:p-8">
-          <div className="relative w-full max-w-6xl h-full max-h-[90vh] flex flex-col bg-gray-900 rounded-2xl overflow-hidden border border-gray-700">
-            {/* Header */}
-            <div className="flex justify-between items-center p-4 border-b border-gray-800">
-              <h3 className="text-xl font-bold">Event Photos</h3>
-              <button 
-                onClick={() => setSelectedEventImages(null)}
-                className="p-2 hover:bg-gray-800 text-gray-300 hover:text-white rounded-full transition-colors"
-              >
-                <X size={24} />
-              </button>
-            </div>
-            {/* Grid */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-                {selectedEventImages.map((img, idx) => (
-                  <div 
-                    key={idx} 
-                    className="relative aspect-square rounded-xl overflow-hidden group border border-gray-700 shadow-lg cursor-pointer"
-                    onClick={() => setFullScreenImage(img.url || img)}
-                  >
-                    <img 
-                      src={img.url || img} 
-                      alt={`Event photo ${idx + 1}`} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* FULL SCREEN LIGHTBOX FOR INDIVIDUAL PHOTO */}
-      {fullScreenImage && (
+      {/* FULL SCREEN CAROUSEL LIGHTBOX */}
+      {lightboxImages && lightboxImages.length > 0 && (
         <div 
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 animate-in fade-in duration-300"
-          onClick={() => setFullScreenImage(null)}
+          onClick={() => setLightboxImages(null)}
         >
           <button 
-            className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"
+            className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white z-50"
             onClick={(e) => {
               e.stopPropagation();
-              setFullScreenImage(null);
+              setLightboxImages(null);
             }}
           >
             <X size={32} />
           </button>
           
+          {lightboxImages.length > 1 && (
+            <button 
+              className="absolute left-4 sm:left-10 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white z-50"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedIndex((prev) => (prev === 0 ? lightboxImages.length - 1 : prev - 1));
+              }}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            </button>
+          )}
+
           <div 
-            className="relative max-w-7xl max-h-[90vh] flex items-center justify-center"
+            className="relative max-w-7xl w-full max-h-[90vh] flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <img 
-              src={fullScreenImage} 
-              alt="Full view" 
+              src={lightboxImages[selectedIndex].url || lightboxImages[selectedIndex]} 
+              alt="Event full view" 
               className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-white/10"
             />
           </div>
+
+          {lightboxImages.length > 1 && (
+            <button 
+              className="absolute right-4 sm:right-10 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white z-50"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedIndex((prev) => (prev === lightboxImages.length - 1 ? 0 : prev + 1));
+              }}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+          )}
         </div>
       )}
     </div>
