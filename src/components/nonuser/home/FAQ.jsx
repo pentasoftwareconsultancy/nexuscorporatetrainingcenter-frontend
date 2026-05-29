@@ -40,7 +40,7 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="w-full min-h-screen bg-black px-6 md:px-14 py-16 text-white">
+    <section className="w-full min-h-screen bg-black px-3 md:px-12 py-16 text-white">
       
       {/* Heading */}
       <h1 className="text-5xl md:text-5xl font-semibold mb-12 tracking-tight font-clash  ">

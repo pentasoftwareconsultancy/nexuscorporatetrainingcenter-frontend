@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import { ROUTES } from "../../core/constants/routes.constant";
-import zeal1 from "../../assets/gallary/zeal1.jpeg";
+import zeal1 from "../../assets/gallary/zeal1.avif";
 
 const TrainingCentreEventPage = () => {
   const [events, setEvents] = useState([]);

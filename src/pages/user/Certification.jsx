@@ -1,6 +1,6 @@
 import React from "react";
 import jsPDF from "jspdf";
-import img from "../../assets/certification/Certificate.jpeg";
+import img from "../../assets/certification/Certificate.avif";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import { toast } from "react-toastify";

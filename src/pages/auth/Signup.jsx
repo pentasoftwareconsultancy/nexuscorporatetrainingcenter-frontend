@@ -9,7 +9,7 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import login from "../../assets/home/login.jpg";
+import login from "../../assets/home/login.avif";
 
 const Signup = () => {
 

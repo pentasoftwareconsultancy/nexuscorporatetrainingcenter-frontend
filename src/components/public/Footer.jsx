@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../core/constants/routes.constant";
 import { FaLinkedin, FaFacebook, FaPhoneAlt } from "react-icons/fa";
-import footerImg from "../../assets/footer/footer.png";
+import footerImg from "../../assets/footer/footer.avif";
 import { IoIosMail } from "react-icons/io";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaYoutube, FaLocationDot } from "react-icons/fa6";

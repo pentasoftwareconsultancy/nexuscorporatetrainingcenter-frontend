@@ -25,7 +25,7 @@ import {
   HeartHandshake,
   Wrench
 } from "lucide-react";
-import MissionImg from "../../../assets/about/OurMission.png";
+import MissionImg from "../../../assets/about/OurMission.avif";
 
 // A highly detailed, premium interactive mobile phone UI mockup representing the Nexus Vision tilted in 3D space
 const MobileVisionMockup = () => {
@@ -671,7 +671,7 @@ const VMVSection = () => {
 
         {/* Main Holographic SVG Ripple Overlay - centered absolutely on the background image's sphere */}
         <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden flex items-center justify-center">
-          <div className="absolute top-[24%] left-[28.8%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]">
+          <div className="absolute top-[25%] left-[31%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]">
             <svg className="w-full h-full overflow-visible" viewBox="0 0 800 800">
               {/* Concentric Rippling Circles from Emitter */}
               {[0, 1, 2, 3].map((i) => (

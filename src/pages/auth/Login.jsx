@@ -6,7 +6,7 @@ import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import Button from "../../components/common/Button";
 import { ROUTES } from "../../core/constants/routes.constant";
-import login from "../../assets/home/login.jpg";
+import login from "../../assets/home/login.avif";
 
 // ================= INPUT FIELD =================
 const InputField = ({
