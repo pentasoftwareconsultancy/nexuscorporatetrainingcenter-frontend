@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { X, Play, Image as ImageIcon, Film, MapPin, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import ApiService from "../../../core/services/api.service";
 import ServerUrl from "../../../core/constants/serverURL.constant";
-import zeal1 from "../../../assets/gallary/zeal1.jpeg";
+import zeal1 from "../../../assets/gallary/zeal1.avif";
 
 export default function TrainingCentreEventsSection() {
   const api = new ApiService();

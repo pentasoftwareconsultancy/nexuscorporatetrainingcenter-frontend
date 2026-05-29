@@ -1,6 +1,6 @@
 import React from "react";
 import { RiNotification4Fill } from "react-icons/ri";
-import profile from "../../assets/adminProfile/profile.png";
+import profile from "../../assets/adminProfile/profile.avif";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../core/constants/routes.constant";
 

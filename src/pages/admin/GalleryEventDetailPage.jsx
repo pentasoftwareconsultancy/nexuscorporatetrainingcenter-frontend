@@ -7,20 +7,20 @@ import { ROUTES } from "../../core/constants/routes.constant";
 import toast from "react-hot-toast";
 import { useSingleClick } from "../../core";
 
-import zeal1 from "../../assets/gallary/zeal1.jpeg";
-import zeal2 from "../../assets/gallary/zeal2.jpeg";
-import zeal3 from "../../assets/gallary/zeal3.jpeg";
-import zeal4 from "../../assets/gallary/zeal4.jpeg";
-import zeal5 from "../../assets/gallary/zeal5.jpeg";
-import zeal6 from "../../assets/gallary/zeal6.jpeg";
-import zeal7 from "../../assets/gallary/zeal7.jpeg";
-import govtpoly1 from "../../assets/gallary/govtpoly1.jpeg";
-import govtpoly2 from "../../assets/gallary/govtpoly2.jpeg";
-import govtpoly3 from "../../assets/gallary/govtpoly3.jpeg";
-import akola1 from "../../assets/gallary/akolaclg/Screenshot (81) 5.png";
-import akola2 from "../../assets/gallary/akolaclg/Screenshot (81) 8.png";
-import akola3 from "../../assets/gallary/akolaclg/Screenshot (81) 10.png";
-import akola4 from "../../assets/gallary/akolaclg/Screenshot (81) 11.png";
+import zeal1 from "../../assets/gallary/zeal1.avif";
+import zeal2 from "../../assets/gallary/zeal2.avif";
+import zeal3 from "../../assets/gallary/zeal3.avif";
+import zeal4 from "../../assets/gallary/zeal4.avif";
+import zeal5 from "../../assets/gallary/zeal5.avif";
+import zeal6 from "../../assets/gallary/zeal6.avif";
+import zeal7 from "../../assets/gallary/zeal7.avif";
+import govtpoly1 from "../../assets/gallary/govtpoly1.avif";
+import govtpoly2 from "../../assets/gallary/govtpoly2.avif";
+import govtpoly3 from "../../assets/gallary/govtpoly3.avif";
+import akola1 from "../../assets/gallary/akolaclg/Screenshot (81) 5.avif";
+import akola2 from "../../assets/gallary/akolaclg/Screenshot (81) 8.avif";
+import akola3 from "../../assets/gallary/akolaclg/Screenshot (81) 10.avif";
+import akola4 from "../../assets/gallary/akolaclg/Screenshot (81) 11.avif";
 
 const Input = ({ label, ...props }) => (
   <div className="flex flex-col">
