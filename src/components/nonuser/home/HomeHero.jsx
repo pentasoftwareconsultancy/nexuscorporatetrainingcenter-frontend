@@ -2,7 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../core/constants/routes.constant";
 import Button from "../../common/Button";
-import nexusAnimation from "../../../assets/home/nexus animation.webm";
+import nexusAnimationWebm from "../../../assets/home/nexus animation.webm";
+import nexusAnimationMp4 from "../../../assets/home/nexus animation.mp4";
 
 export default function HomeHero() {
   const navigate = useNavigate();
@@ -14,13 +15,15 @@ export default function HomeHero() {
         {/* 🌟 BACKGROUND VIDEO */}
         <div className="absolute inset-y-0 right-0 w-full md:w-[65%] flex items-center justify-center overflow-hidden z-0 select-none pointer-events-none">
           <video
-            src={nexusAnimation}
             autoPlay
             loop
             muted
             playsInline
             className="w-full h-full object-contain"
-          />
+          >
+            <source src={nexusAnimationWebm} type="video/webm" />
+            <source src={nexusAnimationMp4} type="video/mp4" />
+          </video>
         </div>
 
         {/* 🌟 VIGNETTE SHADOWS & SEAMLESS GRADIENTS (Soft readability overlay) */}
@@ -65,13 +68,15 @@ export default function HomeHero() {
         {/* 2. Video in the middle */}
         <div className="relative w-full aspect-video">
           <video
-            src={nexusAnimation}
             autoPlay
             loop
             muted
             playsInline
             className="w-full h-full object-contain"
-          />
+          >
+            <source src={nexusAnimationWebm} type="video/webm" />
+            <source src={nexusAnimationMp4} type="video/mp4" />
+          </video>
         </div>
 
         {/* 3. Description and button below */}
