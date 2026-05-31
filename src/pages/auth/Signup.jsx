@@ -57,8 +57,10 @@ const Signup = () => {
       return;
     }
 
-    if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long");
+    const hasCapital = /[A-Z]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    if (password.length < 6 || !hasCapital || !hasSpecial) {
+      toast.error("Password must be at least 6 characters, contain 1 capital letter, and 1 special character");
       return;
     }
 
@@ -179,6 +181,11 @@ const Signup = () => {
                   transition-all
                 "
               />
+              {formData.fullName && (formData.fullName.trim().length < 2 || !/^[a-zA-Z\s]+$/.test(formData.fullName)) && (
+                <p className="text-xs text-orange-400 mt-1 pl-1">
+                  Full Name must contain at least 2 characters and only letters/spaces
+                </p>
+              )}
             </div>
 
             {/* PHONE */}
@@ -285,6 +292,11 @@ const Signup = () => {
                   transition-all
                 "
               />
+              {formData.password && (formData.password.length < 6 || !/[A-Z]/.test(formData.password) || !/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) && (
+                <p className="text-xs text-orange-400 mt-1 pl-1">
+                  Password must be at least 6 characters and contain 1 capital letter and 1 special character
+                </p>
+              )}
             </div>
 
             {/* CONFIRM PASSWORD */}
@@ -320,6 +332,11 @@ const Signup = () => {
                   transition-all
                 "
               />
+              {formData.confirmPassword && formData.confirmPassword !== formData.password && (
+                <p className="text-xs text-orange-400 mt-1 pl-1">
+                  Passwords do not match
+                </p>
+              )}
             </div>
 
             {/* SIGNUP BUTTON */}
