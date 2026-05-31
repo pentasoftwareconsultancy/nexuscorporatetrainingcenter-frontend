@@ -36,6 +36,34 @@ const Signup = () => {
       return;
     }
 
+    // Full name validation: only letters and spaces, at least 2 characters
+    const nameRegex = /^[a-zA-Z\s]{2,}$/;
+    if (!nameRegex.test(fullName.trim())) {
+      toast.error("Full Name must contain at least 2 characters and only letters/spaces");
+      return;
+    }
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    // 10-digit phone number validation
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone)) {
+      toast.error("Phone number must be exactly 10 digits");
+      return;
+    }
+
+    const hasCapital = /[A-Z]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    if (password.length < 6 || !hasCapital || !hasSpecial) {
+      toast.error("Password must be at least 6 characters, contain 1 capital letter, and 1 special character");
+      return;
+    }
+
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
       return;
@@ -153,6 +181,11 @@ const Signup = () => {
                   transition-all
                 "
               />
+              {formData.fullName && (formData.fullName.trim().length < 2 || !/^[a-zA-Z\s]+$/.test(formData.fullName)) && (
+                <p className="text-xs text-orange-400 mt-1 pl-1">
+                  Full Name must contain at least 2 characters and only letters/spaces
+                </p>
+              )}
             </div>
 
             {/* PHONE */}
@@ -162,12 +195,13 @@ const Signup = () => {
 
               <input
                 type="text"
+                maxLength={10}
                 placeholder="Phone Number"
                 value={formData.phone}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    phone: e.target.value,
+                    phone: e.target.value.replace(/\D/g, ""),
                   })
                 }
                 className="
@@ -258,6 +292,11 @@ const Signup = () => {
                   transition-all
                 "
               />
+              {formData.password && (formData.password.length < 6 || !/[A-Z]/.test(formData.password) || !/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) && (
+                <p className="text-xs text-orange-400 mt-1 pl-1">
+                  Password must be at least 6 characters and contain 1 capital letter and 1 special character
+                </p>
+              )}
             </div>
 
             {/* CONFIRM PASSWORD */}
@@ -293,6 +332,11 @@ const Signup = () => {
                   transition-all
                 "
               />
+              {formData.confirmPassword && formData.confirmPassword !== formData.password && (
+                <p className="text-xs text-orange-400 mt-1 pl-1">
+                  Passwords do not match
+                </p>
+              )}
             </div>
 
             {/* SIGNUP BUTTON */}
