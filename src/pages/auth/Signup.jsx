@@ -36,6 +36,13 @@ const Signup = () => {
       return;
     }
 
+    // Full name validation: only letters and spaces, at least 2 characters
+    const nameRegex = /^[a-zA-Z\s]{2,}$/;
+    if (!nameRegex.test(fullName.trim())) {
+      toast.error("Full Name must contain at least 2 characters and only letters/spaces");
+      return;
+    }
+
     // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -176,12 +183,13 @@ const Signup = () => {
 
               <input
                 type="text"
+                maxLength={10}
                 placeholder="Phone Number"
                 value={formData.phone}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    phone: e.target.value,
+                    phone: e.target.value.replace(/\D/g, ""),
                   })
                 }
                 className="
