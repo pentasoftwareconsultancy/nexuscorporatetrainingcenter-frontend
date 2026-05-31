@@ -8,6 +8,9 @@ import {
 } from "react-icons/fi";
 
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import ApiService from "../../core/services/api.service";
+import ServerUrl from "../../core/constants/serverURL.constant";
 
 import login from "../../assets/home/login.avif";
 
@@ -23,9 +26,39 @@ const Signup = () => {
     confirmPassword: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    const { fullName, phone, email, password, confirmPassword } = formData;
+
+    if (!fullName || !phone || !email || !password || !confirmPassword) {
+      toast.error("All fields are required");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    // Auto role detection matching codebase defaults
+    const role = email.endsWith("@devconsoftware.com") ? "admin" : "user";
+
+    try {
+      await new ApiService().apipost(ServerUrl.API_REGISTER, {
+        userName: fullName,
+        phoneNumber: phone,
+        emailOrPhone: email,
+        password,
+        confirmPassword,
+        role,
+      });
+
+      toast.success("Registration successful! Please login.");
+      navigate("/login");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Registration failed");
+    }
   };
 
   return (
@@ -264,6 +297,7 @@ const Signup = () => {
 
             {/* SIGNUP BUTTON */}
             <motion.button
+              initial={{ boxShadow: "0px 0px 0px rgba(255,115,0,0.0)" }}
               whileHover={{
                 scale: 1.02,
                 boxShadow: "0px 0px 25px rgba(255,115,0,0.4)",
