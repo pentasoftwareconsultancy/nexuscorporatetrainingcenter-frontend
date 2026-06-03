@@ -47,10 +47,10 @@ const PartnerSection = () => {
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.15, duration: 0.6, type: "spring", stiffness: 100 }}
-                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px 15px rgba(255,100,0,0.5)" }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px 15px rgba(18,84,250,0.5)" }}
                   className={`flex items-center justify-between bg-[#383838] rounded-full px-6 py-4 
                     shadow-md border border-white transition-all duration-500 ease-in-out 
-                    hover:shadow-[0_0_30px_15px_rgba(255,100,0,0.5)] hover:scale-105 
+                    hover:shadow-[0_0_30px_15px_rgba(18,84,250,0.5)] hover:scale-105 
                     ${item.translate} group relative`}
                 >
                   <div>
@@ -68,20 +68,20 @@ const PartnerSection = () => {
           {/* CENTER CIRCLE */}
           <motion.div
             className="flex justify-center items-center w-[200px] h-[200px] md:w-60 md:h-60 rounded-full 
-                      bg-[radial-gradient(circle,rgba(194,65,12,0.35)_5%,rgba(154,52,18,0.12)_60%)] 
-                      border-dashed border-2 border-gray-500 shadow-[0_0_20px_rgba(194,65,12,0.4)]"
+                      bg-[radial-gradient(circle,rgba(18,84,250,0.30)_5%,rgba(18,84,250,0.1)_60%)] 
+                      border-dashed border-2 border-gray-500 shadow-[0_0_40px_rgba(18,84,250,0.4)]"
             animate={{
               scale: [1, 1.05, 1],
               boxShadow: [
-                "0 0 20px rgba(194,65,12,0.4)",
-                "0 0 40px rgba(194,65,12,0.6)",
-                "0 0 20px rgba(194,65,12,0.4)"
+                "0 0 20px rgba(18,84,250,0.3)",
+                "0 0 40px rgba(18,84,250,0.5)",
+                "0 0 20px rgba(18,84,250,0.3)"
               ],
             }}
             transition={{ repeat: Infinity, duration: 2 }}
           >
             <h2 className="text-lg md:text-xl font-semibold text-center leading-tight">
-              Why Choose <br /> <span className="text-orange-500">Nexus?</span>
+              Why Partner <br /> with Nexus?
             </h2>
           </motion.div>
 
@@ -94,7 +94,7 @@ const PartnerSection = () => {
                   key={item.id}
                   className={`flex items-center justify-start gap-5 bg-[#383838] rounded-full px-6 py-4 
                     shadow-md border border-white transition-all duration-500 ease-in-out
-                    hover:scale-105 hover:shadow-[0_0_30px_15px_rgba(255,100,0,0.5)]
+                    hover:scale-105 hover:shadow-[0_0_30px_15px_rgba(18,84,250,0.5)]
                     ${item.translate} group relative`}
                 >
                   <div className="bg-[#101010] w-14 h-14 rounded-full flex justify-center items-center shrink-0">
