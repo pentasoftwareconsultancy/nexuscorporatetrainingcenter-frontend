@@ -616,15 +616,15 @@ const VMVSection = () => {
         {/* Soft Background Blue Blob using smooth radial gradient */}
         <div className="absolute -top-24 -right-24 w-[350px] h-[350px] bg-[radial-gradient(circle,rgba(18,84,250,0.12)_0%,transparent_70%)] pointer-events-none"></div>
 
-        {/* Vision Mobile UI Mockup Wrapper — scales the phone down on small screens */}
-        <div className="w-full md:w-[40%] flex justify-center items-center overflow-visible py-8 md:py-10">
+        {/* Vision Mobile UI Mockup Wrapper with Responsive Scaling to prevent mobile layout overflow */}
+        <div className="w-full md:w-[40%] h-[530px] sm:h-[620px] md:h-auto flex justify-center items-start overflow-visible py-5 md:py-10 scale-75 sm:scale-90 md:scale-100 origin-top">
           <motion.div
-            initial={{ opacity: 0, x: 0, rotateY: -70, rotateX: 5, rotate: 0, scale: 0.5 }}
+            initial={{ opacity: 0, x: 0, rotateY: -70, rotateX: 5, rotate: 0, scale: 0.7 }}
             whileInView={{ opacity: 1, x: 0, rotateY: -22, rotateX: 18, rotate: 14, scale: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 35, damping: 14 }}
             style={{ transformStyle: "preserve-3d" }}
-            className="perspective-1000 overflow-visible scale-[0.58] sm:scale-[0.80] md:scale-100 origin-center"
+            className="perspective-1000 overflow-visible"
           >
             <div className="w-[310px] h-[670px] overflow-visible" style={{ transformStyle: "preserve-3d" }}>
               <MobileVisionMockup />
@@ -636,7 +636,7 @@ const VMVSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 50, damping: 16 }}
           className="w-full md:w-[60%] flex flex-col gap-4"
         >
