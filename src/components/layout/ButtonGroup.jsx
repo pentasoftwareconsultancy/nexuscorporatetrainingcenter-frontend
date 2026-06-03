@@ -21,6 +21,12 @@ const ButtonGroup = () => {
     btn.appendChild(circle);
   };
 
+  const handleMessageClick = (event) => {
+    event.preventDefault();
+    createRipple(event);
+    window.dispatchEvent(new CustomEvent("toggle-ai-assistant"));
+  };
+
   return (
     <div
       className="
@@ -105,13 +111,16 @@ const ButtonGroup = () => {
       </div>
 
       {/* Message */}
-      <div className="icon-wrapper" onClick={createRipple}>
-        <a href="#" className="cursor-pointer hover:scale-110 transition">
+      <div className="icon-wrapper" onClick={handleMessageClick}>
+        <button 
+          className="cursor-pointer hover:scale-110 transition bg-transparent border-none outline-none p-0 flex items-center justify-center focus:outline-none"
+          title="Chat with AI Assistant"
+        >
           <FaMessage
             size={26}
             className="text-[#0057FF] pulse-icon sm:size-[30px] md:size-[34px]"
           />
-        </a>
+        </button>
       </div>
     </div>
   );

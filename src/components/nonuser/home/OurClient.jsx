@@ -7,51 +7,51 @@ import OurClientdata from "../../../assets/home/json/OurClientdata.json";
 import CircleBackground from "../../common/CircleBackground";
 
 // Import images dynamically
-import client1 from "../../../assets/home/client1.png";
-import client2 from "../../../assets/home/client2.png";
-import client3 from "../../../assets/home/client3.png";
-import client4 from "../../../assets/home/client4.png";
-import client5 from "../../../assets/home/client5.png";
-import client6 from "../../../assets/home/client6.png";
-import client7 from "../../../assets/home/client7.png";
-import client8 from "../../../assets/home/client8.png";
-import client9 from "../../../assets/home/client9.png";
-import client10 from "../../../assets/home/client10.png";
-import client11 from "../../../assets/home/client11.png";
-import client12 from "../../../assets/home/client12.png";
-import client13 from "../../../assets/home/client13.png";
-import client14 from "../../../assets/home/client14.png";
-import client15 from "../../../assets/home/client15.png";
-import client16 from "../../../assets/home/client16.png";
-import client17 from "../../../assets/home/client17.png";
-import client18 from "../../../assets/home/client18.png";
-import client19 from "../../../assets/home/client19.png";
-import client20 from "../../../assets/home/client20.png";
-import client21 from "../../../assets/home/client21.png";
+import client1 from "../../../assets/home/client1.avif";
+import client2 from "../../../assets/home/client2.avif";
+import client3 from "../../../assets/home/client3.avif";
+import client4 from "../../../assets/home/client4.avif";
+import client5 from "../../../assets/home/client5.avif";
+import client6 from "../../../assets/home/client6.avif";
+import client7 from "../../../assets/home/client7.avif";
+import client8 from "../../../assets/home/client8.avif";
+import client9 from "../../../assets/home/client9.avif";
+import client10 from "../../../assets/home/client10.avif";
+import client11 from "../../../assets/home/client11.avif";
+import client12 from "../../../assets/home/client12.avif";
+import client13 from "../../../assets/home/client13.avif";
+import client14 from "../../../assets/home/client14.avif";
+import client15 from "../../../assets/home/client15.avif";
+import client16 from "../../../assets/home/client16.avif";
+import client17 from "../../../assets/home/client17.avif";
+import client18 from "../../../assets/home/client18.avif";
+import client19 from "../../../assets/home/client19.avif";
+import client20 from "../../../assets/home/client20.avif";
+import client21 from "../../../assets/home/client21.avif";
 
 function OurClient() {
   const imageMap = {
-    "client1.png": client1,
-    "client2.png": client2,
-    "client3.png": client3,
-    "client4.png": client4,
-    "client5.png": client5,
-    "client6.png": client6,
-    "client7.png": client7,
-    "client8.png": client8,
-    "client9.png": client9,
-    "client10.png": client10,
-    "client11.png": client11,
-    "client12.png": client12,
-    "client13.png": client13,
-    "client14.png": client14,
-    "client15.png": client15,
-    "client16.png": client16,
-    "client17.png": client17,
-    "client18.png": client18,
-    "client19.png": client19,
-    "client20.png": client20,
-    "client21.png": client21,
+    "client1.avif": client1,
+    "client2.avif": client2,
+    "client3.avif": client3,
+    "client4.avif": client4,
+    "client5.avif": client5,
+    "client6.avif": client6,
+    "client7.avif": client7,
+    "client8.avif": client8,
+    "client9.avif": client9,
+    "client10.avif": client10,
+    "client11.avif": client11,
+    "client12.avif": client12,
+    "client13.avif": client13,
+    "client14.avif": client14,
+    "client15.avif": client15,
+    "client16.avif": client16,
+    "client17.avif": client17,
+    "client18.avif": client18,
+    "client19.avif": client19,
+    "client20.avif": client20,
+    "client21.avif": client21,
   };
 
   const { clients } = OurClientdata;
@@ -61,7 +61,7 @@ function OurClient() {
   const metrics = [
     { label: "Years of Experience", value: 15, suffix: "+" },
     { label: "Students Placed", value: 5, suffix: "K+" },
-    { label: "Companies hire from us", value: 1, suffix: "K+" },
+    { label: "Client Companies", value: 1, suffix: "K+" },
     { label: "Webinars", value: 150, suffix: "+" },
     { label: "Courses", value: 20, suffix: "+" },
     { label: "Faculty", value: 100, suffix: "+" },
@@ -85,15 +85,15 @@ function OurClient() {
       </div>
 
       {/* Clients Section */}
-      <section className="relative z-10 w-full  mx-auto px-3 md:px-10">
-        
+      <section className="relative z-10 w-full  mx-auto px-3 md:px-12">
+
         <h2 className="text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
           Our  <span className="text-orange-500">Clients</span>
         </h2>
         <h1 className="text-lg text-2x1">Our clients inspire us to deliver quality services, innovative solutions, and lasting relationships.</h1>
 
         <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
-        
+
         <style>{`
           @keyframes scrollMarquee {
             0% { transform: translateX(0%); }
@@ -155,7 +155,7 @@ function OurClient() {
             </h2>
             <p
               className="text-base sm:text-lg text-gray-300 leading-normal 
-                max-w-full lg:max-w-md text-justify"
+                max-w-full lg:max-w-md "
             >
               Our impact is measured not just in satisfied clients, but in
               tangible results. We are dedicated to creating measurable
@@ -184,18 +184,22 @@ function OurClient() {
                     borderColor: "rgba(255, 106, 0, 0.35)",
                     boxShadow: "0 15px 35px -10px rgba(255, 106, 0, 0.15)"
                   }}
-                  className="flex flex-col items-center justify-center text-center bg-white/[0.02] backdrop-blur-md border border-white/[0.05] rounded-2xl p-5 select-none cursor-default"
+                  className="flex flex-col items-center text-center bg-white/[0.02] backdrop-blur-md border border-white/[0.05] rounded-2xl p-5 select-none cursor-default min-h-[110px]"
                 >
-                  <span className="block font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mb-1 text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gray-400">
-                    <CountUp
-                      end={item.value}
-                      duration={2}
-                      suffix={item.suffix}
-                      enableScrollSpy={true}
-                      scrollSpyOnce={false}
-                    />
-                  </span>
-                  <span className="block text-xs sm:text-sm font-medium text-gray-300 tracking-tight leading-snug">
+                  {/* Flex-1 spacer pushes number to vertical center regardless of label length */}
+                  <div className="flex-1 flex items-center justify-center w-full">
+                    <span className="font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gray-400 leading-none">
+                      <CountUp
+                        end={item.value}
+                        duration={2}
+                        suffix={item.suffix}
+                        enableScrollSpy={true}
+                        scrollSpyOnce={false}
+                      />
+                    </span>
+                  </div>
+                  {/* Label pinned at the bottom, fixed height area */}
+                  <span className="block text-xs sm:text-sm font-medium text-gray-300 tracking-tight leading-snug mt-2 min-h-[2.5rem] flex items-end justify-center">
                     {item.label}
                   </span>
                 </motion.div>

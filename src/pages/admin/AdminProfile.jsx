@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ApiService from "../../core/services/api.service.jsx";
-import Profile from "../../assets/adminProfile/profile.png";
+import Profile from "../../assets/adminProfile/profile.avif";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineMail } from "react-icons/md";

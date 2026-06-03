@@ -51,14 +51,14 @@ const LoadingSkeleton = () => (
 //  Section Heading
 // ────────────────────────────────────────
 const SectionHeading = ({ icon, label, badge, className = "mb-6" }) => (
-  <div className={`flex items-center gap-3 ml-4 ${className}`}>
+  <div className={`flex flex-wrap items-center gap-3 ${className}`}>
     <span
       className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
       style={{ backgroundColor: `${ORANGE}20`, color: ORANGE, border: `1px solid ${ORANGE}40` }}
     >
       {icon}
     </span>
-    <h3 className="text-base font-bold text-white uppercase tracking-widest">
+    <h3 className="text-sm sm:text-base font-bold text-white uppercase tracking-widest">
       {label}
     </h3>
     {badge != null && (
@@ -151,27 +151,27 @@ const CourseSection = ({ course, onContact }) => {
         className="px-6 sm:px-10 py-4"
         style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", backgroundColor: "rgba(0,0,0,0.3)" }}
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
           {stats.map(({ icon, label, value }) => (
             <div
               key={label}
-              className="flex items-center gap-3 rounded-2xl px-4 py-4"
+              className="flex items-center gap-2 sm:gap-3 rounded-2xl px-2.5 sm:px-4 py-3 sm:py-4 min-w-0"
               style={{
                 background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)",
                 border: "1px solid rgba(255,255,255,0.10)",
               }}
             >
               <span
-                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0"
                 style={{ backgroundColor: `${ORANGE}20`, color: ORANGE, border: `1px solid ${ORANGE}35`, boxShadow: `0 0 12px ${ORANGE}20` }}
               >
                 {icon}
               </span>
-              <div className="min-w-0">
-                <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-widest mb-0.5">
+              <div className="min-w-0 flex-1">
+                <p className="text-[9px] sm:text-[10px] text-gray-500 font-semibold uppercase tracking-widest mb-0.5">
                   {label}
                 </p>
-                <p className="text-[13px] text-white font-bold truncate">{value}</p>
+                <p className="text-[11px] sm:text-[13px] text-white font-bold break-words">{value}</p>
               </div>
             </div>
           ))}
@@ -185,7 +185,7 @@ const CourseSection = ({ course, onContact }) => {
           style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
         >
           <SectionHeading icon={<MdOutlineSchool size={17} />} label="About This Course" />
-          <p className="text-gray-200 text-[15px] leading-[1.85] max-w-4xl ml-[68px]">
+          <p className="text-gray-200 text-[14px] sm:text-[15px] leading-[1.85] sm:ml-[68px]">
             {course.description}
           </p>
         </div>
@@ -204,7 +204,7 @@ const CourseSection = ({ course, onContact }) => {
             icon={<FaGraduationCap size={16} />}
             label="What You'll Learn"
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-3 ml-[68px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-3 sm:ml-[68px]">
             {learnItems.map((item, i) => (
               <div
                 key={i}
@@ -253,7 +253,7 @@ const CourseSection = ({ course, onContact }) => {
             )}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-0 ml-[68px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-0 sm:ml-[68px]">
             {syllabusItems.map((item, i) => (
               <div
                 key={i}
@@ -278,15 +278,15 @@ const CourseSection = ({ course, onContact }) => {
         style={{ background: "linear-gradient(180deg, transparent 0%, rgba(255,106,0,0.06) 100%)" }}
       >
         <div
-          className="flex flex-col sm:flex-row items-center justify-between gap-5 rounded-2xl px-7 py-6"
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 rounded-2xl px-4 sm:px-7 py-5 sm:py-6"
           style={{
             background: "linear-gradient(135deg, rgba(255,106,0,0.12) 0%, rgba(255,106,0,0.04) 100%)",
             border: `1px solid ${ORANGE}35`,
             boxShadow: `0 0 40px ${ORANGE}10`,
           }}
         >
-          <div>
-            <p className="text-white font-bold text-xl mb-1">
+          <div className="min-w-0">
+            <p className="text-white font-bold text-lg sm:text-xl mb-1 break-words">
               Ready to enroll in{" "}
               <span style={{ color: ORANGE }}>{course.title}</span>?
             </p>
@@ -294,7 +294,7 @@ const CourseSection = ({ course, onContact }) => {
               Get in touch with us and kickstart your professional learning journey today.
             </p>
           </div>
-          <Button text="Contact Us" onClick={onContact} className="whitespace-nowrap py-2 px-6 text-sm" />
+          <Button text="Contact Us" onClick={onContact} className="whitespace-nowrap py-2 px-6 text-sm shrink-0" />
         </div>
       </div>
     </div>

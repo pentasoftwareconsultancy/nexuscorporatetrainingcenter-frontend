@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import {
   Eye,
@@ -25,7 +25,7 @@ import {
   HeartHandshake,
   Wrench
 } from "lucide-react";
-import MissionImg from "../../../assets/about/OurMission.png";
+import MissionImg from "../../../assets/about/OurMission.avif";
 
 // A highly detailed, premium interactive mobile phone UI mockup representing the Nexus Vision tilted in 3D space
 const MobileVisionMockup = () => {
@@ -436,7 +436,7 @@ const ValueCard3D = ({ card, CardIcon, index }) => {
         type: "spring",
         stiffness: 50,
         damping: 15,
-        delay: card.delay
+        delay: card.delay !== undefined ? card.delay : index * 0.08
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
@@ -540,6 +540,54 @@ const ValueCard3D = ({ card, CardIcon, index }) => {
 };
 
 const VMVSection = () => {
+  const containerRef = useRef(null);
+  const [emitterPos, setEmitterPos] = useState({ top: "25%", left: "31%" });
+
+  // Update position of emitter based on actual container bounds (matching object-cover math)
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const updatePosition = () => {
+      const rect = containerRef.current.getBoundingClientRect();
+      const containerWidth = rect.width;
+      const containerHeight = rect.height;
+      const imageAspectRatio = 1672 / 941; // OurMission.avif dimensions
+
+      let scaledWidth, scaledHeight;
+
+      if (containerWidth / containerHeight > imageAspectRatio) {
+        // Wide screen: image scales to fit width
+        scaledWidth = containerWidth;
+        scaledHeight = containerWidth / imageAspectRatio;
+      } else {
+        // Narrow screen: image scales to fit height
+        scaledHeight = containerHeight;
+        scaledWidth = containerHeight * imageAspectRatio;
+      }
+
+      // Sphere is at 31% from left of image, 25% from top of image
+      const xPixel = 0.31 * scaledWidth;
+      const yPixel = 0.25 * scaledHeight;
+
+      // Convert to percentages of the container
+      const xPercent = (xPixel / containerWidth) * 100;
+      const yPercent = (yPixel / containerHeight) * 100;
+
+      setEmitterPos({
+        top: `${yPercent}%`,
+        left: `${xPercent}%`
+      });
+    };
+
+    updatePosition();
+    window.addEventListener("resize", updatePosition);
+    const timer = setTimeout(updatePosition, 100);
+
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+      clearTimeout(timer);
+    };
+  }, []);
+
   // Motion settings
   const springTransition = { type: "spring", stiffness: 70, damping: 16 };
 
@@ -559,7 +607,7 @@ const VMVSection = () => {
   };
 
   return (
-    <div className="relative w-full max-w-[1200px] mx-auto px-6 sm:px-8 md:px-12 py-16 text-white font-sans space-y-24 md:space-y-36 overflow-visible z-10">
+    <div className="relative w-full max-w-[1200px] mx-auto px-6 sm:px-8 md:px-12 py-16 text-white font-sans space-y-16 md:space-y-36 overflow-x-hidden z-10">
 
       {/* ================================
           OUR VISION
@@ -568,26 +616,28 @@ const VMVSection = () => {
         {/* Soft Background Blue Blob using smooth radial gradient */}
         <div className="absolute -top-24 -right-24 w-[350px] h-[350px] bg-[radial-gradient(circle,rgba(18,84,250,0.12)_0%,transparent_70%)] pointer-events-none"></div>
 
-        {/* Vision Mobile UI Mockup */}
-        <motion.div
-          initial={{ opacity: 0, x: -350, rotateY: -70, rotateX: 5, rotate: 0, scale: 0.7 }}
-          whileInView={{ opacity: 1, x: 0, rotateY: -22, rotateX: 18, rotate: 14, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 35, damping: 14 }}
-          style={{ transformStyle: "preserve-3d" }}
-          className="w-full md:w-[40%] flex justify-center perspective-1000 overflow-visible py-10"
-        >
-          <div className="w-[310px] h-[670px] overflow-visible" style={{ transformStyle: "preserve-3d" }}>
-            <MobileVisionMockup />
-          </div>
-        </motion.div>
+        {/* Vision Mobile UI Mockup Wrapper — scales the phone down on small screens */}
+        <div className="w-full md:w-[40%] flex justify-center items-center overflow-visible py-8 md:py-10">
+          <motion.div
+            initial={{ opacity: 0, x: 0, rotateY: -70, rotateX: 5, rotate: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, x: 0, rotateY: -22, rotateX: 18, rotate: 14, scale: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ type: "spring", stiffness: 35, damping: 14 }}
+            style={{ transformStyle: "preserve-3d" }}
+            className="perspective-1000 overflow-visible scale-[0.58] sm:scale-[0.80] md:scale-100 origin-center"
+          >
+            <div className="w-[310px] h-[670px] overflow-visible" style={{ transformStyle: "preserve-3d" }}>
+              <MobileVisionMockup />
+            </div>
+          </motion.div>
+        </div>
 
         {/* Vision Text */}
         <motion.div
-          initial={{ opacity: 0, x: -500 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 35, damping: 14 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ type: "spring", stiffness: 50, damping: 16 }}
           className="w-full md:w-[60%] flex flex-col gap-4"
         >
           <span className="text-orange-500 text-xs sm:text-sm font-semibold tracking-wider uppercase">
@@ -646,11 +696,12 @@ const VMVSection = () => {
           OUR MISSION
       ================================= */}
       <motion.div
+        ref={containerRef}
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={springTransition}
-        className="relative w-screen max-w-[100vw] left-1/2 -translate-x-1/2 bg-transparent shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(249,115,22,0.25),inset_0_0_15px_rgba(249,115,22,0.15)] py-28 md:py-36 min-h-[700px] flex items-center overflow-hidden z-10 px-6 sm:px-8 md:px-12"
+        className="relative w-screen max-w-[100vw] left-1/2 -translate-x-1/2 bg-transparent shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(249,115,22,0.25),inset_0_0_15px_rgba(249,115,22,0.15)] py-16 md:py-36 min-h-[500px] md:min-h-[700px] flex items-center overflow-hidden z-10 px-6 sm:px-8 md:px-12"
       >
         {/* Soft Background Purple/Magenta Blob using smooth radial gradient */}
         <div className="absolute -top-24 -left-24 w-[350px] h-[350px] bg-[radial-gradient(circle,rgba(249,115,22,0.18)_0%,transparent_70%)] pointer-events-none"></div>
@@ -663,6 +714,9 @@ const VMVSection = () => {
           style={{ objectPosition: "left top" }}
         />
 
+        {/* Dark overlay to ensure text readability on mobile while remaining transparent on laptop/desktop */}
+        <div className="absolute inset-0 bg-[#01040f]/75 md:bg-transparent z-5 pointer-events-none" />
+
         {/* Sleek metallic sheen sweep overlay */}
         <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none rotate-12 scale-150 z-5" />
 
@@ -671,7 +725,13 @@ const VMVSection = () => {
 
         {/* Main Holographic SVG Ripple Overlay - centered absolutely on the background image's sphere */}
         <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden flex items-center justify-center">
-          <div className="absolute top-[24%] left-[28.8%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]">
+          <div
+            className="absolute -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]"
+            style={{
+              top: emitterPos.top,
+              left: emitterPos.left
+            }}
+          >
             <svg className="w-full h-full overflow-visible" viewBox="0 0 800 800">
               {/* Concentric Rippling Circles from Emitter */}
               {[0, 1, 2, 3].map((i) => (
