@@ -6,6 +6,7 @@ import {
   FiUser,
   FiPhone,
 } from "react-icons/fi";
+import Button from "../../components/common/Button";
 
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -124,8 +125,9 @@ const Signup = () => {
             border-white/10
             bg-white/[0.03]
             backdrop-blur-xl
-            p-8
-            mb-20
+            p-3
+            mt-3
+            mb-17
             shadow-[0_0_40px_rgba(255,115,0,0.12)]
           "
         >
@@ -339,7 +341,6 @@ const Signup = () => {
               )}
             </div>
 
-            {/* SIGNUP BUTTON */}
             <motion.button
               initial={{ boxShadow: "0px 0px 0px rgba(255,115,0,0.0)" }}
               whileHover={{
@@ -348,23 +349,13 @@ const Signup = () => {
               }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              className="
-                w-full
-                py-3
-                rounded-xl
-                bg-gradient-to-r
-                from-orange-500
-                to-orange-400
-                text-white
-                font-semibold
-                mt-2
-              "
+              className="w-full py-3 mt-2 bg-gradient-to-r from-orange-500 to-amber-600 text-white font-semibold rounded-xl transition-all"
             >
               Create Account
             </motion.button>
 
             {/* LOGIN LINK */}
-            <div className="text-center pt-3 text-gray-400 text-sm">
+            <div className="text-center pt-2 text-gray-400 text-sm">
               Already have an account?{" "}
 
               <span
