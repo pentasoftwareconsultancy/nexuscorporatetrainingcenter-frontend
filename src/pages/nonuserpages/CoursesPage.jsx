@@ -103,13 +103,13 @@ const CoursesPage = () => {
   }
 
   return (
-    <section className="relative w-full min-h-screen py-6 px-12 text-one overflow-hidden">
+    <section className="relative w-full min-h-screen py-6 px-4 sm:px-6 md:px-12 text-one overflow-x-hidden">
 
       <div className="relative z-10">
         <h1 className="text-4xl text-white font-bold mb-10">Our
           <span className="text-orange-500"> Courses</span></h1>
 
-        <p className="text-[18px] text-justify mb-8 w-11/12">
+        <p className="text-[16px] sm:text-[18px] text-left mb-8 w-full text-gray-300 leading-relaxed">
           Our extensive catalog of corporate training courses is meticulously
           designed to meet the demands of the modern business landscape. From
           cutting-edge technical skills like AWS, Data Science, and Full Stack
@@ -122,19 +122,19 @@ const CoursesPage = () => {
         </p>
 
 
-        {/* ── Search Bar (full-width, above tabs) ── */}
-        <div className="relative w-[35%] mb-5">
+        {/* ── Search Bar (full-width on mobile, constrained on larger screens) ── */}
+        <div className="relative w-full sm:w-[70%] md:w-[50%] lg:w-[38%] mb-5">
           <input
             type="text"
-            placeholder="Search courses by title or description..."
+            placeholder="Search courses..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Escape" && setSearchQuery("")}
-            className="w-full bg-[#181818] text-white border border-white/10 rounded-full px-5 py-3 pl-12 pr-[120px] text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all placeholder-gray-500"
+            className="w-full bg-[#181818] text-white border border-white/10 rounded-full px-5 py-3 pl-10 pr-24 text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all placeholder-gray-500"
           />
           {/* Search icon */}
           <svg
-            className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 pointer-events-none"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -147,11 +147,11 @@ const CoursesPage = () => {
             />
           </svg>
           {/* Clear + Search buttons */}
-          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+          <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center gap-1">
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="px-3 py-1.5 text-xs text-gray-400 hover:text-white transition-colors"
+                className="w-6 h-6 flex items-center justify-center text-xs text-gray-400 hover:text-white transition-colors"
                 title="Clear search"
               >
                 ✕
@@ -159,7 +159,7 @@ const CoursesPage = () => {
             )}
             <button
               onClick={() => {/* search already reactive via onChange */ }}
-              className="px-4 py-1.5 bg-gradient-to-r from-orange-500 to-amber-600 text-white text-xs font-semibold rounded-full hover:brightness-110 transition-all shadow-[0_2px_10px_rgba(249,115,22,0.3)] cursor-default"
+              className="px-3 py-1.5 bg-gradient-to-r from-orange-500 to-amber-600 text-white text-xs font-semibold rounded-full hover:brightness-110 transition-all shadow-[0_2px_10px_rgba(249,115,22,0.3)] cursor-default"
             >
               Search
             </button>
