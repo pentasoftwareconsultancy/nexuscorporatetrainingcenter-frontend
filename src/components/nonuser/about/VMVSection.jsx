@@ -29,15 +29,6 @@ import MissionImg from "../../../assets/about/OurMission.avif";
 
 // A highly detailed, premium interactive mobile phone UI mockup representing the Nexus Vision tilted in 3D space
 const MobileVisionMockup = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
   return (
     <motion.div
       className="relative w-[310px] h-[670px] overflow-visible group select-none perspective-1000"
@@ -47,7 +38,7 @@ const MobileVisionMockup = () => {
       }}
       animate={{
         y: [0, -6, 0],
-        rotateY: isMobile ? 0 : [0, 360]
+        rotateY: [0, 360]
       }}
       transition={{
         y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
@@ -306,7 +297,7 @@ const MobileVisionMockup = () => {
       {/* 2. Floating Bubble Badges & success cards floating OUTSIDE the phone bezel */}
       {/* Play Video Badge */}
       <motion.div
-        className="absolute -left-10 top-[70px] w-8 h-8 rounded-full bg-[#0a1024]/80 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.4)] flex items-center justify-center z-30 border border-cyan-500/30"
+        className="absolute -left-10 top-[70px] w-8 h-8 rounded-full bg-[#0a1024] md:bg-[#0a1024]/80 md:backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.4)] flex items-center justify-center z-30 border border-cyan-500/30"
         style={{ transform: "translateZ(30px)", backfaceVisibility: "hidden" }}
         animate={{ y: [0, -6, 0], rotate: [0, -8, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -316,7 +307,7 @@ const MobileVisionMockup = () => {
 
       {/* Heart Badge */}
       <motion.div
-        className="absolute -right-6 top-[80px] w-8 h-8 rounded-full bg-[#0a1024]/80 backdrop-blur-md shadow-[0_0_15px_rgba(236,72,153,0.4)] flex items-center justify-center z-30 border border-pink-500/30"
+        className="absolute -right-6 top-[80px] w-8 h-8 rounded-full bg-[#0a1024] md:bg-[#0a1024]/80 md:backdrop-blur-md shadow-[0_0_15px_rgba(236,72,153,0.4)] flex items-center justify-center z-30 border border-pink-500/30"
         style={{ transform: "translateZ(35px)", backfaceVisibility: "hidden" }}
         animate={{ y: [0, 5, 0], scale: [1, 1.05, 1] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
@@ -326,7 +317,7 @@ const MobileVisionMockup = () => {
 
       {/* Curriculum/FileText Badge */}
       <motion.div
-        className="absolute -left-12 top-[160px] w-8 h-8 rounded-full bg-[#0a1024]/80 backdrop-blur-md shadow-[0_0_15px_rgba(59,130,246,0.4)] flex items-center justify-center z-30 border border-blue-500/30"
+        className="absolute -left-12 top-[160px] w-8 h-8 rounded-full bg-[#0a1024] md:bg-[#0a1024]/80 md:backdrop-blur-md shadow-[0_0_15px_rgba(59,130,246,0.4)] flex items-center justify-center z-30 border border-blue-500/30"
         style={{ transform: "translateZ(25px)", backfaceVisibility: "hidden" }}
         animate={{ y: [0, 4, 0], x: [0, -2, 0] }}
         transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
@@ -336,7 +327,7 @@ const MobileVisionMockup = () => {
 
       {/* Pie Chart Badge */}
       <motion.div
-        className="absolute -right-8 top-[170px] w-8 h-8 rounded-full bg-[#0a1024]/80 backdrop-blur-md shadow-[0_0_15px_rgba(139,92,246,0.4)] flex items-center justify-center z-30 border border-violet-500/30"
+        className="absolute -right-8 top-[170px] w-8 h-8 rounded-full bg-[#0a1024] md:bg-[#0a1024]/80 md:backdrop-blur-md shadow-[0_0_15px_rgba(139,92,246,0.4)] flex items-center justify-center z-30 border border-violet-500/30"
         style={{ transform: "translateZ(28px)", backfaceVisibility: "hidden" }}
         animate={{ y: [0, -5, 0], x: [0, 3, 0] }}
         transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
@@ -346,7 +337,7 @@ const MobileVisionMockup = () => {
 
       {/* Message Square Badge */}
       <motion.div
-        className="absolute -left-8 top-[250px] w-8 h-8 rounded-full bg-[#0a1024]/80 backdrop-blur-md shadow-[0_0_15px_rgba(14,165,233,0.4)] flex items-center justify-center z-30 border border-sky-500/30"
+        className="absolute -left-8 top-[250px] w-8 h-8 rounded-full bg-[#0a1024] md:bg-[#0a1024]/80 md:backdrop-blur-md shadow-[0_0_15px_rgba(14,165,233,0.4)] flex items-center justify-center z-30 border border-sky-500/30"
         style={{ transform: "translateZ(20px)", backfaceVisibility: "hidden" }}
         animate={{ y: [0, 5, 0], rotate: [0, 10, 0] }}
         transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
@@ -356,7 +347,7 @@ const MobileVisionMockup = () => {
 
       {/* Floating Student Profile Placement Success Card */}
       <motion.div
-        className="absolute -right-24 top-[240px] w-[115px] h-[140px] rounded-2xl bg-[#070b19]/90 backdrop-blur-md shadow-[0_10px_25px_rgba(0,0,0,0.5),0_0_15px_rgba(236,72,153,0.2)] border border-pink-500/20 p-2 z-30 flex flex-col gap-1.5"
+        className="absolute -right-24 top-[240px] w-[115px] h-[140px] rounded-2xl bg-[#070b19] md:bg-[#070b19]/90 md:backdrop-blur-md shadow-[0_10px_25px_rgba(0,0,0,0.5),0_0_15px_rgba(236,72,153,0.2)] border border-pink-500/20 p-2 z-30 flex flex-col gap-1.5"
         style={{
           transformStyle: "preserve-3d",
           transform: "rotateY(-15deg) rotateZ(4deg) translateZ(35px)",
