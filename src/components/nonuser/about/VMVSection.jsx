@@ -607,7 +607,7 @@ const VMVSection = () => {
   };
 
   return (
-    <div className="relative w-full max-w-[1200px] mx-auto px-6 sm:px-8 md:px-12 py-16 text-white font-sans space-y-16 md:space-y-36 overflow-x-hidden z-10">
+    <div className="relative w-full max-w-[1200px] mx-auto px-6 sm:px-8 md:px-12 py-16 text-white font-sans space-y-16 md:space-y-36 overflow-visible z-10">
 
       {/* ================================
           OUR VISION
