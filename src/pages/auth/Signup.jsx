@@ -341,8 +341,8 @@ const Signup = () => {
               )}
             </div>
 
+            {/* SIGNUP BUTTON */}
             <motion.button
-              initial={{ boxShadow: "0px 0px 0px rgba(255,115,0,0.0)" }}
               whileHover={{
                 scale: 1.02,
                 boxShadow: "0px 0px 25px rgba(255,115,0,0.4)",
