@@ -4,6 +4,7 @@ import AppRoutes from "./routs/AppRoutes";
 import { AuthProvider } from "./core/contexts/AuthContext";
 import ScrollToTop from "./pages/ScrollToTop";
 import Toaster from "./components/constant/Toaster";
+import AiAssistant from "./components/common/AiAssistant";
 import "./App.css";
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         <Toaster />
         <ScrollToTop />
         <AppRoutes/>
+        <AiAssistant />
       </BrowserRouter>
     </AuthProvider>
   );
