@@ -290,31 +290,6 @@ export default function AiAssistant() {
 
   return (
     <>
-      {/* === OPTIONAL DIRECT FLOATING TOGGLE BUTTON === */}
-      {/* This renders only if the chat is closed, giving users a way to open the AI assistant on pages where ButtonGroup isn't used */}
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.button
-            initial={{ scale: 0, opacity: 0, y: 50 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0, opacity: 0, y: 50 }}
-            whileHover={{ scale: 1.1, boxShadow: "0 0 20px rgba(255, 106, 0, 0.6)" }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 left-6 z-50 p-4 rounded-full bg-gradient-to-tr from-[#FF6A00] to-[#1254FA] text-[#FFF3EA] shadow-2xl border border-white/20 flex items-center justify-center cursor-pointer group"
-            title="Nexus AI Assistant"
-          >
-            <div className="relative">
-              <Bot className="size-6 group-hover:rotate-12 transition-transform duration-300" />
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border border-zinc-950 animate-pulse" />
-            </div>
-            <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-out font-medium text-sm whitespace-nowrap pl-0 group-hover:pl-2">
-              Ask Nexus AI
-            </span>
-          </motion.button>
-        )}
-      </AnimatePresence>
-
       {/* === ASSISTANT WIDGET BODY === */}
       <AnimatePresence>
         {isOpen && (
@@ -330,20 +305,20 @@ export default function AiAssistant() {
             <div className="absolute bottom-0 left-0 w-40 h-40 bg-blue-600/10 blur-[50px] pointer-events-none rounded-full" />
 
             {/* HEADER */}
-            <div className="relative z-10 p-4 bg-zinc-950/80 border-b border-white/5 flex items-center justify-between">
+            <div className="relative z-10 p-4 bg-gradient-to-tr from-[#E67A68] to-[#5E71E4] border-b border-white/10 flex items-center justify-between shadow-md">
               <div className="flex items-center gap-3">
-                <div className="relative p-2 bg-gradient-to-br from-orange-600/25 to-blue-600/25 rounded-xl border border-white/10">
-                  <Bot className="size-5 text-orange-500 animate-pulse" />
+                <div className="relative p-2 bg-white/10 rounded-xl border border-white/20 shadow-inner">
+                  <Bot className="size-5 text-white animate-pulse drop-shadow-md" />
                   <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border border-zinc-950" />
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <h3 className="font-semibold text-sm text-[#FFF3EA] tracking-wide font-sora">Nexus AI Guide</h3>
-                    <span className="px-1.5 py-0.5 text-[9px] bg-orange-500/10 border border-orange-500/25 text-orange-400 rounded-md font-bold uppercase tracking-wider flex items-center gap-0.5">
+                    <h3 className="font-semibold text-sm text-[#FFF3EA] tracking-wide font-sora drop-shadow-sm">Nexus AI Guide</h3>
+                    <span className="px-1.5 py-0.5 text-[9px] bg-white/15 border border-white/30 text-white rounded-md font-bold uppercase tracking-wider flex items-center gap-0.5 drop-shadow-sm">
                       <Sparkles className="size-2" /> Beta
                     </span>
                   </div>
-                  <p className="text-[10px] text-zinc-400">Online • Answers center questions</p>
+                  <p className="text-[10px] text-white/85 font-medium tracking-wide drop-shadow-sm">Online • Answers center questions</p>
                 </div>
               </div>
 
@@ -351,21 +326,21 @@ export default function AiAssistant() {
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => setIsMuted(!isMuted)}
-                  className={`p-2 rounded-lg text-zinc-400 hover:text-[#FFF3EA] hover:bg-white/5 transition-colors cursor-pointer`}
+                  className={`p-2 rounded-lg text-white/90 hover:text-white hover:bg-black/10 transition-colors cursor-pointer drop-shadow-sm`}
                   title={isMuted ? "Unmute Voice Responses" : "Mute Voice Responses"}
                 >
-                  {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4 text-orange-400" />}
+                  {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4 text-white" />}
                 </button>
                 <button
                   onClick={clearChat}
-                  className="p-2 rounded-lg text-zinc-400 hover:text-red-400 hover:bg-white/5 transition-colors cursor-pointer"
+                  className="p-2 rounded-lg text-white/90 hover:text-white hover:bg-black/10 transition-colors cursor-pointer drop-shadow-sm"
                   title="Clear Chat History"
                 >
                   <Trash2 className="size-4" />
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+                  className="p-2 rounded-lg text-white/90 hover:text-white hover:bg-black/10 transition-colors cursor-pointer drop-shadow-sm"
                   title="Close Assistant"
                 >
                   <X className="size-4" />
@@ -474,18 +449,18 @@ export default function AiAssistant() {
             </div>
 
             {/* INPUT FOOTER */}
-            <div className="relative z-10 p-3 bg-zinc-950/90 border-t border-white/5 flex flex-col gap-2">
+            <div className="relative z-10 p-3 bg-gradient-to-tr from-[#E67A68] to-[#5E71E4] border-t border-white/10 flex flex-col gap-2 shadow-[0_-4px_10px_rgba(0,0,0,0.1)]">
               <div className="flex items-center gap-2">
                 {/* Speech Microphone Input */}
                 <button
                   onClick={toggleSpeechInput}
-                  className={`p-2 rounded-xl border transition duration-200 cursor-pointer flex items-center justify-center ${isListening
-                      ? "bg-red-500/20 border-red-500 text-red-500 animate-pulse"
-                      : "bg-white/5 border-white/5 text-zinc-400 hover:text-white hover:bg-white/10"
+                  className={`p-2 rounded-xl border transition duration-200 cursor-pointer flex items-center justify-center backdrop-blur-sm shadow-sm ${isListening
+                      ? "bg-red-500/30 border-red-500 text-white animate-pulse"
+                      : "bg-black/20 border-white/20 text-white/90 hover:text-white hover:bg-black/30"
                     }`}
                   title={isListening ? "Listening... Click to stop" : "Use Voice Input"}
                 >
-                  {isListening ? <MicOff className="size-4" /> : <Mic className="size-4" />}
+                  {isListening ? <MicOff className="size-4 drop-shadow-sm" /> : <Mic className="size-4 drop-shadow-sm" />}
                 </button>
 
                 {/* Input Text Field */}
@@ -496,12 +471,12 @@ export default function AiAssistant() {
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={handleKeyPress}
                     placeholder={isListening ? "Listening..." : "Ask about courses, branches..."}
-                    className="w-full bg-white/5 border border-white/5 focus:border-orange-500/40 rounded-xl py-2 pl-3 pr-10 text-sm text-[#FFF3EA] placeholder-zinc-500 outline-none resize-none focus:ring-1 focus:ring-orange-500/20 transition-all scrollbar-none max-h-[80px]"
+                    className="w-full bg-black/20 backdrop-blur-sm border border-white/20 focus:border-white/50 rounded-xl py-2 pl-3 pr-10 text-sm text-white placeholder-white/70 outline-none resize-none focus:ring-1 focus:ring-white/30 transition-all scrollbar-none max-h-[80px] shadow-inner"
                     style={{ scrollbarWidth: "none" }}
                   />
                   {/* File attach visually placeholder */}
-                  <button className="absolute right-3 text-zinc-500 hover:text-zinc-300 cursor-pointer">
-                    <HelpCircle className="size-4" onClick={() => handleSendMessage("help")} title="Show help topics" />
+                  <button className="absolute right-3 text-white/70 hover:text-white cursor-pointer">
+                    <HelpCircle className="size-4 drop-shadow-sm" onClick={() => handleSendMessage("help")} title="Show help topics" />
                   </button>
                 </div>
 
@@ -509,14 +484,14 @@ export default function AiAssistant() {
                 <button
                   onClick={() => handleSendMessage()}
                   disabled={!inputValue.trim() && !isListening}
-                  className="p-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-[#FFF3EA] disabled:bg-zinc-800 disabled:text-zinc-500 shadow-lg hover:shadow-orange-600/20 disabled:shadow-none transition duration-200 cursor-pointer shrink-0"
+                  className="p-2.5 rounded-xl bg-white hover:bg-zinc-100 text-[#E67A68] disabled:bg-black/20 disabled:text-white/40 shadow-lg hover:shadow-white/20 disabled:shadow-none transition duration-200 cursor-pointer shrink-0"
                 >
                   <Send className="size-4" />
                 </button>
               </div>
 
               {/* Powered By Tag */}
-              <div className="flex items-center justify-between text-[9px] text-zinc-500 px-1">
+              <div className="flex items-center justify-between text-[9px] text-white/85 px-1 drop-shadow-sm font-medium tracking-wide">
                 <span>Powered by Nexus AI</span>
                 <span>Press Enter to send</span>
               </div>
