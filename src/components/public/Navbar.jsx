@@ -184,15 +184,17 @@ function Navbar() {
                   )
                 }
               />
-              <button
-                onClick={() => {
-                  logout();
-                  navigate(ROUTES.HOME);
-                }}
-                className="px-5 py-2 text-sm font-medium border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300 cursor-pointer"
-              >
-                Logout
-              </button>
+              {user?.role !== "admin" && (
+                <button
+                  onClick={() => {
+                    logout();
+                    window.location.href = ROUTES.HOME;
+                  }}
+                  className="px-5 py-2 text-sm font-medium border border-orange-500 text-orange-500 rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300 cursor-pointer"
+                >
+                  Logout
+                </button>
+              )}
             </>
           ) : (
             <Button
@@ -288,12 +290,12 @@ function Navbar() {
           )
         )}
 
-        {isLoggedIn && (
+        {isLoggedIn && user?.role !== "admin" && (
           <button
             onClick={() => {
               setIsMenuOpen(false);
               logout();
-              navigate(ROUTES.HOME);
+              window.location.href = ROUTES.HOME;
             }}
             className="w-60 text-center px-6 py-3 text-lg rounded-xl font-medium bg-red-600/20 text-red-500 border border-red-500/30 hover:bg-red-600 hover:text-white transition-all duration-300 cursor-pointer"
           >

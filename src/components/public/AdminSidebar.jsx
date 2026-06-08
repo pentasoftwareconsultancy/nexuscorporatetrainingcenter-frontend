@@ -122,8 +122,7 @@ function AdminSidebar({ isOpen, setIsOpen }) {
             onClick={() => {
               localStorage.clear();
               sessionStorage.clear();
-              navigate(ROUTES.HOME);
-              window.location.reload();
+              window.location.href = ROUTES.HOME;
             }}
             className={`
               flex items-center cursor-pointer transition-all duration-300
