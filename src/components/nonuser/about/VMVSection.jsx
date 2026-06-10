@@ -608,7 +608,7 @@ const VMVSection = () => {
   };
 
   return (
-    <div className="relative w-full max-w-[1200px] mx-auto px-6 sm:px-8 md:px-12 py-16 text-white font-sans space-y-16 md:space-y-36 overflow-visible z-10">
+    <div className="relative w-full max-w-[1200px] mx-auto px-6 sm:px-8 md:px-12 pt-6 pb-10 md:pt-8 md:pb-12 text-white font-sans space-y-10 md:space-y-16 overflow-visible z-10">
 
       {/* ================================
           OUR VISION
@@ -618,7 +618,7 @@ const VMVSection = () => {
         <div className="absolute -top-24 -right-24 w-[350px] h-[350px] bg-[radial-gradient(circle,rgba(18,84,250,0.12)_0%,transparent_70%)] pointer-events-none"></div>
 
         {/* Vision Mobile UI Mockup Wrapper with Responsive Scaling to prevent mobile layout overflow */}
-        <div className="w-full md:w-[40%] h-[530px] sm:h-[620px] md:h-auto flex justify-center items-start overflow-visible py-5 md:py-10 scale-75 sm:scale-90 md:scale-100 origin-top" style={{ willChange: "transform" }}>
+        <div className="w-full md:w-[40%] h-[420px] sm:h-[520px] md:h-auto flex justify-center items-start overflow-visible py-2 md:py-4 scale-75 sm:scale-90 md:scale-100 origin-top" style={{ willChange: "transform" }}>
           <motion.div
             initial={{ opacity: 0, x: 0, rotateY: -70, rotateX: 5, rotate: 0, scale: 0.7 }}
             whileInView={{ opacity: 1, x: 0, rotateY: -22, rotateX: 18, rotate: 14, scale: 1 }}
@@ -650,9 +650,14 @@ const VMVSection = () => {
           </h2>
           <div className="w-10 h-[2px] bg-orange-500"></div>
 
-          <p className="text-gray-300 leading-relaxed text-sm sm:text-base md:text-[16px] mt-2">
-            At Nexus Corporate Training Center LLP, our vision is to deliver accessible, high-quality IT education with robust placement support, ensuring every student has the skills and opportunities to build a thriving technology career.
-          </p>
+          <div className="space-y-4">
+            <p className="text-gray-300 leading-relaxed text-sm sm:text-base md:text-[16px] mt-2">
+              At Nexus Corporate Training Center LLP, our vision is to deliver accessible, high-quality IT education with robust placement support, ensuring every student has the skills and opportunities to build a thriving technology career. We envision that the Nexus Brand would reach PAN India level in the next 5 years and connect with all graduate students.
+            </p>
+            <p className="text-gray-300 leading-relaxed text-sm sm:text-base md:text-[16px]">
+              We stand for empowerment through knowledge, and a drive for excellence in the corporate training center. Furthermore, we believe in social work and charity paired with education and employment, creating a positive impact on society.
+            </p>
+          </div>
 
           <div className="mt-2">
             <span className="font-semibold text-orange-400 text-sm sm:text-base">
@@ -667,10 +672,12 @@ const VMVSection = () => {
               className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-300 text-sm sm:text-base"
             >
               {[
-                { text: "Enable every learner to become job-ready", icon: GraduationCap },
-                { text: "Expand career-oriented training across India", icon: Globe },
-                { text: "Create globally recognized professionals", icon: Award },
-                { text: "Reinvent education with modern tools", icon: Laptop }
+                { text: "Reach PAN India level in the next 5 years", icon: Globe },
+                { text: "Connect with all graduate students", icon: Users },
+                { text: "Empowerment through knowledge", icon: GraduationCap },
+                { text: "Drive for excellence in corporate training", icon: Award },
+                { text: "Social work & charity with education", icon: Heart },
+                { text: "Employment and career opportunities", icon: Briefcase }
               ].map((item, i) => {
                 const IconComponent = item.icon;
                 return (
@@ -702,7 +709,7 @@ const VMVSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={springTransition}
-        className="relative w-screen max-w-[100vw] left-1/2 -translate-x-1/2 bg-transparent shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(249,115,22,0.25),inset_0_0_15px_rgba(249,115,22,0.15)] py-16 md:py-36 min-h-[500px] md:min-h-[700px] flex items-center overflow-hidden z-10 px-6 sm:px-8 md:px-12"
+        className="relative w-screen max-w-[100vw] left-1/2 -translate-x-1/2 bg-transparent shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(249,115,22,0.25),inset_0_0_15px_rgba(249,115,22,0.15)] py-10 md:py-16 min-h-[400px] md:min-h-[500px] flex items-center overflow-hidden z-10 px-6 sm:px-8 md:px-12"
       >
         {/* Soft Background Purple/Magenta Blob using smooth radial gradient */}
         <div className="absolute -top-24 -left-24 w-[350px] h-[350px] bg-[radial-gradient(circle,rgba(249,115,22,0.18)_0%,transparent_70%)] pointer-events-none"></div>
@@ -784,7 +791,7 @@ const VMVSection = () => {
                 <div className="w-10 h-[2px] bg-orange-400 shadow-[0_0_8px_rgba(249,115,22,0.5)]"></div>
 
                 <p className="text-gray-100 leading-relaxed text-sm sm:text-base md:text-[16px] drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)] mt-4">
-                  Our mission at Nexus Corporate Training Center LLP is to empower learners with job-focused software skills through structured and tailored programs for all experience levels.
+                  Our mission at Nexus Corporate Training Center LLP is to empower learners with job-focused software skills through structured and tailored programs. We stand for empowerment through knowledge, and a drive for excellence in the corporate training center.
                 </p>
               </div>
 
@@ -913,10 +920,10 @@ const VMVSection = () => {
                 iconColor: "text-orange-300",
               },
               {
-                title: "Student Success Stories",
+                title: "Social Work & Charity",
                 description:
-                  "Showcasing alumni achievements and placements to inspire current learners.",
-                icon: Award,
+                  "We believe in social work and charity paired with education and employment, creating a positive impact on society.",
+                icon: Heart,
                 gradient: "from-orange-600/30 via-orange-800/30 to-orange-900/40",
                 borderColor: "border-orange-500/30",
                 glowColor: "rgba(249,115,22,0.25)",
