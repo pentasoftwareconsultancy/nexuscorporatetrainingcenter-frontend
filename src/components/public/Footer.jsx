@@ -7,14 +7,6 @@ import { IoIosMail } from "react-icons/io";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaYoutube, FaLocationDot } from "react-icons/fa6";
 
-const courseCategories = [
-  { title: "Software Development",  path: ROUTES.COURSES },
-  { title: "Cloud & DevOps",        path: ROUTES.COURSES },
-  { title: "Software Testing / QA", path: ROUTES.COURSES },
-  { title: "Data & Analytics",      path: ROUTES.COURSES },
-  { title: "Design & Marketing",    path: ROUTES.COURSES },
-  { title: "Healthcare & Others",   path: ROUTES.COURSES },
-];
 
 const companyLinks = [
   { title: "Home",             path: ROUTES.HOME },
@@ -85,8 +77,8 @@ export default function Footer() {
       {/* MAIN CONTENT */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-12">
 
-        {/* 5-column grid — all on one line */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+        {/* 4-column grid — all on one line */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
 
           {/* Col 1 — Company */}
           <div>
@@ -97,24 +89,6 @@ export default function Footer() {
                   {l.title}
                 </FLink>
               ))}
-            </ul>
-          </div>
-
-          {/* Col 2 — Feature Categories */}
-          <div>
-            <ColTitle>Feature Categories</ColTitle>
-            <ul className="space-y-2">
-              {courseCategories.map((c) => (
-                <FLink key={c.title} onClick={() => navigate(c.path)}>
-                  {c.title}
-                </FLink>
-              ))}
-              <li
-                onClick={() => { navigate(ROUTES.COURSES); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="text-orange-500 text-sm font-semibold hover:text-orange-400 cursor-pointer mt-2 transition"
-              >
-                View All Courses →
-              </li>
             </ul>
           </div>
 
