@@ -26,6 +26,7 @@ import {
   Wrench
 } from "lucide-react";
 import MissionImg from "../../../assets/about/OurMission.avif";
+import PartnerSection from "./PartnerSection";
 
 // A highly detailed, premium interactive mobile phone UI mockup representing the Nexus Vision tilted in 3D space
 const MobileVisionMockup = () => {
