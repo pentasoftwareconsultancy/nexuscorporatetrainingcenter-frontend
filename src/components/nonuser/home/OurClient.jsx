@@ -146,7 +146,7 @@ function OurClient() {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8 }}
             className="w-full lg:w-1/3 mb-8 lg:mb-0"
           >
@@ -171,7 +171,7 @@ function OurClient() {
                   key={idx}
                   initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: false, amount: 0.1 }}
+                  viewport={{ once: true, amount: 0.1 }}
                   transition={{
                     type: "spring",
                     stiffness: 120,

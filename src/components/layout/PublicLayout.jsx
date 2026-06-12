@@ -14,7 +14,7 @@ const PublicLayout = () => {
   }, [location.pathname]);
 
   return (
-    <div ref={ref} className="relative min-h-screen overflow-y-auto overflow-x-hidden h-screen">
+    <div ref={ref} className="relative min-h-screen w-full overflow-x-hidden">
       <div className="relative z-10">
         <Navbar />
         <ClickTopBtn />
