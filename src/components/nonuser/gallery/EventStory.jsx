@@ -136,12 +136,12 @@ export default function EventStory() {
         <h2 className="text-start text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 tracking-wide">
           Event  <span className="text-orange-500"> Stories </span>
         </h2>
-        <p className="text-gray-300 text-sm md:text-base max-w-4xl leading-relaxed">
+        {/* <p className="text-gray-300 text-sm md:text-base max-w-4xl leading-relaxed">
           Immerse yourself in our world of collaboration and innovation. Our
           gallery showcases the dynamic events, expert-led workshops, and
           successful placement drives conducted in partnership with leading
           colleges and industry clients.
-        </p>
+        </p> */}
       </div>
 
       <div className="relative w-full max-w-[2400px] mx-auto flex flex-col items-center select-none">

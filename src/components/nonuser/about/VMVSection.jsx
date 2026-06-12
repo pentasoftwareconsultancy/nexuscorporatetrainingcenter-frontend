@@ -26,6 +26,7 @@ import {
   Wrench
 } from "lucide-react";
 import MissionImg from "../../../assets/about/OurMission.png";
+import PartnerSection from "./PartnerSection";
 
 // A highly detailed, premium interactive mobile phone UI mockup representing the Nexus Vision tilted in 3D space
 const MobileVisionMockup = () => {
@@ -771,6 +772,12 @@ const VMVSection = () => {
         </div>
       </motion.div>
 
+
+
+    
+      
+         <PartnerSection/>
+      
       {/* ================================
           OUR VALUES — 3D Interactive Floating Cards
       ================================= */}
