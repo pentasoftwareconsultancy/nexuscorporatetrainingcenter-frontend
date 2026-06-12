@@ -26,14 +26,20 @@ const quickLinks = [
   { title: "Gallery",          path: ROUTES.GALLERY },
 ];
 
-const branches = [
-  { title: "Pimple Saudagar, Pune", path: ROUTES.BRANCHES },
-  { title: "Wagholi, Pune",         path: ROUTES.BRANCHES },
-  { title: "Katraj, Pune",          path: ROUTES.BRANCHES },
-  { title: "Akola",                 path: ROUTES.BRANCHES },
-  { title: "Nashik",                path: ROUTES.BRANCHES },
-  { title: "Manchar",               path: ROUTES.BRANCHES },
-  { title: "United Kingdom",        path: ROUTES.BRANCHES },
+const puneBranches = [
+  { title: "Pimple Saudagar", path: ROUTES.BRANCHES },
+  { title: "Wagholi",         path: ROUTES.BRANCHES },
+  { title: "Katraj",          path: ROUTES.BRANCHES },
+];
+
+const otherBranches = [
+  { title: "Akola",           path: ROUTES.BRANCHES },
+  { title: "Nashik",          path: ROUTES.BRANCHES },
+  { title: "Manchar",         path: ROUTES.BRANCHES },
+];
+
+const internationalBranches = [
+  { title: "United Kingdom",  path: ROUTES.BRANCHES },
 ];
 
 const socialMedia = [
@@ -95,22 +101,40 @@ export default function Footer() {
           {/* Col 3 — Branches */}
           <div>
             <ColTitle>Branches</ColTitle>
-            <ul className="space-y-2">
-              {branches.map((b) => (
-                <FLink key={b.title} onClick={() => navigate(b.path)}>
-                  <span className="flex items-center gap-1.5">
-                    <FaLocationDot size={10} className="text-orange-500 shrink-0" />
-                    {b.title}
-                  </span>
-                </FLink>
-              ))}
-              <li
-                onClick={() => navigate(ROUTES.BRANCHES)}
-                className="text-orange-500 text-sm font-semibold hover:text-orange-400 cursor-pointer mt-2 transition"
-              >
-                See All →
-              </li>
-            </ul>
+            <div className="space-y-4">
+              <div>
+                <span className="text-orange-500 text-[11px] font-bold uppercase tracking-wider block mb-1">Pune</span>
+                <ul className="space-y-1.5">
+                  {puneBranches.map((b) => (
+                    <FLink key={b.title} onClick={() => navigate(b.path)}>
+                      {b.title}
+                    </FLink>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <span className="text-orange-500 text-[11px] font-bold uppercase tracking-wider block mb-1">Other Cities</span>
+                <ul className="space-y-1.5">
+                  {otherBranches.map((b) => (
+                    <FLink key={b.title} onClick={() => navigate(b.path)}>
+                      {b.title}
+                    </FLink>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <span className="text-orange-500 text-[11px] font-bold uppercase tracking-wider block mb-1">International</span>
+                <ul className="space-y-1.5">
+                  {internationalBranches.map((b) => (
+                    <FLink key={b.title} onClick={() => navigate(b.path)}>
+                      {b.title}
+                    </FLink>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
 
           {/* Col 4 — Quick Links */}
