@@ -2,6 +2,9 @@ import React from "react";
 import partnerData from "../../../assets/about/partnerData.json";
 import { motion } from "framer-motion";
 
+// Safelist classes for Tailwind compiler to detect dynamic JSON classes:
+// translate-x-10 -translate-x-10 translate-x-7 -translate-x-7 -translate-x-7
+
 // Import all icons
 import { FaUserFriends, FaUserTie, FaLightbulb } from "react-icons/fa";
 import { ImHtmlFive } from "react-icons/im";

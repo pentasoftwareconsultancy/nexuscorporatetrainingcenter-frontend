@@ -93,6 +93,10 @@
   background-color: var(--color-seven);
 }
 
+@utility perspective-1000 {
+  perspective: 1000px;
+}
+
 /* ------------ GLOBAL STYLES ------------ */
 body {
   @apply bg-three;
