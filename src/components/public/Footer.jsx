@@ -58,7 +58,7 @@ const ColTitle = ({ children }) => (
 const FLink = ({ onClick, children }) => (
   <li
     onClick={onClick}
-    className="text-gray-300 text-[15px] hover:text-orange-400 hover:translate-x-1 transition-all duration-200 cursor-pointer leading-relaxed"
+    className="text-gray-300 text-[15px] hover:text-white hover:translate-x-1 transition-all duration-200 cursor-pointer leading-relaxed"
   >
     {children}
   </li>
@@ -103,7 +103,7 @@ export default function Footer() {
             <ColTitle>Branches</ColTitle>
             <div className="space-y-4">
               <div>
-                <span className="text-orange-500 text-[11px] font-bold uppercase tracking-wider block mb-1">Pune</span>
+                <span className="text-gray-400 text-[11px] font-bold uppercase tracking-wider block mb-1">Pune</span>
                 <ul className="space-y-1.5">
                   {puneBranches.map((b) => (
                     <FLink key={b.title} onClick={() => navigate(b.path)}>
@@ -114,7 +114,7 @@ export default function Footer() {
               </div>
 
               <div>
-                <span className="text-orange-500 text-[11px] font-bold uppercase tracking-wider block mb-1">Other Cities</span>
+                <span className="text-gray-400 text-[11px] font-bold uppercase tracking-wider block mb-1">Other Cities</span>
                 <ul className="space-y-1.5">
                   {otherBranches.map((b) => (
                     <FLink key={b.title} onClick={() => navigate(b.path)}>
@@ -125,7 +125,7 @@ export default function Footer() {
               </div>
 
               <div>
-                <span className="text-orange-500 text-[11px] font-bold uppercase tracking-wider block mb-1">International</span>
+                <span className="text-gray-400 text-[11px] font-bold uppercase tracking-wider block mb-1">International</span>
                 <ul className="space-y-1.5">
                   {internationalBranches.map((b) => (
                     <FLink key={b.title} onClick={() => navigate(b.path)}>
@@ -153,16 +153,16 @@ export default function Footer() {
           <div>
             <ColTitle>Locations</ColTitle>
             <div className="space-y-3 mb-5">
-              <a href="tel:+919545450788" className="flex items-center gap-2 text-gray-300 hover:text-orange-400 transition text-sm">
-                <FaPhoneAlt size={13} className="text-orange-500 shrink-0" />
+              <a href="tel:+919545450788" className="flex items-center gap-2 text-gray-300 hover:text-white transition text-sm">
+                <FaPhoneAlt size={13} className="text-white/60 shrink-0" />
                 +91 9545450788
               </a>
-              <a href="tel:+919545450677" className="flex items-center gap-2 text-gray-300 hover:text-orange-400 transition text-sm">
-                <FaPhoneAlt size={13} className="text-orange-500 shrink-0" />
+              <a href="tel:+919545450677" className="flex items-center gap-2 text-gray-300 hover:text-white transition text-sm">
+                <FaPhoneAlt size={13} className="text-white/60 shrink-0" />
                 +91 9545450677
               </a>
-              <a href="mailto:nexusCTC2020@gmail.com" className="flex items-center gap-2 text-gray-300 hover:text-orange-400 transition text-sm">
-                <IoIosMail size={16} className="text-orange-500 shrink-0" />
+              <a href="mailto:nexusCTC2020@gmail.com" className="flex items-center gap-2 text-gray-300 hover:text-white transition text-sm">
+                <IoIosMail size={16} className="text-white/60 shrink-0" />
                 nexusCTC2020@gmail.com
               </a>
             </div>
@@ -176,7 +176,7 @@ export default function Footer() {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center text-gray-400 hover:text-orange-400 hover:border-orange-500/40 hover:bg-orange-500/10 transition-all duration-200"
+                    className="w-10 h-10 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center text-gray-400 hover:text-white hover:border-white/40 hover:bg-white/10 transition-all duration-200"
                   >
                     <Icon size={20} />
                   </a>
@@ -189,11 +189,11 @@ export default function Footer() {
       </div>
 
       {/* BOTTOM BAR */}
-      <div className="relative z-10 border-t border-orange-500/20">
+      <div className="relative z-10 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex flex-col md:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-2 text-gray-300 text-xs">
-            <FaLocationDot size={12} className="text-orange-500 shrink-0" />
-            <span className="hover:text-orange-400 transition-colors duration-200">Office No. 4-B, Second Floor, Ganesham Commercial-A, BRTS Road, Pimple Saudagar, Pune – 411027</span>
+            <FaLocationDot size={12} className="text-white/60 shrink-0" />
+            <span className="hover:text-white transition-colors duration-200">Office No. 4-B, Second Floor, Ganesham Commercial-A, BRTS Road, Pimple Saudagar, Pune – 411027</span>
           </div>
           <p className="text-gray-500 text-xs">© 2025 All rights reserved — nexusctc.com</p>
         </div>
