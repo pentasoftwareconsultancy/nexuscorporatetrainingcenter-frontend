@@ -98,10 +98,18 @@
 }
 
 /* ------------ GLOBAL STYLES ------------ */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   @apply bg-three;
   @apply font-sora;
   @apply text-one;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .fit-text {

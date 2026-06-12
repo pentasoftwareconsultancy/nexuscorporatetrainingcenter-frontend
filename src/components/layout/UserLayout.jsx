@@ -13,7 +13,7 @@ export default function UserLayout() {
   const hideLayout = location.pathname.startsWith(ROUTES.USER_EXAM);
 
   return (
-    <div className="relative min-h-screen overflow-y-auto overflow-x-hidden h-screen">
+    <div className="relative min-h-screen w-full overflow-x-hidden">
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* NAVBAR (Show only if not /exam) */}
         {!hideLayout && <Navbar />}
