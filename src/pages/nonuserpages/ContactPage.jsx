@@ -9,20 +9,30 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email Us",
-    value: "nexusCTC2020@gmail.com",
-    href: "mailto:nexusCTC2020@gmail.com",
+    value: (
+      <>
+        hr@nexusctc.com
+        <br />
+        info@nexusctc.com
+      </>
+    ),
+    href: "mailto:hr@nexusctc.com",
   },
   {
     icon: Phone,
     label: "Call Us",
-    value: "+91 9545450788 / +91 9545450677",
+    value: (
+      <>
+        +91 9545450788  <br />  +91 9545450677
+      </>
+    ),
     href: "tel:+919545450788",
   },
   {
     icon: MapPin,
     label: "Visit Us",
     value: "Office No. 4-B, Second Floor, Ganesham Commercial-A, Survey No. 21/18–21/24, BRTS Road, Pimple Saudagar, Pune – 411027",
-    href: null,
+    href: "https://www.google.com/maps/place/Nexus+Corporate+Training+Center+LLP/@18.5941115,73.799376,17z/data=!3m1!4b1!4m6!3m5!1s0x3bc2b8ddf5183e03:0xdaa2aadbbee1cc68!8m2!3d18.5941064!4d73.8019509!16s%2Fg%2F11strc_nr6?entry=ttu&g_ep=EgoyMDI2MDYwMy4xIKXMDSoASAFQAw%3D%3D",
   },
 ];
 
@@ -66,13 +76,13 @@ export default function ContactPage() {
     <div className="relative min-h-screen text-white font-sora overflow-hidden">
 
       {/* ── TOP ARC GLOW ── */}
-      <div className="pointer-events-none absolute top-0 left-0 w-full z-0" style={{height:"180px",overflow:"hidden"}}>
-        <div style={{position:"absolute",bottom:"-120px",left:"50%",transform:"translateX(-50%)",width:"85%",height:"320px",borderRadius:"50%",boxShadow:"0 0 100px 50px rgba(130,30,0,0.15)"}} />
-        <div style={{position:"absolute",bottom:"-120px",left:"50%",transform:"translateX(-50%)",width:"75%",height:"290px",borderRadius:"50%",boxShadow:"0 0 4px 1px rgba(255,160,40,1), 0 0 10px 3px rgba(255,85,0,0.8), 0 0 22px 6px rgba(200,50,0,0.4)"}} />
+      <div className="pointer-events-none absolute top-0 left-0 w-full z-0" style={{ height: "180px", overflow: "hidden" }}>
+        <div style={{ position: "absolute", bottom: "-120px", left: "50%", transform: "translateX(-50%)", width: "85%", height: "320px", borderRadius: "50%", boxShadow: "0 0 100px 50px rgba(130,30,0,0.15)" }} />
+        <div style={{ position: "absolute", bottom: "-120px", left: "50%", transform: "translateX(-50%)", width: "75%", height: "290px", borderRadius: "50%", boxShadow: "0 0 4px 1px rgba(255,160,40,1), 0 0 10px 3px rgba(255,85,0,0.8), 0 0 22px 6px rgba(200,50,0,0.4)" }} />
         {/* Fade left end */}
-        <div style={{position:"absolute",top:0,left:0,width:"30%",height:"100%",background:"linear-gradient(to right, #0C0C0C 40%, transparent)"}} />
+        <div style={{ position: "absolute", top: 0, left: 0, width: "30%", height: "100%", background: "linear-gradient(to right, #0C0C0C 40%, transparent)" }} />
         {/* Fade right end */}
-        <div style={{position:"absolute",top:0,right:0,width:"30%",height:"100%",background:"linear-gradient(to left, #0C0C0C 40%, transparent)"}} />
+        <div style={{ position: "absolute", top: 0, right: 0, width: "30%", height: "100%", background: "linear-gradient(to left, #0C0C0C 40%, transparent)" }} />
       </div>
 
       {/* ── BOTTOM SUNRISE GLOW ── */}
@@ -95,26 +105,7 @@ export default function ContactPage() {
         </p>
       </div>
 
-      {/* ── CONTACT INFO CARDS ── */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 mb-14">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {contactInfo.map(({ icon: Icon, label, value, href }) => (
-            <div key={label} className="group bg-white/3 border border-white/8 rounded-2xl p-6 hover:border-orange-500/40 hover:bg-orange-500/5 transition-all duration-300">
-              <div className="w-11 h-11 rounded-xl bg-orange-500/15 border border-orange-500/20 flex items-center justify-center mb-4 group-hover:bg-orange-500/25 transition-all duration-300">
-                <Icon size={18} className="text-orange-400" />
-              </div>
-              <p className="text-xs text-gray-500 uppercase tracking-widest mb-2">{label}</p>
-              {href ? (
-                <a href={href} className="text-gray-200 text-sm leading-relaxed hover:text-orange-400 transition-colors duration-200 break-all">
-                  {value}
-                </a>
-              ) : (
-                <p className="text-gray-200 text-sm leading-relaxed">{value}</p>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+
 
       {/* ── FORM SECTION ── */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 mb-20">
@@ -171,6 +162,30 @@ export default function ContactPage() {
           </form>
         </div>
       </div>
+
+
+      {/* ── CONTACT INFO CARDS ── */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 mb-14">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {contactInfo.map(({ icon: Icon, label, value, href }) => (
+            <div key={label} className="group bg-white/3 border border-white/8 rounded-2xl p-6 hover:border-orange-500/40 hover:bg-orange-500/5 transition-all duration-300">
+              <div className="w-11 h-11 rounded-xl bg-orange-500/15 border border-orange-500/20 flex items-center justify-center mb-4 group-hover:bg-orange-500/25 transition-all duration-300">
+                <Icon size={18} className="text-orange-400" />
+              </div>
+              <p className="text-xs text-gray-500 uppercase tracking-widest mb-2">{label}</p>
+              {href ? (
+                <a href={href} className="text-gray-200 text-sm leading-relaxed hover:text-orange-400 transition-colors duration-200 break-all">
+                  {value}
+                </a>
+              ) : (
+                <p className="text-gray-200 text-sm leading-relaxed">{value}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+
 
       {/* ── TERMS & CONDITIONS ── */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pb-24">

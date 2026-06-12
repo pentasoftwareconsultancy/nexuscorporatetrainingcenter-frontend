@@ -43,7 +43,7 @@ const AboutPage = () => {
           transition={{ delay: 0.3, duration: 0.8 }}
         >
           <VMVSection />
-          <PartnerSection />
+          {/* <PartnerSection /> */}
           <SuccessReviews />
         </motion.div>
       </div>

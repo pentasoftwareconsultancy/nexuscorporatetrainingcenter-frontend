@@ -95,9 +95,9 @@ export default function TrainingCentreEventsSection() {
           Training Centre 
           <span className="text-orange-500"> Events </span>
         </h2>
-        <p className="text-gray-300 text-sm md:text-base max-w-4xl leading-relaxed">
+        {/* <p className="text-gray-300 text-sm md:text-base max-w-4xl leading-relaxed">
           Take a look at the latest happenings, training workshops, bootcamps, and events at our training centre. Browse through high-quality photos and video sessions of our learners in action.
-        </p>
+        </p> */}
       </div>
 
       {loading ? (
