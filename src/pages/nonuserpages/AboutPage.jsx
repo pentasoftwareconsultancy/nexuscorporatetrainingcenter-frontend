@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import VMVSection from '../../components/nonuser/about/VMVSection.jsx';
-import PartnerSection from '../../components/nonuser/about/PartnerSection.jsx';
+// import PartnerSection from '../../components/nonuser/about/PartnerSection.jsx';
 import SuccessReviews from '../../components/public/SuccessReviews.jsx';
 
 const AboutPage = () => {
