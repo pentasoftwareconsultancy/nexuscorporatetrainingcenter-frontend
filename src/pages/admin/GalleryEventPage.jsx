@@ -4,9 +4,9 @@ import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import { ROUTES } from "../../core/constants/routes.constant";
 
-import zeal1 from "../../assets/gallary/zeal1.jpeg";
-import govtpoly1 from "../../assets/gallary/govtpoly1.jpeg";
-import akola1 from "../../assets/gallary/akolaclg/Screenshot (81) 5.png";
+import zeal1 from "../../assets/gallary/zeal1.avif";
+import govtpoly1 from "../../assets/gallary/govtpoly1.avif";
+import akola1 from "../../assets/gallary/akolaclg/Screenshot (81) 5.avif";
 
 const GalleryEventPage = () => {
   const [eventStories, setEventStories] = useState([]);

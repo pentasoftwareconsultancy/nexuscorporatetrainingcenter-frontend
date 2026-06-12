@@ -60,10 +60,13 @@ const UpcomingPage = () => {
     loadBatches();
   }, []);
 
-  // Filter by search
-  const filtered = batches.filter((b) =>
-    b.name.toLowerCase().includes(search.toLowerCase())
-  );
+  // Filter by search — checks both batch name and linked course title
+  const filtered = batches.filter((b) => {
+    const query = search.toLowerCase();
+    const batchName = (b.name || "").toLowerCase();
+    const courseTitle = (b.course?.title || "").toLowerCase();
+    return batchName.includes(query) || courseTitle.includes(query);
+  });
 
   if (loading) {
     return (

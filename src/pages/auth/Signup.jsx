@@ -9,8 +9,11 @@ import {
 import Button from "../../components/common/Button";
 
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import ApiService from "../../core/services/api.service";
+import ServerUrl from "../../core/constants/serverURL.constant";
 
-import login from "../../assets/home/login.jpg";
+import login from "../../assets/home/login.avif";
 
 const Signup = () => {
 
@@ -24,9 +27,67 @@ const Signup = () => {
     confirmPassword: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    const { fullName, phone, email, password, confirmPassword } = formData;
+
+    if (!fullName || !phone || !email || !password || !confirmPassword) {
+      toast.error("All fields are required");
+      return;
+    }
+
+    // Full name validation: only letters and spaces, at least 2 characters
+    const nameRegex = /^[a-zA-Z\s]{2,}$/;
+    if (!nameRegex.test(fullName.trim())) {
+      toast.error("Full Name must contain at least 2 characters and only letters/spaces");
+      return;
+    }
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    // 10-digit phone number validation
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone)) {
+      toast.error("Phone number must be exactly 10 digits");
+      return;
+    }
+
+    const hasCapital = /[A-Z]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    if (password.length < 6 || !hasCapital || !hasSpecial) {
+      toast.error("Password must be at least 6 characters, contain 1 capital letter, and 1 special character");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    // Auto role detection matching codebase defaults
+    const role = email.endsWith("@devconsoftware.com") ? "admin" : "user";
+
+    try {
+      await new ApiService().apipost(ServerUrl.API_REGISTER, {
+        userName: fullName,
+        phoneNumber: phone,
+        emailOrPhone: email,
+        password,
+        confirmPassword,
+        role,
+      });
+
+      toast.success("Registration successful! Please login.");
+      navigate("/login");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Registration failed");
+    }
   };
 
   return (
@@ -122,6 +183,11 @@ const Signup = () => {
                   transition-all
                 "
               />
+              {formData.fullName && (formData.fullName.trim().length < 2 || !/^[a-zA-Z\s]+$/.test(formData.fullName)) && (
+                <p className="text-xs text-orange-400 mt-1 pl-1">
+                  Full Name must contain at least 2 characters and only letters/spaces
+                </p>
+              )}
             </div>
 
             {/* PHONE */}
@@ -131,12 +197,13 @@ const Signup = () => {
 
               <input
                 type="text"
+                maxLength={10}
                 placeholder="Phone Number"
                 value={formData.phone}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    phone: e.target.value,
+                    phone: e.target.value.replace(/\D/g, ""),
                   })
                 }
                 className="
@@ -227,6 +294,11 @@ const Signup = () => {
                   transition-all
                 "
               />
+              {formData.password && (formData.password.length < 6 || !/[A-Z]/.test(formData.password) || !/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) && (
+                <p className="text-xs text-orange-400 mt-1 pl-1">
+                  Password must be at least 6 characters and contain 1 capital letter and 1 special character
+                </p>
+              )}
             </div>
 
             {/* CONFIRM PASSWORD */}
@@ -262,14 +334,25 @@ const Signup = () => {
                   transition-all
                 "
               />
+              {formData.confirmPassword && formData.confirmPassword !== formData.password && (
+                <p className="text-xs text-orange-400 mt-1 pl-1">
+                  Passwords do not match
+                </p>
+              )}
             </div>
 
             {/* SIGNUP BUTTON */}
-            <Button
-              text="Create Account"
+            <motion.button
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0px 0px 25px rgba(255,115,0,0.4)",
+              }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
-              className="w-full py-3 mt-2"
-            />
+              className="w-full py-3 mt-2 bg-gradient-to-r from-orange-500 to-amber-600 text-white font-semibold rounded-xl transition-all"
+            >
+              Create Account
+            </motion.button>
 
             {/* LOGIN LINK */}
             <div className="text-center pt-2 text-gray-400 text-sm">

@@ -11,15 +11,24 @@
   --font-playfair: "Playfair Display";
 
   /* COLORS */
-  --color-one: #FFF3EA; /* White */
-  --color-two: #6C6C6C; /* Text Gray */
-  --color-towpointone: #D2D2D2; /* Text Gray 1 */
-  --color-twopointo: #383838; /* Background Gray */
-  --color-three: #0C0C0C; /* Black */
-  --color-four: #1254FA; /* Blue */
-  --color-five: #FF6A00; /* Orange */
-  --color-six: #BE2424; /* Transprant Dark Red */
-  --color-seven: #FC0101; /* Red */
+  --color-one: #FFF3EA;
+  /* White */
+  --color-two: #6C6C6C;
+  /* Text Gray */
+  --color-towpointone: #D2D2D2;
+  /* Text Gray 1 */
+  --color-twopointo: #383838;
+  /* Background Gray */
+  --color-three: #0C0C0C;
+  /* Black */
+  --color-four: #1254FA;
+  /* Blue */
+  --color-five: #FF6A00;
+  /* Orange */
+  --color-six: #BE2424;
+  /* Transprant Dark Red */
+  --color-seven: #FC0101;
+  /* Red */
 }
 
 /* ------------- UTILITIES ------------- */
@@ -99,18 +108,54 @@ body {
 /* src/index.css */
 
 @keyframes blurRoundedSquare {
-  0%   { transform: translate(120px, -120px); }   /* top-right */
-  15%  { transform: translate(120px, 0px); }       /* right-mid */
-  25%  { transform: translate(120px, 120px); }     /* bottom-right */
+  0% {
+    transform: translate(120px, -120px);
+  }
 
-  40%  { transform: translate(0px, 120px); }       /* bottom-mid */
-  50%  { transform: translate(-120px, 120px); }    /* bottom-left */
+  /* top-right */
+  15% {
+    transform: translate(120px, 0px);
+  }
 
-  65%  { transform: translate(-120px, 0px); }      /* left-mid */
-  75%  { transform: translate(-120px, -120px); }   /* top-left */
+  /* right-mid */
+  25% {
+    transform: translate(120px, 120px);
+  }
 
-  90%  { transform: translate(0px, -120px); }      /* top-mid */
-  100% { transform: translate(120px, -120px); }    /* loop back */
+  /* bottom-right */
+
+  40% {
+    transform: translate(0px, 120px);
+  }
+
+  /* bottom-mid */
+  50% {
+    transform: translate(-120px, 120px);
+  }
+
+  /* bottom-left */
+
+  65% {
+    transform: translate(-120px, 0px);
+  }
+
+  /* left-mid */
+  75% {
+    transform: translate(-120px, -120px);
+  }
+
+  /* top-left */
+
+  90% {
+    transform: translate(0px, -120px);
+  }
+
+  /* top-mid */
+  100% {
+    transform: translate(120px, -120px);
+  }
+
+  /* loop back */
 }
 
 
@@ -118,6 +163,7 @@ body {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -128,6 +174,7 @@ body {
     transform: scale(0.6);
     opacity: 0;
   }
+
   100% {
     transform: scale(1);
     opacity: 0.9;
@@ -145,7 +192,7 @@ body {
   justify-content: center;
   align-items: center;
   overflow: visible;
-  
+
   /* Desktop defaults */
   --carousel-tx-1-pos: 100%;
   --carousel-tx-1-neg: -100%;
@@ -176,9 +223,9 @@ body {
   height: 450px;
   transform-style: preserve-3d;
   will-change: transform, opacity;
-  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
-              opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
-              z-index 0.45s step-end;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1),
+    z-index 0.45s step-end;
 }
 
 @media (max-width: 1024px) {
@@ -201,9 +248,9 @@ body {
   z-index: 30;
   opacity: 1;
   pointer-events: auto;
-  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
-              opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
-              z-index 0.45s step-start;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1),
+    z-index 0.45s step-start;
 }
 
 .slot-left-1 {
@@ -236,7 +283,9 @@ body {
 
 /* Fade out slot 2 on small mobile screens to keep layout clean */
 @media (max-width: 640px) {
-  .slot-left-2, .slot-right-2 {
+
+  .slot-left-2,
+  .slot-right-2 {
     opacity: 0;
     pointer-events: none;
   }
@@ -271,8 +320,6 @@ body {
   border-color: rgba(255, 106, 0, 0.6);
 }
 
-<<<<<<< HEAD
-=======
 /* --- Premium Cinematic Luxury Styles --- */
 .luxury-noise {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
@@ -292,12 +339,15 @@ body {
   0% {
     transform: translate(0px, 0px) scale(1);
   }
+
   33% {
     transform: translate(40px, -60px) scale(1.15);
   }
+
   66% {
     transform: translate(-30px, 30px) scale(0.9);
   }
+
   100% {
     transform: translate(0px, 0px) scale(1);
   }
@@ -315,6 +365,7 @@ body {
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
@@ -333,4 +384,3 @@ body {
   background-size: 200% 100%;
   animation: slidingGlow 8s infinite linear;
 }
->>>>>>> 36ba97d5aa1d644f6f3f203977b6091c71e60f42

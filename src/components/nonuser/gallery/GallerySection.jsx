@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom";
 import ApiService from "../../../core/services/api.service";
 import ServerUrl from "../../../core/constants/serverURL.constant";
 
-import zeal1 from "../../../assets/gallary/zeal1.jpeg";
-import zeal2 from "../../../assets/gallary/zeal2.jpeg";
-import zeal3 from "../../../assets/gallary/zeal3.jpeg";
-import zeal4 from "../../../assets/gallary/zeal4.jpeg";
-import zeal5 from "../../../assets/gallary/zeal5.jpeg";
-import zeal6 from "../../../assets/gallary/zeal6.jpeg";
-import zeal7 from "../../../assets/gallary/zeal7.jpeg";
-import govtpoly1 from "../../../assets/gallary/govtpoly1.jpeg";
-import govtpoly2 from "../../../assets/gallary/govtpoly2.jpeg";
-import govtpoly3 from "../../../assets/gallary/govtpoly3.jpeg";
-import akola1 from "../../../assets/gallary/akolaclg/Screenshot (81) 5.png";
-import akola2 from "../../../assets/gallary/akolaclg/Screenshot (81) 8.png";
-import akola3 from "../../../assets/gallary/akolaclg/Screenshot (81) 10.png";
-import akola4 from "../../../assets/gallary/akolaclg/Screenshot (81) 11.png";
+import zeal1 from "../../../assets/gallary/zeal1.avif";
+import zeal2 from "../../../assets/gallary/zeal2.avif";
+import zeal3 from "../../../assets/gallary/zeal3.avif";
+import zeal4 from "../../../assets/gallary/zeal4.avif";
+import zeal5 from "../../../assets/gallary/zeal5.avif";
+import zeal6 from "../../../assets/gallary/zeal6.avif";
+import zeal7 from "../../../assets/gallary/zeal7.avif";
+import govtpoly1 from "../../../assets/gallary/govtpoly1.avif";
+import govtpoly2 from "../../../assets/gallary/govtpoly2.avif";
+import govtpoly3 from "../../../assets/gallary/govtpoly3.avif";
+import akola1 from "../../../assets/gallary/akolaclg/Screenshot (81) 5.avif";
+import akola2 from "../../../assets/gallary/akolaclg/Screenshot (81) 8.avif";
+import akola3 from "../../../assets/gallary/akolaclg/Screenshot (81) 10.avif";
+import akola4 from "../../../assets/gallary/akolaclg/Screenshot (81) 11.avif";
 
 const fallbackImages = [zeal1, zeal2, zeal3, zeal4, zeal5, zeal6, zeal7];
 
@@ -204,30 +204,7 @@ export default function GallerySection() {
         <h1 className="text-2xl md:text-3xl font-bold">Collaboration with Colleges</h1>
       </div> */}
 
-      {/* CITY FILTER */}
-      <div className="flex flex-wrap gap-4 mb-10 max-w-[2400px] mx-auto">
-        <button
-          onClick={() => setSelectedCity("all")}
-          className={`px-6 py-2 rounded-full border ${selectedCity === "all"
-              ? "bg-orange-500 text-black"
-              : "border-gray-500"
-            }`}
-        >
-          Show All
-        </button>
-        {cities.map((city) => (
-          <button
-            key={city.id}
-            onClick={() => setSelectedCity(city.id)}
-            className={`px-6 py-2 rounded-full border ${selectedCity === city.id
-                ? "bg-orange-500 text-black"
-                : "border-gray-500"
-              }`}
-          >
-            {city.name}
-          </button>
-        ))}
-      </div>
+
 
       {/* COLLEGE CARDS */}
       {loading ? (

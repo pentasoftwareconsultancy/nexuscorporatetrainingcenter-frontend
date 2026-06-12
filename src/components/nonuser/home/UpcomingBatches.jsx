@@ -62,10 +62,13 @@ const UpcomingBatches = () => {
     loadBatches();
   }, []);
 
-  // ⭐ Filter search
-  const filtered = batches.filter((b) =>
-    b.name.toLowerCase().includes(search.toLowerCase())
-  );
+  // Filter by search — checks both batch name and linked course title
+  const filtered = batches.filter((b) => {
+    const query = search.toLowerCase();
+    const batchName = (b.name || "").toLowerCase();
+    const courseTitle = (b.course?.title || "").toLowerCase();
+    return batchName.includes(query) || courseTitle.includes(query);
+  });
 
   // ⭐ Homepage: show only 5
   const displayed = filtered.slice(0, 5);
@@ -79,7 +82,7 @@ const UpcomingBatches = () => {
   }
 
   return (
-    <div className="w-full text-white font-sans py-6 px-4 sm:px-6 md:px-10">
+    <div className="w-full text-white font-sans py-6 px-3 sm:px-6 md:px-12">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
         <h1 className="text-3xl md:text-4xl font-semibold tracking-wide">
           Upcoming Batches
