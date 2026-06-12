@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import VMVSection from '../../components/nonuser/about/VMVSection.jsx';
-import PartnerSection from '../../components/nonuser/about/PartnerSection.jsx';
+// import PartnerSection from '../../components/nonuser/about/PartnerSection.jsx';
 import SuccessReviews from '../../components/public/SuccessReviews.jsx';
 
 const AboutPage = () => {
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-br from-[#05112d] via-[#01040f] to-[#000000] text-white overflow-hidden font-sans">
+    <div className="relative w-full min-h-screen bg-gradient-to-br from-[#05112d] via-[#01040f] to-[#000000] text-white overflow-x-hidden font-sans">
 
       {/* Ambient Floating Blobs using smooth hardware-accelerated radial gradients */}
       <div className="absolute top-[10%] left-[-10%] w-[45vw] h-[45vw] bg-[radial-gradient(circle,rgba(18,84,250,0.12)_0%,transparent_70%)] animate-float-blob pointer-events-none z-0"></div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import {
   Eye,
@@ -25,8 +25,8 @@ import {
   HeartHandshake,
   Wrench
 } from "lucide-react";
-import MissionImg from "../../../assets/about/OurMission.png";
-import PartnerSection from "./PartnerSection";
+import MissionImg from "../../../assets/about/OurMission.avif";
+import partnerSection from "../../../components/nonuser/about/PartnerSection.jsx";
 
 // A highly detailed, premium interactive mobile phone UI mockup representing the Nexus Vision tilted in 3D space
 const MobileVisionMockup = () => {
@@ -34,7 +34,8 @@ const MobileVisionMockup = () => {
     <motion.div
       className="relative w-[310px] h-[670px] overflow-visible group select-none perspective-1000"
       style={{
-        transformStyle: "preserve-3d"
+        transformStyle: "preserve-3d",
+        willChange: "transform"
       }}
       animate={{
         y: [0, -6, 0],
@@ -297,7 +298,7 @@ const MobileVisionMockup = () => {
       {/* 2. Floating Bubble Badges & success cards floating OUTSIDE the phone bezel */}
       {/* Play Video Badge */}
       <motion.div
-        className="absolute -left-10 top-[70px] w-8 h-8 rounded-full bg-[#0a1024]/80 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.4)] flex items-center justify-center z-30 border border-cyan-500/30"
+        className="absolute -left-10 top-[70px] w-8 h-8 rounded-full bg-[#0a1024] md:bg-[#0a1024]/80 md:backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.4)] flex items-center justify-center z-30 border border-cyan-500/30"
         style={{ transform: "translateZ(30px)", backfaceVisibility: "hidden" }}
         animate={{ y: [0, -6, 0], rotate: [0, -8, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -307,7 +308,7 @@ const MobileVisionMockup = () => {
 
       {/* Heart Badge */}
       <motion.div
-        className="absolute -right-6 top-[80px] w-8 h-8 rounded-full bg-[#0a1024]/80 backdrop-blur-md shadow-[0_0_15px_rgba(236,72,153,0.4)] flex items-center justify-center z-30 border border-pink-500/30"
+        className="absolute -right-6 top-[80px] w-8 h-8 rounded-full bg-[#0a1024] md:bg-[#0a1024]/80 md:backdrop-blur-md shadow-[0_0_15px_rgba(236,72,153,0.4)] flex items-center justify-center z-30 border border-pink-500/30"
         style={{ transform: "translateZ(35px)", backfaceVisibility: "hidden" }}
         animate={{ y: [0, 5, 0], scale: [1, 1.05, 1] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
@@ -317,7 +318,7 @@ const MobileVisionMockup = () => {
 
       {/* Curriculum/FileText Badge */}
       <motion.div
-        className="absolute -left-12 top-[160px] w-8 h-8 rounded-full bg-[#0a1024]/80 backdrop-blur-md shadow-[0_0_15px_rgba(59,130,246,0.4)] flex items-center justify-center z-30 border border-blue-500/30"
+        className="absolute -left-12 top-[160px] w-8 h-8 rounded-full bg-[#0a1024] md:bg-[#0a1024]/80 md:backdrop-blur-md shadow-[0_0_15px_rgba(59,130,246,0.4)] flex items-center justify-center z-30 border border-blue-500/30"
         style={{ transform: "translateZ(25px)", backfaceVisibility: "hidden" }}
         animate={{ y: [0, 4, 0], x: [0, -2, 0] }}
         transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
@@ -327,7 +328,7 @@ const MobileVisionMockup = () => {
 
       {/* Pie Chart Badge */}
       <motion.div
-        className="absolute -right-8 top-[170px] w-8 h-8 rounded-full bg-[#0a1024]/80 backdrop-blur-md shadow-[0_0_15px_rgba(139,92,246,0.4)] flex items-center justify-center z-30 border border-violet-500/30"
+        className="absolute -right-8 top-[170px] w-8 h-8 rounded-full bg-[#0a1024] md:bg-[#0a1024]/80 md:backdrop-blur-md shadow-[0_0_15px_rgba(139,92,246,0.4)] flex items-center justify-center z-30 border border-violet-500/30"
         style={{ transform: "translateZ(28px)", backfaceVisibility: "hidden" }}
         animate={{ y: [0, -5, 0], x: [0, 3, 0] }}
         transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
@@ -337,7 +338,7 @@ const MobileVisionMockup = () => {
 
       {/* Message Square Badge */}
       <motion.div
-        className="absolute -left-8 top-[250px] w-8 h-8 rounded-full bg-[#0a1024]/80 backdrop-blur-md shadow-[0_0_15px_rgba(14,165,233,0.4)] flex items-center justify-center z-30 border border-sky-500/30"
+        className="absolute -left-8 top-[250px] w-8 h-8 rounded-full bg-[#0a1024] md:bg-[#0a1024]/80 md:backdrop-blur-md shadow-[0_0_15px_rgba(14,165,233,0.4)] flex items-center justify-center z-30 border border-sky-500/30"
         style={{ transform: "translateZ(20px)", backfaceVisibility: "hidden" }}
         animate={{ y: [0, 5, 0], rotate: [0, 10, 0] }}
         transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
@@ -347,7 +348,7 @@ const MobileVisionMockup = () => {
 
       {/* Floating Student Profile Placement Success Card */}
       <motion.div
-        className="absolute -right-24 top-[240px] w-[115px] h-[140px] rounded-2xl bg-[#070b19]/90 backdrop-blur-md shadow-[0_10px_25px_rgba(0,0,0,0.5),0_0_15px_rgba(236,72,153,0.2)] border border-pink-500/20 p-2 z-30 flex flex-col gap-1.5"
+        className="absolute -right-24 top-[240px] w-[115px] h-[140px] rounded-2xl bg-[#070b19] md:bg-[#070b19]/90 md:backdrop-blur-md shadow-[0_10px_25px_rgba(0,0,0,0.5),0_0_15px_rgba(236,72,153,0.2)] border border-pink-500/20 p-2 z-30 flex flex-col gap-1.5"
         style={{
           transformStyle: "preserve-3d",
           transform: "rotateY(-15deg) rotateZ(4deg) translateZ(35px)",
@@ -437,7 +438,7 @@ const ValueCard3D = ({ card, CardIcon, index }) => {
         type: "spring",
         stiffness: 50,
         damping: 15,
-        delay: card.delay
+        delay: card.delay !== undefined ? card.delay : index * 0.08
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
@@ -541,6 +542,54 @@ const ValueCard3D = ({ card, CardIcon, index }) => {
 };
 
 const VMVSection = () => {
+  const containerRef = useRef(null);
+  const [emitterPos, setEmitterPos] = useState({ top: "25%", left: "31%" });
+
+  // Update position of emitter based on actual container bounds (matching object-cover math)
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const updatePosition = () => {
+      const rect = containerRef.current.getBoundingClientRect();
+      const containerWidth = rect.width;
+      const containerHeight = rect.height;
+      const imageAspectRatio = 1672 / 941; // OurMission.avif dimensions
+
+      let scaledWidth, scaledHeight;
+
+      if (containerWidth / containerHeight > imageAspectRatio) {
+        // Wide screen: image scales to fit width
+        scaledWidth = containerWidth;
+        scaledHeight = containerWidth / imageAspectRatio;
+      } else {
+        // Narrow screen: image scales to fit height
+        scaledHeight = containerHeight;
+        scaledWidth = containerHeight * imageAspectRatio;
+      }
+
+      // Sphere is at 31% from left of image, 25% from top of image
+      const xPixel = 0.31 * scaledWidth;
+      const yPixel = 0.25 * scaledHeight;
+
+      // Convert to percentages of the container
+      const xPercent = (xPixel / containerWidth) * 100;
+      const yPercent = (yPixel / containerHeight) * 100;
+
+      setEmitterPos({
+        top: `${yPercent}%`,
+        left: `${xPercent}%`
+      });
+    };
+
+    updatePosition();
+    window.addEventListener("resize", updatePosition);
+    const timer = setTimeout(updatePosition, 100);
+
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+      clearTimeout(timer);
+    };
+  }, []);
+
   // Motion settings
   const springTransition = { type: "spring", stiffness: 70, damping: 16 };
 
@@ -560,7 +609,7 @@ const VMVSection = () => {
   };
 
   return (
-    <div className="relative w-full max-w-[1200px] mx-auto px-6 sm:px-8 md:px-12 py-16 text-white font-sans space-y-24 md:space-y-36 overflow-visible z-10">
+    <div className="relative w-full max-w-[1200px] mx-auto px-6 sm:px-8 md:px-12 py-16 text-white font-sans space-y-16 md:space-y-36 overflow-visible z-10">
 
       {/* ================================
           OUR VISION
@@ -569,26 +618,28 @@ const VMVSection = () => {
         {/* Soft Background Blue Blob using smooth radial gradient */}
         <div className="absolute -top-24 -right-24 w-[350px] h-[350px] bg-[radial-gradient(circle,rgba(18,84,250,0.12)_0%,transparent_70%)] pointer-events-none"></div>
 
-        {/* Vision Mobile UI Mockup */}
-        <motion.div
-          initial={{ opacity: 0, x: -350, rotateY: -70, rotateX: 5, rotate: 0, scale: 0.7 }}
-          whileInView={{ opacity: 1, x: 0, rotateY: -22, rotateX: 18, rotate: 14, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 35, damping: 14 }}
-          style={{ transformStyle: "preserve-3d" }}
-          className="w-full md:w-[40%] flex justify-center perspective-1000 overflow-visible py-10"
-        >
-          <div className="w-[310px] h-[670px] overflow-visible" style={{ transformStyle: "preserve-3d" }}>
-            <MobileVisionMockup />
-          </div>
-        </motion.div>
+        {/* Vision Mobile UI Mockup Wrapper with Responsive Scaling to prevent mobile layout overflow */}
+        <div className="w-full md:w-[40%] h-[530px] sm:h-[620px] md:h-auto flex justify-center items-start overflow-visible py-5 md:py-10 scale-75 sm:scale-90 md:scale-100 origin-top" style={{ willChange: "transform" }}>
+          <motion.div
+            initial={{ opacity: 0, x: 0, rotateY: -70, rotateX: 5, rotate: 0, scale: 0.7 }}
+            whileInView={{ opacity: 1, x: 0, rotateY: -22, rotateX: 18, rotate: 14, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 35, damping: 14 }}
+            style={{ transformStyle: "preserve-3d", willChange: "transform" }}
+            className="perspective-1000 overflow-visible"
+          >
+            <div className="w-[310px] h-[670px] overflow-visible" style={{ transformStyle: "preserve-3d" }}>
+              <MobileVisionMockup />
+            </div>
+          </motion.div>
+        </div>
 
         {/* Vision Text */}
         <motion.div
-          initial={{ opacity: 0, x: -500 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 35, damping: 14 }}
+          transition={{ type: "spring", stiffness: 50, damping: 16 }}
           className="w-full md:w-[60%] flex flex-col gap-4"
         >
           <span className="text-orange-500 text-xs sm:text-sm font-semibold tracking-wider uppercase">
@@ -647,11 +698,12 @@ const VMVSection = () => {
           OUR MISSION
       ================================= */}
       <motion.div
+        ref={containerRef}
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={springTransition}
-        className="relative w-screen max-w-[100vw] left-1/2 -translate-x-1/2 bg-transparent shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(249,115,22,0.25),inset_0_0_15px_rgba(249,115,22,0.15)] py-28 md:py-36 min-h-[700px] flex items-center overflow-hidden z-10 px-6 sm:px-8 md:px-12"
+        className="relative w-screen max-w-[100vw] left-1/2 -translate-x-1/2 bg-transparent shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(249,115,22,0.25),inset_0_0_15px_rgba(249,115,22,0.15)] py-16 md:py-36 min-h-[500px] md:min-h-[700px] flex items-center overflow-hidden z-10 px-6 sm:px-8 md:px-12"
       >
         {/* Soft Background Purple/Magenta Blob using smooth radial gradient */}
         <div className="absolute -top-24 -left-24 w-[350px] h-[350px] bg-[radial-gradient(circle,rgba(249,115,22,0.18)_0%,transparent_70%)] pointer-events-none"></div>
@@ -664,6 +716,9 @@ const VMVSection = () => {
           style={{ objectPosition: "left top" }}
         />
 
+        {/* Dark overlay to ensure text readability on mobile while remaining transparent on laptop/desktop */}
+        <div className="absolute inset-0 bg-[#01040f]/75 md:bg-transparent z-5 pointer-events-none" />
+
         {/* Sleek metallic sheen sweep overlay */}
         <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none rotate-12 scale-150 z-5" />
 
@@ -672,7 +727,13 @@ const VMVSection = () => {
 
         {/* Main Holographic SVG Ripple Overlay - centered absolutely on the background image's sphere */}
         <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden flex items-center justify-center">
-          <div className="absolute top-[24%] left-[28.8%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]">
+          <div
+            className="absolute -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]"
+            style={{
+              top: emitterPos.top,
+              left: emitterPos.left
+            }}
+          >
             <svg className="w-full h-full overflow-visible" viewBox="0 0 800 800">
               {/* Concentric Rippling Circles from Emitter */}
               {[0, 1, 2, 3].map((i) => (
@@ -813,57 +874,57 @@ const VMVSection = () => {
                 description:
                   "We maintain absolute honesty and openness in all our interactions, ensuring trust forms the foundation of every student relationship.",
                 icon: Shield,
-                gradient: "from-purple-600/40 via-purple-800/30 to-violet-900/40",
-                borderColor: "border-purple-500/30",
-                glowColor: "rgba(168,85,247,0.25)",
-                iconColor: "text-purple-300",
+                gradient: "from-orange-600/30 via-orange-800/30 to-orange-900/40",
+                borderColor: "border-orange-500/30",
+                glowColor: "rgba(249,115,22,0.25)",
+                iconColor: "text-orange-300",
               },
               {
                 title: "Commitment to Outcomes",
                 description:
                   "Every program is designed with measurable career outcomes in mind — from skill mastery to job placement success.",
                 icon: TrendingUp,
-                gradient: "from-fuchsia-600/40 via-purple-800/30 to-pink-900/40",
-                borderColor: "border-fuchsia-500/30",
-                glowColor: "rgba(217,70,239,0.25)",
-                iconColor: "text-fuchsia-300",
+                gradient: "from-orange-600/30 via-orange-800/30 to-orange-900/40",
+                borderColor: "border-orange-500/30",
+                glowColor: "rgba(249,115,22,0.25)",
+                iconColor: "text-orange-300",
               },
               {
                 title: "Innovation-Driven Approach",
                 description:
                   "We constantly evolve our curriculum with cutting-edge tools, modern frameworks, and industry-relevant methodologies.",
                 icon: Lightbulb,
-                gradient: "from-violet-600/40 via-indigo-800/30 to-purple-900/40",
-                borderColor: "border-violet-500/30",
-                glowColor: "rgba(139,92,246,0.25)",
-                iconColor: "text-violet-300",
+                gradient: "from-orange-600/30 via-orange-800/30 to-orange-900/40",
+                borderColor: "border-orange-500/30",
+                glowColor: "rgba(249,115,22,0.25)",
+                iconColor: "text-orange-300",
               },
               {
                 title: "Inclusive Learning Culture",
                 description:
                   "Whether beginner or professional, every learner finds their place. Our programs are tailored for all experience levels.",
                 icon: HeartHandshake,
-                gradient: "from-pink-600/40 via-purple-800/30 to-fuchsia-900/40",
-                borderColor: "border-pink-500/30",
-                glowColor: "rgba(236,72,153,0.25)",
-                iconColor: "text-pink-300",
+                gradient: "from-orange-600/30 via-orange-800/30 to-orange-900/40",
+                borderColor: "border-orange-500/30",
+                glowColor: "rgba(249,115,22,0.25)",
+                iconColor: "text-orange-300",
               },
               {
                 title: "Focus on Real-World Skills",
                 description:
                   "Hands-on projects, live coding labs, and industry case studies ensure our students are truly job-ready from day one.",
                 icon: Wrench,
-                gradient: "from-amber-600/30 via-purple-800/30 to-orange-900/40",
-                borderColor: "border-amber-500/30",
+                gradient: "from-orange-600/30 via-orange-800/30 to-orange-900/40",
+                borderColor: "border-orange-500/30",
                 glowColor: "rgba(249,115,22,0.25)",
-                iconColor: "text-amber-300",
+                iconColor: "text-orange-300",
               },
               {
                 title: "Student Success Stories",
                 description:
                   "Showcasing alumni achievements and placements to inspire current learners.",
                 icon: Award,
-                gradient: "from-orange-600/30 via-purple-800/30 to-orange-900/40",
+                gradient: "from-orange-600/30 via-orange-800/30 to-orange-900/40",
                 borderColor: "border-orange-500/30",
                 glowColor: "rgba(249,115,22,0.25)",
                 iconColor: "text-orange-300",

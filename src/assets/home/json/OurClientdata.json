@@ -1,18 +1,18 @@
 {
   "clients": [
-    { "name": "Dell", "src": "client1.png" },
-    { "name": "Verizon", "src": "client2.png" },
-    { "name": "Countrywide", "src": "client3.png" },
-    { "name": "TCS", "src": "client4.png" },
-    { "name": "NCR", "src": "client5.png" },
-    { "name": "Oracle", "src": "client6.png" },
-    { "name": "Polaris", "src": "client7.png" },
-    { "name": "INTERGRAPH", "src": "client8.png" },
-    { "name": "M", "src": "client10.png" },
-    { "name": "HSBC", "src": "client11.png" },
-    { "name": "Windows", "src": "client12.png" },
-    { "name": "KEANE", "src": "client20.png" },
-    { "name": "KANBAY", "src": "client21.png" }
+    { "name": "Dell", "src": "client1.avif" },
+    { "name": "Verizon", "src": "client2.avif" },
+    { "name": "Countrywide", "src": "client3.avif" },
+    { "name": "TCS", "src": "client4.avif" },
+    { "name": "NCR", "src": "client5.avif" },
+    { "name": "Oracle", "src": "client6.avif" },
+    { "name": "Polaris", "src": "client7.avif" },
+    { "name": "INTERGRAPH", "src": "client8.avif" },
+    { "name": "M", "src": "client10.avif" },
+    { "name": "HSBC", "src": "client11.avif" },
+    { "name": "Windows", "src": "client12.avif" },
+    { "name": "KEANE", "src": "client20.avif" },
+    { "name": "KANBAY", "src": "client21.avif" }
   ],
   "metrics": [
     { "label": "Years of Experience", "value": 10 },
