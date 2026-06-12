@@ -839,6 +839,12 @@ const VMVSection = () => {
         </div>
       </motion.div>
 
+
+
+    
+      
+         <PartnerSection/>
+      
       {/* ================================
           OUR VALUES — 3D Interactive Floating Cards
       ================================= */}
