@@ -87,7 +87,7 @@ const PlacementStoryPage = () => {
         initial={{ opacity: 0, y: -25 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="hidden md:block text-left mb-6 mt-2 text-4xl font-semibold"
+        className="hidden md:block text-left mb-6 mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-white"
       >
         {student.name}{" "}
         <span className="font-bold text-white">– {student.package} LPA</span>
@@ -104,17 +104,17 @@ const PlacementStoryPage = () => {
           <motion.img
             src={student.image}
             alt={student.name}
-            className="w-60 h-60 md:w-72 md:h-72 object-cover rounded-2xl border border-gray-600 shadow-xl"
+            className="w-60 h-60 md:w-72 md:h-72 object-cover rounded-2xl border border-white/10 shadow-xl"
           />
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="block md:hidden mt-3 text-xl font-bold"
+            className="block md:hidden mt-3 text-2xl font-bold tracking-tight text-white"
           >
             {student.name}{" "}
-            <span className="text-gray-300 text-base">
+            <span className="text-white/80 text-base font-light">
               – {student.package} LPA
             </span>
           </motion.p>
@@ -125,7 +125,7 @@ const PlacementStoryPage = () => {
           initial={{ opacity: 0, x: -60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
-          className="flex-1 rounded-2xl shadow-xl border border-gray-700 p-6 backdrop-blur-sm"
+          className="flex-1 rounded-2xl shadow-xl border border-white/10 p-6 backdrop-blur-sm"
         >
           <motion.div
             variants={staggerParent}

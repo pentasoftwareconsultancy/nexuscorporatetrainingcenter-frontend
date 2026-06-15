@@ -102,7 +102,7 @@ export default function GalleryInfoPage() {
   if (!college) {
     return (
       <div className="text-white text-center mt-20">
-        <h2 className="text-3xl font-bold mb-4">College Not Found</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-4">College Not Found</h2>
         <button
           onClick={() => navigate(-1)}
           className="px-5 py-2 bg-amber-400 text-black font-semibold rounded-lg transition hover:bg-amber-500"
@@ -116,14 +116,14 @@ export default function GalleryInfoPage() {
   return (
     <div className="w-full px-4 sm:px-12 py-10 text-white">
       {/* HEADER */}
-      <h1 className="text-3xl font-bold mb-6">Collab With {college.name}</h1>
+      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-white mb-6">Collab With {college.name}</h1>
 
       {/* IMAGE GRID */}
       <div className="flex flex-wrap gap-6 justify-start max-w-[2400px] mx-auto">
         {images.map((img, index) => (
           <div
             key={index}
-            className="relative group overflow-hidden rounded-xl border border-gray-700
+            className="relative group overflow-hidden rounded-xl border border-white/10
               shadow-[0_0_25px_rgba(255,165,0,0.5)]
               hover:shadow-[0_0_40px_rgba(255,165,0,0.8)]
               transition-all duration-500 cursor-pointer"
@@ -141,8 +141,8 @@ export default function GalleryInfoPage() {
 
       {/* INFO SECTION */}
       <div className="mt-8">
-        <h1 className="text-2xl font-bold">{college.name} Collab</h1>
-        <p className="mt-2 text-gray-300">
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">{college.name} Collab</h2>
+        <p className="mt-2 text-white/80 text-sm sm:text-base font-light leading-relaxed">
           Gallery images from our collaboration with {college.name} in {city?.name}.
         </p>
       </div>

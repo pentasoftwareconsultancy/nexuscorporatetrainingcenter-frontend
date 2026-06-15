@@ -41,11 +41,11 @@ export default function FAQSection() {
 
   return (
     <section className="w-full min-h-screen bg-black px-3 md:px-12 py-16 text-white">
-      
+
       {/* Heading */}
-      <h1 className="text-5xl md:text-5xl font-semibold mb-12 tracking-tight font-clash  ">
+      <h2 className="text-[28px] sm:text-[32px] md:text-[36px] font-bold tracking-tight text-white mb-10">
         FAQs
-      </h1>
+      </h2>
 
       {/* FAQ Items */}
       <div className="space-y-5">
@@ -68,7 +68,7 @@ export default function FAQSection() {
                 onClick={() => toggleFAQ(index)}
                 className="relative z-10 flex w-full items-center justify-between px-6 md:px-8 py-6 md:py-7 text-left"
               >
-                <span className="max-w-[90%] text-[13px] md:text-[16px] uppercase tracking-wide font-medium leading-relaxed text-[#f5f5f5]">
+                <span className="max-w-[90%] text-sm sm:text-base font-semibold leading-relaxed text-[#f5f5f5]">
                   {faq.question}
                 </span>
 
@@ -83,14 +83,13 @@ export default function FAQSection() {
 
               {/* Answer */}
               <div
-                className={`grid transition-all duration-500 ease-in-out ${
-                  isOpen
+                className={`grid transition-all duration-500 ease-in-out ${isOpen
                     ? "grid-rows-[1fr] opacity-100"
                     : "grid-rows-[0fr] opacity-0"
-                }`}
+                  }`}
               >
                 <div className="overflow-hidden">
-                  <div className="relative z-10 px-6 md:px-8 pb-6 text-sm md:text-base text-gray-300 leading-relaxed">
+                  <div className="relative z-10 px-6 md:px-8 pb-6 text-sm sm:text-base font-light text-white/80 leading-relaxed">
                     {faq.answer}
                   </div>
                 </div>

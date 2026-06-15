@@ -87,8 +87,8 @@ export default function Branches() {
           transition={{ duration: 0.7 }}
           className="mb-4"
         >
-          <h1 className="text-4xl text-white font-bold mb-3">Our Branches</h1>
-          <p className="text-[16px] text-towpointone max-w-2xl">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-white mb-3">Our Branches</h1>
+          <p className="text-sm sm:text-base font-light text-white/80 max-w-2xl leading-relaxed">
             Nexus Corporate Training Center is present across multiple cities in India and internationally.
             Find a branch near you and start your learning journey today.
           </p>
@@ -104,7 +104,7 @@ export default function Branches() {
                 px-5 py-2.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 cursor-pointer whitespace-nowrap
                 ${activeRegion === region
                   ? "bg-gradient-to-r from-orange-500 to-amber-600 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)] border border-orange-500/25 scale-105"
-                  : "bg-[#181818] text-gray-400 hover:text-white hover:bg-[#222222] border border-white/5"}
+                  : "bg-[#181818] text-white/60 hover:text-white hover:bg-[#222222] border border-white/5"}
               `}
             >
               {region}
@@ -119,7 +119,7 @@ export default function Branches() {
 
               {/* Region label */}
               <div className="flex items-center gap-3 mb-6">
-                <p className="text-[18px] font-bold inline-block text-white border-b-2 border-orange-500 pb-1">
+                <p className="text-xl sm:text-2xl font-bold inline-block text-white border-b-2 border-orange-500 pb-1">
                   {group.region}
                 </p>
                 {group.region === "International" && (
@@ -164,7 +164,7 @@ export default function Branches() {
                             ? "bg-orange-500/20 text-orange-400 border-orange-500/40"
                             : branch.tag === "International"
                             ? "bg-blue-500/20 text-blue-400 border-blue-500/40"
-                            : "bg-white/5 text-gray-400 border-white/10"}
+                            : "bg-white/5 text-white/60 border-white/10"}
                         `}>
                           {branch.tag}
                         </span>
@@ -173,7 +173,7 @@ export default function Branches() {
                       {/* Address */}
                       <div className="flex items-start gap-3">
                         <MapPin size={15} className="text-five shrink-0 mt-0.5" />
-                        <p className="text-gray-400 text-sm leading-relaxed">{branch.address}</p>
+                        <p className="text-white/70 text-sm leading-relaxed">{branch.address}</p>
                       </div>
 
                       {/* Phone */}

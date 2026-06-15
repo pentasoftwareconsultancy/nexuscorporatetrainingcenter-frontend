@@ -169,9 +169,9 @@ export default function PlacementPage() {
       transition={{ duration: 0.6 }}
       className="text-white py-6 px-1 lg:px-12 overflow-hidden"
     >
-      <h1 className="text-4xl font-bold mb-10 text-white">From Potential to Performance</h1>
+      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-white mb-10">From Potential to Performance</h1>
 
-      <p className="text-[18px] text-justify mb-8 w-11/12 text-towpointone leading-relaxed">
+      <p className="text-sm sm:text-base font-light text-justify mb-8 w-11/12 text-white/80 leading-relaxed">
         Our graduates consistently demonstrate exceptional performance and command premium positions across the industry.
         Through our rigorous training and placement assistance, we bridge the gap between academic potential and corporate excellence, 
         delivering talented professionals to leading global enterprises.
@@ -208,7 +208,7 @@ export default function PlacementPage() {
       {finalData.map((block) => (
         <div key={block.year} className="mb-16">
           <div className="flex items-center gap-4 mb-6 w-11/12">
-            <h2 className="text-2xl font-bold text-white">{block.year} Placements</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">{block.year} Placements</h2>
             <div className="flex-1 h-[1px] bg-white/10"></div>
           </div>
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-11/12">

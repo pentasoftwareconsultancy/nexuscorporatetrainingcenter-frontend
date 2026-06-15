@@ -137,7 +137,7 @@ const CourseSection = ({ course, onContact }) => {
             <h2 className="text-2xl sm:text-3xl md:text-[42px] font-bold text-white leading-tight tracking-tight">
               {course.title}
             </h2>
-            <p className="text-gray-400 text-sm">
+            <p className="text-sm sm:text-base font-light text-white/60">
               Master the skills that drive real-world impact.
             </p>
           </div>
@@ -168,10 +168,10 @@ const CourseSection = ({ course, onContact }) => {
                 {icon}
               </span>
               <div className="min-w-0 flex-1">
-                <p className="text-[9px] sm:text-[10px] text-gray-500 font-semibold uppercase tracking-widest mb-0.5">
+                <p className="text-[9px] sm:text-[10px] text-white/40 font-semibold uppercase tracking-widest mb-0.5">
                   {label}
                 </p>
-                <p className="text-[11px] sm:text-[13px] text-white font-bold break-words">{value}</p>
+                <p className="text-xs sm:text-sm text-white font-bold break-words">{value}</p>
               </div>
             </div>
           ))}
@@ -185,7 +185,7 @@ const CourseSection = ({ course, onContact }) => {
           style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
         >
           <SectionHeading icon={<MdOutlineSchool size={17} />} label="About This Course" />
-          <p className="text-gray-200 text-[14px] sm:text-[15px] leading-[1.85] sm:ml-[68px]">
+          <p className="text-sm sm:text-base font-light text-white/80 leading-relaxed sm:ml-[68px]">
             {course.description}
           </p>
         </div>
@@ -215,7 +215,7 @@ const CourseSection = ({ course, onContact }) => {
                   size={13}
                   className="mt-0.5 shrink-0 text-white"
                 />
-                <span className="text-gray-100 text-[13px] leading-snug">{item}</span>
+                <span className="text-sm sm:text-base font-light text-white/80 leading-relaxed">{item}</span>
               </div>
             ))}
           </div>
@@ -265,7 +265,7 @@ const CourseSection = ({ course, onContact }) => {
                 >
                   {i + 1}
                 </span>
-                <span className="text-gray-100 text-[13px] leading-snug">{item}</span>
+                <span className="text-sm sm:text-base font-light text-white/80 leading-relaxed">{item}</span>
               </div>
             ))}
           </div>
@@ -290,7 +290,7 @@ const CourseSection = ({ course, onContact }) => {
               Ready to enroll in{" "}
               <span style={{ color: ORANGE }}>{course.title}</span>?
             </p>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="text-sm sm:text-base font-light text-white/80 leading-relaxed">
               Get in touch with us and kickstart your professional learning journey today.
             </p>
           </div>
@@ -343,7 +343,7 @@ const CoursesDetailPage = () => {
   if (!category)
     return (
       <div className="min-h-screen text-white flex items-center justify-center font-sora bg-gradient-to-br from-[#05112d] via-[#01040f] to-[#000000]">
-        <p className="text-gray-400">Category not found.</p>
+        <p className="text-sm sm:text-base font-light text-white/60">Category not found.</p>
       </div>
     );
 
@@ -352,7 +352,7 @@ const CoursesDetailPage = () => {
       {/* ── Back nav */}
       <button
         onClick={() => navigate(-1)}
-        className="flex items-center gap-2 text-sm text-gray-300 hover:text-white mb-10 group cursor-pointer"
+        className="flex items-center gap-2 text-sm text-white/80 hover:text-white mb-10 group cursor-pointer"
         style={{ transition: "color 0.15s" }}
       >
         <span
@@ -374,7 +374,7 @@ const CoursesDetailPage = () => {
         >
           Course Details
         </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-3">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold text-white leading-tight tracking-tight mb-3">
           {category.name}
         </h1>
         <div className="flex items-center gap-2">
@@ -393,8 +393,8 @@ const CoursesDetailPage = () => {
           >
             <FaBookOpen size={28} style={{ color: ORANGE }} />
           </div>
-          <h3 className="text-xl font-semibold text-gray-300 mb-2">No courses found</h3>
-          <p className="text-sm text-gray-500">Try browsing other categories.</p>
+          <h3 className="text-xl font-semibold text-white mb-2">No courses found</h3>
+          <p className="text-sm sm:text-base font-light text-white/60">Try browsing other categories.</p>
         </div>
       ) : (
         <div className="flex flex-col gap-10">

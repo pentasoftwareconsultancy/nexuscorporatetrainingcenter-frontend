@@ -124,8 +124,8 @@ function Navbar() {
           <div className="flex items-center justify-center space-x-2 px-4 py-2 bg-black/40 rounded-2xl backdrop-blur-md transition-all duration-300">
             {navLinks.map((item) =>
               item.dropdown ? (
-                <div 
-                  key={item.label} 
+                <div
+                  key={item.label}
                   className="relative"
                   onMouseEnter={() => setOpenDropdown(item.label)}
                   onMouseLeave={() => setOpenDropdown(null)}
@@ -261,9 +261,8 @@ function Navbar() {
                 </svg>
               </button>
               <div
-                className={`w-full overflow-hidden transition-all duration-300 ${
-                  openMobileDropdown === item.label ? "max-h-[500px] opacity-100 mt-1" : "max-h-0 opacity-0"
-                }`}
+                className={`w-full overflow-hidden transition-all duration-300 ${openMobileDropdown === item.label ? "max-h-[500px] opacity-100 mt-1" : "max-h-0 opacity-0"
+                  }`}
               >
                 {item.dropdown.map((drop) => (
                   <Link
