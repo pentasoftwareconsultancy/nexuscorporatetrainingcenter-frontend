@@ -95,10 +95,10 @@ export default function ContactPage() {
         <span className="inline-block px-4 py-1 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-400 text-xs font-medium tracking-widest uppercase mb-5">
           Contact Us
         </span>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-white mb-4 leading-tight">
           Let's <span className="text-orange-500">Connect</span>
         </h1>
-        <p className="text-gray-400 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+        <p className="text-white/80 text-sm sm:text-base font-light max-w-lg mx-auto leading-relaxed">
           Have questions or ready to transform your career with{" "}
           <span className="text-white font-medium">Nexus Corporate Training Center LLP</span>?
           We're here to help.
@@ -113,17 +113,17 @@ export default function ContactPage() {
 
           {/* Left — Info */}
           <div className="lg:col-span-2 pt-2">
-            <h2 className="text-3xl font-bold text-white mb-3 leading-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-3 leading-tight">
               Send Us a <span className="text-orange-500">Message</span>
             </h2>
-            <p className="text-gray-400 text-sm leading-relaxed mb-8">
+            <p className="text-white/80 text-sm font-light leading-relaxed mb-8">
               Fill out the form and our team will get back to you within 24 hours.
             </p>
             <div className="space-y-4">
               {["Response within 24 hours", "Expert career guidance", "Free consultation call"].map((item) => (
                 <div key={item} className="flex items-center gap-3">
                   <CheckCircle size={16} className="text-orange-500 shrink-0" />
-                  <span className="text-gray-300 text-sm">{item}</span>
+                  <span className="text-white/80 text-sm font-light">{item}</span>
                 </div>
               ))}
             </div>
@@ -133,25 +133,25 @@ export default function ContactPage() {
           <form onSubmit={handleSubmit} className="lg:col-span-3 bg-white/3 border border-white/8 rounded-2xl p-6 sm:p-8 space-y-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="space-y-1.5">
-                <label className="text-xs text-gray-400 uppercase tracking-wider">Name</label>
+                <label className="text-xs text-white/60 uppercase tracking-wider">Name</label>
                 <input type="text" name="name" placeholder="Your full name" value={formData.name} onChange={handleChange} required
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500/60 focus:bg-orange-500/5 transition-all duration-200" />
+                  className="w-full bg-white/5 border border-white/10 text-white placeholder-white/40 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500/60 focus:bg-orange-500/5 transition-all duration-200" />
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs text-gray-400 uppercase tracking-wider">Email</label>
+                <label className="text-xs text-white/60 uppercase tracking-wider">Email</label>
                 <input type="email" name="email" placeholder="your@email.com" value={formData.email} onChange={handleChange} required
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500/60 focus:bg-orange-500/5 transition-all duration-200" />
+                  className="w-full bg-white/5 border border-white/10 text-white placeholder-white/40 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500/60 focus:bg-orange-500/5 transition-all duration-200" />
               </div>
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs text-gray-400 uppercase tracking-wider">Phone Number</label>
+              <label className="text-xs text-white/60 uppercase tracking-wider">Phone Number</label>
               <input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" value={formData.phone} onChange={handleChange} required
-                className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500/60 focus:bg-orange-500/5 transition-all duration-200" />
+                className="w-full bg-white/5 border border-white/10 text-white placeholder-white/40 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500/60 focus:bg-orange-500/5 transition-all duration-200" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs text-gray-400 uppercase tracking-wider">Message</label>
+              <label className="text-xs text-white/60 uppercase tracking-wider">Message</label>
               <textarea name="message" placeholder="Tell us how we can help you..." value={formData.message} onChange={handleChange} required rows="5"
-                className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500/60 focus:bg-orange-500/5 transition-all duration-200 resize-none" />
+                className="w-full bg-white/5 border border-white/10 text-white placeholder-white/40 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-orange-500/60 focus:bg-orange-500/5 transition-all duration-200 resize-none" />
             </div>
             <Button
               type="submit"
@@ -172,13 +172,13 @@ export default function ContactPage() {
               <div className="w-11 h-11 rounded-xl bg-orange-500/15 border border-orange-500/20 flex items-center justify-center mb-4 group-hover:bg-orange-500/25 transition-all duration-300">
                 <Icon size={18} className="text-orange-400" />
               </div>
-              <p className="text-xs text-gray-500 uppercase tracking-widest mb-2">{label}</p>
+              <p className="text-xs text-white/50 uppercase tracking-widest mb-2">{label}</p>
               {href ? (
-                <a href={href} className="text-gray-200 text-sm leading-relaxed hover:text-orange-400 transition-colors duration-200 break-all">
+                <a href={href} className="text-white/90 text-sm font-light leading-relaxed hover:text-orange-400 transition-colors duration-200 break-all">
                   {value}
                 </a>
               ) : (
-                <p className="text-gray-200 text-sm leading-relaxed">{value}</p>
+                <p className="text-white/90 text-sm font-light leading-relaxed">{value}</p>
               )}
             </div>
           ))}
@@ -196,10 +196,10 @@ export default function ContactPage() {
             <span className="inline-block px-4 py-1 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-400 text-xs font-medium tracking-widest uppercase mb-4">
               Legal
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
               Terms & <span className="text-orange-500">Conditions</span>
             </h2>
-            <p className="text-gray-400 text-sm mt-3 max-w-md mx-auto">
+            <p className="text-white/80 text-sm font-light mt-3 max-w-md mx-auto">
               Please read the following terms carefully before enrolling in any of our programs.
             </p>
           </div>
@@ -214,7 +214,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-white text-sm font-semibold">{title}</h3>
                 </div>
-                <p className="text-gray-400 text-xs leading-relaxed">{desc}</p>
+                <p className="text-white/60 text-xs font-light leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>

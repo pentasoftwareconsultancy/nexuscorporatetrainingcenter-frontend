@@ -65,11 +65,11 @@ export default function FacultySection() {
           <span className="text-orange-500 text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase">
             Expert Mentors
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mt-2">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-2">
             Meet Our Faculty
           </h2>
           <div className="w-12 h-[2px] bg-orange-500 mt-4 mx-auto sm:mx-0"></div>
-          <p className="text-gray-400 pt-4 max-w-2xl text-sm sm:text-base leading-relaxed">
+          <p className="text-sm sm:text-base font-light text-white/80 leading-relaxed pt-4 max-w-2xl">
             Our success is driven by world-class instructors with real-world industry expertise, dedicated to grooming the next generation of software professionals.
           </p>
         </motion.div>
@@ -137,11 +137,11 @@ export default function FacultySection() {
                 <h3 className="font-bold text-base sm:text-lg text-white leading-tight">
                   {f.faculty_name}
                 </h3>
-                <p className="text-xs text-gray-400 mt-2 font-medium">
+                <p className="text-xs text-white/60 mt-2 font-medium">
                   Experience: {f.experience}
                 </p>
                 {f.skills && (
-                  <p className="text-[11px] text-gray-500 mt-2 leading-relaxed line-clamp-2 border-t border-white/10 pt-2">
+                  <p className="text-[11px] text-white/40 mt-2 leading-relaxed line-clamp-2 border-t border-white/10 pt-2">
                     Skills: {f.skills}
                   </p>
                 )}

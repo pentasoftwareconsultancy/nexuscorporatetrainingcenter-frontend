@@ -196,13 +196,14 @@ export default function GallerySection() {
   return (
     <section className="w-full px-4 sm:px-8 lg:px-12 py-10 text-white">
       {/* HEADER */}
-      {/* <div className="max-w-[2400px] mx-auto mb-12">
-        <h2 className="text-4xl font-extrabold mb-4">Gallery</h2>
-        <p className="text-gray-300 text-sm md:text-base max-w-4xl leading-relaxed mb-8">
-          Explore our vibrant corporate and academic ecosystem. This gallery is a visual testament to the energy and hands-on learning environment fostered at every Nexus event, from intensive industry workshops to successful college placement drives. Witness our strong collaborative spirit and the moments where professional growth begins.
+      <div className="max-w-[2400px] mx-auto mb-10">
+        <h2 className="text-left font-bold text-[28px] sm:text-[32px] md:text-[36px] tracking-tight text-white mb-4">
+          Collaboration with <span className="text-orange-500">Colleges</span>
+        </h2>
+        <p className="text-[15px] sm:text-[17px] font-light text-white/80 leading-relaxed max-w-5xl">
+          We partner with leading colleges and institutions to deliver high-impact workshops, training seminars, and placement preparation bootcamps.
         </p>
-        <h1 className="text-2xl md:text-3xl font-bold">Collaboration with Colleges</h1>
-      </div> */}
+      </div>
 
 
 

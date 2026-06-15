@@ -185,7 +185,7 @@ const StandardCard = ({ item, index, onClick, truncateWords }) => {
           <p className="text-base font-bold text-white line-clamp-1">
             {item.caption}
           </p>
-          <p className="mt-1.5 text-gray-400 text-xs line-clamp-2 leading-relaxed">
+          <p className="mt-1.5 text-white/60 text-xs line-clamp-2 leading-relaxed">
             {truncateWords(item.about, 15)}
           </p>
         </div>
@@ -279,7 +279,7 @@ const VideoTestiomoniualsPage = () => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-20 text-5xl md:text-6xl font-bold mb-6"
+        className="relative z-20 text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-white mb-6"
       >
         {isPlacementTestimonials ? "Placement Testimonials" : "Course Videos"}
       </motion.h1>
