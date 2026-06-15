@@ -244,7 +244,7 @@ const AdminCoursesPage = () => {
                 {category.name}
               </p>
 
-              <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center auto-rows-fr">
+              <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center auto-rows-fr">
                 {category.courses.map((course) => {
                   const IconComponent = getIconBySubject(course.title);
                   const highlights = getHighlights(course.categoryId);

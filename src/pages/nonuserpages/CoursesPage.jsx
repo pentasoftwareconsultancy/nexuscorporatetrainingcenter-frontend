@@ -106,10 +106,10 @@ const CoursesPage = () => {
     <section className="relative w-full min-h-screen py-6 px-4 sm:px-6 md:px-12 text-one overflow-x-hidden">
 
       <div className="relative z-10">
-        <h1 className="text-4xl text-white font-bold mb-10">Our
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-white mb-10">Our
           <span className="text-orange-500"> Courses</span></h1>
 
-        <p className="text-[16px] sm:text-[18px] text-left mb-8 w-full text-gray-300 leading-relaxed">
+        <p className="text-sm sm:text-base font-light text-left mb-8 w-full text-white/80 leading-relaxed">
           Our extensive catalog of corporate training courses is meticulously
           designed to meet the demands of the modern business landscape. From
           cutting-edge technical skills like AWS, Data Science, and Full Stack
@@ -123,18 +123,18 @@ const CoursesPage = () => {
 
 
         {/* ── Search Bar (full-width on mobile, constrained on larger screens) ── */}
-        <div className="relative w-full sm:w-[70%] md:w-[50%] lg:w-[38%] mb-5">
+        <div className="relative w-full sm:max-w-[320px] mb-5">
           <input
             type="text"
             placeholder="Search courses..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Escape" && setSearchQuery("")}
-            className="w-full bg-[#181818] text-white border border-white/10 rounded-full px-5 py-3 pl-10 pr-24 text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all placeholder-gray-500"
+            className="w-full bg-[#181818] text-white border border-white/10 rounded-full px-5 py-3 pl-11 pr-[115px] text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all placeholder-white/40"
           />
           {/* Search icon */}
           <svg
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 pointer-events-none"
+            className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40 pointer-events-none"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -147,11 +147,11 @@ const CoursesPage = () => {
             />
           </svg>
           {/* Clear + Search buttons */}
-          <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center gap-1">
+          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="w-6 h-6 flex items-center justify-center text-xs text-gray-400 hover:text-white transition-colors"
+                className="w-6 h-6 flex items-center justify-center text-xs text-white/60 hover:text-white transition-colors cursor-pointer"
                 title="Clear search"
               >
                 ✕
@@ -159,7 +159,7 @@ const CoursesPage = () => {
             )}
             <button
               onClick={() => {/* search already reactive via onChange */ }}
-              className="px-3 py-1.5 bg-gradient-to-r from-orange-500 to-amber-600 text-white text-xs font-semibold rounded-full hover:brightness-110 transition-all shadow-[0_2px_10px_rgba(249,115,22,0.3)] cursor-default"
+              className="px-4 h-[32px] flex items-center justify-center bg-gradient-to-r from-orange-500 to-amber-600 text-white text-xs font-semibold rounded-full hover:brightness-110 transition-all shadow-[0_2px_10px_rgba(249,115,22,0.3)] cursor-pointer"
             >
               Search
             </button>
@@ -176,7 +176,7 @@ const CoursesPage = () => {
               px-5 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 cursor-pointer whitespace-nowrap
               ${activeCategory === name
                   ? "bg-gradient-to-r from-orange-500 to-amber-600 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)] border border-orange-500/25 scale-105"
-                  : "bg-[#181818] text-gray-400 hover:text-white hover:bg-[#222222] border border-white/5"}
+                  : "bg-[#181818] text-white/60 hover:text-white hover:bg-[#222222] border border-white/5"}
             `}
             >
               {name}
@@ -188,7 +188,7 @@ const CoursesPage = () => {
         {totalDisplayCourses === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center w-11/12">
             <svg
-              className="h-16 w-16 text-gray-600 mb-4 animate-bounce"
+              className="h-16 w-16 text-white/30 mb-4 animate-bounce"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -201,7 +201,7 @@ const CoursesPage = () => {
               />
             </svg>
             <h3 className="text-xl font-semibold text-white mb-2">No courses found</h3>
-            <p className="text-gray-400 max-w-md">
+            <p className="text-white/60 max-w-md">
               We couldn't find any courses matching your search or selected filter. Try adjusting your keywords or category.
             </p>
           </div>
@@ -210,7 +210,7 @@ const CoursesPage = () => {
             if (category.courses.length === 0) return null;
             return (
               <div key={category.id} className="mb-12">
-                <p className="text-[18px] font-bold mb-3 inline-block text-white border-b-2 border-orange-500 pb-1">
+                <p className="text-xl sm:text-2xl font-bold mb-3 inline-block text-white border-b-2 border-orange-500 pb-1">
                   {category.name}
                 </p>
 

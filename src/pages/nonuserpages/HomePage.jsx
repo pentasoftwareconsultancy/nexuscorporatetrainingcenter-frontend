@@ -16,7 +16,7 @@ const HomePage = () => {
       <OurClient />
       <CoursesProvided />
       <div className="px-4 sm:px-6 md:px-10 my-4">
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-600 to-transparent opacity-60"></div>
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
       </div>
       <UpcomingBatches />
       <TrainingCentreEventsSection />

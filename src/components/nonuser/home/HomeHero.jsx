@@ -39,12 +39,7 @@ export default function HomeHero() {
           </h1>
 
           <p className="text-[#D1D5DB] text-[13px] sm:text-[14px] md:text-[14.5px] leading-relaxed font-light opacity-90">
-            We believe true business growth is built on the strength of your
-            people. Our expertise is in crafting bespoke training programs
-            that don't just teach skills—they transform teams. We partner with you to
-            understand your unique challenges, delivering proven solutions that
-            drive real, measurable results and empower your workforce to
-            achieve more.
+            Traditional degrees teach theory, but top companies hire for practical skills. We design structured, hands-on IT training programs led by industry experts to help you master modern tech stacks, gain real-world project experience, and successfully secure your dream job.
           </p>
 
           {/* ENROLL NOW BUTTON */}
@@ -82,12 +77,7 @@ export default function HomeHero() {
         {/* 3. Description and button below */}
         <div className="flex flex-col items-start gap-5">
           <p className="text-[#D1D5DB] text-[13.5px] sm:text-[14.5px] leading-relaxed font-light opacity-90 text-left">
-            We believe true business growth is built on the strength of your
-            people. Our expertise is in crafting bespoke training programs
-            that don't just teach skills—they transform teams. We partner with you to
-            understand your unique challenges, delivering proven solutions that
-            drive real, measurable results and empower your workforce to
-            achieve more.
+            Traditional degrees teach theory, but top companies hire for practical skills. We design structured, hands-on IT training programs led by industry experts to help you master modern tech stacks, gain real-world project experience, and successfully secure your dream job.
           </p>
           <Button
             text="Enroll now"

@@ -57,7 +57,7 @@ export default function FacultyPage() {
   // -------------------------------
   return (
     <div className=" text-white px-12 py-10">
-      <h1 className="text-4xl font-bold mb-10">Our Faculty</h1>
+      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-white mb-10">Our Faculty</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
         {faculty.map((fac, index) => (
@@ -72,19 +72,19 @@ export default function FacultyPage() {
               crossOrigin="anonymous"
             />
 
-            <h2 className="text-xl font-semibold">{fac.faculty_name}</h2>
+            <h2 className="text-lg font-bold text-white">{fac.faculty_name}</h2>
 
-            <p className="text-sm text-gray-400 flex items-center gap-2 mt-2">
+            <p className="text-sm text-white/60 font-light flex items-center gap-2 mt-2">
               <span>•</span>
               <span>Experience: {fac.experience}</span>
             </p>
 
-            <p className="text-sm text-gray-400 flex items-center gap-2">
+            <p className="text-sm text-white/60 font-light flex items-center gap-2">
               <span>•</span>
               <span>Designation: {fac.designation}</span>
             </p>
 
-            <p className="text-sm text-gray-400 flex items-center gap-2">
+            <p className="text-sm text-white/60 font-light flex items-center gap-2">
               <span>•</span>
               <span>Skills: {fac.skills}</span>
             </p>

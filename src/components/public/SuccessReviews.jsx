@@ -55,7 +55,7 @@ const SuccessReviews = () => {
 
   return (
     <div className="relative w-full text-white py-2 px-2 sm:px-5 md:px-10">
-      <h2 className="text-start text-2xl sm:text-3xl md:text-5xl font-extrabold mb-8 tracking-wide">
+      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-8">
         Reviews
       </h2>
 
@@ -89,7 +89,7 @@ const SuccessReviews = () => {
                   <Quote size={20} className="opacity-20 text-[#f97316] " />
 
                   {/* Review text */}
-                  <p className="text-[13px] text-gray-300 leading-relaxed line-clamp-4 flex-1">
+                  <p className="text-sm sm:text-base font-light text-white/80 leading-relaxed line-clamp-4 flex-1">
                     {review?.review}
                   </p>
 
@@ -109,7 +109,7 @@ const SuccessReviews = () => {
                     </div>
                     <div className="min-w-0">
                       <p className="text-[13px] font-semibold truncate">{review?.name}</p>
-                      <p className="text-[11px] text-gray-400 truncate">{review?.position}</p>
+                      <p className="text-xs text-white/60 truncate">{review?.position}</p>
                     </div>
                   </div>
                 </div>

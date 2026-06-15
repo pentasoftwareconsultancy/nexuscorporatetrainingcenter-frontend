@@ -218,7 +218,7 @@ const CoursesCard = ({ logo, title, description, duration, id, categoryId }) => 
         </h2>
 
         {/* Description */}
-        <p className="text-gray-300 text-[12px] leading-relaxed line-clamp-2">
+        <p className="text-white/80 text-[12px] leading-relaxed line-clamp-2">
           {description}
         </p>
 
@@ -231,8 +231,8 @@ const CoursesCard = ({ logo, title, description, duration, id, categoryId }) => 
           ].map(({ label, value }) => (
             <div key={label} className="flex items-start gap-1.5">
               <span className="mt-[4px] w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: accent }} />
-              <p className="text-[11px] text-gray-300 leading-snug">
-                {label}: <span className="text-gray-400 font-medium">{value}</span>
+              <p className="text-[11px] text-white/70 leading-snug">
+                {label}: <span className="text-white/50 font-medium">{value}</span>
               </p>
             </div>
           ))}
