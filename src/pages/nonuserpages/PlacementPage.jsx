@@ -167,66 +167,68 @@ export default function PlacementPage() {
       initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6 }}
-      className="text-white py-6 px-1 lg:px-12 overflow-hidden"
+      className="text-white py-6 px-4 sm:px-6 lg:px-12 overflow-hidden"
     >
-      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-white mb-10">From Potential to Performance</h1>
+      <div className="max-w-7xl mx-auto w-full">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight text-white mb-10">From Potential to Performance</h1>
 
-      <p className="text-sm sm:text-base font-light text-justify mb-8 w-11/12 text-white/80 leading-relaxed">
-        Our graduates consistently demonstrate exceptional performance and command premium positions across the industry.
-        Through our rigorous training and placement assistance, we bridge the gap between academic potential and corporate excellence, 
-        delivering talented professionals to leading global enterprises.
-      </p>
+        <p className="text-sm sm:text-base font-light text-justify mb-8 text-white/80 leading-relaxed">
+          Our graduates consistently demonstrate exceptional performance and command premium positions across the industry.
+          Through our rigorous training and placement assistance, we bridge the gap between academic potential and corporate excellence, 
+          delivering talented professionals to leading global enterprises.
+        </p>
 
-      {/* CATEGORY FILTER TABS */}
-      <div className="flex flex-wrap items-center gap-3 mb-10 w-11/12">
-        {(showAll ? categories : categories.slice(0, 6)).map((cat, i) => (
-          <button
-            key={i}
-            onClick={() => setActive(cat)}
-            className={`
-              px-5 py-2.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 cursor-pointer whitespace-nowrap
-              ${active === cat 
-                ? "bg-gradient-to-r from-orange-500 to-amber-600 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)] border border-orange-500/25 scale-105" 
-                : "bg-[#181818] text-gray-400 hover:text-white hover:bg-[#222222] border border-white/5"}
-            `}
-          >
-            {cat}
-          </button>
+        {/* CATEGORY FILTER TABS */}
+        <div className="flex flex-wrap items-center gap-3 mb-10 w-full">
+          {(showAll ? categories : categories.slice(0, 6)).map((cat, i) => (
+            <button
+              key={i}
+              onClick={() => setActive(cat)}
+              className={`
+                px-5 py-2.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 cursor-pointer whitespace-nowrap
+                ${active === cat 
+                  ? "bg-gradient-to-r from-orange-500 to-amber-600 text-white shadow-[0_4px_15px_rgba(249,115,22,0.4)] border border-orange-500/25 scale-105" 
+                  : "bg-[#181818] text-gray-400 hover:text-white hover:bg-[#222222] border border-white/5"}
+              `}
+            >
+              {cat}
+            </button>
+          ))}
+
+          {categories.length > 6 && (
+            <button 
+              onClick={() => setShowAll(!showAll)}
+              className="text-five hover:text-orange-400 font-semibold text-xs md:text-sm px-3 py-1 cursor-pointer transition-colors duration-300"
+            >
+              {showAll ? "Show Less" : "More"}
+            </button>
+          )}
+        </div>
+
+        {/* YEAR WISE DATA GRID */}
+        {finalData.map((block) => (
+          <div key={block.year} className="mb-16">
+            <div className="flex items-center gap-4 mb-6 w-full">
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">{block.year} Placements</h2>
+              <div className="flex-1 h-[1px] bg-white/10"></div>
+            </div>
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full justify-items-center">
+              {block.card.map((student) => (
+                <PlacementCard key={student.placement_id} student={student} />
+              ))}
+            </div>
+          </div>
         ))}
 
-        {categories.length > 6 && (
-          <button 
-            onClick={() => setShowAll(!showAll)}
-            className="text-five hover:text-orange-400 font-semibold text-xs md:text-sm px-3 py-1 cursor-pointer transition-colors duration-300"
-          >
-            {showAll ? "Show Less" : "More"}
-          </button>
+        {finalData.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-20 text-center w-full">
+            <h3 className="text-xl font-semibold text-white mb-2">No placements found</h3>
+            <p className="text-gray-400 max-w-md">
+              We couldn't find any placement records for the selected filter.
+            </p>
+          </div>
         )}
       </div>
-
-      {/* YEAR WISE DATA GRID */}
-      {finalData.map((block) => (
-        <div key={block.year} className="mb-16">
-          <div className="flex items-center gap-4 mb-6 w-11/12">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">{block.year} Placements</h2>
-            <div className="flex-1 h-[1px] bg-white/10"></div>
-          </div>
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-11/12">
-            {block.card.map((student) => (
-              <PlacementCard key={student.placement_id} student={student} />
-            ))}
-          </div>
-        </div>
-      ))}
-
-      {finalData.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-20 text-center w-11/12">
-          <h3 className="text-xl font-semibold text-white mb-2">No placements found</h3>
-          <p className="text-gray-400 max-w-md">
-            We couldn't find any placement records for the selected filter.
-          </p>
-        </div>
-      )}
     </motion.div>
   );
 }
