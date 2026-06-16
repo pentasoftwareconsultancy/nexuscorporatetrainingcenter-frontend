@@ -160,92 +160,100 @@ const SuccessReviews = () => {
         </div>
 
         {/* Right Column: Card Stack & Slider */}
-        <div className="lg:col-span-7 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 w-full">
-          {/* Left Navigation Arrow */}
-          <button
-            onClick={handlePrev}
-            aria-label="Previous Testimonial"
-            className="hidden sm:flex w-12 h-12 rounded-full border border-white/20 items-center justify-center text-white hover:text-[#ff6a00] hover:border-[#ff6a00] hover:bg-[#ff6a00]/10 transition-all duration-300 shrink-0 cursor-pointer focus:outline-none"
-          >
-            <ChevronLeft size={20} />
-          </button>
+        <div className="lg:col-span-7 flex flex-col items-center justify-center gap-6 w-full">
+          
+          {/* Row containing Arrows + Card Stack */}
+          <div className="flex flex-row items-center justify-center gap-6 sm:gap-8 w-full">
+            {/* Left Navigation Arrow */}
+            <button
+              onClick={handlePrev}
+              aria-label="Previous Testimonial"
+              className="hidden sm:flex w-12 h-12 rounded-full border border-white/20 items-center justify-center text-white hover:text-[#ff6a00] hover:border-[#ff6a00] hover:bg-[#ff6a00]/10 transition-all duration-300 shrink-0 cursor-pointer focus:outline-none"
+            >
+              <ChevronLeft size={20} />
+            </button>
 
-          {/* Card Stack Container */}
-          <div className="relative w-full max-w-[440px] min-h-[300px] sm:min-h-[320px] mx-auto z-10">
-            {/* Layered background card matching the dark blue theme */}
-            <div className="absolute inset-0 bg-[#071333]/90 border border-blue-500/10 rounded-[2rem] translate-x-5 translate-y-3 scale-[0.98] z-0 shadow-xl pointer-events-none transition-all duration-300" />
+            {/* Card Stack Container */}
+            <div className="relative w-full max-w-[440px] min-h-[220px] sm:min-h-[240px] mx-auto z-10">
+              {/* Layered background card matching the dark blue theme */}
+              <div className="absolute inset-0 bg-[#071333]/90 border border-blue-500/10 rounded-[2rem] translate-x-5 translate-y-3 scale-[0.98] z-0 shadow-xl pointer-events-none transition-all duration-300" />
 
-            <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.div
-                key={activeIndex}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="relative z-10 w-full bg-white text-gray-900 rounded-[2rem] p-8 sm:p-10 shadow-2xl flex flex-col justify-between min-h-[300px] sm:min-h-[320px]"
-              >
-                <div>
-                  <div className="flex justify-between items-start gap-4 mb-4">
-                    {activeReview.rating ? (
-                      <div className="flex gap-0.5 mt-1 shrink-0">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star
-                            key={i}
-                            size={14}
-                            fill={i < activeReview.rating ? "#FF6A00" : "none"}
-                            stroke={i < activeReview.rating ? "#FF6A00" : "#cbd5e1"}
-                          />
-                        ))}
-                      </div>
-                    ) : (
-                      <div />
-                    )}
-
-                    <Quote size={24} className="text-[#FF6A00]/15 shrink-0 rotate-180" />
-                  </div>
-
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-light line-clamp-5">
-                    {activeReview.review}
-                  </p>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-gray-100 flex items-center gap-4">
-                  {activeReview.imageUrl ? (
-                    <img
-                      src={activeReview.imageUrl}
-                      alt={activeReview.name}
-                      className="w-11 h-11 rounded-full object-cover border border-gray-200"
-                    />
-                  ) : (
-                    <div
-                      className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
-                      style={{ backgroundColor: `${avatarColor}20`, color: avatarColor, border: `1.5px solid ${avatarColor}40` }}
-                    >
-                      {getInitials(activeReview.name)}
-                    </div>
-                  )}
+              <AnimatePresence initial={false} custom={direction} mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  className="relative z-10 w-full bg-white text-gray-900 rounded-[2rem] p-8 sm:p-10 shadow-2xl flex flex-col justify-between min-h-[220px] sm:min-h-[240px]"
+                >
                   <div>
-                    <h4 className="text-base sm:text-lg font-bold text-[#0c0c0c]">
-                      {activeReview.name}
-                    </h4>
-                    <p className="text-xs sm:text-sm text-gray-500">
-                      {activeReview.position}
+                    <div className="flex justify-between items-start gap-4 mb-4">
+                      {activeReview.rating ? (
+                        <div className="flex gap-0.5 mt-1 shrink-0">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star
+                              key={i}
+                              size={14}
+                              fill={i < activeReview.rating ? "#FF6A00" : "none"}
+                              stroke={i < activeReview.rating ? "#FF6A00" : "#94a3b8"}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <div />
+                      )}
+
+                      <Quote size={24} className="text-[#FF6A00] shrink-0 rotate-180" />
+                    </div>
+
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-light line-clamp-5">
+                      "{activeReview.review}"
                     </p>
                   </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+
+                  {/* Speech Bubble Tail pointing down */}
+                  <div className="absolute bottom-[-10px] left-12 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[10px] border-t-white" />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Right Navigation Arrow */}
+            <button
+              onClick={handleNext}
+              aria-label="Next Testimonial"
+              className="hidden sm:flex w-12 h-12 rounded-full border border-white/20 items-center justify-center text-white hover:text-[#ff6a00] hover:border-[#ff6a00] hover:bg-[#ff6a00]/10 transition-all duration-300 shrink-0 cursor-pointer focus:outline-none"
+            >
+              <ChevronRight size={20} />
+            </button>
           </div>
 
-          {/* Right Navigation Arrow */}
-          <button
-            onClick={handleNext}
-            aria-label="Next Testimonial"
-            className="hidden sm:flex w-12 h-12 rounded-full border border-white/20 items-center justify-center text-white hover:text-[#ff6a00] hover:border-[#ff6a00] hover:bg-[#ff6a00]/10 transition-all duration-300 shrink-0 cursor-pointer focus:outline-none"
-          >
-            <ChevronRight size={20} />
-          </button>
+          {/* Author Info (Placed below the bubble and aligned with the tail) */}
+          <div className="flex items-center gap-4 w-full max-w-[440px] pl-14 mt-1">
+            {activeReview.imageUrl ? (
+              <img
+                src={activeReview.imageUrl}
+                alt={activeReview.name}
+                className="w-12 h-12 rounded-full object-cover border border-white/20 shadow-md"
+              />
+            ) : (
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold shrink-0 shadow-md"
+                style={{ backgroundColor: `${avatarColor}20`, color: avatarColor, border: `1.5px solid ${avatarColor}40` }}
+              >
+                {getInitials(activeReview.name)}
+              </div>
+            )}
+            <div className="text-left">
+              <h4 className="text-base sm:text-lg font-bold text-white leading-tight">
+                {activeReview.name}
+              </h4>
+              <p className="text-xs sm:text-sm text-white/60">
+                {activeReview.position}
+              </p>
+            </div>
+          </div>
 
           {/* Mobile Navigation Arrows */}
           <div className="flex sm:hidden gap-5 mt-4">
