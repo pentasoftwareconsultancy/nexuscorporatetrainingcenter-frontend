@@ -38,7 +38,7 @@ const PartnerSection = () => {
         <div className="hidden md:flex flex-col lg:flex-row items-center justify-center gap-6 w-full max-w-[1200px]">
 
           {/* LEFT SIDE - animated */}
-          <div className="flex flex-col gap-8 flex-1 w-full">
+          <div className="flex flex-col gap-8 flex-1 w-full py-8">
             {leftData.map((item, i) => {
               const Icon = icons[item.icon];
               return (

@@ -1,11 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import {
-  Eye,
-  Target,
-  Award,
-  ArrowLeft,
-  Wifi,
+  Eye, Target, Award, ArrowLeft,  Wifi,
   Battery,
   Signal,
   ChevronRight,
@@ -25,7 +21,6 @@ import {
   HeartHandshake,
   Wrench
 } from "lucide-react";
-import MissionImg from "../../../assets/about/OurMission.png";
 import PartnerSection from "./PartnerSection";
 import MissionImg from "../../../assets/about/OurMission.avif";
 
