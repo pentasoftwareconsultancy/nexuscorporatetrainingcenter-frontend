@@ -199,7 +199,7 @@ export default function Footer() {
               <FaLocationDot size={12} className="text-white/60 shrink-0" />
               <span className="hover:text-white transition-colors duration-200">Office No. 4-B, Second Floor, Ganesham Commercial-A, BRTS Road, Pimple Saudagar, Pune – 411027</span>
             </div>
-            <p className="text-white/40 text-xs">© 2025 All rights reserved — nexusctc.com</p>
+            <p className="text-white/40 text-xs">© 2026 All rights reserved — nexusctc.com</p>
           </div>
         </div>
 
