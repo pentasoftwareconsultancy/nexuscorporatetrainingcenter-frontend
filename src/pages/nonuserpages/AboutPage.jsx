@@ -25,10 +25,10 @@ const AboutPage = () => {
             <span className="text-orange-500 text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase">
               Who We Are
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-bold tracking-tight bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
               About Nexus
             </h1>
-            <p className="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mt-2 leading-relaxed">
+            <p className="text-white/80 text-sm sm:text-base font-light max-w-2xl mt-2 leading-relaxed">
               Forging industry-ready IT professionals and leaders through world-class corporate training, hands-on learning, and dedicated career grooming.
             </p>
           </motion.div>

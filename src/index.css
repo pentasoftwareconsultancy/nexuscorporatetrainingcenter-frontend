@@ -6,7 +6,8 @@
 /* ---------------- THEME ---------------- */
 @theme {
   /* FONTS */
-  --font-sora: "Sora";
+  --font-sans: "Sora", sans-serif;
+  --font-sora: "Sora", sans-serif;
   --font-montserrat: "Montserrat";
   --font-playfair: "Playfair Display";
 
@@ -32,6 +33,10 @@
 }
 
 /* ------------- UTILITIES ------------- */
+@utility font-sans {
+  font-family: "Sora", sans-serif;
+}
+
 @utility font-sora {
   font-family: var(--font-sora);
 }
@@ -93,11 +98,26 @@
   background-color: var(--color-seven);
 }
 
+@utility perspective-1000 {
+  perspective: 1000px;
+}
+
 /* ------------ GLOBAL STYLES ------------ */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body, h1, h2, h3, h4, h5, h6, button, input, select, textarea {
+  font-family: "Sora", sans-serif;
+}
+
 body {
   @apply bg-three;
-  @apply font-sora;
   @apply text-one;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .fit-text {

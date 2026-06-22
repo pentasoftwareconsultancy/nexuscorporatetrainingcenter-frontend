@@ -21,8 +21,8 @@ import {
   HeartHandshake,
   Wrench
 } from "lucide-react";
-import PartnerSection from "./PartnerSection";
 import MissionImg from "../../../assets/about/OurMission.avif";
+import PartnerSection from "./PartnerSection.jsx";
 
 // A highly detailed, premium interactive mobile phone UI mockup representing the Nexus Vision tilted in 3D space
 const MobileVisionMockup = () => {
@@ -78,12 +78,12 @@ const MobileVisionMockup = () => {
         <div className="relative w-full h-full flex flex-col justify-between pt-12 pb-6 px-5 z-10">
 
           {/* Status Bar */}
-          <div className="flex items-center justify-between text-[11px] font-semibold text-neutral-400 px-2 mt-0.5">
+          <div className="flex items-center justify-between text-[11px] font-semibold text-white/60 px-2 mt-0.5">
             <span>5:15</span>
             <div className="flex items-center gap-1.5">
-              <Signal className="w-3.5 h-3.5 text-neutral-400" />
-              <Wifi className="w-3.5 h-3.5 text-neutral-400" />
-              <Battery className="w-4 h-4 text-neutral-400" />
+              <Signal className="w-3.5 h-3.5 text-white/60" />
+              <Wifi className="w-3.5 h-3.5 text-white/60" />
+              <Battery className="w-4 h-4 text-white/60" />
             </div>
           </div>
 
@@ -99,7 +99,7 @@ const MobileVisionMockup = () => {
               <h3 className="text-[20px] font-extrabold tracking-tight text-white leading-none">
                 Nexus Training <span className="bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">Portal</span>
               </h3>
-              <p className="text-[10px] text-neutral-400 font-medium tracking-wide mt-1.5 uppercase">
+              <p className="text-[10px] text-white/60 font-medium tracking-wide mt-1.5 uppercase">
                 Learn. Grow. Succeed.
               </p>
             </div>
@@ -128,7 +128,7 @@ const MobileVisionMockup = () => {
                 <p className="text-[7px] text-white/90 font-medium leading-tight">Connect with Mentor</p>
                 <div className="flex items-center gap-0.5 mt-0.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  <span className="text-[6px] text-neutral-400">Online</span>
+                  <span className="text-[6px] text-white/60">Online</span>
                 </div>
               </div>
             </div>
@@ -138,7 +138,7 @@ const MobileVisionMockup = () => {
               className="relative w-[135px] h-[165px] bg-gradient-to-b from-[#1c1109] to-[#0a0704] border border-white/15 shadow-[0_15px_30px_rgba(0,0,0,0.6),_0_0_15px_rgba(249,115,22,0.15)] rounded-2xl p-3 flex flex-col gap-2 z-20"
               style={{ transform: "translateZ(15px)" }}
             >
-              <div className="text-[6px] text-neutral-400 font-bold uppercase tracking-wider text-center border-b border-white/5 pb-1">
+              <div className="text-[6px] text-white/60 font-bold uppercase tracking-wider text-center border-b border-white/5 pb-1">
                 Placement Stats
               </div>
               <div className="flex-1 bg-white/5 border border-white/5 rounded-lg p-1.5 flex flex-col justify-between">
@@ -155,7 +155,7 @@ const MobileVisionMockup = () => {
                     </defs>
                   </svg>
                 </div>
-                <div className="grid grid-cols-3 gap-0.5 text-[5px] text-neutral-400 font-bold border-t border-white/5 pt-1 mt-1">
+                <div className="grid grid-cols-3 gap-0.5 text-[5px] text-white/60 font-bold border-t border-white/5 pt-1 mt-1">
                   <span>💼 500+</span>
                   <span>🎓 10k+</span>
                   <span>⭐ 4.9</span>
@@ -188,7 +188,7 @@ const MobileVisionMockup = () => {
                       {item.text}
                     </span>
                   </div>
-                  <ChevronRight className="w-3 h-3 text-neutral-500" />
+                  <ChevronRight className="w-3 h-3 text-white/40" />
                 </div>
               );
             })}
@@ -273,7 +273,7 @@ const MobileVisionMockup = () => {
             <span className="text-[13px] font-extrabold tracking-[0.3em] bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-[0_0_5px_rgba(249,115,22,0.2)] block">
               NEXUS
             </span>
-            <span className="text-[6.5px] text-neutral-400 tracking-[0.35em] font-bold uppercase block mt-0.5">
+            <span className="text-[6.5px] text-white/60 tracking-[0.35em] font-bold uppercase block mt-0.5">
               Corporate Training
             </span>
           </div>
@@ -282,10 +282,10 @@ const MobileVisionMockup = () => {
         {/* --- Bottom Part: Sleek details --- */}
         <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center gap-1 z-10">
           <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent mb-1" />
-          <span className="text-[6.5px] text-neutral-500 font-extrabold tracking-[0.3em] uppercase">
+          <span className="text-[6.5px] text-white/40 font-extrabold tracking-[0.3em] uppercase">
             Designed by Nexus in India
           </span>
-          <span className="text-[5.5px] text-neutral-600 font-semibold tracking-[0.2em] uppercase">
+          <span className="text-[5.5px] text-white/30 font-semibold tracking-[0.2em] uppercase font-sora">
             Model N-2026 • 5G Support
           </span>
         </div>
@@ -369,10 +369,10 @@ const MobileVisionMockup = () => {
         <div className="flex flex-col gap-0.5 text-left">
           <span className="text-[6px] text-pink-400 font-bold uppercase tracking-wide">Nexus Success Story</span>
           <p className="text-[7.5px] text-white/95 font-semibold leading-none truncate">Neha Sharma</p>
-          <p className="text-[6px] text-gray-400 truncate">Software Engineer</p>
+          <p className="text-[6px] text-white/60 truncate">Software Engineer</p>
         </div>
         {/* Stats */}
-        <div className="flex items-center gap-1.5 border-t border-white/5 pt-1 mt-0.5 text-[5px] text-gray-400 font-medium">
+        <div className="flex items-center gap-1.5 border-t border-white/5 pt-1 mt-0.5 text-[5px] text-white/60 font-medium">
           <span className="flex items-center gap-0.5"><Heart className="w-1.5 h-1.5 text-pink-500 fill-pink-500" /> 280</span>
           <span className="flex items-center gap-0.5"><MessageSquare className="w-1.5 h-1.5 text-sky-400" /> 120</span>
         </div>
@@ -385,6 +385,16 @@ const MobileVisionMockup = () => {
 const ValueCard3D = ({ card, CardIcon, index }) => {
   const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -393,7 +403,7 @@ const ValueCard3D = ({ card, CardIcon, index }) => {
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), { stiffness: 150, damping: 20 });
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isMobile) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -437,15 +447,15 @@ const ValueCard3D = ({ card, CardIcon, index }) => {
         delay: card.delay !== undefined ? card.delay : index * 0.08
       }}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
       style={{
-        rotateX: isHovered ? rotateX : baseTilt.rX,
-        rotateY: isHovered ? rotateY : baseTilt.rY,
+        rotateX: isHovered && !isMobile ? rotateX : baseTilt.rX,
+        rotateY: isHovered && !isMobile ? rotateY : baseTilt.rY,
         transformStyle: "preserve-3d",
         perspective: "1000px"
       }}
-      whileHover={{
+      whileHover={!isMobile ? {
         scale: 1.03,
         y: -10,
         transition: {
@@ -453,8 +463,8 @@ const ValueCard3D = ({ card, CardIcon, index }) => {
           stiffness: 250,
           damping: 18,
         },
-      }}
-      className="relative group cursor-pointer"
+      } : {}}
+      className="relative group cursor-pointer h-full"
     >
       {/* Card Glow Shadow */}
       <div
@@ -465,7 +475,7 @@ const ValueCard3D = ({ card, CardIcon, index }) => {
       {/* Main Card */}
       <div
         className={`relative overflow-hidden rounded-2xl border ${card.borderColor}
-  backdrop-blur-xl p-6 sm:p-7 flex flex-col gap-4 h-[320px]
+  backdrop-blur-xl p-6 sm:p-7 flex flex-col gap-4 min-h-[320px] h-full
   z-10 transition-all duration-300
   group-hover:border-orange-400/40
   group-hover:shadow-[0_20px_50px_-12px_rgba(249,115,22,0.35)]`}
@@ -518,7 +528,7 @@ const ValueCard3D = ({ card, CardIcon, index }) => {
 
         {/* Description */}
         <p
-          className="text-gray-300 text-sm leading-relaxed"
+          className="text-sm sm:text-base font-light text-white/80 leading-relaxed"
           style={{ transform: "translateZ(20px)" }}
         >
           {card.description}
@@ -641,15 +651,20 @@ const VMVSection = () => {
           <span className="text-orange-500 text-xs sm:text-sm font-semibold tracking-wider uppercase">
             Future Focus
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight flex items-center gap-3">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
             <Eye className="text-orange-500 w-8 h-8 md:w-10 md:h-10 shrink-0" />
             Our Vision
           </h2>
           <div className="w-10 h-[2px] bg-orange-500"></div>
 
-          <p className="text-gray-300 leading-relaxed text-sm sm:text-base md:text-[16px] mt-2">
-            At Nexus Corporate Training Center LLP, our vision is to deliver accessible, high-quality IT education with robust placement support, ensuring every student has the skills and opportunities to build a thriving technology career.
-          </p>
+          <div className="space-y-4">
+            <p className="text-gray-300 leading-relaxed text-sm sm:text-base md:text-[16px] mt-2">
+              At Nexus Corporate Training Center LLP, our vision is to deliver accessible, high-quality IT education with robust placement support, ensuring every student has the skills and opportunities to build a thriving technology career. We envision that the Nexus Brand would reach PAN India level in the next 5 years and connect with all graduate students.
+            </p>
+            <p className="text-gray-300 leading-relaxed text-sm sm:text-base md:text-[16px]">
+              We stand for empowerment through knowledge, and a drive for excellence in the corporate training center. Furthermore, we believe in social work and charity paired with education and employment, creating a positive impact on society.
+            </p>
+          </div>
 
           <div className="mt-2">
             <span className="font-semibold text-orange-400 text-sm sm:text-base">
@@ -661,7 +676,7 @@ const VMVSection = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-300 text-sm sm:text-base"
+              className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-white/85 text-sm sm:text-base"
             >
               {[
                 { text: "Enable every learner to become job-ready", icon: GraduationCap },
@@ -774,14 +789,14 @@ const VMVSection = () => {
 
               {/* Top Section: Mission Text */}
               <div className="flex flex-col gap-4">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight flex items-center gap-3 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
                   <Target className="text-orange-400 w-8 h-8 md:w-10 md:h-10 shrink-0 drop-shadow-[0_0_10px_rgba(249,115,22,0.6)]" />
                   Our Mission
                 </h2>
                 <div className="w-10 h-[2px] bg-orange-400 shadow-[0_0_8px_rgba(249,115,22,0.5)]"></div>
 
                 <p className="text-gray-100 leading-relaxed text-sm sm:text-base md:text-[16px] drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)] mt-4">
-                  Our mission at Nexus Corporate Training Center LLP is to empower learners with job-focused software skills through structured and tailored programs for all experience levels.
+                  Our mission at Nexus Corporate Training Center LLP is to empower learners with job-focused software skills through structured and tailored programs. We stand for empowerment through knowledge, and a drive for excellence in the corporate training center.
                 </p>
               </div>
 
@@ -851,13 +866,13 @@ const VMVSection = () => {
           <span className="text-orange-500 text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase">
             Core Beliefs
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight flex items-center justify-center gap-3">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center justify-center gap-3">
             <Award className="text-orange-500 w-8 h-8 md:w-10 md:h-10 shrink-0" />
             Our Values
           </h2>
           <div className="w-12 h-[2px] bg-gradient-to-r from-orange-500 to-purple-500 mx-auto"></div>
-          <p className="text-gray-400 leading-relaxed text-sm sm:text-base md:text-[16px] mt-2">
-            At Nexus, our values guide everything we do—from our commitment to student outcomes to our passion for innovation and integrity.
+          <p className="text-sm sm:text-base font-light text-white/80 leading-relaxed mt-2">
+            At Nexus, our values guide everything we do from our commitment to student outcomes to our passion for innovation and integrity.
           </p>
         </motion.div>
 
@@ -878,7 +893,7 @@ const VMVSection = () => {
               {
                 title: "Commitment to Outcomes",
                 description:
-                  "Every program is designed with measurable career outcomes in mind — from skill mastery to job placement success.",
+                  "Every program is designed with measurable career outcomes in mind from skill mastery to job placement success.",
                 icon: TrendingUp,
                 gradient: "from-orange-600/30 via-orange-800/30 to-orange-900/40",
                 borderColor: "border-orange-500/30",
@@ -928,7 +943,7 @@ const VMVSection = () => {
             ].map((card, i) => (
               <div
                 key={i}
-                className={`w-full max-w-[370px] ${i === 1 || i === 4 ? "xl:translate-y-8" : ""
+                className={`w-full max-w-[370px] h-full ${i === 1 || i === 4 ? "xl:translate-y-8" : ""
                   }`}
               >
                 <ValueCard3D

@@ -87,12 +87,12 @@ function OurClient() {
       {/* Clients Section */}
       <section className="relative z-10 w-full  mx-auto px-3 md:px-12">
 
-        <h2 className="text-left font-semibold text-2xl sm:text-3xl lg:text-4xl mb-6 tracking-tight">
+        <h2 className="text-left font-bold text-[28px] sm:text-[32px] md:text-[36px] mb-6 tracking-tight text-white">
           Our  <span className="text-orange-500">Clients</span>
         </h2>
-        <h1 className="text-lg text-2x1">Our clients inspire us to deliver quality services, innovative solutions, and lasting relationships.</h1>
+        <p className="text-[15px] sm:text-[17px] font-light text-white/90 leading-relaxed">Our clients inspire us to deliver quality services, innovative solutions, and lasting relationships.</p>
 
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent my-6"></div>
 
         <style>{`
           @keyframes scrollMarquee {
@@ -134,7 +134,7 @@ function OurClient() {
             ))}
           </div>
         </div>
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent my-6"></div>
       </section>
 
       {/* <div className="w-full border-t border-[#c0bbbb] my-6"></div> */}
@@ -146,15 +146,15 @@ function OurClient() {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8 }}
             className="w-full lg:w-1/3 mb-8 lg:mb-0"
           >
-            <h2 className="font-semibold text-2xl sm:text-3xl lg:text-4xl mb-4 leading-snug">
+            <h2 className="font-bold text-2xl sm:text-3xl mb-4 tracking-tight text-white leading-tight">
               We Build Success <br /> by the Numbers
             </h2>
             <p
-              className="text-base sm:text-lg text-gray-300 leading-normal 
+              className="text-sm sm:text-base font-light text-white/80 leading-relaxed 
                 max-w-full lg:max-w-md "
             >
               Our impact is measured not just in satisfied clients, but in
@@ -171,7 +171,7 @@ function OurClient() {
                   key={idx}
                   initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: false, amount: 0.1 }}
+                  viewport={{ once: true, amount: 0.1 }}
                   transition={{
                     type: "spring",
                     stiffness: 120,
@@ -188,7 +188,7 @@ function OurClient() {
                 >
                   {/* Flex-1 spacer pushes number to vertical center regardless of label length */}
                   <div className="flex-1 flex items-center justify-center w-full">
-                    <span className="font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gray-400 leading-none">
+                    <span className="font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-white/50 leading-none">
                       <CountUp
                         end={item.value}
                         duration={2}
@@ -199,7 +199,7 @@ function OurClient() {
                     </span>
                   </div>
                   {/* Label pinned at the bottom, fixed height area */}
-                  <span className="block text-xs sm:text-sm font-medium text-gray-300 tracking-tight leading-snug mt-2 min-h-[2.5rem] flex items-end justify-center">
+                  <span className="block text-xs sm:text-sm font-light text-white/80 tracking-tight leading-snug mt-2 min-h-[2.5rem] flex items-end justify-center">
                     {item.label}
                   </span>
                 </motion.div>
@@ -208,7 +208,7 @@ function OurClient() {
           </div>
         </div>
       </section>
-      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#c0bbbb]/40 to-transparent my-6"></div>
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent my-6"></div>
     </div>
   );
 }

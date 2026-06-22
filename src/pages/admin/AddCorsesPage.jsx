@@ -24,14 +24,17 @@ export default function AddCorsesPage() {
     what_you_will_learn: "",
     syllabus: "",
     syllabus_pdf: null, // file
+    logo_file: null, // file
   };
   const [course, setCourse] = useState(initialCourseState);
+  const [logoPreview, setLogoPreview] = useState("");
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const resetForm = () => {
     setCourse(initialCourseState);
     setNewCategory("");
+    setLogoPreview("");
   };
 
   useEffect(() => {
@@ -70,7 +73,11 @@ export default function AddCorsesPage() {
             what_you_will_learn: detailsData?.what_you_will_learn || "",
             syllabus: detailsData?.syllabus || "",
             syllabus_pdf: null, // never prefill file
+            logo_file: null,
           });
+          if (courseData.logo) {
+            setLogoPreview(courseData.logo);
+          }
         }
       } catch (err) {
         console.error("Failed to fetch course data", err);
@@ -100,6 +107,14 @@ export default function AddCorsesPage() {
 
   const handleFileChange = (e) => {
     setCourse({ ...course, syllabus_pdf: e.target.files[0] });
+  };
+
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setCourse({ ...course, logo_file: file });
+      setLogoPreview(URL.createObjectURL(file));
+    }
   };
 
   const handleSubmit = async () => {
@@ -141,6 +156,10 @@ export default function AddCorsesPage() {
         formData.append("syllabus_pdf", course.syllabus_pdf);
       }
 
+      if (course.logo_file) {
+        formData.append("logo", course.logo_file);
+      }
+
       await api.apipost(ServerUrl.API_ADD_COURSE_WITH_DETAILS, formData);
 
       toast.success("Course added successfully");
@@ -177,14 +196,18 @@ export default function AddCorsesPage() {
         categoryId = catRes.data.data.id;
       }
 
-      // 1️⃣ update course
-      await api.apiput(ServerUrl.API_UPDATE_COURSE + id, {
-        title: course.title,
-        description: course.description,
-        duration: course.duration,
-        fees: course.fees,
-        categoryId: Number(categoryId),
-      });
+      // 1️⃣ update course (using FormData to support new logo upload)
+      const courseFormData = new FormData();
+      courseFormData.append("title", course.title);
+      courseFormData.append("description", course.description);
+      courseFormData.append("duration", course.duration);
+      courseFormData.append("fees", course.fees);
+      courseFormData.append("categoryId", String(categoryId));
+      if (course.logo_file) {
+        courseFormData.append("logo", course.logo_file);
+      }
+
+      await api.apiput(ServerUrl.API_UPDATE_COURSE + id, courseFormData);
 
       // 2️⃣ update course details
       const formData = new FormData();
@@ -352,6 +375,31 @@ export default function AddCorsesPage() {
                       className="hidden"
                     />
                   </label>
+                  {course.syllabus_pdf && (
+                    <span className="text-[10px] text-orange-400 mt-1 truncate block">
+                      📄 {course.syllabus_pdf.name}
+                    </span>
+                  )}
+                </div>
+                <div className="flex-1 flex flex-col">
+                  <label className="mb-1">Course Logo/Image</label>
+                  <label className="flex items-center justify-center gap-2 bg-[#1a1a1a] border border-white rounded p-2 cursor-pointer h-[50px]">
+                    <Upload size={18} /> Upload Image
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleLogoChange}
+                      className="hidden"
+                    />
+                  </label>
+                  {logoPreview && (
+                    <div className="mt-1 flex items-center gap-1.5">
+                      <img src={logoPreview} alt="Preview" className="w-6 h-6 object-cover rounded border border-white/20" />
+                      <span className="text-[10px] text-orange-400 truncate max-w-[100px]">
+                        {course.logo_file ? course.logo_file.name : "Current Image"}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
 

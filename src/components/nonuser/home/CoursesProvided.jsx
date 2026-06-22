@@ -101,7 +101,7 @@ We offer high-quality courses designed to help students develop strong technical
         <button
           onClick={handleSeeMore}
           className="text-white pb-4 cursor-pointer"
-        >
+        >                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
           See More
         </button>
       </div>

@@ -2,32 +2,72 @@ import React, { useEffect, useRef, useState } from "react";
 import ApiService from "../../core/services/api.service";
 import ServerUrl from "../../core/constants/serverURL.constant";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const AVATAR_COLORS = [
   "#FF6A00", "#6366f1", "#10b981", "#f59e0b",
   "#ef4444", "#3b82f6", "#8b5cf6", "#ec4899",
 ];
 
+const DEFAULT_REVIEWS = [
+  {
+    id: "db-2",
+    name: "Ajinkya Uday Sasne",
+    position: "Full Stack Development",
+    review: "Completed my Full Stack Java development training here and had a great experience. The training was practical, well-structured, and focused on real-world coding skills. Trainers were knowledgeable.",
+    imageUrl: "https://res.cloudinary.com/dscncrxmu/image/upload/v1770896938/nexus/googleReviews/uydxsqgkocrhbqnuuj28.png",
+    rating: 5
+  },
+  {
+    id: "db-7",
+    name: "Tarushi Dusane",
+    position: "MERN Stack Developer",
+    review: "Good teachers , learning concept is very easy. Had fun learning new tech.",
+    imageUrl: "https://res.cloudinary.com/dscncrxmu/image/upload/v1774000927/nexus/googleReviews/zwnklvbvorlo7ftmk3s1.jpg",
+    rating: 5
+  },
+  {
+    id: "db-8",
+    name: "Vaishnavi Gopale",
+    position: "MERN Stack Developer",
+    review: "Great learning experience at Nexus CTC. The MERN stack course is practical, easy to understand, and very useful for real-world development.",
+    imageUrl: "https://res.cloudinary.com/dscncrxmu/image/upload/v1774001611/nexus/googleReviews/zjn6qgjf1rn62iomfo2l.jpg",
+    rating: 5
+  },
+  {
+    id: "db-9",
+    name: "Prathamesh Bhavsar",
+    position: "Java Developer",
+    review: "It was good class. And staff was also good and co-operative.",
+    imageUrl: "https://res.cloudinary.com/dscncrxmu/image/upload/v1774001789/nexus/googleReviews/i6nyjhlhacm3s7gi5jos.jpg",
+    rating: 3
+  },
+  {
+    id: "db-10",
+    name: "Sneha Shinde",
+    position: "MERN Stack Developer",
+    review: "Nexus CTC provides a solid foundation in MERN stack development with a strong focus on hands-on learning. The trainers are experienced, and the course is designed to make you industry-ready.",
+    imageUrl: "https://res.cloudinary.com/dscncrxmu/image/upload/v1774001917/nexus/googleReviews/o5hyk8h8lf3cr62tve7l.jpg",
+    rating: 5
+  },
+  {
+    id: "db-11",
+    name: "Priti Tole",
+    position: "MERN Stack Developer",
+    review: "I had a great experience learning the MERN stack at Nexus CTC. The course structure was well-organized and focused on practical, real-world development rather than just theory.",
+    imageUrl: "https://res.cloudinary.com/dscncrxmu/image/upload/v1774002182/nexus/googleReviews/xvggvv7fheggpzg0jk7y.jpg",
+    rating: 4
+  }
+];
+
 const getInitials = (name = "") =>
   name.split(" ").slice(0, 2).map((w) => w[0]?.toUpperCase()).join("");
-
-const StarRating = ({ rating }) => (
-  <div className="flex gap-0.5">
-    {[1, 2, 3, 4, 5].map((s) => (
-      <Star
-        key={s}
-        size={14}
-        fill={s <= rating ? "#FBBF24" : "none"}
-        stroke={s <= rating ? "#FBBF24" : "#80766b"}
-      />
-    ))}
-  </div>
-);
 
 const SuccessReviews = () => {
   const api = new ApiService();
   const [reviews, setReviews] = useState([]);
-  const scrollRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
   const hasFetched = useRef(false);
 
   useEffect(() => {
@@ -41,80 +81,196 @@ const SuccessReviews = () => {
         const unique = Array.from(
           new Map(data.map((r) => [r.id || r._id || r.name, r])).values()
         );
-        setReviews(unique);
+
+        if (unique.length > 0) {
+          setReviews(unique);
+        } else {
+          setReviews(DEFAULT_REVIEWS);
+        }
       } catch {
-        setReviews([]);
+        setReviews(DEFAULT_REVIEWS);
       }
     };
     fetch();
   }, []);
 
-  const scroll = (dir) => {
-    scrollRef.current?.scrollBy({ left: dir === "left" ? -320 : 320, behavior: "smooth" });
+  const handlePrev = () => {
+    if (reviews.length === 0) return;
+    setDirection(-1);
+    setActiveIndex((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    if (reviews.length === 0) return;
+    setDirection(1);
+    setActiveIndex((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
+  };
+
+  if (reviews.length === 0) {
+    return null;
+  }
+
+  const activeReview = reviews[activeIndex];
+  const avatarColor = AVATAR_COLORS[activeIndex % AVATAR_COLORS.length];
+
+  const slideVariants = {
+    enter: (dir) => ({
+      x: dir > 0 ? 80 : -80,
+      opacity: 0,
+      scale: 0.95
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.35,
+        ease: "easeOut"
+      }
+    },
+    exit: (dir) => ({
+      x: dir < 0 ? 80 : -80,
+      opacity: 0,
+      scale: 0.95,
+      transition: {
+        duration: 0.3,
+        ease: "easeIn"
+      }
+    })
   };
 
   return (
-    <div className="relative w-full text-white py-2 px-2 sm:px-5 md:px-10">
-      <h2 className="text-start text-2xl sm:text-3xl md:text-5xl font-extrabold mb-8 tracking-wide">
-        Reviews
-      </h2>
+    <div className="relative w-full bg-gradient-to-br from-[#030e2d] via-[#020718] to-[#00020a] text-white py-16 md:py-24 px-6 sm:px-12 lg:px-24 overflow-hidden">
+      {/* Background radial glows matching brand colors (orange and blue/purple) */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-[#ff6a00]/8 blur-[100px] sm:blur-[130px] rounded-full pointer-events-none z-0" />
+      <div className="absolute left-[-10%] top-[-10%] w-[300px] h-[300px] bg-[#1254fa]/6 blur-[120px] rounded-full pointer-events-none z-0" />
 
-      <div className="relative w-full group">
-        {/* Left arrow */}
-        <button
-          onClick={() => scroll("left")}
-          className="absolute -left-3 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/10 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-200"
-        >
-          <ChevronLeft size={18} />
-        </button>
+      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        {/* Left Column: Heading Block */}
+        <div className="lg:col-span-5 flex flex-col justify-center text-left">
+          <div className="inline-flex items-center bg-orange-500/10 text-[#FF6A00] border border-orange-500/20 px-5 py-2 rounded-full text-xs font-semibold tracking-wider uppercase mb-6 w-fit shadow-md">
+            Our Testimonials
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-tight tracking-tight mb-5 font-sans">
+            What Students Think and Say About Nexus
+          </h2>
+          <p className="text-sm sm:text-base text-gray-300/80 leading-relaxed font-light max-w-md">
+            Real experiences, real voices – hear what students have to say about Nexus
+          </p>
+        </div>
 
-        {/* Right arrow */}
-        <button
-          onClick={() => scroll("right")}
-          className="absolute -right-3 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/10 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-200"
-        >
-          <ChevronRight size={18} />
-        </button>
+        {/* Right Column: Card Stack & Slider */}
+        <div className="lg:col-span-7 flex flex-col items-center justify-center gap-6 w-full">
+          
+          {/* Row containing Arrows + Card Stack */}
+          <div className="flex flex-row items-center justify-center gap-6 sm:gap-8 w-full">
+            {/* Left Navigation Arrow */}
+            <button
+              onClick={handlePrev}
+              aria-label="Previous Testimonial"
+              className="hidden sm:flex w-12 h-12 rounded-full border border-white/20 items-center justify-center text-white hover:text-[#ff6a00] hover:border-[#ff6a00] hover:bg-[#ff6a00]/10 transition-all duration-300 shrink-0 cursor-pointer focus:outline-none"
+            >
+              <ChevronLeft size={20} />
+            </button>
 
-        <div ref={scrollRef} className="w-full overflow-x-auto pb-4 scrollbar-hide" style={{ scrollbarWidth: "none" }}>
-          <div className="inline-flex gap-4 px-1">
-            {reviews.map((review, i) => {
-              const color = AVATAR_COLORS[i % AVATAR_COLORS.length];
-              return (
-                <div
-                  key={review.id || review._id || i}
-                  className="flex flex-col justify-between w-[260px] shrink-0 rounded-2xl bg-[#111] border border-white/8 p-5 gap-3 hover:border-white/20 transition-all duration-200"
+            {/* Card Stack Container */}
+            <div className="relative w-full max-w-[440px] min-h-[220px] sm:min-h-[240px] mx-auto z-10">
+              {/* Layered background card matching the dark blue theme */}
+              <div className="absolute inset-0 bg-[#071333]/90 border border-blue-500/10 rounded-[2rem] translate-x-5 translate-y-3 scale-[0.98] z-0 shadow-xl pointer-events-none transition-all duration-300" />
+
+              <AnimatePresence initial={false} custom={direction} mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  className="relative z-10 w-full bg-white text-gray-900 rounded-[2rem] p-8 sm:p-10 shadow-2xl flex flex-col justify-between min-h-[220px] sm:min-h-[240px]"
                 >
-                  {/* Quote icon */}
-                  <Quote size={20} className="opacity-20 text-[#f97316] " />
+                  <div>
+                    <div className="flex justify-between items-start gap-4 mb-4">
+                      {activeReview.rating ? (
+                        <div className="flex gap-0.5 mt-1 shrink-0">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star
+                              key={i}
+                              size={14}
+                              fill={i < activeReview.rating ? "#FF6A00" : "none"}
+                              stroke={i < activeReview.rating ? "#FF6A00" : "#94a3b8"}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <div />
+                      )}
 
-                  {/* Review text */}
-                  <p className="text-[13px] text-gray-300 leading-relaxed line-clamp-4 flex-1">
-                    {review?.review}
-                  </p>
-
-                  {/* Stars */}
-                  <StarRating rating={review?.rating} />
-
-                  {/* Divider */}
-                  <div className="border-t border-white/8" />
-
-                  {/* Avatar + name */}
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-9 h-9 rounded-full flex items-center justify-center text-[13px] font-bold shrink-0"
-                      style={{ backgroundColor: `${color}30`, color, border: `1.5px solid ${color}60` }}
-                    >
-                      {getInitials(review?.name)}
+                      <Quote size={24} className="text-[#FF6A00] shrink-0 rotate-180" />
                     </div>
-                    <div className="min-w-0">
-                      <p className="text-[13px] font-semibold truncate">{review?.name}</p>
-                      <p className="text-[11px] text-gray-400 truncate">{review?.position}</p>
-                    </div>
+
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-light line-clamp-5">
+                      "{activeReview.review}"
+                    </p>
                   </div>
-                </div>
-              );
-            })}
+
+                  {/* Speech Bubble Tail pointing down */}
+                  <div className="absolute bottom-[-10px] left-12 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[10px] border-t-white" />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Right Navigation Arrow */}
+            <button
+              onClick={handleNext}
+              aria-label="Next Testimonial"
+              className="hidden sm:flex w-12 h-12 rounded-full border border-white/20 items-center justify-center text-white hover:text-[#ff6a00] hover:border-[#ff6a00] hover:bg-[#ff6a00]/10 transition-all duration-300 shrink-0 cursor-pointer focus:outline-none"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+
+          {/* Author Info (Placed below the bubble and aligned with the tail) */}
+          <div className="flex items-center gap-4 w-full max-w-[440px] pl-14 mt-1">
+            {activeReview.imageUrl ? (
+              <img
+                src={activeReview.imageUrl}
+                alt={activeReview.name}
+                className="w-12 h-12 rounded-full object-cover border border-white/20 shadow-md"
+              />
+            ) : (
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold shrink-0 shadow-md"
+                style={{ backgroundColor: `${avatarColor}20`, color: avatarColor, border: `1.5px solid ${avatarColor}40` }}
+              >
+                {getInitials(activeReview.name)}
+              </div>
+            )}
+            <div className="text-left">
+              <h4 className="text-base sm:text-lg font-bold text-white leading-tight">
+                {activeReview.name}
+              </h4>
+              <p className="text-xs sm:text-sm text-white/60">
+                {activeReview.position}
+              </p>
+            </div>
+          </div>
+
+          {/* Mobile Navigation Arrows */}
+          <div className="flex sm:hidden gap-5 mt-4">
+            <button
+              onClick={handlePrev}
+              aria-label="Previous Testimonial"
+              className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:text-[#ff6a00] hover:border-[#ff6a00] hover:bg-[#ff6a00]/10 transition-all duration-300 cursor-pointer focus:outline-none"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={handleNext}
+              aria-label="Next Testimonial"
+              className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:text-[#ff6a00] hover:border-[#ff6a00] hover:bg-[#ff6a00]/10 transition-all duration-300 cursor-pointer focus:outline-none"
+            >
+              <ChevronRight size={20} />
+            </button>
           </div>
         </div>
       </div>

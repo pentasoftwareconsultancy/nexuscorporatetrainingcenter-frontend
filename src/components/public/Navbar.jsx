@@ -97,11 +97,12 @@ function Navbar() {
     <>
       <nav
         className={`fixed w-full top-0 left-0 z-50
-        bg-black/40 backdrop-blur-md
+        bg-[#181818]/60 backdrop-blur-md
+        border border-white/10 border-b-[4px] border-b-white/20
+        shadow-[0_10px_25px_rgba(0,0,0,0.5),_inset_0_1px_1px_rgba(255,255,255,0.1)]
         flex items-center justify-between px-6 lg:px-12 h-16 lg:h-20
         transition-all duration-1000 ease-in-out
         ${showNavbar ? "translate-y-0 opacity-100" : "lg:-translate-y-full lg:opacity-0"}
-        ${isScrolled ? "shadow-lg" : ""}
         `}
       >
         {/* Logo */}
@@ -124,8 +125,8 @@ function Navbar() {
           <div className="flex items-center justify-center space-x-2 px-4 py-2 bg-black/40 rounded-2xl backdrop-blur-md transition-all duration-300">
             {navLinks.map((item) =>
               item.dropdown ? (
-                <div 
-                  key={item.label} 
+                <div
+                  key={item.label}
                   className="relative"
                   onMouseEnter={() => setOpenDropdown(item.label)}
                   onMouseLeave={() => setOpenDropdown(null)}
@@ -139,7 +140,7 @@ function Navbar() {
                   </button>
                   {openDropdown === item.label && (
                     <div className="absolute top-full left-0 pt-2 w-60 z-[100]">
-                      <div className="bg-black/95 text-white/90 border border-white/10 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] overflow-hidden backdrop-blur-md">
+                      <div className="bg-[#181818]/90 text-white/90 border border-white/10 border-b-[4px] border-b-white/20 shadow-[0_10px_25px_rgba(0,0,0,0.5),_inset_0_1px_1px_rgba(255,255,255,0.1)] rounded-xl overflow-hidden backdrop-blur-md">
                         {item.dropdown.map((drop) => (
                           <Link
                             key={drop.label}
@@ -261,9 +262,8 @@ function Navbar() {
                 </svg>
               </button>
               <div
-                className={`w-full overflow-hidden transition-all duration-300 ${
-                  openMobileDropdown === item.label ? "max-h-[500px] opacity-100 mt-1" : "max-h-0 opacity-0"
-                }`}
+                className={`w-full overflow-hidden transition-all duration-300 ${openMobileDropdown === item.label ? "max-h-[500px] opacity-100 mt-1" : "max-h-0 opacity-0"
+                  }`}
               >
                 {item.dropdown.map((drop) => (
                   <Link

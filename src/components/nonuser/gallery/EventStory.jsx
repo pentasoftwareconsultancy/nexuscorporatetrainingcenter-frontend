@@ -133,7 +133,7 @@ export default function EventStory() {
     <div className="relative w-full text-white py-16 px-6 sm:px-12 border-t border-zinc-900 bg-black/10 overflow-hidden">
       {/* Title */}
       <div className="max-w-[2400px] mx-auto mb-10 relative z-10">
-        <h2 className="text-start text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 tracking-wide">
+        <h2 className="text-left font-bold text-[28px] sm:text-[32px] md:text-[36px] mb-4 tracking-tight text-white">
           Event  <span className="text-orange-500"> Stories </span>
         </h2>
         {/* <p className="text-gray-300 text-sm md:text-base max-w-4xl leading-relaxed">
@@ -199,7 +199,7 @@ export default function EventStory() {
                 {/* Top Right Media count badge */}
                 {imageCount > 0 && (
                   <div className="absolute top-4 right-4 flex gap-1.5 z-20">
-                    <span className="flex items-center gap-1 bg-black/60 backdrop-blur-md text-[10px] sm:text-xs px-2.5 py-1 rounded-full text-gray-200 border border-white/5">
+                    <span className="flex items-center gap-1 bg-black/60 backdrop-blur-md text-[10px] sm:text-xs px-2.5 py-1 rounded-full text-white/80 border border-white/5">
                       <ImageIcon size={11} className="text-orange-400" /> {imageCount}
                     </span>
                   </div>
@@ -215,7 +215,7 @@ export default function EventStory() {
                     {event.eventName}
                   </h3>
                   
-                  <div className="flex flex-wrap gap-y-2 justify-between items-center text-[10px] sm:text-xs text-gray-400 border-t border-white/10 pt-3">
+                  <div className="flex flex-wrap gap-y-2 justify-between items-center text-[10px] sm:text-xs text-white/40 border-t border-white/10 pt-3">
                     {event.date && (
                       <span className="flex items-center gap-1">
                         <Calendar size={11} className="text-orange-400" />
